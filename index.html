@@ -91,13 +91,13 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking 產品交付指揮中心</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] 20大核心情境直出・一鍵生成Email・維持原色PDF列印・雙軌敏捷交付
+          [ROLE: PRODUCT PM] 20大核心情境直出・Gmail網頁直接啟動・維持原色PDF列印・雙軌敏捷交付
         </p>
       </div>
 
       <div class="flex items-center space-x-3 font-mono text-xs">
-        <button onclick="generateTeamEmail()" class="px-3.5 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-purple-200 border border-purple-500 font-bold transition shadow-lg shadow-purple-900/20">
-          ✉️ 一鍵生成 Email
+        <button onclick="openGmailCompose()" class="px-3.5 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-purple-200 border border-purple-500 font-bold transition shadow-lg shadow-purple-900/20">
+          ✉️ 直接開啟 Gmail 撰寫
         </button>
         <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg border border-cyber-border bg-cyber-card text-slate-300 hover:text-white hover:border-cyber-cyan transition">
           🖨️ PDF 列印 (保留原色)
@@ -186,8 +186,8 @@
                 <option value="15">16. 高頻 VIP 專屬熱門課程提早 24 小時搶先預約權</option>
                 <option value="16">17. 老客自主「會籍線上暫停 (Freeze) 與展期」</option>
                 <option value="17">18. 多堂數家庭/同伴合併扣點主從帳戶劃位</option>
-                <option value="18">19. 沉睡老客 30 天未到課自動喚醒與關懷推播</option>
-                <option value="19">20. 老客出席里程碑成就與「忠誠度徽章」體系</option>
+                <option value="19">19. 沉睡老客 30 天未到課自動喚醒與關懷推播</option>
+                <option value="20">20. 老客出席里程碑成就與「忠誠度徽章」體系</option>
               </optgroup>
             </select>
           </div>
@@ -225,8 +225,8 @@
             <span class="text-xs font-bold font-mono text-cyber-green">PRD & AC 規格直出面板 (PDF 列印核心專區)</span>
           </div>
           <div class="flex space-x-2">
-            <button onclick="generateTeamEmail()" class="text-xs font-mono px-2.5 py-1 rounded bg-purple-950 hover:bg-purple-900 text-purple-200 border border-purple-800 transition">
-              ✉️ 生成 Email 草稿
+            <button onclick="openGmailCompose()" class="text-xs font-mono px-2.5 py-1 rounded bg-purple-950 hover:bg-purple-900 text-purple-200 border border-purple-800 transition">
+              ✉️ 直接開啟 Gmail 撰寫
             </button>
             <button onclick="window.print()" class="text-xs font-mono px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-cyber-border transition">
               🖨️ PDF 友善列印
@@ -235,13 +235,13 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-          <!-- 左側：嚴格保留指定的 4 大核心章節 (列印時佔據 100% 寬度) -->
+          <!-- 左側：保留 4 大核心章節 -->
           <div class="lg:col-span-8 bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs" style="width: 100%;">
             <div class="flex justify-between items-center border-b border-cyber-border/80 pb-2">
               <span class="text-cyber-cyan font-bold text-sm" id="prd-header-title">[PRD] 尖峰時段熱門排課動態候補與自動通知</span>
               <span class="text-[10px] text-slate-500 font-mono">SPECIFICATION & BDD</span>
             </div>
-            <!-- 僅包含四個指定章節 -->
+            <!-- 嚴格僅包含指定四章節 -->
             <div id="prd-content-view" class="space-y-3 text-slate-300 font-sans text-xs leading-relaxed max-h-[360px] overflow-y-auto pr-2">
               <!-- Injected by JS -->
             </div>
@@ -587,7 +587,7 @@
     }
 
     // ----------------------------------------------------
-    // PRD & AC 自動直出 (嚴格保留指定的 4 大核心章節)
+    // PRD & AC 自動直出 (保留 4 大核心章節)
     // ----------------------------------------------------
     function renderInstantPrdAndInsights(data) {
       document.getElementById('prd-header-title').innerText = `[PRD] ${data.title}`;
@@ -642,27 +642,28 @@
     }
 
     // ----------------------------------------------------
-    // 一鍵生成 Email 功能
+    // 直接連結 Gmail 網頁撰寫介面 (修復 mailto: 無反應問題)
     // ----------------------------------------------------
-    function generateTeamEmail() {
+    function openGmailCompose() {
       const selectEl = document.getElementById('req-title-select');
       const title = selectEl.options[selectEl.selectedIndex].text;
       const voice = document.getElementById('req-voice').value;
       const problem = document.getElementById('req-problem').value;
       const scope = document.getElementById('req-scope').value;
 
+      const senderEmail = 'mshappyj@gmail.com';
       const subject = `[PRD & Kickoff Alignment] ${title} 交付審定與規格摘要`;
       
       const emailBody = `Hi Team,
 
-我是負責 Omcean Booking 的 Product PM。
+我是負責 Omcean Booking 的 Product PM (${senderEmail})。
 
 針對【${title}】模組，我們已完成需求結構化診斷與 PRD/AC 規格凍結。
-本信件檢附核心規格摘要，完整規格書請參閱附件 PDF。
+本信件檢附核心規格摘要，完整 PDF 規格書可透過下方連結預覽或下載：
 
 ==================================================
-【附件 PDF 檔案】: PRD_${encodeURIComponent(title)}.pdf
-【附件預覽與下載連結】: https://docs.omceanbooking.internal/prd/download?id=OB-PRD-LATEST
+【附件 PDF 檔案】: PRD_${title}.pdf
+【附件下載與預覽連結】: https://docs.omceanbooking.internal/prd/download?id=OB-PRD-LATEST
 ==================================================
 
 【一、 痛點對比與架構取捨】
@@ -691,14 +692,20 @@
 3. [Sales / CS]: 向指標場館同步「Week 4 旗艦館試營運」時程，嚴禁承諾手動特權插隊。
 4. [QA / DevOps]: 設定 Feature Flag 灰度放量開關與 APM 延遲警報 (推播 > 2s 觸發)。
 
-若有任何問題或對規格有建議，請於今日 EOD 前在 Jira 留言對齊。
+若對規格有任何疑問，請於今日 EOD 前在 Jira 留言對齊。
 
 Best regards,
-Product PM (Sender: mshappyj@gmail.com)
+Product PM: mshappyj@gmail.com
 Omcean Booking Delivery Command Center`;
 
-      const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-      window.location.href = mailtoUrl;
+      // 產生官方 Gmail Web 撰寫介面深層連結
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+      
+      // 開啟新分頁，若被瀏覽器擋彈窗則當前頁跳轉
+      const win = window.open(gmailUrl, '_blank');
+      if (!win || win.closed || typeof win.closed === 'undefined') {
+        window.location.href = gmailUrl;
+      }
     }
 
     // ----------------------------------------------------
