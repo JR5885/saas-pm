@@ -59,7 +59,7 @@
         padding: 0 !important;
         margin: 0 !important;
       }
-      .no-print, header, nav, #step2-section, #edge-cases-section, #step3-section, #okr-section, #step1-inputs, #prd-insights-col {
+      .no-print, header, nav, #step2-section, #raci-section, #edge-cases-section, #step3-section, #okr-section, #step1-inputs, #prd-insights-col {
         display: none !important;
       }
       #print-prd-container {
@@ -90,7 +90,7 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking 產品交付指揮中心</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] 彈性進度條與 Sprint 1-4 自由搬運・自動回談機制連動
+          [ROLE: PRODUCT PM] RACI 標準化權責連動・Jira 任務標準化・風險自動回談
         </p>
       </div>
 
@@ -232,10 +232,73 @@
       </div>
     </section>
 
-    <!-- STEP 2: Delivery Schedule & Jira Execution (強化 Sprint 1-4 分配與彈性進度條) -->
+    <!-- RACI 協同矩陣與標準化定義模組 -->
+    <section id="raci-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5 no-print">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber-border pb-3">
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded bg-purple-600 text-white font-black text-xs font-mono">RACI</span>
+            <h2 class="text-sm font-bold text-white tracking-wide">跨部門 RACI 標準化權責矩陣與交付標準 (DoD)</h2>
+          </div>
+          <p class="text-xs text-slate-400 font-mono mt-1">連動當前選定模組，確保各團隊依據客觀標準執行，消除個人主觀意見落差</p>
+        </div>
+        <span class="text-[10px] font-mono text-purple-300 bg-purple-950 px-2 py-0.5 rounded border border-purple-800">
+          ● 已與 Jira Ticket 任務標準連動
+        </span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        
+        <div class="lg:col-span-7 bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3">
+          <div class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider flex items-center justify-between border-b border-cyber-border pb-2">
+            <span>RACI Responsibility Assignment Matrix</span>
+            <span class="text-[10px] text-cyber-cyan">R:Responsible | A:Accountable | C:Consulted | I:Informed</span>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs font-mono">
+              <thead>
+                <tr class="text-slate-400 border-b border-cyber-border/80 text-[11px]">
+                  <th class="py-2 px-2">跨部門角色 (Team / Role)</th>
+                  <th class="py-2 px-2 text-center text-cyber-cyan">RACI</th>
+                  <th class="py-2 px-2">標準化核心職責 (Standardized Responsibility)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-cyber-border/50 text-slate-300" id="raci-table-body">
+                <!-- Dynamically Injected -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-[#0a121e] border border-cyber-border rounded-xl p-4 space-y-4">
+          <div class="space-y-2">
+            <div class="text-xs font-mono font-bold text-cyber-gold uppercase tracking-wider border-b border-cyber-border pb-2 flex items-center justify-between">
+              <span>Action Items (核心行動指派)</span>
+              <span class="text-[10px] text-slate-400">會議決議事項</span>
+            </div>
+            <div id="raci-action-items" class="space-y-1.5 text-xs text-slate-200 font-sans">
+              <!-- Dynamically Injected -->
+            </div>
+          </div>
+
+          <div class="space-y-2 pt-2 border-t border-cyber-border/80">
+            <div class="text-xs font-mono font-bold text-cyber-green uppercase tracking-wider border-b border-cyber-border pb-2 flex items-center justify-between">
+              <span>Definition of Done (DoD 交付標準)</span>
+              <span class="text-[10px] text-slate-400">發布前門檻</span>
+            </div>
+            <div id="raci-dod-list" class="space-y-1.5 text-xs text-slate-300 font-mono">
+              <!-- Dynamically Injected -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- STEP 2: Delivery Schedule & Jira Execution -->
     <section id="step2-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5 no-print">
       
-      <!-- 頂部 Sprint 時間軸與預警指示列 -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber-border pb-4">
         <div>
           <div class="flex items-center gap-2">
@@ -249,13 +312,12 @@
           </div>
         </div>
 
-        <!-- 連動即時預警機制徽章 -->
         <div id="alert-status-banner" class="px-3.5 py-1.5 rounded-lg border font-mono text-xs flex items-center gap-2">
           <!-- Dynamically Injected -->
         </div>
       </div>
 
-      <!-- 甘特圖：Sprint 1~4 雙軌時間軸與動態進度條 -->
+      <!-- 甘特圖 -->
       <div class="space-y-3">
         <div class="flex items-center justify-between text-xs font-mono">
           <div class="text-slate-400">動態排程里程碑 (Gantt Schedule with Sprints)</div>
@@ -294,7 +356,7 @@
         </div>
       </div>
 
-      <!-- JIRA 敏捷流轉看板 -->
+      <!-- JIRA 看板 -->
       <div class="pt-2">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
           <div>
@@ -357,13 +419,13 @@
       </div>
     </section>
 
-    <!-- Edge Cases QA & AI Chatbot Guardrails (Hidden in Print) -->
+    <!-- Edge Cases QA & AI Chatbot Guardrails -->
     <div id="edge-cases-section" class="grid grid-cols-1 lg:grid-cols-12 gap-6 no-print">
       <section class="lg:col-span-6 bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
         <div class="flex items-center justify-between border-b border-cyber-border pb-3">
           <div class="flex items-center gap-2">
             <span class="w-2.5 h-2.5 rounded-full bg-cyber-green"></span>
-            <h2 class="text-sm font-bold text-white tracking-wide">PM Hands-on Testing (Edge Cases & Async Jira Issue)</h2>
+            <h2 class="text-sm font-bold text-white tracking-wide">PM Hands-on Testing (Edge Cases & Async Bug Ticket)</h2>
           </div>
           <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-cyber-green border border-emerald-800">Direct UAT Verification</span>
         </div>
@@ -427,7 +489,7 @@
       </section>
     </div>
 
-    <!-- STEP 3: Kickoff Alignment & Sign-off (Hidden in Print) -->
+    <!-- STEP 3: Kickoff Alignment & Sign-off -->
     <section id="step3-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4 no-print">
       <div class="flex items-center justify-between border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
@@ -448,11 +510,11 @@
 
   </div>
 
-  <!-- Modal: Edit / Add Jira Ticket (支援 10-100% 彈性進度、Sprint 1-4 與自動回談風險機制) -->
+  <!-- Modal: Edit / Add Jira Ticket (已連動 RACI 標準化職責與團隊說明) -->
   <div id="ticket-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4">
     <div class="bg-cyber-card border border-cyber-border rounded-2xl max-w-lg w-full p-6 space-y-4 font-mono text-xs shadow-2xl">
       <div class="flex justify-between items-center border-b border-cyber-border pb-3">
-        <h3 class="text-sm font-bold text-white" id="modal-heading">編輯 Jira Ticket (OB-102)</h3>
+        <h3 class="text-sm font-bold text-white" id="modal-heading">編輯 Jira Ticket</h3>
         <button onclick="closeTicketModal()" class="text-slate-400 hover:text-white text-base">✕</button>
       </div>
 
@@ -476,8 +538,8 @@
 
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-slate-300 mb-1">主要負責團隊 (Primary Owner)</label>
-            <select id="modal-ticket-primary" class="w-full p-2 rounded border text-white font-bold">
+            <label class="block text-slate-300 mb-1">主要負責團隊 (Primary Owner / A)</label>
+            <select id="modal-ticket-primary" class="w-full p-2 rounded border text-white font-bold" onchange="updateModalRaciPreview()">
               <option value="Product PM">Product PM</option>
               <option value="Engineering">Engineering (後端/架構)</option>
               <option value="UX/FE">UX/FE (前端設計)</option>
@@ -488,7 +550,7 @@
           </div>
 
           <div>
-            <label class="block text-slate-300 mb-1">協同團隊 (Supporting Team)</label>
+            <label class="block text-slate-300 mb-1">協同團隊 (Supporting Team / C)</label>
             <select id="modal-ticket-support" class="w-full p-2 rounded border text-purple-300">
               <option value="QA/Ops">QA/Ops</option>
               <option value="UX/FE">UX/FE</option>
@@ -500,14 +562,25 @@
           </div>
         </div>
 
+        <!-- RACI 標準化職責即時預覽 (消除主觀意見落差) -->
+        <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
+          <div class="text-[10px] text-cyber-cyan font-bold uppercase flex justify-between">
+            <span>RACI 標準化執行標準 (Standardized Expectation)</span>
+            <span id="modal-raci-badge" class="px-1.5 py-0.2 rounded bg-cyan-950 text-cyan-300">Accountable (A)</span>
+          </div>
+          <div id="modal-raci-desc" class="text-slate-300 font-sans text-[11px] leading-relaxed">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-slate-300 mb-1">Sprint 時間軸分配 (2 Weeks = 1 Sprint)</label>
+            <label class="block text-slate-300 mb-1">Sprint 時間軸分配</label>
             <select id="modal-ticket-sprint" class="w-full p-2 rounded border text-yellow-400 font-bold">
-              <option value="Sprint 1 (W1-W2)">Sprint 1 (W1-W2: Discovery)</option>
-              <option value="Sprint 2 (W3-W4)">Sprint 2 (W3-W4: W4 Pilot)</option>
-              <option value="Sprint 3 (W5-W6)">Sprint 3 (W5-W6: Decoupling)</option>
-              <option value="Sprint 4 (W7-W8)">Sprint 4 (W7-W8: Full Scale)</option>
+              <option value="Sprint 1 (W1-W2)">Sprint 1 (W1-W2)</option>
+              <option value="Sprint 2 (W3-W4)">Sprint 2 (W3-W4)</option>
+              <option value="Sprint 3 (W5-W6)">Sprint 3 (W5-W6)</option>
+              <option value="Sprint 4 (W7-W8)">Sprint 4 (W7-W8)</option>
             </select>
           </div>
 
@@ -524,7 +597,7 @@
 
         <div>
           <div class="flex justify-between items-center mb-1">
-            <label class="block text-cyber-cyan font-bold">自訂交付進度百分比 (10% ~ 100%)</label>
+            <label class="block text-cyber-cyan font-bold">彈性進度百分比 (10% ~ 100%)</label>
             <span id="progress-val-label" class="text-white font-bold">50%</span>
           </div>
           <input type="range" id="modal-ticket-progress" min="10" max="100" step="5" value="50" oninput="document.getElementById('progress-val-label').innerText = this.value + '%'" class="w-full accent-cyber-cyan cursor-pointer">
@@ -533,44 +606,345 @@
         <div class="p-3 bg-[#05080f] rounded-lg border border-cyber-border space-y-2">
           <label class="flex items-center space-x-2 cursor-pointer">
             <input type="checkbox" id="modal-ticket-risk" class="rounded text-rose-500 focus:ring-rose-500">
-            <span class="text-rose-300 font-bold">⚠️ 標記為高風險並啟動「自動回談機制 (Risk Escalation Review)」</span>
+            <span class="text-rose-300 font-bold">⚠️ 標記為高風險並啟動「自動回談機制」</span>
           </label>
-          <p class="text-[10px] text-slate-500 leading-tight">勾選後將自動在指揮中心頂部發出跨部門回談警告，強制排入本 Sprint 覆核會議。</p>
         </div>
       </div>
 
       <div class="flex justify-end space-x-2 pt-3 border-t border-cyber-border">
         <button onclick="closeTicketModal()" class="px-3 py-1.5 rounded bg-slate-800 text-slate-400 hover:text-white">取消</button>
-        <button onclick="saveTicketFromModal()" class="px-4 py-1.5 rounded bg-cyber-cyan text-slate-950 font-bold hover:bg-opacity-90">儲存 Ticket 並即時連動</button>
+        <button onclick="saveTicketFromModal()" class="px-4 py-1.5 rounded bg-cyber-cyan text-slate-950 font-bold hover:bg-opacity-90">儲存 Ticket</button>
       </div>
     </div>
   </div>
 
   <script>
     // ----------------------------------------------------
-    // 完整 20 組熱門真實需求資料庫
+    // 完整 20 組熱門真實需求資料庫 (內含 RACI 與 DoD 標準)
     // ----------------------------------------------------
     const allPresets = [
-      { title: '01. LINE LIFF 30秒免密一鍵預約體驗課', defaultOwner: 'UX/FE', defaultSupport: 'Engineering' },
-      { title: '02. 新客專屬防踩雷師資與難易度標籤導引', defaultOwner: 'Product PM', defaultSupport: 'Sales/CS' },
-      { title: '03. 預約完成自動推播 LINE「新手到館圖文指南」', defaultOwner: 'UX/FE', defaultSupport: 'Sales/CS' },
-      { title: '04. 預約放棄行為自動偵測與限時挽回推播', defaultOwner: 'Engineering', defaultSupport: 'Product PM' },
-      { title: '05. 新客爽約自動發送「體諒補課券」再行銷模組', defaultOwner: 'Sales/CS', defaultSupport: 'Engineering' },
-      { title: '06. 官網預約小工具免跳轉嵌入 (Widget Engine)', defaultOwner: 'UX/FE', defaultSupport: 'QA/Ops' },
-      { title: '07. 新客首購零風險「未到課無條件展延」', defaultOwner: 'Product PM', defaultSupport: 'Sales/CS' },
-      { title: '08. 一對一教練課新客免登入即時空檔查詢', defaultOwner: 'Engineering', defaultSupport: 'UX/FE' },
-      { title: '09. 新客預約雙人同行優惠與同伴資料拆分', defaultOwner: 'Product PM', defaultSupport: 'UX/FE' },
-      { title: '10. 首購課後 2 小時專屬限時續購促轉模組', defaultOwner: 'Sales/CS', defaultSupport: 'Engineering' },
-      { title: '11. 尖峰時段熱門排課動態候補與自動通知', defaultOwner: 'Engineering', defaultSupport: 'QA/Ops' },
-      { title: '12. 老客常用時段與師資「1-Click 極速複訂」', defaultOwner: 'UX/FE', defaultSupport: 'Engineering' },
-      { title: '13. 會員方案到期預警與線上「一鍵原方案續購」', defaultOwner: 'Product PM', defaultSupport: 'Sales/CS' },
-      { title: '14. 自助式臨時請假與線上保留名額扣點規則', defaultOwner: 'Engineering', defaultSupport: 'QA/Ops' },
-      { title: '15. 老客帶新客好友分享推薦碼 (Referral Loop)', defaultOwner: 'Sales/CS', defaultSupport: 'UX/FE' },
-      { title: '16. 高頻 VIP 專屬熱門課程提早 24 小時搶先預約權', defaultOwner: 'Engineering', defaultSupport: 'Product PM' },
-      { title: '17. 老客自主「會籍線上暫停 (Freeze) 與展期」', defaultOwner: 'Product PM', defaultSupport: 'Sales/CS' },
-      { title: '18. 多堂數家庭/同伴合併扣點主從帳戶劃位', defaultOwner: 'Engineering', defaultSupport: 'UX/FE' },
-      { title: '19. 沉睡老客 30 天未到課自動喚醒與關懷推播', defaultOwner: 'Sales/CS', defaultSupport: 'Product PM' },
-      { title: '20. 老客出席里程碑成就與「忠誠度徽章」體系', defaultOwner: 'UX/FE', defaultSupport: 'Sales/CS' }
+      {
+        title: '01. LINE LIFF 30秒免密一鍵預約體驗課',
+        voice: '「很多新人在 IG 看到廣告點進來，一看到要註冊帳號、收簡訊驗證碼還要設密碼，直接就不約了！」',
+        problem: '傳統註冊流程導致首購預約漏斗跳出率高達 40%；需利用 LINE UID 靜默建檔與單次快捷金流完成轉換。',
+        scope: '1. 暫不支援跨社群帳號合併。 2. 暫不支援體驗券轉贈。',
+        defaultOwner: 'UX/FE', defaultSupport: 'Engineering',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: '負責釐清 LINE LIFF 授權邊界與轉換率目標' },
+          { role: 'UX / Frontend', type: 'R', desc: '主導 30 秒免密體驗與單頁結帳介面開發' },
+          { role: 'Engineering', type: 'C', desc: '協助 LINE Webhook 靜默建檔與金流 API 串接' },
+          { role: 'QA / DevOps', type: 'I', desc: '確認行動載具跨瀏覽器相容性與支付回調' },
+          { role: 'Sales / CS', type: 'I', desc: '接收新客導流成效並追蹤客服諮詢降幅' }
+        ],
+        actions: ['本週五前完成 LINE Login v2.1 授權沙盒驗證', '優化體驗結帳按鈕防連點機制 (Debounce)'],
+        dod: ['LINE LIFF 授權成功率 >= 99.5%', '單頁結帳流程耗時 < 30 秒', '通過 iOS/Android 行動端 UAT 驗收']
+      },
+      {
+        title: '02. 新客專屬防踩雷師資與難易度標籤導引',
+        voice: '「客人常私訊問我『哪位教練比較溫柔？』、『我是完全新手可以上空中瑜珈嗎？』，客服疲於奔命。」',
+        problem: '課表資訊未結構化導致新客產生踩雷恐懼；需導入新手友善、體能強度、師資風格標籤體系降低認知門檻。',
+        scope: '1. 暫不支援學員自由上傳影片評論。 2. 暫不串接第三方外部評分平台。',
+        defaultOwner: 'Product PM', defaultSupport: 'Sales/CS',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: '定義標籤分類體系（新手友善/強度/風格）' },
+          { role: 'Sales / CS', type: 'R', desc: '提供前 50 大高頻新手諮詢問題與教練風格定義' },
+          { role: 'UX / Frontend', type: 'R', desc: '設計課表過濾器與師資卡片標籤 UI' },
+          { role: 'Engineering', type: 'C', desc: '擴充課程資料庫 Schema 支援多對多標籤查詢' },
+          { role: 'QA / DevOps', type: 'I', desc: '驗證標籤篩選效能與多條件組合查詢正確性' }
+        ],
+        actions: ['CS 團隊於週三前產出教練風格與難易度標準詞彙表', '工程端建立多條件標籤索引'],
+        dod: ['課表標籤篩選響應時間 < 100ms', '新客諮詢重複率下降 30%', '全教練風格資料審核無誤']
+      },
+      {
+        title: '03. 預約完成自動推播 LINE「新手到館圖文指南」',
+        voice: '「新客人常常找不到大門密碼、不知道停哪裡，甚至沒帶瑜珈墊跑來問，櫃台每天開課前都像菜市場。」',
+        problem: '線上預約與線下實體履約之間缺乏自動化交付銜接；需在預約成功後非同步觸發包含交通與密碼的圖文推播。',
+        scope: '1. 暫不支援即時室內藍牙定位導航。 2. 暫不串接第三方智慧門禁硬體 API。',
+        defaultOwner: 'UX/FE', defaultSupport: 'Sales/CS',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: '審定新手到館圖文文案與自動推播觸發時機' },
+          { role: 'UX / Frontend', type: 'R', desc: '製作精美圖文引導卡片與長輩友善排版' },
+          { role: 'Sales / CS', type: 'R', desc: '提供各場館真實大門密碼、交通與停車指引' },
+          { role: 'Engineering', type: 'C', desc: '串接 LINE Messaging API 非同步發送排程' },
+          { role: 'QA / DevOps', type: 'I', desc: '驗證預約成功事件觸發推播之送達率' }
+        ],
+        actions: ['收集全分店實體交通與門禁指引', '測試 LINE 圖片及圖文選單推播排程'],
+        dod: ['預約完成後 10 秒內送達圖文指引', '櫃台重複詢問電話減少 50%', '推播失敗自動重試機制運作正常']
+      },
+      {
+        title: '04. 預約放棄行為自動偵測與限時挽回推播',
+        voice: '「很多客人點進預約選了時間，但在結帳畫面看一看就跑了，我們白白花廣告費引流！」',
+        problem: '結帳最後一哩路缺乏挽回機制造成 ROAS 折損；需追蹤 Session 停滯事件，在跳出 15 分鐘後自動發送提醒或 9 折券。',
+        scope: '1. 暫不支援 SMS 簡訊主動追蹤。 2. 暫不支援 AI 動態計算折價。',
+        defaultOwner: 'Engineering', defaultSupport: 'Product PM',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: '規劃挽回漏斗觸發時間點與折價券發放策略' },
+          { role: 'Engineering', type: 'R', desc: '實作 Checkout Abandonment 事件埋點與定時排程' },
+          { role: 'Sales / CS', type: 'C', desc: '確認首購挽回優惠券額度與成本上限' },
+          { role: 'UX / Frontend', type: 'I', desc: '確保挽回導流連結帶入原未結帳 Session' },
+          { role: 'QA / DevOps', type: 'I', desc: '進行高頻 Session 逾時觸發壓力測試' }
+        ],
+        actions: ['設定 15 分鐘未結帳事件捕捉 Worker', '定義優惠券自動派發防呆規則'],
+        dod: ['放棄結帳挽回轉換率提升 >= 12%', '定時排程任務無記憶體洩漏', '防騷擾機制（每人每天限推 1 次）生效']
+      },
+      {
+        title: '05. 新客爽約自動發送「體諒補課券」再行銷模組',
+        voice: '「新客第一次預約就臨時爽約，如果照規定直接沒收體驗費，客人直接在 Google 留一顆星負評！」',
+        problem: '剛性合約條款摧毀初次建立的品牌信任；需自動發放一次性溫情挽回券（限 7 天內重新劃位），將負評轉化為二訪機會。',
+        scope: '1. 暫不開放第二次爽約補發。 2. 暫不支援跨品牌通用。',
+        defaultOwner: 'Sales/CS', defaultSupport: 'Engineering',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: '定義溫情補課券適用規則與防作弊邊界' },
+          { role: 'Sales / CS', type: 'R', desc: '制定應對爽約客群的溫情溝通腳本' },
+          { role: 'Engineering', type: 'R', desc: '實作爽約自動標記與補課券派發資料邏輯' },
+          { role: 'UX / Frontend', type: 'I', desc: '提供前台補課券領取與重新劃位專屬 UI' },
+          { role: 'QA / DevOps', type: 'I', desc: '測試 7 天效期到期自動作廢機制' }
+        ],
+        actions: ['CS 確定補課券溫情推播話術', '工程端建立爽約自動轉狀態排程'],
+        dod: ['Google 一星負評率下降 20%', '補課券二次到店轉換率 >= 25%', '系統防範重複領取機制正常']
+      },
+      {
+        title: '06. 官網預約小工具免跳轉嵌入 (Widget Engine)',
+        voice: '「客人從我們自架的 WordPress 官網點預約，會跳轉到你們系統的外部網址，看起來很像詐騙，客人都不敢刷卡。」',
+        problem: '外部跳轉造成網域不信任與視覺斷層；需提供跨網域安全 iframe / Web Component 預約小工具，維持官網品牌體驗。',
+        scope: '1. 暫不支援無頭 Headless API 開發。 2. 暫不支援非 HTTPS 網域。',
+        defaultOwner: 'UX/FE', defaultSupport: 'QA/Ops',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: '確認 Widget 嵌入支援的官網CMS清單與合約範圍' },
+          { role: 'UX / Frontend', type: 'R', desc: '開發響應式 Web Component / iframe 嵌入組件' },
+          { role: 'Engineering', type: 'R', desc: '處理跨網域 CORS、CSP 安全協議與 Token 授權' },
+          { role: 'QA / DevOps', type: 'I', desc: '驗證在 WordPress / Wix 官網嵌入之相容性' },
+          { role: 'Sales / CS', type: 'I', desc: '提供店家官網嵌入操作手冊 (Help Center)' }
+        ],
+        actions: ['完成 iframe 跨網域安全性白名單設定', '輸出 WordPress 外掛嵌入指引'],
+        dod: ['支援主流 CMS 1-Click 嵌入', '跨網域金流支付成功率 100%', 'Widget 載入時間 < 1.2 秒']
+      },
+      {
+        title: '07. 新客首購零風險「未到課無條件展延」',
+        voice: '「新客常擔心買了體驗課後，當天臨時加班不能來，希望我們承諾不滿意或沒來可以退費。」',
+        problem: '消費承諾風險過高阻礙付款決策；需將單次體驗課設計為「未劃位/首次缺席無條件保留 30 天效期」，降低門檻。',
+        scope: '1. 暫不開放線上自動退現金。 2. 高單價工作坊不適用。',
+        defaultOwner: 'Product PM', defaultSupport: 'Sales/CS',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: '制定首購無條件展延之票券生命週期規則' },
+          { role: 'Sales / CS', type: 'R', desc: '向學員溝通無風險承諾並監督退換機制流暢度' },
+          { role: 'Engineering', type: 'R', desc: '開發票券未出席自動展延 30 天排程程式' },
+          { role: 'UX / Frontend', type: 'I', desc: '於結帳頁面標註「首購無條件展延」安心保證' },
+          { role: 'QA / DevOps', type: 'I', desc: '驗證自動展延後之扣點與到期日計算' }
+        ],
+        actions: ['確認首購票券自動展延排程邏輯', '於首頁及結帳頁標示安心保證文案'],
+        dod: ['首購轉換率提升 >= 15%', '票券過期客訴歸零', '展延狀態變更正確無誤']
+      },
+      {
+        title: '08. 一對一教練課新客免登入即時空檔查詢',
+        voice: '「想約私人教練的新客人每次都要先加好友、報上名字，才能看到教練哪天有空，太沒效率了。」',
+        problem: '私人課時程透明度低，傳統非同步私訊導致潛在顧客流失；需提供只讀（Read-only）即時空檔行事曆。',
+        scope: '1. 暫不支援學員雙向同步個人日曆。 2. 暫不計算動態通勤時間。',
+        defaultOwner: 'Engineering', defaultSupport: 'UX/FE',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: '定義教練行事曆隱私遮蔽與唯讀權限' },
+          { role: 'Engineering', type: 'R', desc: '串接教練班表與空檔計算 API 引擎' },
+          { role: 'UX / Frontend', type: 'R', desc: '設計簡潔易用之教練時段挑選日曆介面' },
+          { role: 'Sales / CS', type: 'I', desc: '確保教練排班表維護落實率' },
+          { role: 'QA / DevOps', type: 'I', desc: '測試時段查詢並發高壓反應時間' }
+        ],
+        actions: ['建立教練排班只讀 API 查詢快取', '前端實作時段點擊預約互動流'],
+        dod: ['私人教練預約詢問轉化率提升 25%', '時段查詢 API 響應 < 150ms', '個資隱私遮蔽無洩漏']
+      },
+      {
+        title: '09. 新客預約雙人同行優惠與同伴資料拆分',
+        voice: '「閨蜜常常想一起來體驗瑜珈，但系統一次只能預約一個人，第二個人要再註冊一次，最後都只來一個。」',
+        problem: '缺乏同行劃位機制，強迫同伴重複註冊造成轉換率腰斬；需支援主約人一次結帳雙人名額，並以邀請連結補登資料。',
+        scope: '1. 暫不支援線上即時 AA 拆帳。 2. 團體上限 2-3 人。',
+        defaultOwner: 'Product PM', defaultSupport: 'UX/FE',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: '規劃雙人同行優惠邏輯與同伴邀請狀態機' },
+          { role: 'UX / Frontend', type: 'R', desc: '設計主約人合併劃位與同伴資料補登頁面' },
+          { role: 'Engineering', type: 'R', desc: '實作主約佔位、雙人折扣計算與邀請連結綁定' },
+          { role: 'Sales / CS', type: 'I', desc: '處理同伴未於期限內補登資料之例外客訴' },
+          { role: 'QA / DevOps', type: 'I', desc: '測試雙人同時佔位之並發鎖定' }
+        ],
+        actions: ['設計主約人一次結帳雙人名額邏輯', '製作同伴資料補登連結生成機制'],
+        dod: ['雙人同行訂單占比提升 >= 20%', '邀請連結補登成功率 98%', '訂單金額與折扣計算無誤']
+      },
+      {
+        title: '10. 首購課後 2 小時專屬限時續購促轉模組',
+        voice: '「客人上完第一堂課明明很滿意，但教練不好意思開口推銷大堂數，客人回家後熱度退了就不買了。」',
+        problem: '上課結束到二次購買之間缺乏即時行銷槓桿；需在打卡報到完成 2 小時內，自動推播限時 24 小時早鳥續購優惠券。',
+        scope: '1. 暫不支援 AI 動態定價。 2. 暫不支援業務即時議價視窗。',
+        defaultOwner: 'Sales/CS', defaultSupport: 'Engineering',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: '設計課後促轉漏斗觸發條件與優惠券效期規則' },
+          { role: 'Sales / CS', type: 'R', desc: '擬定早鳥續購優惠方案與說服文案' },
+          { role: 'Engineering', type: 'R', desc: '實作打卡簽到事件觸發 2 小時延遲推播排程' },
+          { role: 'UX / Frontend', type: 'I', desc: '提供優惠券一鍵折抵續購結帳介面' },
+          { role: 'QA / DevOps', type: 'I', desc: '驗證優惠券 24 小時過期自動失效' }
+        ],
+        actions: ['設定打卡完成後 2 小時延遲任務佇列', '建立 24 小時限時折價券規則'],
+        dod: ['首購後 48 小時內續購率提升 30%', '推播準時發送率 100%', '優惠券折抵計算正確']
+      },
+
+      // 老客 11 ~ 20
+      {
+        title: '11. 尖峰時段熱門排課動態候補與自動通知',
+        voice: '「熱門課一開就被秒殺，但很多人常常臨時不來！希望我們可以手動幫 VIP 插隊，或者有人取消時馬上通知下一位。」',
+        problem: '臨開課前爽約率 18% 造成席位空置，缺乏自動化補位；需建立基於 Redis 分散式鎖的高並發排隊佇列。',
+        scope: '1. 暫不做跨分店多幣別清算。 2. 暫不做特權動態插隊。',
+        defaultOwner: 'Engineering', defaultSupport: 'QA/Ops',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: '凍結候補排隊與 15 分鐘鎖定核心 PRD 規格' },
+          { role: 'Engineering', type: 'R', desc: '實作 Redis 分散式鎖 (Redlock) 與 FIFO 候補佇列' },
+          { role: 'UX / Frontend', type: 'R', desc: '開發候補排隊順位顯示與 15 分鐘倒數確認 UI' },
+          { role: 'QA / DevOps', type: 'R', desc: '執行 1,500 QPS 壓測驗證零超賣與系統穩定度' },
+          { role: 'Sales / CS', type: 'I', desc: '向 VIP 會員說明公平候補機制並更新 Help Center' }
+        ],
+        actions: ['本週五完成 Redis 分散式鎖單元測試', '架設 1,500 QPS 壓測驗證環境'],
+        dod: ['1,500 QPS 壓測下超賣數 = 0', 'API P99 響應 < 250ms', '15分鐘逾時自動順移測試 100% 通過']
+      },
+      {
+        title: '12. 老客常用時段與師資「1-Click 極速複訂」',
+        voice: '「老學員每週都要固定上兩次週三晚上的空中瑜珈，每次進系統都要從第一頁慢慢滑課表重新找，很難用。」',
+        problem: '高頻回流老客操作摩擦過大；需分析歷史行為，在首頁首屏置頂「常約課程/老師」快捷按鈕，達成一鍵扣點。',
+        scope: '1. 暫不支援語音助理下單。 2. 暫不跨品牌連鎖同步。',
+        defaultOwner: 'UX/FE', defaultSupport: 'Engineering',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: '定義常約課程推薦演算法頻次與時間權重規則' },
+          { role: 'UX / Frontend', type: 'R', desc: '開發首頁極速複訂快捷卡片與樂觀鎖扣點交互' },
+          { role: 'Engineering', type: 'C', desc: '提供學員歷史預約行為聚合查詢 API' },
+          { role: 'QA / DevOps', type: 'I', desc: '驗證極速複訂之扣點正確性與防連點機制' },
+          { role: 'Sales / CS', type: 'I', desc: '收集高頻老客使用反饋' }
+        ],
+        actions: ['實作最近 30 天預約頻次統計 SQL 查詢', '首頁新增一鍵複訂快捷卡片 UI'],
+        dod: ['老客下單步驟由 5 步縮減至 1 步', '複訂結帳耗時 < 3 秒', '無重複扣點客訴']
+      },
+      {
+        title: '13. 會員方案到期預警與線上「一鍵原方案續購」',
+        voice: '「學員常到了現場才發現票券昨天過期，在櫃台跟我們吵架說沒提醒，最後鬧著要退費。」',
+        problem: '票券生命週期缺乏主動溝通；需在到期前 14 天與 3 天自動發送 LINE 通知，並附上一鍵刷卡續約並展延通道。',
+        scope: '1. 暫不實裝信用卡自動定期續扣。 2. 逾期超過 30 天不追溯。',
+        defaultOwner: 'Product PM', defaultSupport: 'Sales/CS',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: '規劃方案到期通知時間軸與一鍵續費折扣' },
+          { role: 'Sales / CS', type: 'R', desc: '審定到期預警 LINE 推播話術與櫃台口徑' },
+          { role: 'Engineering', type: 'R', desc: '開發票券效期掃描排程與新舊票合併展延邏輯' },
+          { role: 'UX / Frontend', type: 'I', desc: '開發一鍵原方案續約結帳畫面' },
+          { role: 'QA / DevOps', type: 'I', desc: '驗證排程在大數據量下之執行效率' }
+        ],
+        actions: ['建立效期倒數 14 天與 3 天定時掃描 Cron Job', '測試續費後堂數自動累加機制'],
+        dod: ['到期爭議客訴歸零', '線上續購率提升 25%', '新舊票券效期計算無誤']
+      },
+      {
+        title: '14. 自助式臨時請假與線上保留名額扣點規則',
+        voice: '「學生臨時生病不能來，私訊小編請假，小編忘記幫他取消，結果系統自動扣了他點數，又被客訴投訴投訴！」',
+        problem: '人工請假延遲導致無效扣點爭議；需提供學員端合規時限內自主一鍵請假，自動返還點數並釋放名額。',
+        scope: '1. 暫不支援 AI 辨識診斷證明。 2. 階梯罰款規則上限 3 種。',
+        defaultOwner: 'Engineering', defaultSupport: 'QA/Ops',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: '定義開課前多久取消可全額退點之商業規則' },
+          { role: 'Engineering', type: 'R', desc: '開發自助請假狀態機、點數自動返還與名額釋出' },
+          { role: 'UX / Frontend', type: 'R', desc: '設計會員中心「我的預約」一鍵請假按鈕與提示' },
+          { role: 'QA / DevOps', type: 'I', desc: '測試極端邊界（開課前 1 分鐘請假）系統防線' },
+          { role: 'Sales / CS', type: 'I', desc: '減少人工手動處理請假工單負擔' }
+        ],
+        actions: ['實作合規時限內自主請假與點數異動事務', '前台預約列表新增取消請假按鈕'],
+        dod: ['誤扣點數客訴下降 90%', '自主請假釋出名額即時率 100%', '退點交易紀錄完整']
+      },
+      {
+        title: '15. 老客帶新客好友分享推薦碼 (Referral Loop)',
+        voice: '「老學員常帶朋友來，想要我們送他一堂課，但櫃台手動登記常常算錯，被教練抗議抽成算不清。」',
+        problem: '口碑裂變缺乏自動化歸因，手動記帳造成師資對帳混亂；需提供會員專屬 LINE 推薦連結，出席後雙方自動存入獎勵。',
+        scope: '1. 不提供現金返利。 2. 嚴禁多層級分銷。',
+        defaultOwner: 'Sales/CS', defaultSupport: 'UX/FE',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: '設計推薦碼生成規則與防詐刷（同裝置/IP）限制' },
+          { role: 'Sales / CS', type: 'R', desc: '擬定老帶新獎勵行銷方案與教練抽成對帳規則' },
+          { role: 'UX / Frontend', type: 'R', desc: '開發會員專屬推薦碼複製與分享圖卡介面' },
+          { role: 'Engineering', type: 'C', desc: '實作新客首購出席事件觸發雙方發券邏輯' },
+          { role: 'QA / DevOps', type: 'I', desc: '驗證防刷機制與獎勵入帳正確性' }
+        ],
+        actions: ['建立會員專屬推薦碼資料庫關聯', '實作新客首購出席後自動雙向派發獎勵'],
+        dod: ['推薦歸因準確率 100%', '教練抽成對帳爭議歸零', '推薦裂變訂單成長 >= 20%']
+      },
+      {
+        title: '16. 高頻 VIP 專屬熱門課程提早 24 小時搶先預約權',
+        voice: '「買了年約的大 VIP 常常抱怨跟單次買券的新人搶同一堂課搶不到，覺得繳那麼多錢沒有特權。」',
+        problem: '高價值客戶缺乏差異化權益；需在排課引擎導入會員等級權限控制，允許特定方案用戶提早進入劃位。',
+        scope: '1. 排除加價競標搶位。 2. 排除手動單一例外配置。',
+        defaultOwner: 'Engineering', defaultSupport: 'Product PM',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: '定義 VIP 會員等級劃分與搶先預約時間差規則' },
+          { role: 'Engineering', type: 'R', desc: '在排課微服務中植入方案層級權限校驗與開門時間' },
+          { role: 'UX / Frontend', type: 'I', desc: '於課表顯示 VIP 專屬開跑倒數標籤' },
+          { role: 'Sales / CS', type: 'R', desc: '向 VIP 會員宣導專屬權益以提升年約續約率' },
+          { role: 'QA / DevOps', type: 'I', desc: '驗證一般會員在特權時間內無法提前預約' }
+        ],
+        actions: ['微服務新增會員等級動態開門時間校驗', 'VIP 會員卡背與課表新增特權標籤'],
+        dod: ['VIP 年約續約率提升 15%', '權限校驗漏洞測試 0 缺失', '提早預約搶位機制運作正常']
+      },
+      {
+        title: '17. 老客自主「會籍線上暫停 (Freeze) 與展期」',
+        voice: '「學生出差、出國或懷孕要請長假停卡，常常拿著機票跑來櫃台填紙本，弄丟了又查不到歷史紀錄。」',
+        problem: '紙本停卡審批低效且缺乏稽核；需提供線上自主申請停卡，設定起訖日後自動凍結劃位並將到期日向後順延。',
+        scope: '1. 暫不收線上停卡手續費。 2. 每張會籍限暫停 2 次。',
+        defaultOwner: 'Product PM', defaultSupport: 'Sales/CS',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: '制定線上暫停次數上限與效期動態重算規範' },
+          { role: 'Sales / CS', type: 'R', desc: '審定停卡申請審核工作流與客服說明' },
+          { role: 'Engineering', type: 'R', desc: '開發會籍凍結狀態機與到期日自動展延排程' },
+          { role: 'UX / Frontend', type: 'R', desc: '開發會員中心自主申請停卡起訖日表單' },
+          { role: 'QA / DevOps', type: 'I', desc: '驗證暫停期間無法預約且復卡後效期正確' }
+        ],
+        actions: ['建立會員中心自主停卡起訖日申請表單', '實作停卡期間預約狀態防呆攔截'],
+        dod: ['紙本停卡表單歸零', '展延天數計算精確無誤', '每卡 2 次上限防呆攔截生效']
+      },
+      {
+        title: '18. 多堂數家庭/同伴合併扣點主從帳戶劃位',
+        voice: '「媽媽買了 50 堂家庭票，想要全家人一起用，每次都要媽媽手機登入幫小孩約，小孩自己根本不能看課表。」',
+        problem: '主帳戶資產無法授權子帳戶共用，導致代訂繁複；需建立主從帳戶關聯，允許子帳戶直接劃位並由主帳戶扣點。',
+        scope: '1. 子帳號上限 4 人。 2. 不支援跨非親屬無限制轉讓。',
+        defaultOwner: 'Engineering', defaultSupport: 'UX/FE',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: '設計主從帳戶資料模型與點數共享授權架構' },
+          { role: 'Engineering', type: 'R', desc: '實作主從帳號綁定、子帳戶自主劃位與主帳戶扣點事務' },
+          { role: 'UX / Frontend', type: 'R', desc: '開發家庭成員管理與子帳戶切換劃位介面' },
+          { role: 'Sales / CS', type: 'I', desc: '協助家庭方案推廣與客訴支援' },
+          { role: 'QA / DevOps', type: 'I', desc: '執行家庭成員同時並發扣點壓力測試' }
+        ],
+        actions: ['建立主從帳戶點數共享資料表結構', '子帳戶劃位扣點驗證機制開發'],
+        dod: ['家庭方案銷售額增長 20%', '並發扣點無資安漏洞與負點數異常', '主帳戶即時收到扣點通知']
+      },
+      {
+        title: '19. 沉睡老客 30 天未到課自動喚醒與關懷推播',
+        voice: '「很多買了半年卡的學員，過了一個月都沒來，我們也忙到忘記關心，結果合約到期學員就默默流失了。」',
+        problem: '缺乏主動健康度預警，沉睡學員流失率高；需偵測最後出席日大於 30 天之學員，自動觸發關懷訊息與復課激勵。',
+        scope: '1. 暫不串接 AI 機器人打電話。 2. 每 30 天限推 1 次。',
+        defaultOwner: 'Sales/CS', defaultSupport: 'Product PM',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: '定義沉睡會員判定天數與喚醒優惠卷策略' },
+          { role: 'Sales / CS', type: 'R', desc: '擬定關懷問候文案與復課激勵專屬優惠' },
+          { role: 'Engineering', type: 'R', desc: '開發不活躍學員定時掃描 Cron Job 與防騷擾頻次控制' },
+          { role: 'UX / Frontend', type: 'I', desc: '設計喚醒訊息導流之專屬回歸預約頁面' },
+          { role: 'QA / DevOps', type: 'I', desc: '測試排程大數據掃描效能' }
+        ],
+        actions: ['建立 30 天未出席會員定時掃描任務', '擬定溫情喚醒 LINE 推播與回歸優惠券'],
+        dod: ['沉睡老客回流率提升 >= 10%', '推播頻次防騷擾機制 100% 生效', '回歸預約轉化追蹤正常']
+      },
+      {
+        title: '20. 老客出席里程碑成就與「忠誠度徽章」體系',
+        voice: '「學員在我們這裡上了 100 堂課，很想拍照發 IG 炫耀，但系統什麼紀錄都沒有，感覺很冰冷。」',
+        problem: '缺乏正向心理回饋與社交貨幣；需在完成 10、50、100 堂時，於會員中心自動解鎖專屬成就圖卡與紀念折扣碼。',
+        scope: '1. 暫不串接實體獎品物流。 2. 不開放自訂徽章圖案。',
+        defaultOwner: 'UX/FE', defaultSupport: 'Sales/CS',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: '規劃出席里程碑階梯（10/50/100堂）與解鎖獎勵' },
+          { role: 'UX / Frontend', type: 'R', desc: '開發會員中心成就牆與 IG 專屬動態分享圖卡生成' },
+          { role: 'Engineering', type: 'C', desc: '累計學員歷史出席打卡次數事件監聽' },
+          { role: 'Sales / CS', type: 'I', desc: '評估徽章對學員社群曝光之行銷效益' },
+          { role: 'QA / DevOps', type: 'I', desc: '驗證達標瞬間自動解鎖徽章與發券' }
+        ],
+        actions: ['設計 10、50、100 堂里程碑數位徽章圖卡', '串接會員中心成就解鎖動態渲染事件'],
+        dod: ['學員社群分享率提升 35%', '里程碑解鎖即時無延遲', '成就圖卡匯出格式相容 IG 尺寸']
+      }
     ];
 
     function initDropdowns() {
@@ -603,15 +977,143 @@
     function onTitleDropdownChanged(idx) {
       const preset = allPresets[parseInt(idx)];
       if (!preset) return;
-      document.getElementById('req-voice').value = '「點擊切換之真實場館客戶原始抱怨或需求內容...」';
-      document.getElementById('req-problem').value = '核心痛點：高並發或使用者體驗流失，需透過標準化架構與自動化機制解決。';
-      document.getElementById('req-scope').value = '1. 暫不支援跨分店複雜自動清算。 2. 暫不支援未授權自訂擴充。';
+
+      document.getElementById('req-voice').value = preset.voice;
+      document.getElementById('req-problem').value = preset.problem;
+      document.getElementById('req-scope').value = preset.scope;
+
+      renderInstantPrdAndInsights(preset);
+      renderRaciAndDoD(preset);
     }
 
-    function manualInputSync() {}
+    function manualInputSync() {
+      const selectEl = document.getElementById('req-title-select');
+      const currentTitle = selectEl.options[selectEl.selectedIndex].text;
+      const customPreset = {
+        title: currentTitle,
+        voice: document.getElementById('req-voice').value,
+        problem: document.getElementById('req-problem').value,
+        scope: document.getElementById('req-scope').value,
+        raci: [
+          { role: 'Product PM', type: 'A', desc: '負責統籌此自訂模組之整體交付與規格凍結' },
+          { role: 'Engineering', type: 'R', desc: '負責系統底層架構實作與效能防線' },
+          { role: 'UX / Frontend', type: 'R', desc: '負責前台介面與互動體驗開發' },
+          { role: 'QA / DevOps', type: 'C', desc: '負責自動化測試與灰度放量監控' },
+          { role: 'Sales / CS', type: 'I', desc: '接收商業成果與對外說明' }
+        ],
+        actions: ['召開跨部門規格對齊會議', '於 Staging 環境進行測試驗收'],
+        dod: ['PRD 規格書 100% 通過審定', '關鍵 API 響應達標', '通過跨部門 UAT 驗收']
+      };
+      renderInstantPrdAndInsights(customPreset);
+      renderRaciAndDoD(customPreset);
+    }
 
     // ----------------------------------------------------
-    // JIRA 看板資料結構與彈性進度管理 (支援 OB-102 編輯與彈性進度)
+    // RACI 與 DoD 動態渲染引擎
+    // ----------------------------------------------------
+    function renderRaciAndDoD(preset) {
+      const raciBody = document.getElementById('raci-table-body');
+      raciBody.innerHTML = '';
+
+      if (preset.raci) {
+        preset.raci.forEach(r => {
+          let badgeColor = 'bg-slate-800 text-slate-300';
+          if (r.type === 'A') badgeColor = 'bg-rose-950 text-rose-400 border border-rose-800';
+          else if (r.type === 'R') badgeColor = 'bg-cyan-950 text-cyan-300 border border-cyber-cyan/40';
+          else if (r.type === 'C') badgeColor = 'bg-amber-950 text-amber-300 border border-amber-800';
+          else if (r.type === 'I') badgeColor = 'bg-slate-900 text-slate-400 border border-slate-700';
+
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-cyber-cardHover transition';
+          tr.innerHTML = `
+            <td class="py-2.5 px-2 font-sans font-bold text-white">${r.role}</td>
+            <td class="py-2.5 px-2 text-center"><span class="px-2 py-0.5 rounded font-bold text-[11px] ${badgeColor}">${r.type}</span></td>
+            <td class="py-2.5 px-2 font-sans text-slate-300 text-[11px]">${r.desc}</td>
+          `;
+          raciBody.appendChild(tr);
+        });
+      }
+
+      const actionBox = document.getElementById('raci-action-items');
+      actionBox.innerHTML = '';
+      if (preset.actions) {
+        preset.actions.forEach((act, i) => {
+          const div = document.createElement('div');
+          div.className = 'flex items-start gap-2 bg-[#05080f] p-2 rounded border border-cyber-border';
+          div.innerHTML = `<span class="text-cyber-cyan font-bold font-mono">0${i+1}.</span> <span class="text-slate-300">${act}</span>`;
+          actionBox.appendChild(div);
+        });
+      }
+
+      const dodBox = document.getElementById('raci-dod-list');
+      dodBox.innerHTML = '';
+      if (preset.dod) {
+        preset.dod.forEach((d, i) => {
+          const div = document.createElement('div');
+          div.className = 'flex items-center gap-2 bg-[#05080f] p-2 rounded border border-cyber-border';
+          div.innerHTML = `<span class="text-cyber-green font-bold">✓</span> <span class="text-slate-300">${d}</span>`;
+          dodBox.appendChild(div);
+        });
+      }
+    }
+
+    // ----------------------------------------------------
+    // PRD & AC 自動直出 (保留 4 大核心章節)
+    // ----------------------------------------------------
+    function renderInstantPrdAndInsights(data) {
+      document.getElementById('prd-header-title').innerText = `[PRD] ${data.title}`;
+
+      const prdHtml = `
+        <div class="border-b border-cyber-border/50 pb-2 mb-2">
+          <span class="text-cyber-cyan font-bold block mb-1">【一、 痛點對比與架構取捨】</span>
+          <div>▸ <strong>客戶原始訴求:</strong> ${data.voice}</div>
+          <div>▸ <strong>PM 轉化真因核心解法:</strong> ${data.problem}</div>
+          <div class="text-cyber-gold mt-1">▸ <strong>Out of Scope 邊界防線:</strong> ${data.scope}</div>
+        </div>
+
+        <div class="border-b border-cyber-border/50 pb-2 mb-2">
+          <span class="text-cyber-cyan font-bold block mb-1">【二、 核心使用者故事 (User Stories)】</span>
+          <div>• <strong>As an</strong> 終端學員 (User)，<strong>I want to</strong> 在低摩擦與公平通知機制下完成預約，<strong>So that</strong> 不需要隨時手動刷新課表。</div>
+          <div>• <strong>As an</strong> 場館管理者 (Admin)，<strong>I want to</strong> 系統全自動化執行狀態流轉與釋出，<strong>So that</strong> 現場櫃台不再承擔手動通知客訴風險。</div>
+        </div>
+
+        <div class="border-b border-cyber-border/50 pb-2 mb-2">
+          <span class="text-cyber-cyan font-bold block mb-1">【三、 結構化驗收標準 (Acceptance Criteria - Gherkin)】</span>
+          <div class="space-y-1.5 font-mono text-[11px] bg-[#080d17] p-2.5 rounded border border-cyber-border/40">
+            <div><strong class="text-emerald-400">AC 1 (正向流動):</strong> Given 進入預約/候補狀態，When 用戶觸發預約，Then 系統預先完成點數資產與權限檢查，並在 200ms 內反饋成功狀態。</div>
+            <div><strong class="text-emerald-400">AC 2 (分散式鎖定):</strong> Given 席位釋出或狀態變更，When 多用戶並發搶位，Then 系統透過 Redis 分散式鎖進行原子鎖定，嚴禁 Double-Booking。</div>
+            <div><strong class="text-emerald-400">AC 3 (逾時補償):</strong> Given 進入保留倒數（15 分鐘），When 倒數逾時未確認，Then 狀態自動釋放並透過非同步佇列順移至下一順位。</div>
+            <div><strong class="text-emerald-400">AC 4 (防呆與邊界):</strong> Given 斷網或 Webhook 延遲，When 客戶端重新請求，Then 系統實施等冪性校驗（Idempotency Check），不重複扣點。</div>
+          </div>
+        </div>
+
+        <div>
+          <span class="text-cyber-cyan font-bold block mb-1">【四、 非功能性需求 (NFR)】</span>
+          <div>• <strong>10x 負載防禦:</strong> 尖峰承載 1,500 QPS 壓測，API P99 &lt; 250ms。</div>
+          <div>• <strong>安全與灰度放量:</strong> 全量由 Feature Flag 隔離，Week 4 旗艦門市試營運驗證通過後才全量放量。</div>
+        </div>
+      `;
+      document.getElementById('prd-content-view').innerHTML = prdHtml;
+
+      const insightsHtml = `
+        <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
+          <div class="text-cyber-cyan font-bold">1. 拒絕特例，堅持標準化 (OKR 2)</div>
+          <div class="text-slate-400">客戶提出的是自私且高營運成本的表象解法；PM 將其轉化為全自動閉環，避免為單一大客戶寫入不可維護的 Hardcode 業務邏輯。</div>
+        </div>
+        <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
+          <div class="text-cyber-green font-bold">2. 用技術架構守住系統穩定度 (OKR 1)</div>
+          <div class="text-slate-400">涉及金流扣點與尖峰秒殺時，嚴禁直寫主關聯資料庫。以 Redis 原生原子操作與非同步 Worker 隔絕尖峰流量，確保 99.95% 可用度。</div>
+        </div>
+        <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
+          <div class="text-cyber-gold font-bold">3. 嚴守 Out of Scope 守住交期 (OKR 4)</div>
+          <div class="text-slate-400">在 Phase 1 堅決排除次要複雜功能，避免研發資源無止盡發散，確保工程團隊能在 Week 4 準時交付 Pilot MVP。</div>
+        </div>
+      `;
+      document.getElementById('prd-pm-insights').innerHTML = insightsHtml;
+    }
+
+    // ----------------------------------------------------
+    // JIRA 看板與甘特圖引擎
     // ----------------------------------------------------
     let tickets = [
       { id: 'OB-101', title: '01. LINE LIFF 30秒免密一鍵預約體驗課', status: 'publish', primary: 'UX/FE', support: 'Engineering', sprint: 'Sprint 1 (W1-W2)', progress: 100, risk: false },
@@ -680,7 +1182,6 @@
         if (t.progress === 100) barColor = 'bg-cyber-green';
         if (t.risk) barColor = 'bg-rose-600 animate-pulse';
 
-        //對應 Sprint 1-4 欄位
         let startCol = 4;
         let colSpan = 2;
         if (t.sprint.includes('Sprint 1')) { startCol = 4; colSpan = 2; }
@@ -722,7 +1223,6 @@
       const supportOwners = [...new Set(tickets.map(t => t.support).filter(s => s !== 'None'))].slice(0, 2).join(' & ');
       document.getElementById('team-roles-badge').innerHTML = `主要負責: <strong class="text-white">${primaryOwners || 'Engineering'}</strong> 及 <strong class="text-purple-300">${supportOwners || 'QA/Ops'}</strong> 團隊`;
 
-      // 預警機制與自動回談檢核
       const banner = document.getElementById('alert-status-banner');
       const riskyTickets = tickets.filter(t => t.risk);
 
@@ -754,7 +1254,7 @@
     }
 
     // ----------------------------------------------------
-    // Modal 手動編輯 Jira Ticket (支援 OB-102 及彈性調整)
+    // Modal 手動編輯 Jira Ticket (已連動 RACI 標準職責預覽)
     // ----------------------------------------------------
     function openAddTicketModal() {
       editingTicketId = null;
@@ -768,6 +1268,7 @@
       document.getElementById('modal-ticket-progress').value = 20;
       document.getElementById('progress-val-label').innerText = '20%';
       document.getElementById('modal-ticket-risk').checked = false;
+      updateModalRaciPreview();
       document.getElementById('ticket-modal').classList.remove('hidden');
     }
 
@@ -786,6 +1287,7 @@
       document.getElementById('modal-ticket-progress').value = ticket.progress;
       document.getElementById('progress-val-label').innerText = ticket.progress + '%';
       document.getElementById('modal-ticket-risk').checked = ticket.risk;
+      updateModalRaciPreview();
       document.getElementById('ticket-modal').classList.remove('hidden');
     }
 
@@ -800,6 +1302,34 @@
         document.getElementById('modal-ticket-title').value = preset.title;
         document.getElementById('modal-ticket-primary').value = preset.defaultOwner || 'Engineering';
         document.getElementById('modal-ticket-support').value = preset.defaultSupport || 'QA/Ops';
+        updateModalRaciPreview();
+      }
+    }
+
+    // 動態更新 Modal 中的 RACI 預覽與標準化說明
+    function updateModalRaciPreview() {
+      const primary = document.getElementById('modal-ticket-primary').value;
+      const badge = document.getElementById('modal-raci-badge');
+      const desc = document.getElementById('modal-raci-desc');
+
+      if (primary === 'Product PM') {
+        badge.innerText = 'Accountable (A) - 最終交付負責人';
+        desc.innerText = '標準職責：定義商業價值、凍結 PRD 規格、守住 Out of Scope 邊界，確保不因個人主觀意見導致需求發散。';
+      } else if (primary === 'Engineering') {
+        badge.innerText = 'Responsible (R) - 技術架構主導人';
+        desc.innerText = '標準職責：落實高並發系統穩定度（如 Redis 鎖、API < 250ms）、執行 10x 負載壓測、杜絕技術債。';
+      } else if (primary === 'UX/FE') {
+        badge.innerText = 'Responsible (R) - 體驗與介面主導人';
+        desc.innerText = '標準職責：主導低摩擦 UX 互動流程、減少結帳漏斗跳出率、確保 LINE LIFF 介面響應流暢。';
+      } else if (primary === 'QA/Ops') {
+        badge.innerText = 'Responsible (R) - 品質與維運把關人';
+        desc.innerText = '標準職責：執行極端 Edge Cases 測試、設定 Feature Flag 灰度網關與 APM 異常警報。';
+      } else if (primary === 'Sales/CS') {
+        badge.innerText = 'Responsible (R) - 客戶成功與業務對齊人';
+        desc.innerText = '標準職責：管理客戶對兩階段交付的期望、回報真實 VoC 真因痛點、提供 Help Center 知識庫。';
+      } else {
+        badge.innerText = 'Responsible (R) - 矽谷 AI 協同人';
+        desc.innerText = '標準職責：設計 AI Chatbot 對話意圖、嚴格執行 System Guardrails 防幻覺紅線、建立評測集 (Eval)。';
       }
     }
 
@@ -847,20 +1377,20 @@
     }
 
     // ----------------------------------------------------
-    // 郵件與匯出功能
+    // Gmail 與匯出功能
     // ----------------------------------------------------
     function openGmailCompose() {
       const selectEl = document.getElementById('req-title-select');
       const title = selectEl.options[selectEl.selectedIndex].text;
       const senderEmail = 'mshappyj@gmail.com';
-      const subject = `[PRD & Kickoff Alignment] ${title} - Approved Specs & Next Actions`;
+      const subject = `[PRD & RACI Alignment] ${title} - Standardized Roles & Next Actions`;
       
       const emailBody = `Hi Team,
 
-I have finalized the requirement discovery and frozen the PRD/AC specifications for [${title}].
+I have finalized the requirement discovery, PRD/AC specs, and RACI matrix for [${title}].
 Sender: ${senderEmail}
 
-Please review the progress on the delivery command center and confirm sprint ownership in Jira.
+Please review the progress on the delivery command center and confirm standardized team ownership in Jira.
 
 Best regards,
 Product PM: ${senderEmail}`;
@@ -873,7 +1403,7 @@ Product PM: ${senderEmail}`;
     }
 
     function exportFullMarkdown() {
-      let md = `# [Omcean Booking] Project Delivery & Quality Report\n\n`;
+      let md = `# [Omcean Booking] Project Delivery & RACI Report\n\n`;
       tickets.forEach(t => {
         md += `- [${t.status.toUpperCase()}] **${t.id}**: ${t.title} *(Owner: ${t.primary} | Sprint: ${t.sprint} | Progress: ${t.progress}% | Risk: ${t.risk})*\n`;
       });
@@ -881,7 +1411,7 @@ Product PM: ${senderEmail}`;
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `Delivery-Report-${Date.now()}.md`;
+      a.download = `Delivery-RACI-Report-${Date.now()}.md`;
       a.click();
       URL.revokeObjectURL(url);
     }
