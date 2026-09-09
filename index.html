@@ -90,7 +90,7 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking 產品交付指揮中心</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] RACI 標準化權責連動・Jira 任務標準化・風險自動回談
+          [ROLE: PRODUCT PM] 甘特圖智慧篩選器・OB-101~120 模組追蹤・RACI 標準化
         </p>
       </div>
 
@@ -296,7 +296,7 @@
       </div>
     </section>
 
-    <!-- STEP 2: Delivery Schedule & Jira Execution -->
+    <!-- STEP 2: Delivery Schedule & Jira Execution (含甘特圖篩選器) -->
     <section id="step2-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5 no-print">
       
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber-border pb-4">
@@ -317,18 +317,40 @@
         </div>
       </div>
 
-      <!-- 甘特圖 -->
+      <!-- 甘特圖與篩選器列 (新增 OB-101~120 模組篩選與團隊篩選) -->
       <div class="space-y-3">
-        <div class="flex items-center justify-between text-xs font-mono">
-          <div class="text-slate-400">動態排程里程碑 (Gantt Schedule with Sprints)</div>
-          <div class="flex items-center space-x-4 text-[11px]">
-            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-blue-500"></span> Sprint 1</span>
-            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-purple-500"></span> Sprint 2</span>
-            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-cyber-cyan"></span> Sprint 3</span>
-            <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded bg-cyber-green"></span> Sprint 4</span>
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 text-xs font-mono bg-[#05080f] p-3 rounded-xl border border-cyber-border">
+          <div class="text-slate-300 font-bold flex items-center gap-2">
+            <span>📊 動態排程里程碑篩選器 (Gantt Filters)</span>
+          </div>
+          
+          <div class="flex flex-wrap items-center gap-3">
+            <!-- 篩選器 1: 依 OB-101 ~ OB-120 任務標題 -->
+            <div class="flex items-center gap-1.5">
+              <span class="text-slate-400 text-[11px]">模組/任務:</span>
+              <select id="gantt-filter-module" onchange="renderGanttSchedule()" class="p-1 text-xs rounded border text-cyber-cyan bg-[#0a121e]">
+                <option value="ALL">全部模組 (OB-101 ~ OB-120)</option>
+                <!-- Dynamically Injected -->
+              </select>
+            </div>
+
+            <!-- 篩選器 2: 依團隊角色 -->
+            <div class="flex items-center gap-1.5">
+              <span class="text-slate-400 text-[11px]">負責團隊:</span>
+              <select id="gantt-filter-team" onchange="renderGanttSchedule()" class="p-1 text-xs rounded border text-purple-300 bg-[#0a121e]">
+                <option value="ALL">全部團隊 (All Teams)</option>
+                <option value="Product PM">Product PM</option>
+                <option value="Engineering">Engineering</option>
+                <option value="UX/FE">UX/FE</option>
+                <option value="QA/Ops">QA/Ops</option>
+                <option value="Sales/CS">Sales/CS</option>
+                <option value="AI/Chatbot">AI/Chatbot</option>
+              </select>
+            </div>
           </div>
         </div>
 
+        <!-- 視覺化甘特畫布 -->
         <div class="overflow-x-auto bg-[#05080f] p-4 rounded-xl border border-cyber-border">
           <div class="min-w-[760px] space-y-3 font-mono text-xs">
             
@@ -510,7 +532,7 @@
 
   </div>
 
-  <!-- Modal: Edit / Add Jira Ticket (已連動 RACI 標準化職責與團隊說明) -->
+  <!-- Modal: Edit / Add Jira Ticket -->
   <div id="ticket-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4">
     <div class="bg-cyber-card border border-cyber-border rounded-2xl max-w-lg w-full p-6 space-y-4 font-mono text-xs shadow-2xl">
       <div class="flex justify-between items-center border-b border-cyber-border pb-3">
@@ -525,9 +547,9 @@
         </div>
 
         <div>
-          <label class="block text-cyber-cyan mb-1 font-bold">快速帶入 1-20 組預設模組任務 (Task / Module)</label>
+          <label class="block text-cyber-cyan mb-1 font-bold">快速帶入 OB-101 ~ OB-120 預設模組任務</label>
           <select id="modal-preset-select" onchange="applyPresetToModal(this.value)" class="w-full p-2 rounded border text-cyber-cyan">
-            <option value="">-- 選擇 1-20 組預設模組 --</option>
+            <option value="">-- 選擇 OB-101 ~ OB-120 模組 --</option>
           </select>
         </div>
 
@@ -562,7 +584,6 @@
           </div>
         </div>
 
-        <!-- RACI 標準化職責即時預覽 (消除主觀意見落差) -->
         <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
           <div class="text-[10px] text-cyber-cyan font-bold uppercase flex justify-between">
             <span>RACI 標準化執行標準 (Standardized Expectation)</span>
@@ -620,11 +641,11 @@
 
   <script>
     // ----------------------------------------------------
-    // 完整 20 組熱門真實需求資料庫 (內含 RACI 與 DoD 標準)
+    // 完整 20 組熱門真實需求資料庫 (OB-101 ~ OB-120 對應)
     // ----------------------------------------------------
     const allPresets = [
       {
-        title: '01. LINE LIFF 30秒免密一鍵預約體驗課',
+        code: 'OB-101', title: '01. LINE LIFF 30秒免密一鍵預約體驗課',
         voice: '「很多新人在 IG 看到廣告點進來，一看到要註冊帳號、收簡訊驗證碼還要設密碼，直接就不約了！」',
         problem: '傳統註冊流程導致首購預約漏斗跳出率高達 40%；需利用 LINE UID 靜默建檔與單次快捷金流完成轉換。',
         scope: '1. 暫不支援跨社群帳號合併。 2. 暫不支援體驗券轉贈。',
@@ -640,7 +661,7 @@
         dod: ['LINE LIFF 授權成功率 >= 99.5%', '單頁結帳流程耗時 < 30 秒', '通過 iOS/Android 行動端 UAT 驗收']
       },
       {
-        title: '02. 新客專屬防踩雷師資與難易度標籤導引',
+        code: 'OB-102', title: '02. 新客專屬防踩雷師資與難易度標籤導引',
         voice: '「客人常私訊問我『哪位教練比較溫柔？』、『我是完全新手可以上空中瑜珈嗎？』，客服疲於奔命。」',
         problem: '課表資訊未結構化導致新客產生踩雷恐懼；需導入新手友善、體能強度、師資風格標籤體系降低認知門檻。',
         scope: '1. 暫不支援學員自由上傳影片評論。 2. 暫不串接第三方外部評分平台。',
@@ -656,7 +677,7 @@
         dod: ['課表標籤篩選響應時間 < 100ms', '新客諮詢重複率下降 30%', '全教練風格資料審核無誤']
       },
       {
-        title: '03. 預約完成自動推播 LINE「新手到館圖文指南」',
+        code: 'OB-103', title: '03. 預約完成自動推播 LINE「新手到館圖文指南」',
         voice: '「新客人常常找不到大門密碼、不知道停哪裡，甚至沒帶瑜珈墊跑來問，櫃台每天開課前都像菜市場。」',
         problem: '線上預約與線下實體履約之間缺乏自動化交付銜接；需在預約成功後非同步觸發包含交通與密碼的圖文推播。',
         scope: '1. 暫不支援即時室內藍牙定位導航。 2. 暫不串接第三方智慧門禁硬體 API。',
@@ -672,7 +693,7 @@
         dod: ['預約完成後 10 秒內送達圖文指引', '櫃台重複詢問電話減少 50%', '推播失敗自動重試機制運作正常']
       },
       {
-        title: '04. 預約放棄行為自動偵測與限時挽回推播',
+        code: 'OB-104', title: '04. 預約放棄行為自動偵測與限時挽回推播',
         voice: '「很多客人點進預約選了時間，但在結帳畫面看一看就跑了，我們白白花廣告費引流！」',
         problem: '結帳最後一哩路缺乏挽回機制造成 ROAS 折損；需追蹤 Session 停滯事件，在跳出 15 分鐘後自動發送提醒或 9 折券。',
         scope: '1. 暫不支援 SMS 簡訊主動追蹤。 2. 暫不支援 AI 動態計算折價。',
@@ -688,7 +709,7 @@
         dod: ['放棄結帳挽回轉換率提升 >= 12%', '定時排程任務無記憶體洩漏', '防騷擾機制（每人每天限推 1 次）生效']
       },
       {
-        title: '05. 新客爽約自動發送「體諒補課券」再行銷模組',
+        code: 'OB-105', title: '05. 新客爽約自動發送「體諒補課券」再行銷模組',
         voice: '「新客第一次預約就臨時爽約，如果照規定直接沒收體驗費，客人直接在 Google 留一顆星負評！」',
         problem: '剛性合約條款摧毀初次建立的品牌信任；需自動發放一次性溫情挽回券（限 7 天內重新劃位），將負評轉化為二訪機會。',
         scope: '1. 暫不開放第二次爽約補發。 2. 暫不支援跨品牌通用。',
@@ -704,7 +725,7 @@
         dod: ['Google 一星負評率下降 20%', '補課券二次到店轉換率 >= 25%', '系統防範重複領取機制正常']
       },
       {
-        title: '06. 官網預約小工具免跳轉嵌入 (Widget Engine)',
+        code: 'OB-106', title: '06. 官網預約小工具免跳轉嵌入 (Widget Engine)',
         voice: '「客人從我們自架的 WordPress 官網點預約，會跳轉到你們系統的外部網址，看起來很像詐騙，客人都不敢刷卡。」',
         problem: '外部跳轉造成網域不信任與視覺斷層；需提供跨網域安全 iframe / Web Component 預約小工具，維持官網品牌體驗。',
         scope: '1. 暫不支援無頭 Headless API 開發。 2. 暫不支援非 HTTPS 網域。',
@@ -720,7 +741,7 @@
         dod: ['支援主流 CMS 1-Click 嵌入', '跨網域金流支付成功率 100%', 'Widget 載入時間 < 1.2 秒']
       },
       {
-        title: '07. 新客首購零風險「未到課無條件展延」',
+        code: 'OB-107', title: '07. 新客首購零風險「未到課無條件展延」',
         voice: '「新客常擔心買了體驗課後，當天臨時加班不能來，希望我們承諾不滿意或沒來可以退費。」',
         problem: '消費承諾風險過高阻礙付款決策；需將單次體驗課設計為「未劃位/首次缺席無條件保留 30 天效期」，降低門檻。',
         scope: '1. 暫不開放線上自動退現金。 2. 高單價工作坊不適用。',
@@ -736,7 +757,7 @@
         dod: ['首購轉換率提升 >= 15%', '票券過期客訴歸零', '展延狀態變更正確無誤']
       },
       {
-        title: '08. 一對一教練課新客免登入即時空檔查詢',
+        code: 'OB-108', title: '08. 一對一教練課新客免登入即時空檔查詢',
         voice: '「想約私人教練的新客人每次都要先加好友、報上名字，才能看到教練哪天有空，太沒效率了。」',
         problem: '私人課時程透明度低，傳統非同步私訊導致潛在顧客流失；需提供只讀（Read-only）即時空檔行事曆。',
         scope: '1. 暫不支援學員雙向同步個人日曆。 2. 暫不計算動態通勤時間。',
@@ -752,7 +773,7 @@
         dod: ['私人教練預約詢問轉化率提升 25%', '時段查詢 API 響應 < 150ms', '個資隱私遮蔽無洩漏']
       },
       {
-        title: '09. 新客預約雙人同行優惠與同伴資料拆分',
+        code: 'OB-109', title: '09. 新客預約雙人同行優惠與同伴資料拆分',
         voice: '「閨蜜常常想一起來體驗瑜珈，但系統一次只能預約一個人，第二個人要再註冊一次，最後都只來一個。」',
         problem: '缺乏同行劃位機制，強迫同伴重複註冊造成轉換率腰斬；需支援主約人一次結帳雙人名額，並以邀請連結補登資料。',
         scope: '1. 暫不支援線上即時 AA 拆帳。 2. 團體上限 2-3 人。',
@@ -768,7 +789,7 @@
         dod: ['雙人同行訂單占比提升 >= 20%', '邀請連結補登成功率 98%', '訂單金額與折扣計算無誤']
       },
       {
-        title: '10. 首購課後 2 小時專屬限時續購促轉模組',
+        code: 'OB-110', title: '10. 首購課後 2 小時專屬限時續購促轉模組',
         voice: '「客人上完第一堂課明明很滿意，但教練不好意思開口推銷大堂數，客人回家後熱度退了就不買了。」',
         problem: '上課結束到二次購買之間缺乏即時行銷槓桿；需在打卡報到完成 2 小時內，自動推播限時 24 小時早鳥續購優惠券。',
         scope: '1. 暫不支援 AI 動態定價。 2. 暫不支援業務即時議價視窗。',
@@ -783,10 +804,8 @@
         actions: ['設定打卡完成後 2 小時延遲任務佇列', '建立 24 小時限時折價券規則'],
         dod: ['首購後 48 小時內續購率提升 30%', '推播準時發送率 100%', '優惠券折抵計算正確']
       },
-
-      // 老客 11 ~ 20
       {
-        title: '11. 尖峰時段熱門排課動態候補與自動通知',
+        code: 'OB-111', title: '11. 尖峰時段熱門排課動態候補與自動通知',
         voice: '「熱門課一開就被秒殺，但很多人常常臨時不來！希望我們可以手動幫 VIP 插隊，或者有人取消時馬上通知下一位。」',
         problem: '臨開課前爽約率 18% 造成席位空置，缺乏自動化補位；需建立基於 Redis 分散式鎖的高並發排隊佇列。',
         scope: '1. 暫不做跨分店多幣別清算。 2. 暫不做特權動態插隊。',
@@ -802,7 +821,7 @@
         dod: ['1,500 QPS 壓測下超賣數 = 0', 'API P99 響應 < 250ms', '15分鐘逾時自動順移測試 100% 通過']
       },
       {
-        title: '12. 老客常用時段與師資「1-Click 極速複訂」',
+        code: 'OB-112', title: '12. 老客常用時段與師資「1-Click 極速複訂」',
         voice: '「老學員每週都要固定上兩次週三晚上的空中瑜珈，每次進系統都要從第一頁慢慢滑課表重新找，很難用。」',
         problem: '高頻回流老客操作摩擦過大；需分析歷史行為，在首頁首屏置頂「常約課程/老師」快捷按鈕，達成一鍵扣點。',
         scope: '1. 暫不支援語音助理下單。 2. 暫不跨品牌連鎖同步。',
@@ -818,7 +837,7 @@
         dod: ['老客下單步驟由 5 步縮減至 1 步', '複訂結帳耗時 < 3 秒', '無重複扣點客訴']
       },
       {
-        title: '13. 會員方案到期預警與線上「一鍵原方案續購」',
+        code: 'OB-113', title: '13. 會員方案到期預警與線上「一鍵原方案續購」',
         voice: '「學員常到了現場才發現票券昨天過期，在櫃台跟我們吵架說沒提醒，最後鬧著要退費。」',
         problem: '票券生命週期缺乏主動溝通；需在到期前 14 天與 3 天自動發送 LINE 通知，並附上一鍵刷卡續約並展延通道。',
         scope: '1. 暫不實裝信用卡自動定期續扣。 2. 逾期超過 30 天不追溯。',
@@ -834,7 +853,7 @@
         dod: ['到期爭議客訴歸零', '線上續購率提升 25%', '新舊票券效期計算無誤']
       },
       {
-        title: '14. 自助式臨時請假與線上保留名額扣點規則',
+        code: 'OB-114', title: '14. 自助式臨時請假與線上保留名額扣點規則',
         voice: '「學生臨時生病不能來，私訊小編請假，小編忘記幫他取消，結果系統自動扣了他點數，又被客訴投訴投訴！」',
         problem: '人工請假延遲導致無效扣點爭議；需提供學員端合規時限內自主一鍵請假，自動返還點數並釋放名額。',
         scope: '1. 暫不支援 AI 辨識診斷證明。 2. 階梯罰款規則上限 3 種。',
@@ -850,7 +869,7 @@
         dod: ['誤扣點數客訴下降 90%', '自主請假釋出名額即時率 100%', '退點交易紀錄完整']
       },
       {
-        title: '15. 老客帶新客好友分享推薦碼 (Referral Loop)',
+        code: 'OB-115', title: '15. 老客帶新客好友分享推薦碼 (Referral Loop)',
         voice: '「老學員常帶朋友來，想要我們送他一堂課，但櫃台手動登記常常算錯，被教練抗議抽成算不清。」',
         problem: '口碑裂變缺乏自動化歸因，手動記帳造成師資對帳混亂；需提供會員專屬 LINE 推薦連結，出席後雙方自動存入獎勵。',
         scope: '1. 不提供現金返利。 2. 嚴禁多層級分銷。',
@@ -866,7 +885,7 @@
         dod: ['推薦歸因準確率 100%', '教練抽成對帳爭議歸零', '推薦裂變訂單成長 >= 20%']
       },
       {
-        title: '16. 高頻 VIP 專屬熱門課程提早 24 小時搶先預約權',
+        code: 'OB-116', title: '16. 高頻 VIP 專屬熱門課程提早 24 小時搶先預約權',
         voice: '「買了年約的大 VIP 常常抱怨跟單次買券的新人搶同一堂課搶不到，覺得繳那麼多錢沒有特權。」',
         problem: '高價值客戶缺乏差異化權益；需在排課引擎導入會員等級權限控制，允許特定方案用戶提早進入劃位。',
         scope: '1. 排除加價競標搶位。 2. 排除手動單一例外配置。',
@@ -882,7 +901,7 @@
         dod: ['VIP 年約續約率提升 15%', '權限校驗漏洞測試 0 缺失', '提早預約搶位機制運作正常']
       },
       {
-        title: '17. 老客自主「會籍線上暫停 (Freeze) 與展期」',
+        code: 'OB-117', title: '17. 老客自主「會籍線上暫停 (Freeze) 與展期」',
         voice: '「學生出差、出國或懷孕要請長假停卡，常常拿著機票跑來櫃台填紙本，弄丟了又查不到歷史紀錄。」',
         problem: '紙本停卡審批低效且缺乏稽核；需提供線上自主申請停卡，設定起訖日後自動凍結劃位並將到期日向後順延。',
         scope: '1. 暫不收線上停卡手續費。 2. 每張會籍限暫停 2 次。',
@@ -898,7 +917,7 @@
         dod: ['紙本停卡表單歸零', '展延天數計算精確無誤', '每卡 2 次上限防呆攔截生效']
       },
       {
-        title: '18. 多堂數家庭/同伴合併扣點主從帳戶劃位',
+        code: 'OB-118', title: '18. 多堂數家庭/同伴合併扣點主從帳戶劃位',
         voice: '「媽媽買了 50 堂家庭票，想要全家人一起用，每次都要媽媽手機登入幫小孩約，小孩自己根本不能看課表。」',
         problem: '主帳戶資產無法授權子帳戶共用，導致代訂繁複；需建立主從帳戶關聯，允許子帳戶直接劃位並由主帳戶扣點。',
         scope: '1. 子帳號上限 4 人。 2. 不支援跨非親屬無限制轉讓。',
@@ -914,7 +933,7 @@
         dod: ['家庭方案銷售額增長 20%', '並發扣點無資安漏洞與負點數異常', '主帳戶即時收到扣點通知']
       },
       {
-        title: '19. 沉睡老客 30 天未到課自動喚醒與關懷推播',
+        code: 'OB-119', title: '19. 沉睡老客 30 天未到課自動喚醒與關懷推播',
         voice: '「很多買了半年卡的學員，過了一個月都沒來，我們也忙到忘記關心，結果合約到期學員就默默流失了。」',
         problem: '缺乏主動健康度預警，沉睡學員流失率高；需偵測最後出席日大於 30 天之學員，自動觸發關懷訊息與復課激勵。',
         scope: '1. 暫不串接 AI 機器人打電話。 2. 每 30 天限推 1 次。',
@@ -930,7 +949,7 @@
         dod: ['沉睡老客回流率提升 >= 10%', '推播頻次防騷擾機制 100% 生效', '回歸預約轉化追蹤正常']
       },
       {
-        title: '20. 老客出席里程碑成就與「忠誠度徽章」體系',
+        code: 'OB-120', title: '20. 老客出席里程碑成就與「忠誠度徽章」體系',
         voice: '「學員在我們這裡上了 100 堂課，很想拍照發 IG 炫耀，但系統什麼紀錄都沒有，感覺很冰冷。」',
         problem: '缺乏正向心理回饋與社交貨幣；需在完成 10、50、100 堂時，於會員中心自動解鎖專屬成就圖卡與紀念折扣碼。',
         scope: '1. 暫不串接實體獎品物流。 2. 不開放自訂徽章圖案。',
@@ -950,28 +969,35 @@
     function initDropdowns() {
       const step1Select = document.getElementById('req-title-select');
       const modalSelect = document.getElementById('modal-preset-select');
+      const ganttFilterSelect = document.getElementById('gantt-filter-module');
       
       let optGroupNew = document.createElement('optgroup');
-      optGroupNew.label = '── 新客場景 (1~10) ──';
+      optGroupNew.label = '── 新客場景 (OB-101 ~ OB-110) ──';
       let optGroupOld = document.createElement('optgroup');
-      optGroupOld.label = '── 老客場景 (11~20) ──';
+      optGroupOld.label = '── 老客場景 (OB-111 ~ OB-120) ──';
 
       allPresets.forEach((p, idx) => {
         const opt1 = document.createElement('option');
         opt1.value = idx;
-        opt1.text = p.title;
+        opt1.text = `${p.code} - ${p.title}`;
         if (idx < 10) optGroupNew.appendChild(opt1);
         else optGroupOld.appendChild(opt1);
 
         const opt2 = document.createElement('option');
         opt2.value = idx;
-        opt2.text = p.title;
+        opt2.text = `${p.code} - ${p.title}`;
         modalSelect.appendChild(opt2);
+
+        // Gantt filter module dropdown
+        const opt3 = document.createElement('option');
+        opt3.value = p.code;
+        opt3.text = `${p.code}: ${p.title}`;
+        ganttFilterSelect.appendChild(opt3);
       });
 
       step1Select.appendChild(optGroupNew.cloneNode(true));
       step1Select.appendChild(optGroupOld.cloneNode(true));
-      step1Select.value = "10";
+      step1Select.value = "10"; // Default: OB-111
     }
 
     function onTitleDropdownChanged(idx) {
@@ -986,27 +1012,7 @@
       renderRaciAndDoD(preset);
     }
 
-    function manualInputSync() {
-      const selectEl = document.getElementById('req-title-select');
-      const currentTitle = selectEl.options[selectEl.selectedIndex].text;
-      const customPreset = {
-        title: currentTitle,
-        voice: document.getElementById('req-voice').value,
-        problem: document.getElementById('req-problem').value,
-        scope: document.getElementById('req-scope').value,
-        raci: [
-          { role: 'Product PM', type: 'A', desc: '負責統籌此自訂模組之整體交付與規格凍結' },
-          { role: 'Engineering', type: 'R', desc: '負責系統底層架構實作與效能防線' },
-          { role: 'UX / Frontend', type: 'R', desc: '負責前台介面與互動體驗開發' },
-          { role: 'QA / DevOps', type: 'C', desc: '負責自動化測試與灰度放量監控' },
-          { role: 'Sales / CS', type: 'I', desc: '接收商業成果與對外說明' }
-        ],
-        actions: ['召開跨部門規格對齊會議', '於 Staging 環境進行測試驗收'],
-        dod: ['PRD 規格書 100% 通過審定', '關鍵 API 響應達標', '通過跨部門 UAT 驗收']
-      };
-      renderInstantPrdAndInsights(customPreset);
-      renderRaciAndDoD(customPreset);
-    }
+    function manualInputSync() {}
 
     // ----------------------------------------------------
     // RACI 與 DoD 動態渲染引擎
@@ -1113,14 +1119,29 @@
     }
 
     // ----------------------------------------------------
-    // JIRA 看板與甘特圖引擎
+    // JIRA 看板與甘特圖引擎 (含 OB-101~120 與團隊篩選器)
     // ----------------------------------------------------
     let tickets = [
       { id: 'OB-101', title: '01. LINE LIFF 30秒免密一鍵預約體驗課', status: 'publish', primary: 'UX/FE', support: 'Engineering', sprint: 'Sprint 1 (W1-W2)', progress: 100, risk: false },
-      { id: 'OB-102', title: '11. 尖峰時段熱門排課動態候補與自動通知', status: 'test', primary: 'Engineering', support: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', progress: 75, risk: true },
-      { id: 'OB-103', title: 'Redis 分散式鎖防超賣引擎 (1,500 QPS 壓測驗證)', status: 'dev', primary: 'Engineering', support: 'QA/Ops', sprint: 'Sprint 3 (W5-W6)', progress: 40, risk: false },
-      { id: 'OB-104', title: '矽谷協作：AI 客服 Chatbot 取消退費防幻覺測試台', status: 'dev', primary: 'AI/Chatbot', support: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', progress: 45, risk: false },
-      { id: 'OB-105', title: 'CS Help Center 與店家候補操作指引文件產出', status: 'backlog', primary: 'Sales/CS', support: 'Product PM', sprint: 'Sprint 4 (W7-W8)', progress: 10, risk: false }
+      { id: 'OB-102', title: '02. 新客專屬防踩雷師資與難易度標籤導引', status: 'test', primary: 'Product PM', support: 'Sales/CS', sprint: 'Sprint 1 (W1-W2)', progress: 85, risk: false },
+      { id: 'OB-103', title: '03. 預約完成自動推播 LINE「新手到館圖文指南」', status: 'dev', primary: 'UX/FE', support: 'Sales/CS', sprint: 'Sprint 1 (W1-W2)', progress: 50, risk: false },
+      { id: 'OB-104', title: '04. 預約放棄行為自動偵測與限時挽回推播', status: 'dev', primary: 'Engineering', support: 'Product PM', sprint: 'Sprint 2 (W3-W4)', progress: 40, risk: false },
+      { id: 'OB-105', title: '05. 新客爽約自動發送「體諒補課券」再行銷模組', status: 'backlog', primary: 'Sales/CS', support: 'Engineering', sprint: 'Sprint 2 (W3-W4)', progress: 15, risk: false },
+      { id: 'OB-106', title: '06. 官網預約小工具免跳轉嵌入 (Widget Engine)', status: 'backlog', primary: 'UX/FE', support: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', progress: 10, risk: false },
+      { id: 'OB-107', title: '07. 新客首購零風險「未到課無條件展延」', status: 'backlog', primary: 'Product PM', support: 'Sales/CS', sprint: 'Sprint 3 (W5-W6)', progress: 10, risk: false },
+      { id: 'OB-108', title: '08. 一對一教練課新客免登入即時空檔查詢', status: 'backlog', primary: 'Engineering', support: 'UX/FE', sprint: 'Sprint 3 (W5-W6)', progress: 10, risk: false },
+      { id: 'OB-109', title: '09. 新客預約雙人同行優惠與同伴資料拆分', status: 'backlog', primary: 'Product PM', support: 'UX/FE', sprint: 'Sprint 3 (W5-W6)', progress: 10, risk: false },
+      { id: 'OB-110', title: '10. 首購課後 2 小時專屬限時續購促轉模組', status: 'backlog', primary: 'Sales/CS', support: 'Engineering', sprint: 'Sprint 3 (W5-W6)', progress: 10, risk: false },
+      { id: 'OB-111', title: '11. 尖峰時段熱門排課動態候補與自動通知', status: 'test', primary: 'Engineering', support: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', progress: 75, risk: true },
+      { id: 'OB-112', title: '12. 老客常用時段與師資「1-Click 極速複訂」', status: 'dev', primary: 'UX/FE', support: 'Engineering', sprint: 'Sprint 3 (W5-W6)', progress: 40, risk: false },
+      { id: 'OB-113', title: '13. 會員方案到期預警與線上「一鍵原方案續購」', status: 'backlog', primary: 'Product PM', support: 'Sales/CS', sprint: 'Sprint 3 (W5-W6)', progress: 15, risk: false },
+      { id: 'OB-114', title: '14. 自助式臨時請假與線上保留名額扣點規則', status: 'backlog', primary: 'Engineering', support: 'QA/Ops', sprint: 'Sprint 4 (W7-W8)', progress: 10, risk: false },
+      { id: 'OB-115', title: '15. 老客帶新客好友分享推薦碼 (Referral Loop)', status: 'backlog', primary: 'Sales/CS', support: 'UX/FE', sprint: 'Sprint 4 (W7-W8)', progress: 10, risk: false },
+      { id: 'OB-116', title: '16. 高頻 VIP 專屬熱門課程提早 24 小時搶先預約權', status: 'backlog', primary: 'Engineering', support: 'Product PM', sprint: 'Sprint 4 (W7-W8)', progress: 10, risk: false },
+      { id: 'OB-117', title: '17. 老客自主「會籍線上暫停 (Freeze) 與展期」', status: 'backlog', primary: 'Product PM', support: 'Sales/CS', sprint: 'Sprint 4 (W7-W8)', progress: 10, risk: false },
+      { id: 'OB-118', title: '18. 多堂數家庭/同伴合併扣點主從帳戶劃位', status: 'backlog', primary: 'Engineering', support: 'UX/FE', sprint: 'Sprint 4 (W7-W8)', progress: 10, risk: false },
+      { id: 'OB-119', title: '19. 沉睡老客 30 天未到課自動喚醒與關懷推播', status: 'backlog', primary: 'Sales/CS', support: 'Product PM', sprint: 'Sprint 4 (W7-W8)', progress: 10, risk: false },
+      { id: 'OB-120', title: '20. 老客出席里程碑成就與「忠誠度徽章」體系', status: 'backlog', primary: 'UX/FE', support: 'Sales/CS', sprint: 'Sprint 4 (W7-W8)', progress: 10, risk: false }
     ];
 
     let editingTicketId = null;
@@ -1175,7 +1196,22 @@
       const container = document.getElementById('gantt-rows-container');
       container.innerHTML = '';
 
-      tickets.forEach(t => {
+      const filterModule = document.getElementById('gantt-filter-module').value;
+      const filterTeam = document.getElementById('gantt-filter-team').value;
+
+      // 篩選邏輯
+      const filteredTickets = tickets.filter(t => {
+        const matchModule = (filterModule === 'ALL' || t.id === filterModule);
+        const matchTeam = (filterTeam === 'ALL' || t.primary === filterTeam || t.support === filterTeam);
+        return matchModule && matchTeam;
+      });
+
+      if (filteredTickets.length === 0) {
+        container.innerHTML = `<div class="text-center py-4 text-slate-500 font-mono text-xs">沒有符合條件的任務或模組</div>`;
+        return;
+      }
+
+      filteredTickets.forEach(t => {
         let barColor = 'bg-blue-500';
         if (t.progress >= 40) barColor = 'bg-purple-500';
         if (t.progress >= 75) barColor = 'bg-cyber-cyan';
@@ -1254,12 +1290,12 @@
     }
 
     // ----------------------------------------------------
-    // Modal 手動編輯 Jira Ticket (已連動 RACI 標準職責預覽)
+    // Modal 手動編輯 Jira Ticket
     // ----------------------------------------------------
     function openAddTicketModal() {
       editingTicketId = null;
       document.getElementById('modal-heading').innerText = '+ 新增 Jira Ticket';
-      document.getElementById('modal-ticket-id').value = 'OB-' + (100 + tickets.length + 1);
+      document.getElementById('modal-ticket-id').value = 'OB-' + (121);
       document.getElementById('modal-ticket-title').value = '';
       document.getElementById('modal-ticket-primary').value = 'Engineering';
       document.getElementById('modal-ticket-support').value = 'QA/Ops';
@@ -1299,14 +1335,13 @@
       if (val === '') return;
       const preset = allPresets[parseInt(val)];
       if (preset) {
-        document.getElementById('modal-ticket-title').value = preset.title;
+        document.getElementById('modal-ticket-title').value = `${preset.code}: ${preset.title}`;
         document.getElementById('modal-ticket-primary').value = preset.defaultOwner || 'Engineering';
         document.getElementById('modal-ticket-support').value = preset.defaultSupport || 'QA/Ops';
         updateModalRaciPreview();
       }
     }
 
-    // 動態更新 Modal 中的 RACI 預覽與標準化說明
     function updateModalRaciPreview() {
       const primary = document.getElementById('modal-ticket-primary').value;
       const badge = document.getElementById('modal-raci-badge');
@@ -1418,7 +1453,7 @@ Product PM: ${senderEmail}`;
 
     window.onload = () => {
       initDropdowns();
-      onTitleDropdownChanged(10);
+      onTitleDropdownChanged(10); // Default to OB-111
       renderKanbanAndGantt();
       updateChatEval();
     };
