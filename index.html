@@ -3,421 +3,373 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Omcean Booking - PM Demand Assessment & Alignment System</title>
+  <title>Omcean Booking - PM Demand Alignment Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            brand: { 50: '#f0fdfa', 500: '#0d9488', 600: '#0f766e', 700: '#115e59' }
+            cyber: {
+              bg: '#060b13',
+              card: '#0a121e',
+              cardHover: '#0e1828',
+              border: '#162235',
+              cyan: '#00f0ff',
+              cyanMuted: '#0e3a47',
+              green: '#10b981',
+              gold: '#fbbf24',
+              goldMuted: '#3d2e0a'
+            }
           }
         }
       }
     }
   </script>
+  <style>
+    body {
+      background-color: #060b13;
+      color: #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    /* 自訂滾動條 */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #060b13; }
+    ::-webkit-scrollbar-thumb { background: #162235; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
+  </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
+<body class="min-h-screen px-6 py-6 antialiased">
 
-  <!-- Top Navigation -->
-  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-      <div class="flex items-center space-x-3">
-        <div class="w-9 h-9 bg-brand-600 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-sm">
-          OB
-        </div>
-        <div>
-          <h1 class="font-bold text-slate-900 leading-none">PM Demand Alignment Engine</h1>
-          <span class="text-xs text-slate-500 font-medium">Omcean Booking 產品標準化評估與工程對齊系統</span>
-        </div>
+  <div class="max-w-[1440px] mx-auto space-y-6">
+
+    <!-- 0. 頂部模組分頁導航 (Top Stepper Tabs) -->
+    <nav class="flex items-center justify-between border-b border-cyber-border pb-3 text-xs tracking-wider font-mono">
+      <div class="flex items-center space-x-8">
+        <span class="text-cyber-cyan border-b-2 border-cyber-cyan pb-3 font-semibold cursor-pointer">01 需求動態對齊與負載矩陣</span>
+        <span class="text-slate-500 hover:text-slate-300 pb-3 cursor-pointer transition">02 雙軌 MVP 交付時程表</span>
+        <span class="text-slate-500 hover:text-slate-300 pb-3 cursor-pointer transition">03 LIVE 跨部門 ACTION 看板</span>
+        <span class="text-slate-500 hover:text-slate-300 pb-3 cursor-pointer transition">04 新老客轉化旅程對照</span>
+        <span class="text-slate-500 hover:text-slate-300 pb-3 cursor-pointer transition">05 架構安全與 NFR 審查標準</span>
       </div>
+      <div class="flex items-center space-x-2">
+        <span class="px-2 py-0.5 rounded bg-slate-800 text-white font-sans text-xs">繁中</span>
+        <span class="px-2 py-0.5 rounded text-slate-500 font-sans text-xs hover:text-slate-300 cursor-pointer">EN</span>
+      </div>
+    </nav>
+
+    <!-- 1. 主標題與頂部狀態 (Page Title & Global Badge) -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-2">
+      <div>
+        <h1 class="text-3xl font-bold text-white tracking-tight flex items-center gap-3">
+          Demand Alignment & Benchmark
+          <span class="text-xs px-2.5 py-1 rounded bg-cyber-cyanMuted border border-cyber-cyan/40 text-cyber-cyan font-mono font-normal">
+            Omcean PM Core Engine
+          </span>
+        </h1>
+        <p class="text-xs text-slate-400 mt-1 font-mono">
+          [ROLE: SCOPE & ARCHITECTURE GATEKEEPER] — 自動化解構需求痛點，保護 10x 擴展性並對齊交付時程
+        </p>
+      </div>
+
       <div class="flex items-center space-x-3">
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
-          ● 技術架構標準模式啟用
-        </span>
-        <button onclick="exportAlignmentReport()" class="bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition shadow-sm">
-          匯出團隊對齊簡報 (MD)
+        <button onclick="exportMarkdownReport()" class="px-4 py-2 rounded-lg bg-cyber-cyan text-slate-950 font-bold text-xs hover:bg-opacity-90 transition shadow-lg shadow-cyber-cyan/20 font-mono">
+          匯出對齊報告 (.MD)
         </button>
       </div>
     </div>
-  </header>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
-    <!-- SOP Breadcrumbs -->
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-8">
-      <div class="bg-white p-3 rounded-xl border border-brand-500 shadow-sm flex items-center space-x-3">
-        <div class="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center text-xs font-bold">1</div>
-        <div>
-          <div class="text-xs font-bold text-slate-900">Step 1: 需求結構化</div>
-          <div class="text-[11px] text-slate-500">拆解痛點與用戶類別</div>
-        </div>
-      </div>
-      <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-3">
-        <div class="w-7 h-7 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center text-xs font-bold">2</div>
-        <div>
-          <div class="text-xs font-bold text-slate-900">Step 2: 量化指標試算</div>
-          <div class="text-[11px] text-slate-500">動態計算交期/負載/風險</div>
-        </div>
-      </div>
-      <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-3">
-        <div class="w-7 h-7 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center text-xs font-bold">3</div>
-        <div>
-          <div class="text-xs font-bold text-slate-900">Step 3: 架構防線把關</div>
-          <div class="text-[11px] text-slate-500">驗證 10x 與微服務隔離</div>
-        </div>
-      </div>
-      <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-3">
-        <div class="w-7 h-7 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center text-xs font-bold">4</div>
-        <div>
-          <div class="text-xs font-bold text-slate-900">Step 4: Kickoff 對齊</div>
-          <div class="text-[11px] text-slate-500">產出 PRD 與工程議程</div>
-        </div>
-      </div>
+    <!-- 2. 目標受眾與情境切換膠囊 (Pill Tabs) -->
+    <div class="flex flex-wrap gap-2 pt-2">
+      <button onclick="switchTab('returning')" id="tab-returning" class="px-3.5 py-1.5 rounded-lg text-xs font-mono border border-cyber-cyan bg-cyber-cyanMuted text-cyber-cyan font-bold transition">
+        老客候補引擎 ×1.50 (留存核心)
+      </button>
+      <button onclick="switchTab('new')" id="tab-new" class="px-3.5 py-1.5 rounded-lg text-xs font-mono border border-cyber-border bg-cyber-card text-slate-400 hover:text-slate-200 transition">
+        新客極致預約 ×1.00 (首購降阻)
+      </button>
+      <button onclick="switchTab('platform')" id="tab-platform" class="px-3.5 py-1.5 rounded-lg text-xs font-mono border border-cyber-border bg-cyber-card text-slate-400 hover:text-slate-200 transition">
+        跨店清算模組 ×0.80 (店家營運)
+      </button>
+      <button onclick="switchTab('ai')" id="tab-ai" class="px-3.5 py-1.5 rounded-lg text-xs font-mono border border-cyber-border bg-cyber-card text-slate-400 hover:text-slate-200 transition">
+        AI 動態排課預測 ×0.60 (前瞻研發)
+      </button>
     </div>
 
-    <!-- Main Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <!-- 3. 三大評定階梯卡片 (Top 3 Tiered Benchmark Cards) -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 
-      <!-- Left: Dynamic Intake Form (5 cols) -->
-      <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-        <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
-          <h2 class="text-base font-bold text-slate-900">需求輸入工作台 (Demand Intake)</h2>
-          <button onclick="loadTemplate('waitlist')" class="text-xs text-brand-600 hover:text-brand-700 font-semibold underline">帶入候補熱門範例</button>
+      <!-- T1: 業務承諾死線 (High Demand) -->
+      <div class="bg-cyber-card border border-cyber-border rounded-xl p-5 relative hover:border-slate-700 transition">
+        <div class="flex justify-between items-start mb-3">
+          <div>
+            <h3 class="text-white font-bold text-base">T1 業務死線需求 (Aggressive)</h3>
+            <p class="text-xs text-slate-400">大客戶要求全量 4 週交付</p>
+          </div>
+          <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-cyber-goldMuted border border-cyber-gold/50 text-cyber-gold">
+            ×1.40 LOAD
+          </span>
         </div>
+        <div class="space-y-1 text-xs text-slate-400 font-mono mb-4">
+          <div class="flex justify-between"><span>評估工期:</span><span class="text-white font-bold">4 週 (硬趕)</span></div>
+          <div class="flex justify-between"><span>架構技術債:</span><span class="text-rose-400 font-bold">極高 (有穿庫風險)</span></div>
+          <div class="flex justify-between"><span>PM 裁定模式:</span><span class="text-cyber-cyan font-bold">拒絕全量，切 Phase 1</span></div>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-3 border-t border-cyber-border/80">
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900 text-slate-400 border border-slate-800">連鎖大客戶</span>
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900 text-slate-400 border border-slate-800">旗艦店限定</span>
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900 text-slate-400 border border-slate-800">手動報表輔助</span>
+        </div>
+      </div>
 
-        <form id="demand-form" class="space-y-4" onsubmit="event.preventDefault(); recalculate();">
+      <!-- T2: 架構標準基準 (Golden Standard) -->
+      <div class="bg-cyber-card border border-cyber-cyan/50 rounded-xl p-5 relative shadow-lg shadow-cyber-cyan/5">
+        <div class="flex justify-between items-start mb-3">
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">需求名稱 (Title)</label>
-            <input type="text" id="req-title" value="尖峰時段熱門排課動態候補與自動通知" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none">
+            <h3 class="text-white font-bold text-base">T2 架構標準基準 (Balanced Standard)</h3>
+            <p class="text-xs text-slate-400">已解耦微服務與 10x 負載防禦</p>
           </div>
+          <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-cyber-cyanMuted border border-cyber-cyan text-cyber-cyan">
+            ×1.00 SCALE
+          </span>
+        </div>
+        <div class="space-y-1 text-xs text-slate-400 font-mono mb-4">
+          <div class="flex justify-between"><span>合理工程期:</span><span class="text-cyber-green font-bold">8 ~ 10 週</span></div>
+          <div class="flex justify-between"><span>10x 峰值承載:</span><span class="text-white font-bold">1,500 QPS (P99 &lt; 200ms)</span></div>
+          <div class="flex justify-between"><span>發布機制:</span><span class="text-cyber-cyan font-bold">Feature Flag 灰度放量</span></div>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-3 border-t border-cyber-border/80">
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900 text-slate-300 border border-cyber-cyan/30">Redis 分散式鎖</span>
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900 text-slate-300 border border-cyber-cyan/30">非同步佇列</span>
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900 text-slate-300 border border-cyber-cyan/30">零超賣保證</span>
+        </div>
+      </div>
 
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">目標對象</label>
-              <select id="req-target" onchange="recalculate()" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500">
-                <option value="returning">老客 (留存與資源公平)</option>
-                <option value="new">新客 (極致降阻與首購)</option>
-                <option value="store">店家管理者 (營運與對帳)</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">需求提出方</label>
-              <select id="req-source" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500">
-                <option value="sales">業務 (指標旗艦客戶需求)</option>
-                <option value="cs">客服 (大量重複抱怨客訴)</option>
-                <option value="product">產品主動發掘 (數據漏斗)</option>
-              </select>
-            </div>
-          </div>
-
+      <!-- T3: 最小可行性產品 (Fast MVP) -->
+      <div class="bg-cyber-card border border-cyber-border rounded-xl p-5 relative hover:border-slate-700 transition">
+        <div class="flex justify-between items-start mb-3">
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">客戶原始要求 (Client Solution)</label>
-            <input type="text" id="req-client-solution" value="想要手動幫常客插隊，並要求系統隨時發簡訊通知所有人" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500">
+            <h3 class="text-white font-bold text-base">T3 核心驗證階梯 (Pilot MVP)</h3>
+            <p class="text-xs text-slate-400">Week 4 旗艦門市受控試營運</p>
           </div>
+          <span class="text-xs font-mono font-bold px-2 py-0.5 rounded bg-slate-800 border border-slate-600 text-slate-300">
+            ×0.75 SCOPE
+          </span>
+        </div>
+        <div class="space-y-1 text-xs text-slate-400 font-mono mb-4">
+          <div class="flex justify-between"><span>上線目標:</span><span class="text-white font-bold">第 4 週準時交付</span></div>
+          <div class="flex justify-between"><span>開放範圍:</span><span class="text-slate-300 font-bold">限定 3 間指標場館</span></div>
+          <div class="flex justify-between"><span>監控門檻:</span><span class="text-cyber-green font-bold">APM 實時報錯率 &lt; 0.05%</span></div>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-3 border-t border-cyber-border/80">
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900 text-slate-400 border border-slate-800">沙盒隔離</span>
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900 text-slate-400 border border-slate-800">即時回滾</span>
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-900 text-slate-400 border border-slate-800">單一閉環</span>
+        </div>
+      </div>
 
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">PM 轉化真因痛點 (Root Problem)</label>
-            <textarea id="req-root-problem" rows="2" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500">熱門時段課程額滿迅速，但臨開課前爽約率達 18%，缺乏自動化機制導致名額浪費且教練鐘點費折損。</textarea>
+    </div>
+
+    <!-- 4. 團隊分工與可編輯 Kickoff 區域 (Interactive Kickoff & Action Table) -->
+    <div class="bg-cyber-card border border-cyber-border rounded-xl p-6 space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-cyber-border pb-4 gap-2">
+        <div>
+          <h2 class="text-lg font-bold text-white tracking-wide">跨部門 Kickoff 決策與團隊行動對齊 (Live Workspace)</h2>
+          <p class="text-xs text-slate-400">雙擊任一欄位即可直接編輯會議議程、技術驗收防線與 Action Items</p>
+        </div>
+        <div class="flex items-center space-x-2 text-xs font-mono">
+          <span class="px-2.5 py-1 rounded bg-slate-900 text-cyber-cyan border border-cyber-border">LIVE EDITING MODE</span>
+        </div>
+      </div>
+
+      <!-- 核心會議動態紀錄 (Editable Agenda Grid) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
+        <div class="bg-[#05080f] p-3.5 rounded-lg border border-cyber-border space-y-1">
+          <span class="text-slate-500 font-bold uppercase block">[Project Scope] 專案範疇</span>
+          <div id="edit-scope" contenteditable="true" class="text-slate-200 focus:outline-none focus:text-cyber-cyan">
+            尖峰熱門排課動態候補、Redis 分散式鎖防超賣、LINE 15分鐘限時自動遞補。
           </div>
+        </div>
+        <div class="bg-[#05080f] p-3.5 rounded-lg border border-cyber-border space-y-1">
+          <span class="text-slate-500 font-bold uppercase block">[10x Load SLA] 負載標準</span>
+          <div id="edit-sla" contenteditable="true" class="text-cyber-green focus:outline-none">
+            尖峰 1,500 QPS 壓測 P99 延遲 &lt; 250ms，主關聯資料庫零死鎖 (Zero Deadlock)。
+          </div>
+        </div>
+        <div class="bg-[#05080f] p-3.5 rounded-lg border border-cyber-border space-y-1">
+          <span class="text-slate-500 font-bold uppercase block">[Rollout Plan] 發布節奏</span>
+          <div id="edit-rollout" contenteditable="true" class="text-cyber-gold focus:outline-none">
+            Week 4: 旗艦試營運 (Pilot) | Week 8: 內部審查 | Week 10: 全量放量。
+          </div>
+        </div>
+      </div>
 
-          <!-- Parameter Controllers -->
-          <div class="pt-3 border-t border-slate-100">
-            <h3 class="text-xs font-bold text-slate-900 mb-3 uppercase tracking-wider">量化指標參數調校</h3>
+      <!-- 5. 高密度資料對齊矩陣表格 (Dense Alignment Table) -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs font-sans">
+          <thead class="text-[11px] uppercase tracking-wider text-slate-400 font-mono border-b border-cyber-border">
+            <tr>
+              <th class="py-3 px-4">模組 / 職級代碼</th>
+              <th class="py-3 px-4">跨部門團隊 (Team)</th>
+              <th class="py-3 px-4">核心行動與職責範疇 (Action & Scope)</th>
+              <th class="py-3 px-4">標準工期</th>
+              <th class="py-3 px-4 text-cyber-gold">架構風險評級</th>
+              <th class="py-3 px-4 text-cyber-green text-right">交付對齊狀態</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-cyber-border/60 text-slate-300 font-mono">
             
-            <div class="space-y-3">
-              <div>
-                <div class="flex justify-between text-xs font-medium text-slate-600 mb-1">
-                  <span>日常預期每秒請求數 (Base QPS)</span>
-                  <span id="label-base-qps" class="font-bold text-slate-900">120 QPS</span>
-                </div>
-                <input type="range" min="10" max="500" step="10" id="range-base-qps" value="120" oninput="recalculate()" class="w-full accent-brand-600">
-              </div>
+            <!-- Row 1: Product Management -->
+            <tr class="hover:bg-cyber-cardHover transition">
+              <td class="py-3.5 px-4">
+                <span class="px-2 py-1 rounded bg-[#0b2138] text-cyber-cyan border border-cyber-cyan/30 text-[11px] font-bold">
+                  PM / GATE
+                </span>
+              </td>
+              <td class="py-3.5 px-4 font-sans font-bold text-white">產品經理 (Product PM)</td>
+              <td class="py-3.5 px-4 font-sans text-slate-300">
+                <div class="font-semibold text-white">需求真因診斷與嚴格範疇裁定</div>
+                <div class="text-[11px] text-slate-500">拒絕非核心客製化；推動雙軌交付管理業務與客戶期望</div>
+              </td>
+              <td class="py-3.5 px-4 text-slate-400">全程主控</td>
+              <td class="py-3.5 px-4 text-cyber-gold">LOW (防線建立)</td>
+              <td class="py-3.5 px-4 text-right">
+                <div class="text-cyber-green font-bold">100% DEFINED</div>
+                <div class="text-[10px] text-slate-500">PRD 規格已凍結</div>
+              </td>
+            </tr>
 
-              <div>
-                <div class="flex justify-between text-xs font-medium text-slate-600 mb-1">
-                  <span>影響核心資料模組數量 (Data Models Affected)</span>
-                  <span id="label-data-models" class="font-bold text-slate-900">3 個</span>
-                </div>
-                <input type="range" min="1" max="8" step="1" id="range-data-models" value="3" oninput="recalculate()" class="w-full accent-brand-600">
-                <span class="text-[10px] text-slate-400">涉及模型越多，穩定度風險呈非線性上升</span>
-              </div>
+            <!-- Row 2: Sales & CS -->
+            <tr class="hover:bg-cyber-cardHover transition">
+              <td class="py-3.5 px-4">
+                <span class="px-2 py-1 rounded bg-slate-800 text-slate-300 border border-slate-700 text-[11px] font-bold">
+                  BIZ / CS
+                </span>
+              </td>
+              <td class="py-3.5 px-4 font-sans font-bold text-white">業務與客戶成功 (Sales/CS)</td>
+              <td class="py-3.5 px-4 font-sans text-slate-300">
+                <div class="font-semibold text-white">兩階段 Pilot 計畫商務對齊</div>
+                <div class="text-[11px] text-slate-500">向大客戶溝通「Week 4 旗艦專用通道」，降低因延遲造成的合約風險</div>
+              </td>
+              <td class="py-3.5 px-4 text-slate-400">Week 1 ~ 4</td>
+              <td class="py-3.5 px-4 text-slate-400">CONTROLLED</td>
+              <td class="py-3.5 px-4 text-right">
+                <div class="text-cyber-cyan font-bold">PILOT AGREED</div>
+                <div class="text-[10px] text-slate-500">已獲 3 家場館同意</div>
+              </td>
+            </tr>
 
-              <div>
-                <div class="flex justify-between text-xs font-medium text-slate-600 mb-1">
-                  <span>業務承諾期望上線週數</span>
-                  <span id="label-biz-deadline" class="font-bold text-slate-900">4 週</span>
-                </div>
-                <input type="range" min="2" max="12" step="1" id="range-biz-deadline" value="4" oninput="recalculate()" class="w-full accent-brand-600">
-              </div>
-            </div>
-          </div>
+            <!-- Row 3: Frontend & UX -->
+            <tr class="hover:bg-cyber-cardHover transition">
+              <td class="py-3.5 px-4">
+                <span class="px-2 py-1 rounded bg-[#1f1638] text-purple-400 border border-purple-800 text-[11px] font-bold">
+                  FE / UX
+                </span>
+              </td>
+              <td class="py-3.5 px-4 font-sans font-bold text-white">體驗設計與前端 (UX/FE)</td>
+              <td class="py-3.5 px-4 font-sans text-slate-300">
+                <div class="font-semibold text-white">LINE LIFF 30秒降阻與排隊倒數</div>
+                <div class="text-[11px] text-slate-500">新客免密碼直購流程；老客 15 分鐘候補即時鎖位視覺狀態反饋</div>
+              </td>
+              <td class="py-3.5 px-4 text-slate-400">Week 2 ~ 4</td>
+              <td class="py-3.5 px-4 text-slate-400">LOW</td>
+              <td class="py-3.5 px-4 text-right">
+                <div class="text-cyber-green font-bold">IN PROGRESS</div>
+                <div class="text-[10px] text-slate-500">UI Prototype 完成</div>
+              </td>
+            </tr>
 
-          <!-- Architectural Readiness Switches -->
-          <div class="pt-3 border-t border-slate-100">
-            <h3 class="text-xs font-bold text-slate-900 mb-2 uppercase tracking-wider">技術架構防線要求 (Checklist)</h3>
-            <div class="space-y-1.5 text-xs">
-              <label class="flex items-center space-x-2">
-                <input type="checkbox" id="chk-distributed-lock" onchange="recalculate()" checked class="rounded text-brand-600">
-                <span>引入 Redis 分散式鎖防超賣 (Distributed Lock)</span>
-              </label>
-              <label class="flex items-center space-x-2">
-                <input type="checkbox" id="chk-feature-flag" onchange="recalculate()" checked class="rounded text-brand-600">
-                <span>支援 Feature Flag 灰度放量 (Canary Release)</span>
-              </label>
-              <label class="flex items-center space-x-2">
-                <input type="checkbox" id="chk-async-worker" onchange="recalculate()" checked class="rounded text-brand-600">
-                <span>推播通知移至非同步佇列 (Async Worker)</span>
-              </label>
-            </div>
-          </div>
-        </form>
-      </div>
+            <!-- Row 4: Backend & Architecture -->
+            <tr class="hover:bg-cyber-cardHover transition">
+              <td class="py-3.5 px-4">
+                <span class="px-2 py-1 rounded bg-[#362709] text-cyber-gold border border-cyber-gold/40 text-[11px] font-bold">
+                  BE / ARCH
+                </span>
+              </td>
+              <td class="py-3.5 px-4 font-sans font-bold text-white">後端與架構 (Engineering)</td>
+              <td class="py-3.5 px-4 font-sans text-slate-300">
+                <div class="font-semibold text-white">10x 負載防護與分散式排隊佇列</div>
+                <div class="text-[11px] text-slate-500">以 Redis Distributed Lock 保證高並發零超賣；非同步 Worker 處理訊息</div>
+              </td>
+              <td class="py-3.5 px-4 text-slate-400">Week 2 ~ 7</td>
+              <td class="py-3.5 px-4 text-cyber-gold font-bold">CRITICAL (防死鎖)</td>
+              <td class="py-3.5 px-4 text-right">
+                <div class="text-cyber-green font-bold">1,500 QPS READY</div>
+                <div class="text-[10px] text-slate-500">API P99: 180ms</div>
+              </td>
+            </tr>
 
-      <!-- Right: Dynamic Metrics & Alignment Dashboard (7 cols) -->
-      <div class="lg:col-span-7 space-y-6">
+            <!-- Row 5: QA & DevOps -->
+            <tr class="hover:bg-cyber-cardHover transition">
+              <td class="py-3.5 px-4">
+                <span class="px-2 py-1 rounded bg-[#0b281f] text-cyber-green border border-cyber-green/40 text-[11px] font-bold">
+                  QA / OPS
+                </span>
+              </td>
+              <td class="py-3.5 px-4 font-sans font-bold text-white">測試與維運 (QA/DevOps)</td>
+              <td class="py-3.5 px-4 font-sans text-slate-300">
+                <div class="font-semibold text-white">Feature Flag 灰度網關與壓力測試</div>
+                <div class="text-[11px] text-slate-500">注入 10 倍秒殺模擬請求；建立 LINE Webhook 逾時 2 秒自動重試補償機制</div>
+              </td>
+              <td class="py-3.5 px-4 text-slate-400">Week 3 ~ 10</td>
+              <td class="py-3.5 px-4 text-slate-400">STABLE</td>
+              <td class="py-3.5 px-4 text-right">
+                <div class="text-cyber-green font-bold">CANARY PASS</div>
+                <div class="text-[10px] text-slate-500">0 超賣事件發生</div>
+              </td>
+            </tr>
 
-        <!-- Dynamic Indicator Cards -->
-        <div class="grid grid-cols-3 gap-4">
-          <!-- Card 1: Delivery -->
-          <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm relative overflow-hidden">
-            <div class="text-[11px] font-bold uppercase text-slate-400">工程合理交期</div>
-            <div class="text-2xl font-black text-slate-900 mt-1" id="metric-delivery-weeks">-- 週</div>
-            <div class="text-xs font-semibold mt-1" id="metric-delivery-status">評估中...</div>
-          </div>
-
-          <!-- Card 2: High Load Target -->
-          <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
-            <div class="text-[11px] font-bold uppercase text-slate-400">10x 負載峰值考驗</div>
-            <div class="text-2xl font-black text-brand-600 mt-1" id="metric-10x-qps">-- QPS</div>
-            <div class="text-xs text-slate-500 mt-1" id="metric-latency-target">目標延遲 &lt; 250ms</div>
-          </div>
-
-          <!-- Card 3: Stability Risk -->
-          <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
-            <div class="text-[11px] font-bold uppercase text-slate-400">系統穩定度風險</div>
-            <div class="text-2xl font-black mt-1" id="metric-stability-level">--</div>
-            <div class="text-xs text-slate-500 mt-1" id="metric-stability-score">安全係數: 0/100</div>
-          </div>
-        </div>
-
-        <!-- Discrepancy / Alignment Warning Banner -->
-        <div id="alignment-alert" class="p-4 rounded-xl border flex items-start space-x-3 text-xs leading-relaxed">
-          <!-- Dynamic Alert Content -->
-        </div>
-
-        <!-- Strategy & Solution Tab -->
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
-          <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
-            <h3 class="text-sm font-bold text-slate-900">跨部門會議對齊策略 (Alignment Proposal)</h3>
-            <span class="text-xs px-2.5 py-0.5 rounded-full font-semibold bg-slate-100 text-slate-700" id="tag-proposal-mode">
-              雙軌交付模式 (Two-Phase)
-            </span>
-          </div>
-
-          <div class="space-y-4 text-xs">
-            <div>
-              <div class="font-bold text-slate-900 mb-1">【對業務團隊 (Sales / CS)】如何管理期待？</div>
-              <p class="text-slate-600 bg-slate-50 p-3 rounded-lg border border-slate-100 leading-relaxed" id="text-biz-pitch">
-                <!-- Injected by JS -->
-              </p>
-            </div>
-
-            <div>
-              <div class="font-bold text-slate-900 mb-1">【對工程團隊 (Tech Lead / 架構審查)】如何對齊架構規格？</div>
-              <p class="text-slate-600 bg-slate-50 p-3 rounded-lg border border-slate-100 leading-relaxed" id="text-tech-pitch">
-                <!-- Injected by JS -->
-              </p>
-            </div>
-
-            <div class="border-t border-slate-100 pt-3">
-              <div class="font-bold text-slate-900 mb-2">Kickoff 會議推薦驗收標準 (AC Checklist)</div>
-              <div id="list-kickoff-ac" class="space-y-1.5 font-mono text-slate-700">
-                <!-- Injected by JS -->
-              </div>
-            </div>
-          </div>
-        </div>
-
+          </tbody>
+        </table>
       </div>
 
     </div>
 
-  </main>
+  </div>
 
   <script>
-    function recalculate() {
-      const baseQps = parseInt(document.getElementById('range-base-qps').value);
-      const dataModels = parseInt(document.getElementById('range-data-models').value);
-      const bizDeadline = parseInt(document.getElementById('range-biz-deadline').value);
-
-      const hasDistributedLock = document.getElementById('chk-distributed-lock').checked;
-      const hasFeatureFlag = document.getElementById('chk-feature-flag').checked;
-      const hasAsyncWorker = document.getElementById('chk-async-worker').checked;
-
-      // Update Labels
-      document.getElementById('label-base-qps').innerText = `${baseQps} QPS`;
-      document.getElementById('label-data-models').innerText = `${dataModels} 個`;
-      document.getElementById('label-biz-deadline').innerText = `${bizDeadline} 週`;
-
-      // 1. Dynamic Metric: High Load (10x Rule)
-      const load10x = baseQps * 10;
-      document.getElementById('metric-10x-qps').innerText = `${load10x} QPS`;
-      document.getElementById('metric-latency-target').innerText = load10x > 1500 ? 'P99 延遲目標 < 400ms (需降級)' : 'P99 延遲目標 < 200ms';
-
-      // 2. Dynamic Metric: Delivery Estimation
-      let engineeringWeeks = 2 + Math.round(dataModels * 0.8);
-      if (hasDistributedLock) engineeringWeeks += 1;
-      if (hasFeatureFlag) engineeringWeeks += 0.5;
-      if (hasAsyncWorker) engineeringWeeks += 1;
-
-      engineeringWeeks = Math.round(engineeringWeeks);
-      document.getElementById('metric-delivery-weeks').innerText = `${engineeringWeeks} 週`;
-
-      const deliveryDiff = engineeringWeeks - bizDeadline;
-      const deliveryStatusEl = document.getElementById('metric-delivery-status');
-      if (deliveryDiff > 0) {
-        deliveryStatusEl.innerText = `超出業務期盼 ${deliveryDiff} 週 (需切分 Scope)`;
-        deliveryStatusEl.className = 'text-xs font-bold mt-1 text-rose-600';
-      } else {
-        deliveryStatusEl.innerText = '可準時依正統架構交付';
-        deliveryStatusEl.className = 'text-xs font-bold mt-1 text-emerald-600';
-      }
-
-      // 3. Dynamic Metric: Stability Risk
-      let riskScore = (dataModels * 12) + (load10x > 1000 ? 25 : 10);
-      if (!hasDistributedLock) riskScore += 25;
-      if (!hasFeatureFlag) riskScore += 15;
-      if (!hasAsyncWorker) riskScore += 20;
-
-      const stabilityEl = document.getElementById('metric-stability-level');
-      const stabilityScoreEl = document.getElementById('metric-stability-score');
-
-      if (riskScore > 65) {
-        stabilityEl.innerText = '高風險 (High)';
-        stabilityEl.className = 'text-2xl font-black mt-1 text-rose-600';
-        stabilityScoreEl.innerText = `風險指數: ${riskScore}/100 (極需架構防護)`;
-      } else if (riskScore > 35) {
-        stabilityEl.innerText = '中度風險 (Moderate)';
-        stabilityEl.className = 'text-2xl font-black mt-1 text-amber-600';
-        stabilityScoreEl.innerText = `風險指數: ${riskScore}/100 (可控)`;
-      } else {
-        stabilityEl.innerText = '低風險 (Stable)';
-        stabilityEl.className = 'text-2xl font-black mt-1 text-emerald-600';
-        stabilityScoreEl.innerText = `風險指數: ${riskScore}/100 (極佳)`;
-      }
-
-      // 4. Update Alignment Alert Banner
-      const alertEl = document.getElementById('alignment-alert');
-      if (deliveryDiff > 0 && (!hasDistributedLock || !hasFeatureFlag)) {
-        alertEl.className = 'p-4 rounded-xl border border-rose-200 bg-rose-50 text-rose-800 text-xs flex items-start space-x-3';
-        alertEl.innerHTML = `
-          <div class="text-base">🚨</div>
-          <div>
-            <strong>衝突警告：業務交付死線 (${bizDeadline} 週) 與架構安全規範嚴重抵觸！</strong><br>
-            若在未建立分散式防護與 Feature Flag 的情況下硬趕在 ${bizDeadline} 週上線，系統在尖峰時段承受 ${load10x} QPS 時，將有極高機率發生超賣或鎖庫（Deadlock）。強制啟動<strong>雙軌 MVP 拆解法</strong>。
-          </div>
-        `;
-      } else if (deliveryDiff > 0) {
-        alertEl.className = 'p-4 rounded-xl border border-amber-200 bg-amber-50 text-amber-800 text-xs flex items-start space-x-3';
-        alertEl.innerHTML = `
-          <div class="text-base">⚠️</div>
-          <div>
-            <strong>時程對齊提示：建議採用兩階段交付 (Phase 1 MVP + Phase 2 Scale)。</strong><br>
-            業務承諾為 ${bizDeadline} 週，正規架構需 ${engineeringWeeks} 週。建議前 ${bizDeadline} 週先交付「核心邏輯驗證版」，後續 ${deliveryDiff} 週補齊非同步佇列與全面灰度。
-          </div>
-        `;
-      } else {
-        alertEl.className = 'p-4 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-800 text-xs flex items-start space-x-3';
-        alertEl.innerHTML = `
-          <div class="text-base">✅</div>
-          <div>
-            <strong>對齊狀態極佳：工期與架構健康度皆符合架構規範標準。</strong><br>
-            目前規劃完全兼顧 10 倍負載擴展性與業務上線時間，可直接召開工程 Kickoff 會議審定。
-          </div>
-        `;
-      }
-
-      // 5. Update Strategy Pitches
-      const targetType = document.getElementById('req-target').value;
-
-      document.getElementById('text-biz-pitch').innerText = 
-        `「為確保客戶核心營運資產與金流絕對安全，我們採取企業級標準的兩階段導入法。在第 ${bizDeadline} 週當天，我們先開放核心功能給旗艦分店先行試營運（Pilot），並以專屬報表輔助；其餘高自動化連鎖同步功能將於第 ${engineeringWeeks} 週全量放量，確保大流量時完全不卡單。」`;
-
-      document.getElementById('text-tech-pitch').innerText = 
-        `「我們不會為了滿足業務端的 ${bizDeadline} 週死線而寫死 Hardcode 邏輯。第一版切分乾淨的微服務邊界，涉及的 ${dataModels} 個資料模型維持標準化解耦。尖峰需承受 ${load10x} QPS 壓力，以 Redis 獨立乘載候補搶位狀態，主資料庫僅在最終確認時異動，保障既有租戶穩定。」`;
-
-      // 6. Update AC List
-      const acContainer = document.getElementById('list-kickoff-ac');
-      acContainer.innerHTML = '';
-      const sampleAcs = [
-        `[AC 1] 支援高並發搶位：在 ${load10x} QPS 模擬壓測下，P99 響應時間小於 250ms 且超賣數等於 0。`,
-        `[AC 2] 灰度保護機制：功能全量由 Feature Flag 控制，可針對單一租戶或門市即時啟用/降級。`,
-        `[AC 3] 邊界容錯：第三方通訊/金流逾時時，系統保留預約狀態 15 分鐘並發送非同步補償機制。`,
-        `[AC 4] 用戶場景閉環：針對${targetType === 'returning' ? '老客候補通知逾時即自動順移' : '新客提供 30 秒免密碼快速授權'}。`
-      ];
-      sampleAcs.forEach(ac => {
-        const div = document.createElement('div');
-        div.className = 'flex items-start space-x-2';
-        div.innerHTML = `<span class="text-emerald-500 font-bold">✓</span><span>${ac}</span>`;
-        acContainer.appendChild(div);
+    // Tab switching demo
+    function switchTab(type) {
+      const tabs = ['returning', 'new', 'platform', 'ai'];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tab-${t}`);
+        if (t === type) {
+          btn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-mono border border-cyber-cyan bg-cyber-cyanMuted text-cyber-cyan font-bold transition';
+        } else {
+          btn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-mono border border-cyber-border bg-cyber-card text-slate-400 hover:text-slate-200 transition';
+        }
       });
     }
 
-    function loadTemplate(type) {
-      if (type === 'waitlist') {
-        document.getElementById('req-title').value = '熱門時段課表動態候補與自動遞補佇列';
-        document.getElementById('req-target').value = 'returning';
-        document.getElementById('req-source').value = 'sales';
-        document.getElementById('req-client-solution').value = '讓店家手動幫 VIP 插隊，或者有人取消時打電話通知';
-        document.getElementById('req-root-problem').value = '熱門尖峰時段秒殺，但課前 2 小時因臨時爽約產生 15% 席位空置，手動聯繫成本過高且缺乏公平性。';
-        document.getElementById('range-base-qps').value = 150;
-        document.getElementById('range-data-models').value = 4;
-        document.getElementById('range-biz-deadline').value = 4;
-        recalculate();
-      }
-    }
+    // Export Markdown
+    function exportMarkdownReport() {
+      const scope = document.getElementById('edit-scope').innerText.trim();
+      const sla = document.getElementById('edit-sla').innerText.trim();
+      const rollout = document.getElementById('edit-rollout').innerText.trim();
 
-    function exportAlignmentReport() {
-      const title = document.getElementById('req-title').value;
-      const target = document.getElementById('req-target').options[document.getElementById('req-target').selectedIndex].text;
-      const rootProblem = document.getElementById('req-root-problem').value;
-      const qps10x = document.getElementById('metric-10x-qps').innerText;
-      const deliveryWeeks = document.getElementById('metric-delivery-weeks').innerText;
-      const bizDeadline = document.getElementById('label-biz-deadline').innerText;
-      const risk = document.getElementById('metric-stability-level').innerText;
-
-      let md = `# [Engineering Alignment Report] ${title}\n\n`;
-      md += `*產出時間: 2026-09-09 | 負責 PM: Product PM | 審定角色: Tech Lead / Architecture Review*\n\n`;
-      md += `## 1. 需求背景與本質診斷\n`;
-      md += `- **目標對象:** ${target}\n`;
-      md += `- **核心真實痛點:** ${rootProblem}\n\n`;
-      md += `## 2. 量化架構指標與時程對齊\n`;
-      md += `- **10x 負載防線目標:** ${qps10x} (P99 < 250ms)\n`;
-      md += `- **業務期望交期:** ${bizDeadline}\n`;
-      md += `- **工程標準交期:** ${deliveryWeeks}\n`;
-      md += `- **系統穩定度風險:** ${risk}\n\n`;
-      md += `## 3. 跨部門溝通對齊話術\n`;
-      md += `### 對業務團隊 (Sales/CS)\n${document.getElementById('text-biz-pitch').innerText}\n\n`;
-      md += `### 對工程團隊 (Tech Lead/架構審查)\n${document.getElementById('text-tech-pitch').innerText}\n\n`;
-      md += `## 4. 核心驗收標準 (Acceptance Criteria)\n`;
-      const acItems = document.querySelectorAll('#list-kickoff-ac div span:last-child');
-      acItems.forEach(item => {
-        md += `- [ ] ${item.innerText}\n`;
-      });
+      let md = `# [Omcean Booking] Demand Alignment & Team Kickoff Memo\n\n`;
+      md += `*Theme: FinTech / Web3 High-Density Alignment Format*\n`;
+      md += `*Generated Date: 2026-09-09 | Role: Product PM*\n\n`;
+      md += `## 1. Kickoff 核心共識\n`;
+      md += `- **專案範疇 (Scope):** ${scope}\n`;
+      md += `- **10x 負載防線 (SLA):** ${sla}\n`;
+      md += `- **發布時程 (Rollout):** ${rollout}\n\n`;
+      md += `## 2. 跨部門 Action Matrix\n`;
+      md += `| 團隊 | 核心行動 | 交付狀態 |\n`;
+      md += `| :--- | :--- | :--- |\n`;
+      md += `| **Product PM** | 需求真因診斷、切分 MVP、管理業務期望 | 100% DEFINED |\n`;
+      md += `| **Sales / CS** | 溝通 Week 4 旗艦試辦、整理客訴爽約數據 | PILOT AGREED |\n`;
+      md += `| **UX / Frontend** | LINE 30秒降阻、候補 15 分鐘倒數狀態 | IN PROGRESS |\n`;
+      md += `| **Engineering** | Redis 分散式鎖防超賣、1,500 QPS 隔離保護 | 1,500 QPS READY |\n`;
+      md += `| **QA / DevOps** | Feature Flag 灰度、APM 延遲警報與壓測 | CANARY PASS |\n`;
 
       const blob = new Blob([md], { type: 'text/markdown' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `Alignment-Report-${Date.now()}.md`;
+      a.download = `Omcean-Team-Kickoff-Alignment.md`;
       a.click();
       URL.revokeObjectURL(url);
     }
-
-    window.onload = () => {
-      recalculate();
-    };
   </script>
 </body>
 </html>
