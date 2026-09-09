@@ -49,6 +49,13 @@
     ::-webkit-scrollbar-track { background: #060b13; }
     ::-webkit-scrollbar-thumb { background: #162235; border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
+
+    @media print {
+      body { background-color: #ffffff !important; color: #000000 !important; }
+      header, .no-print { display: none !important; }
+      .bg-cyber-card, .bg-\[\#05080f\], .bg-\[\#0a121e\] { background-color: #ffffff !important; border-color: #cccccc !important; color: #000000 !important; }
+      .text-cyber-cyan, .text-cyber-green, .text-cyber-gold { color: #000000 !important; font-weight: bold; }
+    }
   </style>
 </head>
 <body class="min-h-screen px-4 sm:px-8 py-6 antialiased space-y-6">
@@ -56,7 +63,7 @@
   <div class="max-w-[1440px] mx-auto space-y-6">
 
     <!-- 頂部導航與狀態列 -->
-    <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyber-border pb-4">
+    <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyber-border pb-4 no-print">
       <div>
         <div class="flex items-center gap-3">
           <span class="w-8 h-8 rounded-lg bg-cyber-cyan text-slate-950 font-black flex items-center justify-center text-sm font-mono">OB</span>
@@ -68,9 +75,9 @@
       </div>
 
       <div class="flex items-center space-x-3 font-mono text-xs">
-        <span class="px-2.5 py-1 rounded bg-cyber-cyanMuted text-cyber-cyan border border-cyber-cyan/30">
-          ● PRD & AC 自動直出模式已就緒
-        </span>
+        <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg border border-cyber-border bg-cyber-card text-slate-300 hover:text-white hover:border-cyber-cyan transition">
+          🖨️ 匯出 PDF
+        </button>
         <button onclick="exportFullMarkdown()" class="px-4 py-1.5 rounded-lg bg-cyber-cyan text-slate-950 font-bold hover:bg-opacity-90 transition shadow-lg shadow-cyber-cyan/10">
           匯出完整交付報告 (.MD)
         </button>
@@ -187,16 +194,21 @@
         </span>
       </div>
 
-      <!-- PRD & AC 即時直出面板 + PM 決策重點分析 (取代原本純 Prompt 貼去 Claude) -->
+      <!-- PRD & AC 即時直出面板 + PM 決策重點分析 -->
       <div class="pt-4 border-t border-cyber-border space-y-4">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-cyber-green animate-pulse"></span>
             <span class="text-xs font-bold font-mono text-cyber-green">PRD & AC 規格即時直出面板 (已省去向 AI 提問步驟)</span>
           </div>
-          <button onclick="copyGeneratedPrd()" class="text-xs font-mono px-2.5 py-1 rounded bg-emerald-950 hover:bg-emerald-900 text-cyber-green border border-emerald-800 transition">
-            📋 複製完整 PRD 規格書
-          </button>
+          <div class="flex space-x-2">
+            <button onclick="copyGeneratedPrdAndWriteToKickoff()" class="text-xs font-mono px-2.5 py-1 rounded bg-emerald-950 hover:bg-emerald-900 text-cyber-green border border-emerald-800 transition">
+              📋 複製完整 PRD 規格書並寫入 STEP 3
+            </button>
+            <button onclick="window.print()" class="text-xs font-mono px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-cyber-border transition">
+              🖨️ PDF 列印
+            </button>
+          </div>
         </div>
 
         <!-- 雙欄版面：左側 PRD 規格與 AC / 右側 PM 深度決策重點 -->
@@ -432,19 +444,20 @@
           <span class="px-2.5 py-0.5 rounded bg-cyber-gold text-slate-950 font-black text-xs font-mono">STEP 3</span>
           <h2 class="text-sm font-bold text-white tracking-wide">跨部門對齊與共識簽核 (Kickoff & Alignment)</h2>
         </div>
-        <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">全團隊對齊中</span>
+        <div class="flex items-center gap-2">
+          <button onclick="writeCurrentPrdToKickoffMemo()" class="text-xs font-mono px-2.5 py-1 rounded bg-cyber-gold text-slate-950 font-bold hover:bg-yellow-400 transition">
+            ⚡ 將上方 PRD 自動封裝寫入此處
+          </button>
+          <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">全團隊對齊中</span>
+        </div>
       </div>
 
-      <div id="ko-memo" contenteditable="true" class="w-full bg-[#05080f] border border-cyber-border rounded-lg p-3 text-xs font-mono leading-relaxed text-slate-200 focus:outline-none min-h-[130px]">
-1. 業務端 (Sales/CS)：已確認客戶同意採兩階段交付，Week 4 先跑 2 家旗艦店試營運。
-2. 工程端 (Tech Lead)：候補資料暫存於 Redis 分散式鎖，主資料庫僅在確認預約時更新，保障 99.95% 穩定度。
-3. 範疇協議 (Scope Control)：上線前若有新欄位要求，一律凍結至 Phase 2，守住 100% 準時上線 OKR。
-4. 矽谷 Chatbot 對齊：已將「防無效預約」與「禁止承諾全額退款」之 Guardrail 寫入 System Prompt。
-5. 知識沉澱：下週二同步產出 CS 專用「候補常見 QA」與後台店家操作 Help Center 文件。
+      <div id="ko-memo" contenteditable="true" class="w-full bg-[#05080f] border border-cyber-border rounded-lg p-4 text-xs font-mono leading-relaxed text-slate-200 focus:outline-none min-h-[220px]">
+        <!-- 自動生成與寫入 Kickoff 合約 -->
       </div>
 
       <div class="flex items-center justify-between text-[11px] font-mono text-slate-500 pt-2 border-t border-cyber-border">
-        <span>💡 提示：所有欄位皆可隨時修改，點擊右上角自動封裝為完整 Markdown。</span>
+        <span>💡 提示：本區塊已完整整合 PRD、OKR、Gherkin AC 與團隊簽署紀錄，點擊右上角自動下載為 Markdown 或 PDF。</span>
       </div>
     </section>
 
@@ -589,6 +602,7 @@
       document.getElementById('req-scope').value = preset.scope;
 
       renderInstantPrdAndInsights(preset);
+      writeCurrentPrdToKickoffMemo();
     }
 
     function manualInputSync() {
@@ -601,6 +615,7 @@
         scope: document.getElementById('req-scope').value
       };
       renderInstantPrdAndInsights(customPreset);
+      writeCurrentPrdToKickoffMemo();
     }
 
     // ----------------------------------------------------
@@ -609,7 +624,6 @@
     function renderInstantPrdAndInsights(data) {
       document.getElementById('prd-header-title').innerText = `[PRD] ${data.title}`;
 
-      // 1. 自動組合 PRD & Gherkin AC 內容
       const prdHtml = `
         <div class="border-b border-cyber-border/50 pb-2 mb-2">
           <span class="text-cyber-cyan font-bold block mb-1">【一、 痛點對比與架構取捨】</span>
@@ -642,7 +656,6 @@
       `;
       document.getElementById('prd-content-view').innerHTML = prdHtml;
 
-      // 2. 自動產出 PM 3 大決策重點剖析
       const insightsHtml = `
         <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
           <div class="text-cyber-cyan font-bold">1. 拒絕特例，堅持標準化 (OKR 2)</div>
@@ -660,10 +673,75 @@
       document.getElementById('prd-pm-insights').innerHTML = insightsHtml;
     }
 
-    function copyGeneratedPrd() {
-      const prdText = document.getElementById('prd-content-view').innerText;
-      navigator.clipboard.writeText(prdText);
-      alert('PRD 規格書已成功複製至剪貼簿！可直接貼進 Jira / Confluence。');
+    // ----------------------------------------------------
+    // 將完整 PRD 規格自動組裝為 Markdown 格式並寫入 STEP 3
+    // ----------------------------------------------------
+    function getFullPrdMarkdown() {
+      const selectEl = document.getElementById('req-title-select');
+      const title = selectEl.options[selectEl.selectedIndex].text;
+      const voice = document.getElementById('req-voice').value;
+      const problem = document.getElementById('req-problem').value;
+      const scope = document.getElementById('req-scope').value;
+
+      const okr1 = document.getElementById('okr-val-1').innerText.trim();
+      const okr2 = document.getElementById('okr-val-2').innerText.trim();
+      const okr3 = document.getElementById('okr-val-3').innerText.trim();
+      const okr4 = document.getElementById('okr-val-4').innerText.trim();
+      const okr5 = document.getElementById('okr-val-5').innerText.trim();
+
+      return `# [Kickoff 審定合約] ${title} 交付規格書 (PRD)
+
+| 文件屬性 | 規格內容 |
+| :--- | :--- |
+| **專案名稱** | ${title} |
+| **負責產品經理** | Product PM |
+| **審定日期** | 2026-09-09 |
+| **交付模式** | 雙軌交付 (Week 4 旗艦試營運 / Week 8 全量微服務解耦) |
+| **合約狀態** | ✅ 已於 STEP 3 跨部門會議共識凍結 (Scope Frozen) |
+
+---
+
+### 一、 5 大專案管理 OKR 指標防線
+* **OKR 1 (穩定度):** ${okr1}，尖峰零超賣，Redis 原生原子鎖承載搶位
+* **OKR 2 (準確度):** ${okr2}，100% 符合 Gherkin AC 驗收
+* **OKR 3 (準時率):** ${okr3}，雙軌準時交付 (W4 Pilot / W8 Full)
+* **OKR 4 (變更率):** ${okr4}，嚴守 Out of Scope，本期禁止追加
+* **OKR 5 (成本控制):** ${okr5}，微服務解耦，0 額外技術債
+
+---
+
+### 二、 核心痛點對比與邊界防線
+* **客戶原始訴求:** ${voice}
+* **PM 轉化之真因痛點:** ${problem}
+* **變更管理防線 (本次絕對不做):** ${scope}
+
+---
+
+### 三、 驗收標準 (Gherkin AC)
+* **AC 1 (正向流動):** Given 進入預約/候補狀態, When 用戶觸發核心操作, Then 系統預先完成資產檢查並在 200ms 內反饋。
+* **AC 2 (分散式鎖定):** Given 席位釋出, When 多人並發搶位, Then 系統透過 Redis 分散式鎖進行原子鎖定，嚴禁超賣。
+* **AC 3 (逾時補償):** Given 進入保留倒數 15 分鐘, When 倒數逾時未確認, Then 狀態自動釋放並順移至下一位候補。
+* **AC 4 (防呆邊界):** Given 網路中斷或 Webhook 延遲, When 重新請求, Then 實施等冪性校驗不重複扣點。
+
+---
+
+### 四、 跨部門承諾簽核 (Sign-off)
+1. 業務端 (Sales/CS): 已確認客戶接受兩階段導入，不承諾額外客製特權插隊。
+2. 工程端 (Tech Lead): 候補佇列全面由 Redis 承載，主資料庫僅在確認扣點時寫入，保障 1,500 QPS 負載。
+3. 測試端 (QA): 搭建 1,500 QPS 壓測與 Feature Flag 灰度開關，延遲 > 2 秒觸發自動警報。
+`;
+    }
+
+    function writeCurrentPrdToKickoffMemo() {
+      const memoEl = document.getElementById('ko-memo');
+      memoEl.innerText = getFullPrdMarkdown();
+    }
+
+    function copyGeneratedPrdAndWriteToKickoff() {
+      writeCurrentPrdToKickoffMemo();
+      const md = getFullPrdMarkdown();
+      navigator.clipboard.writeText(md);
+      alert('PRD 規格已完整產生、寫入 STEP 3 簽核區，並已複製至剪貼簿！');
     }
 
     // ----------------------------------------------------
@@ -755,54 +833,12 @@
     }
 
     function exportFullMarkdown() {
-      const okr1 = document.getElementById('okr-val-1').innerText.trim();
-      const okr2 = document.getElementById('okr-val-2').innerText.trim();
-      const okr3 = document.getElementById('okr-val-3').innerText.trim();
-      const okr4 = document.getElementById('okr-val-4').innerText.trim();
-      const okr5 = document.getElementById('okr-val-5').innerText.trim();
-
-      const selectEl = document.getElementById('req-title-select');
-      const title = selectEl.options[selectEl.selectedIndex].text;
-      const voice = document.getElementById('req-voice').value;
-      const problem = document.getElementById('req-problem').value;
-      const scope = document.getElementById('req-scope').value;
-      const prdText = document.getElementById('prd-content-view').innerText;
-      const memo = document.getElementById('ko-memo').innerText.trim();
-
-      let md = `# [Omcean Booking] 產品全維度交付與品質報告\n\n`;
-      md += `*專案名稱: ${title} | 負責 PM: Product PM | 狀態: 雙軌衝刺中*\n\n`;
-      
-      md += `## 一、 5 大自訂 OKR 指標防線\n`;
-      md += `- **1. 系統穩定度:** ${okr1} (${document.getElementById('okr-sub-1').innerText.trim()})\n`;
-      md += `- **2. 交付準確度:** ${okr2} (${document.getElementById('okr-sub-2').innerText.trim()})\n`;
-      md += `- **3. 準時交付率:** ${okr3} (${document.getElementById('okr-sub-3').innerText.trim()})\n`;
-      md += `- **4. 範疇變更率:** ${okr4} (${document.getElementById('okr-sub-4').innerText.trim()})\n`;
-      md += `- **5. 研發成本控制:** ${okr5} (${document.getElementById('okr-sub-5').innerText.trim()})\n\n`;
-
-      md += `## 二、 即時生成的完整 PRD 規格文件\n\`\`\`\n${prdText}\n\`\`\`\n\n`;
-
-      md += `## 三、 STEP 1: 需求診斷與真因痛點\n`;
-      md += `- **客戶原始聲音:** ${voice}\n`;
-      md += `- **PM 診斷核心痛點:** ${problem}\n`;
-      md += `- **嚴格排除範疇 (Out of Scope):**\n${scope}\n\n`;
-
-      md += `## 四、 STEP 2: Jira 敏捷看板流轉狀態\n`;
-      tickets.forEach(t => {
-        md += `- [${t.status.toUpperCase()}] **${t.id}**: ${t.title} *(Owner: ${t.tag})*\n`;
-      });
-      md += `\n`;
-
-      md += `## 五、 矽谷 Chatbot 與親身測試防線\n`;
-      md += `- **AI 安全紅線:** 嚴禁自作主張承諾全額退款，自動導流真人審核工單。\n`;
-      md += `- **Bug 回報格式:** 符合非同步外籍工程團隊 Jira 標準。\n\n`;
-
-      md += `## 六、 STEP 3: Kickoff 跨部門共識備忘錄\n\`\`\`\n${memo}\n\`\`\`\n`;
-
+      const md = getFullPrdMarkdown();
       const blob = new Blob([md], { type: 'text/markdown' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `PM-Delivery-Report-${Date.now()}.md`;
+      a.download = `Kickoff-Approved-PRD-${Date.now()}.md`;
       a.click();
       URL.revokeObjectURL(url);
     }
