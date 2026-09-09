@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Omcean Booking - Product Ops Portal</title>
+  <title>Omcean Booking - PM Demand Assessment & Alignment System</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -19,7 +19,7 @@
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
 
-  <!-- Header -->
+  <!-- Top Navigation -->
   <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <div class="flex items-center space-x-3">
@@ -27,16 +27,16 @@
           OB
         </div>
         <div>
-          <h1 class="font-bold text-slate-900 leading-none">Omcean Booking</h1>
-          <span class="text-xs text-slate-500 font-medium">Product Ops Streamliner & PRD Engine</span>
+          <h1 class="font-bold text-slate-900 leading-none">PM Demand Alignment Engine</h1>
+          <span class="text-xs text-slate-500 font-medium">Omcean Booking 產品標準化評估與工程對齊系統</span>
         </div>
       </div>
       <div class="flex items-center space-x-3">
         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
-          ● CTO Guardrails: Active
+          ● 技術架構標準模式啟用
         </span>
-        <button onclick="exportFullMarkdown()" class="bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition shadow-sm">
-          匯出完整 PRD (.md)
+        <button onclick="exportAlignmentReport()" class="bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition shadow-sm">
+          匯出團隊對齊簡報 (MD)
         </button>
       </div>
     </div>
@@ -44,141 +44,201 @@
 
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-    <!-- Top Banner: Guidance & CTO Principles -->
-    <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-2xl p-6 mb-8 shadow-md">
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <!-- SOP Breadcrumbs -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-3 mb-8">
+      <div class="bg-white p-3 rounded-xl border border-brand-500 shadow-sm flex items-center space-x-3">
+        <div class="w-7 h-7 rounded-full bg-brand-600 text-white flex items-center justify-center text-xs font-bold">1</div>
         <div>
-          <h2 class="text-lg font-bold mb-1">Product Discovery & Delivery Framework</h2>
-          <p class="text-slate-300 text-sm max-w-2xl">
-            收斂客戶痛點，將解法分流為「新客極致降阻」與「老客資源最大化」，並以 CTO Michel 的 10 倍負載與高維護性作為規格防線。
-          </p>
+          <div class="text-xs font-bold text-slate-900">Step 1: 需求結構化</div>
+          <div class="text-[11px] text-slate-500">拆解痛點與用戶類別</div>
         </div>
-        <div class="flex gap-2">
-          <div class="bg-slate-800/80 border border-slate-700 rounded-xl px-3 py-2 text-center">
-            <div class="text-xs text-slate-400">系統標準</div>
-            <div class="text-sm font-semibold text-teal-400">10x Load Ready</div>
-          </div>
-          <div class="bg-slate-800/80 border border-slate-700 rounded-xl px-3 py-2 text-center">
-            <div class="text-xs text-slate-400">發布策略</div>
-            <div class="text-sm font-semibold text-emerald-400">Canary Rollout</div>
-          </div>
+      </div>
+      <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-3">
+        <div class="w-7 h-7 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center text-xs font-bold">2</div>
+        <div>
+          <div class="text-xs font-bold text-slate-900">Step 2: 量化指標試算</div>
+          <div class="text-[11px] text-slate-500">動態計算交期/負載/風險</div>
+        </div>
+      </div>
+      <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-3">
+        <div class="w-7 h-7 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center text-xs font-bold">3</div>
+        <div>
+          <div class="text-xs font-bold text-slate-900">Step 3: 架構防線把關</div>
+          <div class="text-[11px] text-slate-500">驗證 10x 與微服務隔離</div>
+        </div>
+      </div>
+      <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm flex items-center space-x-3">
+        <div class="w-7 h-7 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center text-xs font-bold">4</div>
+        <div>
+          <div class="text-xs font-bold text-slate-900">Step 4: Kickoff 對齊</div>
+          <div class="text-[11px] text-slate-500">產出 PRD 與工程議程</div>
         </div>
       </div>
     </div>
 
-    <!-- Segment Filter -->
-    <div class="flex items-center justify-between mb-6">
-      <div class="inline-flex bg-slate-200/80 p-1 rounded-xl text-sm font-medium">
-        <button onclick="filterSegment('all')" id="btn-all" class="px-4 py-1.5 rounded-lg bg-white text-slate-900 shadow-sm transition">
-          全部需求池
-        </button>
-        <button onclick="filterSegment('new')" id="btn-new" class="px-4 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">
-          新客場景（體驗與轉換）
-        </button>
-        <button onclick="filterSegment('returning')" id="btn-returning" class="px-4 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">
-          老客場景（留存與候補）
-        </button>
-      </div>
-      <div class="text-xs text-slate-500 font-mono" id="item-count">Showing 3 Items</div>
-    </div>
-
-    <!-- Main Grid Layout -->
+    <!-- Main Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
-      <!-- Left Column: Feature Queue (5 cols) -->
-      <div class="lg:col-span-5 space-y-4" id="feature-list">
-        <!-- Feature Cards injected by JS -->
+      <!-- Left: Dynamic Intake Form (5 cols) -->
+      <div class="lg:col-span-5 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+        <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
+          <h2 class="text-base font-bold text-slate-900">需求輸入工作台 (Demand Intake)</h2>
+          <button onclick="loadTemplate('waitlist')" class="text-xs text-brand-600 hover:text-brand-700 font-semibold underline">帶入候補熱門範例</button>
+        </div>
+
+        <form id="demand-form" class="space-y-4" onsubmit="event.preventDefault(); recalculate();">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">需求名稱 (Title)</label>
+            <input type="text" id="req-title" value="尖峰時段熱門排課動態候補與自動通知" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:outline-none">
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">目標對象</label>
+              <select id="req-target" onchange="recalculate()" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500">
+                <option value="returning">老客 (留存與資源公平)</option>
+                <option value="new">新客 (極致降阻與首購)</option>
+                <option value="store">店家管理者 (營運與對帳)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">需求提出方</label>
+              <select id="req-source" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500">
+                <option value="sales">業務 (指標旗艦客戶需求)</option>
+                <option value="cs">客服 (大量重複抱怨客訴)</option>
+                <option value="product">產品主動發掘 (數據漏斗)</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">客戶原始要求 (Client Solution)</label>
+            <input type="text" id="req-client-solution" value="想要手動幫常客插隊，並要求系統隨時發簡訊通知所有人" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500">
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1">PM 轉化真因痛點 (Root Problem)</label>
+            <textarea id="req-root-problem" rows="2" class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500">熱門時段課程額滿迅速，但臨開課前爽約率達 18%，缺乏自動化機制導致名額浪費且教練鐘點費折損。</textarea>
+          </div>
+
+          <!-- Parameter Controllers -->
+          <div class="pt-3 border-t border-slate-100">
+            <h3 class="text-xs font-bold text-slate-900 mb-3 uppercase tracking-wider">量化指標參數調校</h3>
+            
+            <div class="space-y-3">
+              <div>
+                <div class="flex justify-between text-xs font-medium text-slate-600 mb-1">
+                  <span>日常預期每秒請求數 (Base QPS)</span>
+                  <span id="label-base-qps" class="font-bold text-slate-900">120 QPS</span>
+                </div>
+                <input type="range" min="10" max="500" step="10" id="range-base-qps" value="120" oninput="recalculate()" class="w-full accent-brand-600">
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-medium text-slate-600 mb-1">
+                  <span>影響核心資料模組數量 (Data Models Affected)</span>
+                  <span id="label-data-models" class="font-bold text-slate-900">3 個</span>
+                </div>
+                <input type="range" min="1" max="8" step="1" id="range-data-models" value="3" oninput="recalculate()" class="w-full accent-brand-600">
+                <span class="text-[10px] text-slate-400">涉及模型越多，穩定度風險呈非線性上升</span>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-medium text-slate-600 mb-1">
+                  <span>業務承諾期望上線週數</span>
+                  <span id="label-biz-deadline" class="font-bold text-slate-900">4 週</span>
+                </div>
+                <input type="range" min="2" max="12" step="1" id="range-biz-deadline" value="4" oninput="recalculate()" class="w-full accent-brand-600">
+              </div>
+            </div>
+          </div>
+
+          <!-- Architectural Readiness Switches -->
+          <div class="pt-3 border-t border-slate-100">
+            <h3 class="text-xs font-bold text-slate-900 mb-2 uppercase tracking-wider">技術架構防線要求 (Checklist)</h3>
+            <div class="space-y-1.5 text-xs">
+              <label class="flex items-center space-x-2">
+                <input type="checkbox" id="chk-distributed-lock" onchange="recalculate()" checked class="rounded text-brand-600">
+                <span>引入 Redis 分散式鎖防超賣 (Distributed Lock)</span>
+              </label>
+              <label class="flex items-center space-x-2">
+                <input type="checkbox" id="chk-feature-flag" onchange="recalculate()" checked class="rounded text-brand-600">
+                <span>支援 Feature Flag 灰度放量 (Canary Release)</span>
+              </label>
+              <label class="flex items-center space-x-2">
+                <input type="checkbox" id="chk-async-worker" onchange="recalculate()" checked class="rounded text-brand-600">
+                <span>推播通知移至非同步佇列 (Async Worker)</span>
+              </label>
+            </div>
+          </div>
+        </form>
       </div>
 
-      <!-- Right Column: Interactive Evaluation & PRD Inspector (7 cols) -->
-      <div class="lg:col-span-7">
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm sticky top-24">
-          
-          <div class="flex items-start justify-between border-b border-slate-100 pb-4 mb-6">
-            <div>
-              <span id="detail-segment-badge" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-teal-100 text-teal-800">新客體驗</span>
-              <h3 id="detail-title" class="text-xl font-bold text-slate-900 mt-2">選擇一個功能以檢視規格</h3>
-              <p id="detail-desc" class="text-sm text-slate-500 mt-1">點擊左側卡片即時調整 RICE 權重與架構評估。</p>
-            </div>
-            <div class="text-right">
-              <div class="text-xs font-medium text-slate-400">RICE Priority Score</div>
-              <div id="detail-rice-score" class="text-2xl font-black text-brand-600">--</div>
-            </div>
+      <!-- Right: Dynamic Metrics & Alignment Dashboard (7 cols) -->
+      <div class="lg:col-span-7 space-y-6">
+
+        <!-- Dynamic Indicator Cards -->
+        <div class="grid grid-cols-3 gap-4">
+          <!-- Card 1: Delivery -->
+          <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm relative overflow-hidden">
+            <div class="text-[11px] font-bold uppercase text-slate-400">工程合理交期</div>
+            <div class="text-2xl font-black text-slate-900 mt-1" id="metric-delivery-weeks">-- 週</div>
+            <div class="text-xs font-semibold mt-1" id="metric-delivery-status">評估中...</div>
           </div>
 
-          <!-- Interactive RICE Sliders -->
-          <div class="mb-6 bg-slate-50 p-4 rounded-xl border border-slate-100">
-            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">RICE 優先級評估矩陣</h4>
-            <div class="grid grid-cols-2 gap-4">
-              <div>
-                <div class="flex justify-between text-xs font-medium text-slate-600 mb-1">
-                  <span>Reach (受眾規模: 1-10)</span>
-                  <span id="val-reach" class="font-bold text-slate-900">8</span>
-                </div>
-                <input type="range" min="1" max="10" id="slider-reach" oninput="updateCalculation()" class="w-full accent-brand-600">
-              </div>
-              <div>
-                <div class="flex justify-between text-xs font-medium text-slate-600 mb-1">
-                  <span>Impact (影響力: 1-5)</span>
-                  <span id="val-impact" class="font-bold text-slate-900">4</span>
-                </div>
-                <input type="range" min="1" max="5" id="slider-impact" oninput="updateCalculation()" class="w-full accent-brand-600">
-              </div>
-              <div>
-                <div class="flex justify-between text-xs font-medium text-slate-600 mb-1">
-                  <span>Confidence (信心度: %)</span>
-                  <span id="val-confidence" class="font-bold text-slate-900">80%</span>
-                </div>
-                <input type="range" min="50" max="100" step="10" id="slider-confidence" oninput="updateCalculation()" class="w-full accent-brand-600">
-              </div>
-              <div>
-                <div class="flex justify-between text-xs font-medium text-slate-600 mb-1">
-                  <span>Effort (開發週數: 1-10)</span>
-                  <span id="val-effort" class="font-bold text-slate-900">4</span>
-                </div>
-                <input type="range" min="1" max="10" id="slider-effort" oninput="updateCalculation()" class="w-full accent-brand-600">
-              </div>
-            </div>
+          <!-- Card 2: High Load Target -->
+          <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+            <div class="text-[11px] font-bold uppercase text-slate-400">10x 負載峰值考驗</div>
+            <div class="text-2xl font-black text-brand-600 mt-1" id="metric-10x-qps">-- QPS</div>
+            <div class="text-xs text-slate-500 mt-1" id="metric-latency-target">目標延遲 &lt; 250ms</div>
           </div>
 
-          <!-- CTO Michel Gatekeepers -->
-          <div class="mb-6">
-            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">CTO Michel 架構檢查防線</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
-              <label class="flex items-center space-x-2 p-2.5 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-50">
-                <input type="checkbox" id="check-scale" onchange="updateCalculation()" class="rounded text-brand-600 focus:ring-brand-500">
-                <span class="text-slate-700">支援 10x 負載架構</span>
-              </label>
-              <label class="flex items-center space-x-2 p-2.5 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-50">
-                <input type="checkbox" id="check-maintainable" onchange="updateCalculation()" class="rounded text-brand-600 focus:ring-brand-500">
-                <span class="text-slate-700">零客製化技術債</span>
-              </label>
-              <label class="flex items-center space-x-2 p-2.5 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-50">
-                <input type="checkbox" id="check-canary" onchange="updateCalculation()" class="rounded text-brand-600 focus:ring-brand-500">
-                <span class="text-slate-700">支援 Feature Flag 灰度發布</span>
-              </label>
-              <label class="flex items-center space-x-2 p-2.5 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-50">
-                <input type="checkbox" id="check-nfr" onchange="updateCalculation()" class="rounded text-brand-600 focus:ring-brand-500">
-                <span class="text-slate-700">含 APM 延遲與錯誤監控</span>
-              </label>
-            </div>
-            <div id="architecture-warning" class="hidden mt-3 p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-800">
-              ⚠️ <strong>CTO 警示：</strong> 開發工期超過 4 週且未滿足所有架構原則。建議切分為「Week 4 Phase 1 乾淨 MVP」與「Week 10 正統重構」。
-            </div>
+          <!-- Card 3: Stability Risk -->
+          <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+            <div class="text-[11px] font-bold uppercase text-slate-400">系統穩定度風險</div>
+            <div class="text-2xl font-black mt-1" id="metric-stability-level">--</div>
+            <div class="text-xs text-slate-500 mt-1" id="metric-stability-score">安全係數: 0/100</div>
           </div>
-
-          <!-- User Story & AC Preview -->
-          <div class="border-t border-slate-100 pt-4">
-            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">PRD 使用者故事與驗收標準 (AC)</h4>
-            <div id="detail-story" class="text-xs text-slate-600 bg-slate-50 p-3 rounded-lg border border-slate-200 mb-3 font-mono leading-relaxed">
-              請從左側點選功能以展開內容。
-            </div>
-            <ul id="detail-ac" class="space-y-1 text-xs text-slate-700">
-              <!-- Injected by JS -->
-            </ul>
-          </div>
-
         </div>
+
+        <!-- Discrepancy / Alignment Warning Banner -->
+        <div id="alignment-alert" class="p-4 rounded-xl border flex items-start space-x-3 text-xs leading-relaxed">
+          <!-- Dynamic Alert Content -->
+        </div>
+
+        <!-- Strategy & Solution Tab -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+          <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+            <h3 class="text-sm font-bold text-slate-900">跨部門會議對齊策略 (Alignment Proposal)</h3>
+            <span class="text-xs px-2.5 py-0.5 rounded-full font-semibold bg-slate-100 text-slate-700" id="tag-proposal-mode">
+              雙軌交付模式 (Two-Phase)
+            </span>
+          </div>
+
+          <div class="space-y-4 text-xs">
+            <div>
+              <div class="font-bold text-slate-900 mb-1">【對業務團隊 (Sales / CS)】如何管理期待？</div>
+              <p class="text-slate-600 bg-slate-50 p-3 rounded-lg border border-slate-100 leading-relaxed" id="text-biz-pitch">
+                <!-- Injected by JS -->
+              </p>
+            </div>
+
+            <div>
+              <div class="font-bold text-slate-900 mb-1">【對工程團隊 (Tech Lead / 架構審查)】如何對齊架構規格？</div>
+              <p class="text-slate-600 bg-slate-50 p-3 rounded-lg border border-slate-100 leading-relaxed" id="text-tech-pitch">
+                <!-- Injected by JS -->
+              </p>
+            </div>
+
+            <div class="border-t border-slate-100 pt-3">
+              <div class="font-bold text-slate-900 mb-2">Kickoff 會議推薦驗收標準 (AC Checklist)</div>
+              <div id="list-kickoff-ac" class="space-y-1.5 font-mono text-slate-700">
+                <!-- Injected by JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -186,214 +246,177 @@
   </main>
 
   <script>
-    const features = [
-      {
-        id: 'feat-1',
-        title: 'LINE 1-Click 無摩擦體驗預約',
-        segment: 'new',
-        segmentLabel: '新客體驗',
-        desc: '首購學員點擊 LINE 即可透過 LIFF 自動授權建檔，30 秒內完成單次體驗購課。',
-        reach: 9,
-        impact: 5,
-        confidence: 90,
-        effort: 3,
-        checks: { scale: true, maintainable: true, canary: true, nfr: true },
-        story: 'As a 第一次接觸場館的新學員,\nI want to 直接在 LINE 點擊時段並完成單次體驗預約,\nSo that 我不需要額外下載 App 或重複填寫會員密碼即可上課。',
-        acs: [
-          'LIFF 授權自動綁定 LINE UID，免設定密碼建檔',
-          '結帳支援 Apple Pay / LINE Pay 單次快捷扣款',
-          '報名成功後自動推播圖文卡片（含交通導航與新手到館須知）',
-          '重複 UID 自動隱藏新手體驗優惠'
-        ]
-      },
-      {
-        id: 'feat-2',
-        title: '熱門課動態候補與自動遞補引擎',
-        segment: 'returning',
-        segmentLabel: '老客留存',
-        desc: '額滿熱門課支援佇列排隊；有人取消時，系統自動透過 Redis 依序推播限時遞補。',
-        reach: 8,
-        impact: 4,
-        confidence: 80,
-        effort: 5,
-        checks: { scale: true, maintainable: true, canary: true, nfr: false },
-        story: 'As a 常態上課的活躍學員,\nI want to 在額滿課程上一鍵加入候補名單並自動獲得名額釋出通知,\nSo that 我不需要隨時手動刷課表，也能公平爭取到熱門時段空位。',
-        acs: [
-          '課程額滿時按鈕自動切換為「加入候補（顯示順位）」',
-          '釋出空位時，依序透過 LINE 推播提供 15 分鐘保留鎖定',
-          '開課前 2 小時切換為「廣播搶位模式」避免名額空置',
-          '加入候補前預先驗證既有堂數餘額，防止無效排隊'
-        ]
-      },
-      {
-        id: 'feat-3',
-        title: '老客會員中心資產一鍵展延與快速複訂',
-        segment: 'returning',
-        segmentLabel: '老客留存',
-        desc: '清晰顯示剩餘堂數與到期預警，並提供常上老師的 1-Click 快速複訂快捷鍵。',
-        reach: 7,
-        impact: 3,
-        confidence: 90,
-        effort: 2,
-        checks: { scale: true, maintainable: true, canary: true, nfr: true },
-        story: 'As a 每週固定回流的老學員,\nI want to 在首頁一鍵複訂常約教練與查詢堂數餘額,\nSo that 我能以最快速度完成日常課表安排。',
-        acs: [
-          '首頁頂部直接展示「最近常約師資與時段」推薦卡片',
-          '票券到期前 14 天/7 天觸發自動 LINE 提醒並附上續購優惠碼',
-          '歷史出席率與里程碑徽章展示（如：達成 50 堂課）'
-        ]
-      }
-    ];
+    function recalculate() {
+      const baseQps = parseInt(document.getElementById('range-base-qps').value);
+      const dataModels = parseInt(document.getElementById('range-data-models').value);
+      const bizDeadline = parseInt(document.getElementById('range-biz-deadline').value);
 
-    let currentSegment = 'all';
-    let selectedFeature = features[0];
+      const hasDistributedLock = document.getElementById('chk-distributed-lock').checked;
+      const hasFeatureFlag = document.getElementById('chk-feature-flag').checked;
+      const hasAsyncWorker = document.getElementById('chk-async-worker').checked;
 
-    function renderFeatures() {
-      const container = document.getElementById('feature-list');
-      container.innerHTML = '';
+      // Update Labels
+      document.getElementById('label-base-qps').innerText = `${baseQps} QPS`;
+      document.getElementById('label-data-models').innerText = `${dataModels} 個`;
+      document.getElementById('label-biz-deadline').innerText = `${bizDeadline} 週`;
 
-      const filtered = features.filter(f => currentSegment === 'all' || f.segment === currentSegment);
-      document.getElementById('item-count').innerText = `Showing ${filtered.length} Items`;
+      // 1. Dynamic Metric: High Load (10x Rule)
+      const load10x = baseQps * 10;
+      document.getElementById('metric-10x-qps').innerText = `${load10x} QPS`;
+      document.getElementById('metric-latency-target').innerText = load10x > 1500 ? 'P99 延遲目標 < 400ms (需降級)' : 'P99 延遲目標 < 200ms';
 
-      filtered.forEach(f => {
-        const isSelected = selectedFeature && selectedFeature.id === f.id;
-        const card = document.createElement('div');
-        card.className = `bg-white border ${isSelected ? 'border-brand-500 ring-2 ring-brand-500/10' : 'border-slate-200'} rounded-xl p-5 cursor-pointer hover:border-brand-400 transition shadow-sm`;
-        card.onclick = () => selectFeature(f.id);
+      // 2. Dynamic Metric: Delivery Estimation
+      let engineeringWeeks = 2 + Math.round(dataModels * 0.8);
+      if (hasDistributedLock) engineeringWeeks += 1;
+      if (hasFeatureFlag) engineeringWeeks += 0.5;
+      if (hasAsyncWorker) engineeringWeeks += 1;
 
-        const badgeColor = f.segment === 'new' ? 'bg-teal-50 text-teal-700 border-teal-200' : 'bg-indigo-50 text-indigo-700 border-indigo-200';
-        
-        card.innerHTML = `
-          <div class="flex items-start justify-between gap-2">
-            <span class="text-[11px] font-semibold px-2 py-0.5 rounded border ${badgeColor}">
-              ${f.segmentLabel}
-            </span>
-            <span class="text-xs font-mono text-slate-400">Score: ${calculateRiceScore(f)}</span>
-          </div>
-          <h4 class="font-bold text-slate-900 mt-2 mb-1">${f.title}</h4>
-          <p class="text-xs text-slate-500 line-clamp-2 leading-relaxed">${f.desc}</p>
-        `;
-        container.appendChild(card);
-      });
-    }
+      engineeringWeeks = Math.round(engineeringWeeks);
+      document.getElementById('metric-delivery-weeks').innerText = `${engineeringWeeks} 週`;
 
-    function calculateRiceScore(f) {
-      return Math.round((f.reach * f.impact * (f.confidence / 100)) / (f.effort || 1) * 10);
-    }
-
-    function selectFeature(id) {
-      selectedFeature = features.find(f => f.id === id);
-      renderFeatures();
-      loadDetail();
-    }
-
-    function loadDetail() {
-      if (!selectedFeature) return;
-
-      document.getElementById('detail-title').innerText = selectedFeature.title;
-      document.getElementById('detail-desc').innerText = selectedFeature.desc;
-      document.getElementById('detail-segment-badge').innerText = selectedFeature.segmentLabel;
-      
-      // Update Inputs
-      document.getElementById('slider-reach').value = selectedFeature.reach;
-      document.getElementById('slider-impact').value = selectedFeature.impact;
-      document.getElementById('slider-confidence').value = selectedFeature.confidence;
-      document.getElementById('slider-effort').value = selectedFeature.effort;
-
-      document.getElementById('check-scale').checked = selectedFeature.checks.scale;
-      document.getElementById('check-maintainable').checked = selectedFeature.checks.maintainable;
-      document.getElementById('check-canary').checked = selectedFeature.checks.canary;
-      document.getElementById('check-nfr').checked = selectedFeature.checks.nfr;
-
-      document.getElementById('detail-story').innerText = selectedFeature.story;
-
-      const acList = document.getElementById('detail-ac');
-      acList.innerHTML = '';
-      selectedFeature.acs.forEach(ac => {
-        const li = document.createElement('li');
-        li.className = 'flex items-center space-x-2';
-        li.innerHTML = `<span class="text-emerald-500 font-bold">✓</span><span>${ac}</span>`;
-        acList.appendChild(li);
-      });
-
-      updateCalculation();
-    }
-
-    function updateCalculation() {
-      if (!selectedFeature) return;
-
-      const reach = parseInt(document.getElementById('slider-reach').value);
-      const impact = parseInt(document.getElementById('slider-impact').value);
-      const confidence = parseInt(document.getElementById('slider-confidence').value);
-      const effort = parseInt(document.getElementById('slider-effort').value);
-
-      document.getElementById('val-reach').innerText = reach;
-      document.getElementById('val-impact').innerText = impact;
-      document.getElementById('val-confidence').innerText = confidence + '%';
-      document.getElementById('val-effort').innerText = effort + ' 週';
-
-      selectedFeature.reach = reach;
-      selectedFeature.impact = impact;
-      selectedFeature.confidence = confidence;
-      selectedFeature.effort = effort;
-
-      selectedFeature.checks.scale = document.getElementById('check-scale').checked;
-      selectedFeature.checks.maintainable = document.getElementById('check-maintainable').checked;
-      selectedFeature.checks.canary = document.getElementById('check-canary').checked;
-      selectedFeature.checks.nfr = document.getElementById('check-nfr').checked;
-
-      const score = calculateRiceScore(selectedFeature);
-      document.getElementById('detail-rice-score').innerText = score;
-
-      // Architecture Guardrail Alert
-      const allChecksPassed = Object.values(selectedFeature.checks).every(Boolean);
-      const warningEl = document.getElementById('architecture-warning');
-      if (effort > 4 && !allChecksPassed) {
-        warningEl.classList.remove('hidden');
+      const deliveryDiff = engineeringWeeks - bizDeadline;
+      const deliveryStatusEl = document.getElementById('metric-delivery-status');
+      if (deliveryDiff > 0) {
+        deliveryStatusEl.innerText = `超出業務期盼 ${deliveryDiff} 週 (需切分 Scope)`;
+        deliveryStatusEl.className = 'text-xs font-bold mt-1 text-rose-600';
       } else {
-        warningEl.classList.add('hidden');
+        deliveryStatusEl.innerText = '可準時依正統架構交付';
+        deliveryStatusEl.className = 'text-xs font-bold mt-1 text-emerald-600';
+      }
+
+      // 3. Dynamic Metric: Stability Risk
+      let riskScore = (dataModels * 12) + (load10x > 1000 ? 25 : 10);
+      if (!hasDistributedLock) riskScore += 25;
+      if (!hasFeatureFlag) riskScore += 15;
+      if (!hasAsyncWorker) riskScore += 20;
+
+      const stabilityEl = document.getElementById('metric-stability-level');
+      const stabilityScoreEl = document.getElementById('metric-stability-score');
+
+      if (riskScore > 65) {
+        stabilityEl.innerText = '高風險 (High)';
+        stabilityEl.className = 'text-2xl font-black mt-1 text-rose-600';
+        stabilityScoreEl.innerText = `風險指數: ${riskScore}/100 (極需架構防護)`;
+      } else if (riskScore > 35) {
+        stabilityEl.innerText = '中度風險 (Moderate)';
+        stabilityEl.className = 'text-2xl font-black mt-1 text-amber-600';
+        stabilityScoreEl.innerText = `風險指數: ${riskScore}/100 (可控)`;
+      } else {
+        stabilityEl.innerText = '低風險 (Stable)';
+        stabilityEl.className = 'text-2xl font-black mt-1 text-emerald-600';
+        stabilityScoreEl.innerText = `風險指數: ${riskScore}/100 (極佳)`;
+      }
+
+      // 4. Update Alignment Alert Banner
+      const alertEl = document.getElementById('alignment-alert');
+      if (deliveryDiff > 0 && (!hasDistributedLock || !hasFeatureFlag)) {
+        alertEl.className = 'p-4 rounded-xl border border-rose-200 bg-rose-50 text-rose-800 text-xs flex items-start space-x-3';
+        alertEl.innerHTML = `
+          <div class="text-base">🚨</div>
+          <div>
+            <strong>衝突警告：業務交付死線 (${bizDeadline} 週) 與架構安全規範嚴重抵觸！</strong><br>
+            若在未建立分散式防護與 Feature Flag 的情況下硬趕在 ${bizDeadline} 週上線，系統在尖峰時段承受 ${load10x} QPS 時，將有極高機率發生超賣或鎖庫（Deadlock）。強制啟動<strong>雙軌 MVP 拆解法</strong>。
+          </div>
+        `;
+      } else if (deliveryDiff > 0) {
+        alertEl.className = 'p-4 rounded-xl border border-amber-200 bg-amber-50 text-amber-800 text-xs flex items-start space-x-3';
+        alertEl.innerHTML = `
+          <div class="text-base">⚠️</div>
+          <div>
+            <strong>時程對齊提示：建議採用兩階段交付 (Phase 1 MVP + Phase 2 Scale)。</strong><br>
+            業務承諾為 ${bizDeadline} 週，正規架構需 ${engineeringWeeks} 週。建議前 ${bizDeadline} 週先交付「核心邏輯驗證版」，後續 ${deliveryDiff} 週補齊非同步佇列與全面灰度。
+          </div>
+        `;
+      } else {
+        alertEl.className = 'p-4 rounded-xl border border-emerald-200 bg-emerald-50 text-emerald-800 text-xs flex items-start space-x-3';
+        alertEl.innerHTML = `
+          <div class="text-base">✅</div>
+          <div>
+            <strong>對齊狀態極佳：工期與架構健康度皆符合架構規範標準。</strong><br>
+            目前規劃完全兼顧 10 倍負載擴展性與業務上線時間，可直接召開工程 Kickoff 會議審定。
+          </div>
+        `;
+      }
+
+      // 5. Update Strategy Pitches
+      const targetType = document.getElementById('req-target').value;
+
+      document.getElementById('text-biz-pitch').innerText = 
+        `「為確保客戶核心營運資產與金流絕對安全，我們採取企業級標準的兩階段導入法。在第 ${bizDeadline} 週當天，我們先開放核心功能給旗艦分店先行試營運（Pilot），並以專屬報表輔助；其餘高自動化連鎖同步功能將於第 ${engineeringWeeks} 週全量放量，確保大流量時完全不卡單。」`;
+
+      document.getElementById('text-tech-pitch').innerText = 
+        `「我們不會為了滿足業務端的 ${bizDeadline} 週死線而寫死 Hardcode 邏輯。第一版切分乾淨的微服務邊界，涉及的 ${dataModels} 個資料模型維持標準化解耦。尖峰需承受 ${load10x} QPS 壓力，以 Redis 獨立乘載候補搶位狀態，主資料庫僅在最終確認時異動，保障既有租戶穩定。」`;
+
+      // 6. Update AC List
+      const acContainer = document.getElementById('list-kickoff-ac');
+      acContainer.innerHTML = '';
+      const sampleAcs = [
+        `[AC 1] 支援高並發搶位：在 ${load10x} QPS 模擬壓測下，P99 響應時間小於 250ms 且超賣數等於 0。`,
+        `[AC 2] 灰度保護機制：功能全量由 Feature Flag 控制，可針對單一租戶或門市即時啟用/降級。`,
+        `[AC 3] 邊界容錯：第三方通訊/金流逾時時，系統保留預約狀態 15 分鐘並發送非同步補償機制。`,
+        `[AC 4] 用戶場景閉環：針對${targetType === 'returning' ? '老客候補通知逾時即自動順移' : '新客提供 30 秒免密碼快速授權'}。`
+      ];
+      sampleAcs.forEach(ac => {
+        const div = document.createElement('div');
+        div.className = 'flex items-start space-x-2';
+        div.innerHTML = `<span class="text-emerald-500 font-bold">✓</span><span>${ac}</span>`;
+        acContainer.appendChild(div);
+      });
+    }
+
+    function loadTemplate(type) {
+      if (type === 'waitlist') {
+        document.getElementById('req-title').value = '熱門時段課表動態候補與自動遞補佇列';
+        document.getElementById('req-target').value = 'returning';
+        document.getElementById('req-source').value = 'sales';
+        document.getElementById('req-client-solution').value = '讓店家手動幫 VIP 插隊，或者有人取消時打電話通知';
+        document.getElementById('req-root-problem').value = '熱門尖峰時段秒殺，但課前 2 小時因臨時爽約產生 15% 席位空置，手動聯繫成本過高且缺乏公平性。';
+        document.getElementById('range-base-qps').value = 150;
+        document.getElementById('range-data-models').value = 4;
+        document.getElementById('range-biz-deadline').value = 4;
+        recalculate();
       }
     }
 
-    function filterSegment(seg) {
-      currentSegment = seg;
-      ['all', 'new', 'returning'].forEach(s => {
-        const btn = document.getElementById(`btn-${s}`);
-        if (s === seg) {
-          btn.className = 'px-4 py-1.5 rounded-lg bg-white text-slate-900 shadow-sm transition';
-        } else {
-          btn.className = 'px-4 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition';
-        }
-      });
-      renderFeatures();
-    }
+    function exportAlignmentReport() {
+      const title = document.getElementById('req-title').value;
+      const target = document.getElementById('req-target').options[document.getElementById('req-target').selectedIndex].text;
+      const rootProblem = document.getElementById('req-root-problem').value;
+      const qps10x = document.getElementById('metric-10x-qps').innerText;
+      const deliveryWeeks = document.getElementById('metric-delivery-weeks').innerText;
+      const bizDeadline = document.getElementById('label-biz-deadline').innerText;
+      const risk = document.getElementById('metric-stability-level').innerText;
 
-    function exportFullMarkdown() {
-      let md = `# Omcean Booking Product Requirements Document (PRD)\n\n`;
-      md += `*Generated on: 2026-09-09 | Engineering Gatekeeper: CTO Michel*\n\n`;
-      features.forEach(f => {
-        md += `## ${f.title} (${f.segmentLabel})\n`;
-        md += `- **RICE Priority Score:** ${calculateRiceScore(f)}\n`;
-        md += `- **Effort:** ${f.effort} 週 | **Reach:** ${f.reach} | **Impact:** ${f.impact}\n\n`;
-        md += `### User Story\n\`\`\`\n${f.story}\n\`\`\`\n\n`;
-        md += `### Acceptance Criteria\n`;
-        f.acs.forEach(ac => { md += `- [ ] ${ac}\n`; });
-        md += `\n---\n\n`;
+      let md = `# [Engineering Alignment Report] ${title}\n\n`;
+      md += `*產出時間: 2026-09-09 | 負責 PM: Product PM | 審定角色: Tech Lead / Architecture Review*\n\n`;
+      md += `## 1. 需求背景與本質診斷\n`;
+      md += `- **目標對象:** ${target}\n`;
+      md += `- **核心真實痛點:** ${rootProblem}\n\n`;
+      md += `## 2. 量化架構指標與時程對齊\n`;
+      md += `- **10x 負載防線目標:** ${qps10x} (P99 < 250ms)\n`;
+      md += `- **業務期望交期:** ${bizDeadline}\n`;
+      md += `- **工程標準交期:** ${deliveryWeeks}\n`;
+      md += `- **系統穩定度風險:** ${risk}\n\n`;
+      md += `## 3. 跨部門溝通對齊話術\n`;
+      md += `### 對業務團隊 (Sales/CS)\n${document.getElementById('text-biz-pitch').innerText}\n\n`;
+      md += `### 對工程團隊 (Tech Lead/架構審查)\n${document.getElementById('text-tech-pitch').innerText}\n\n`;
+      md += `## 4. 核心驗收標準 (Acceptance Criteria)\n`;
+      const acItems = document.querySelectorAll('#list-kickoff-ac div span:last-child');
+      acItems.forEach(item => {
+        md += `- [ ] ${item.innerText}\n`;
       });
 
       const blob = new Blob([md], { type: 'text/markdown' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'OmceanBooking-PRD.md';
+      a.download = `Alignment-Report-${Date.now()}.md`;
       a.click();
       URL.revokeObjectURL(url);
     }
 
-    // Initialize
     window.onload = () => {
-      renderFeatures();
-      loadDetail();
+      recalculate();
     };
   </script>
 </body>
