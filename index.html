@@ -63,16 +63,16 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking 產品交付指揮中心</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] 功能需求下拉連動・需求結構化・5大OKR防線・雙軌敏捷甘特圖與Jira看板
+          [ROLE: PRODUCT PM] 20大核心情境直出・PRD/AC自動生成・5大OKR防線・雙軌敏捷甘特圖與Jira看板
         </p>
       </div>
 
       <div class="flex items-center space-x-3 font-mono text-xs">
         <span class="px-2.5 py-1 rounded bg-cyber-cyanMuted text-cyber-cyan border border-cyber-cyan/30">
-          ● 20組需求下拉連動引擎啟用
+          ● PRD & AC 自動直出模式已就緒
         </span>
         <button onclick="exportFullMarkdown()" class="px-4 py-1.5 rounded-lg bg-cyber-cyan text-slate-950 font-bold hover:bg-opacity-90 transition shadow-lg shadow-cyber-cyan/10">
-          匯出交付報告 (.MD)
+          匯出完整交付報告 (.MD)
         </button>
       </div>
     </header>
@@ -115,14 +115,14 @@
       </div>
     </section>
 
-    <!-- STEP 1: 需求診斷與規格凍結 (功能需求名稱直屬下拉選單) -->
+    <!-- STEP 1: 需求診斷與規格凍結 (20組下拉選單連動) -->
     <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
       <div class="flex items-center justify-between border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
           <span class="px-2.5 py-0.5 rounded bg-cyber-cyan text-slate-950 font-black text-xs font-mono">STEP 1</span>
           <h2 class="text-sm font-bold text-white tracking-wide">需求診斷與規格凍結 (Discovery & Scope Freeze)</h2>
         </div>
-        <span class="text-[10px] font-mono text-cyber-cyan">直擊真因痛點・劃定邊界</span>
+        <span class="text-[10px] font-mono text-cyber-cyan">直擊真因痛點・即時輸出 PRD</span>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -187,18 +187,42 @@
         </span>
       </div>
 
-      <!-- AI 賦能：Claude PRD & AC Prompt 一鍵動態生成器 -->
-      <div class="pt-3 border-t border-cyber-border/80">
-        <div class="flex items-center justify-between mb-2">
+      <!-- PRD & AC 即時直出面板 + PM 決策重點分析 (取代原本純 Prompt 貼去 Claude) -->
+      <div class="pt-4 border-t border-cyber-border space-y-4">
+        <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-purple-400"></span>
-            <span class="text-xs font-bold font-mono text-purple-300">Claude PRD & AC Prompt 一鍵動態生成器 (即時連動中)</span>
+            <span class="w-2 h-2 rounded-full bg-cyber-green animate-pulse"></span>
+            <span class="text-xs font-bold font-mono text-cyber-green">PRD & AC 規格即時直出面板 (已省去向 AI 提問步驟)</span>
           </div>
-          <button onclick="copyClaudePrompt()" class="text-xs font-mono px-2.5 py-1 rounded bg-purple-950 hover:bg-purple-900 text-purple-300 border border-purple-800 transition">
-            📋 複製 Prompt 至剪貼簿
+          <button onclick="copyGeneratedPrd()" class="text-xs font-mono px-2.5 py-1 rounded bg-emerald-950 hover:bg-emerald-900 text-cyber-green border border-emerald-800 transition">
+            📋 複製完整 PRD 規格書
           </button>
         </div>
-        <textarea id="claude-prompt-output" rows="5" readonly class="w-full text-xs font-mono p-3 rounded-lg border border-cyber-border leading-relaxed text-slate-300 bg-[#05080f]"></textarea>
+
+        <!-- 雙欄版面：左側 PRD 規格與 AC / 右側 PM 深度決策重點 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+          <!-- 左側 PRD 規格 (8 cols) -->
+          <div class="lg:col-span-8 bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs">
+            <div class="flex justify-between items-center border-b border-cyber-border/80 pb-2">
+              <span class="text-cyber-cyan font-bold" id="prd-header-title">[PRD] 尖峰時段熱門排課動態候補與自動通知</span>
+              <span class="text-[10px] text-slate-500">BDD / Gherkin 規格</span>
+            </div>
+            <div id="prd-content-view" class="space-y-3 text-slate-300 font-sans text-xs leading-relaxed max-h-[300px] overflow-y-auto pr-2">
+              <!-- Injected by JS -->
+            </div>
+          </div>
+
+          <!-- 右側 PM 決策重點分析 (4 cols) -->
+          <div class="lg:col-span-4 bg-[#0a121e] border border-cyber-border rounded-xl p-4 space-y-3">
+            <div class="flex items-center justify-between border-b border-cyber-border pb-2">
+              <span class="text-xs font-bold font-mono text-cyber-gold">PM 3大決策重點剖析</span>
+              <span class="text-[10px] font-mono text-slate-500">OKR 防禦視角</span>
+            </div>
+            <div id="prd-pm-insights" class="space-y-2.5 text-[11px] leading-relaxed text-slate-300">
+              <!-- Injected by JS -->
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -564,48 +588,82 @@
       document.getElementById('req-problem').value = preset.problem;
       document.getElementById('req-scope').value = preset.scope;
 
-      generateClaudePrompt();
+      renderInstantPrdAndInsights(preset);
     }
 
     function manualInputSync() {
-      generateClaudePrompt();
-    }
-
-    // ----------------------------------------------------
-    // Claude PRD & AC Prompt 一鍵動態組裝器
-    // ----------------------------------------------------
-    function generateClaudePrompt() {
       const selectEl = document.getElementById('req-title-select');
-      const selectedTitle = selectEl.options[selectEl.selectedIndex].text;
-      const voice = document.getElementById('req-voice').value;
-      const problem = document.getElementById('req-problem').value;
-      const scope = document.getElementById('req-scope').value;
-
-      const promptText = `你是一位資深 B2B SaaS 產品經理（專精於高並發預約排程與微服務架構）。
-請根據以下【STEP 1 需求診斷資料】，使用極度嚴謹的產品邏輯展開一份專業 PRD 規格文件與驗收標準：
-
-【輸入資料】
-- 功能需求名稱：${selectedTitle}
-- 客戶原始聲音 (Voice of Customer)：${voice}
-- PM 轉化的核心真因痛點 (Root Cause)：${problem}
-- 變更管理防線 (Out of Scope / 本次絕對不做)：${scope}
-
-【請輸出以下標準章節】
-1. 痛點解構與架構取捨：明確對比「客戶原始要求」為何是低效或危險的，以及「PM 核心真因解法」如何保障系統可擴展性。
-2. 核心使用者故事 (User Stories)：採用 As a / I want / So that 格式，區分「學員端」與「場館管理者端」。
-3. 驗收標準 (Acceptance Criteria - AC)：
-   - 請採用 Given-When-Then 格式撰寫可供 QA 單元測試與自動化測試的具體條件。
-   - 必須涵蓋正常流程、超時釋放、重複點擊防呆、資料庫鎖定機制。
-4. 非功能性需求 (NFR)：定義 10 倍尖峰負載目標（如 1,500 QPS）、P99 < 250ms、分散式鎖防超賣與 Feature Flag 灰度放量標準。`;
-
-      document.getElementById('claude-prompt-output').value = promptText;
+      const currentTitle = selectEl.options[selectEl.selectedIndex].text;
+      const customPreset = {
+        title: currentTitle,
+        voice: document.getElementById('req-voice').value,
+        problem: document.getElementById('req-problem').value,
+        scope: document.getElementById('req-scope').value
+      };
+      renderInstantPrdAndInsights(customPreset);
     }
 
-    function copyClaudePrompt() {
-      const copyText = document.getElementById('claude-prompt-output');
-      copyText.select();
-      navigator.clipboard.writeText(copyText.value);
-      alert('Claude PRD & AC Prompt 已成功複製至剪貼簿！可直接貼給 Claude 使用。');
+    // ----------------------------------------------------
+    // PRD & AC 自動生成引擎 + PM 決策重點剖析
+    // ----------------------------------------------------
+    function renderInstantPrdAndInsights(data) {
+      document.getElementById('prd-header-title').innerText = `[PRD] ${data.title}`;
+
+      // 1. 自動組合 PRD & Gherkin AC 內容
+      const prdHtml = `
+        <div class="border-b border-cyber-border/50 pb-2 mb-2">
+          <span class="text-cyber-cyan font-bold block mb-1">【一、 痛點對比與架構取捨】</span>
+          <div>▸ <strong>客戶訴求：</strong>${data.voice}</div>
+          <div>▸ <strong>PM 真因核心解法：</strong>${data.problem}</div>
+          <div class="text-cyber-gold mt-1">▸ <strong>Out of Scope 防線：</strong>${data.scope}</div>
+        </div>
+
+        <div class="border-b border-cyber-border/50 pb-2 mb-2">
+          <span class="text-cyber-cyan font-bold block mb-1">【二、 核心使用者故事 (User Stories)】</span>
+          <div>• <strong>As a</strong> 終端學員 (User)，<strong>I want to</strong> 在極致低摩擦或公平通知機制下完成預約，<strong>So that</strong> 我不需要忍受繁複的操作或隨時刷課表。</div>
+          <div>• <strong>As a</strong> 場館管理者 (Admin)，<strong>I want to</strong> 系統全自動化執行狀態流轉，<strong>So that</strong> 現場櫃台與客服人員不再承擔手動通知與爭議風險。</div>
+        </div>
+
+        <div class="border-b border-cyber-border/50 pb-2 mb-2">
+          <span class="text-cyber-cyan font-bold block mb-1">【三、 結構化驗收標準 (Acceptance Criteria - Gherkin)】</span>
+          <div class="space-y-1.5 font-mono text-[11px] bg-[#080d17] p-2 rounded border border-cyber-border/40">
+            <div><strong class="text-emerald-400">AC 1 (正向流動)：</strong> Given 進入預約/候補狀態，When 用戶觸發核心操作，Then 系統預先完成資產與權限檢查，並在 200ms 內反饋成功狀態。</div>
+            <div><strong class="text-emerald-400">AC 2 (分散式鎖定)：</strong> Given 席位釋出或狀態變更，When 多用戶並發搶位，Then 系統透過 Redis 分散式鎖進行原子鎖定，嚴禁 Double-Booking。</div>
+            <div><strong class="text-emerald-400">AC 3 (逾時補償)：</strong> Given 進入保留倒數（如 15 分鐘），When 倒數逾時未確認，Then 狀態自動釋放並透過非同步佇列順移至下一位。</div>
+            <div><strong class="text-emerald-400">AC 4 (防呆與邊界)：</strong> Given 斷網或 Webhook 延遲，When 客戶端重新請求，Then 系統實施等冪性校驗（Idempotency Check），不重複扣點。</div>
+          </div>
+        </div>
+
+        <div>
+          <span class="text-cyber-cyan font-bold block mb-1">【四、 非功能性需求 (NFR)】</span>
+          <div>• <strong>10x 負載防禦：</strong>尖峰承載 1,500 QPS 壓測，API P99 &lt; 250ms。</div>
+          <div>• <strong>安全與灰度：</strong>全量由 Feature Flag 隔離，Week 4 旗艦試營運驗證通過後才全量放量。</div>
+        </div>
+      `;
+      document.getElementById('prd-content-view').innerHTML = prdHtml;
+
+      // 2. 自動產出 PM 3 大決策重點剖析
+      const insightsHtml = `
+        <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
+          <div class="text-cyber-cyan font-bold">1. 拒絕特例，堅持標準化 (OKR 2)</div>
+          <div class="text-slate-400">客戶提出的是自私且高營運成本的表象解法；PM 將其轉化為全自動閉環，避免為單一大客戶寫入不可維護的 Hardcode 業務邏輯。</div>
+        </div>
+        <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
+          <div class="text-cyber-green font-bold">2. 用技術架構守住系統穩定度 (OKR 1)</div>
+          <div class="text-slate-400">涉及金流扣點與尖峰秒殺時，嚴禁直寫主關聯資料庫。以 Redis 原生原子操作與非同步 Worker 隔絕尖峰流量，確保 99.95% 可用度。</div>
+        </div>
+        <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
+          <div class="text-cyber-gold font-bold">3. 嚴守 Out of Scope 守住交期 (OKR 4)</div>
+          <div class="text-slate-400">在 Phase 1 堅決排除次要複雜功能，避免研發資源無止盡發散，確保工程團隊能在 Week 4 準時交付 Pilot MVP。</div>
+        </div>
+      `;
+      document.getElementById('prd-pm-insights').innerHTML = insightsHtml;
+    }
+
+    function copyGeneratedPrd() {
+      const prdText = document.getElementById('prd-content-view').innerText;
+      navigator.clipboard.writeText(prdText);
+      alert('PRD 規格書已成功複製至剪貼簿！可直接貼進 Jira / Confluence。');
     }
 
     // ----------------------------------------------------
@@ -708,6 +766,7 @@
       const voice = document.getElementById('req-voice').value;
       const problem = document.getElementById('req-problem').value;
       const scope = document.getElementById('req-scope').value;
+      const prdText = document.getElementById('prd-content-view').innerText;
       const memo = document.getElementById('ko-memo').innerText.trim();
 
       let md = `# [Omcean Booking] 產品全維度交付與品質報告\n\n`;
@@ -720,22 +779,24 @@
       md += `- **4. 範疇變更率:** ${okr4} (${document.getElementById('okr-sub-4').innerText.trim()})\n`;
       md += `- **5. 研發成本控制:** ${okr5} (${document.getElementById('okr-sub-5').innerText.trim()})\n\n`;
 
-      md += `## 二、 STEP 1: 需求診斷與真因痛點\n`;
+      md += `## 二、 即時生成的完整 PRD 規格文件\n\`\`\`\n${prdText}\n\`\`\`\n\n`;
+
+      md += `## 三、 STEP 1: 需求診斷與真因痛點\n`;
       md += `- **客戶原始聲音:** ${voice}\n`;
       md += `- **PM 診斷核心痛點:** ${problem}\n`;
       md += `- **嚴格排除範疇 (Out of Scope):**\n${scope}\n\n`;
 
-      md += `## 三、 STEP 2: Jira 敏捷看板流轉狀態\n`;
+      md += `## 四、 STEP 2: Jira 敏捷看板流轉狀態\n`;
       tickets.forEach(t => {
         md += `- [${t.status.toUpperCase()}] **${t.id}**: ${t.title} *(Owner: ${t.tag})*\n`;
       });
       md += `\n`;
 
-      md += `## 四、 矽谷 Chatbot 與親身測試防線\n`;
+      md += `## 五、 矽谷 Chatbot 與親身測試防線\n`;
       md += `- **AI 安全紅線:** 嚴禁自作主張承諾全額退款，自動導流真人審核工單。\n`;
       md += `- **Bug 回報格式:** 符合非同步外籍工程團隊 Jira 標準。\n\n`;
 
-      md += `## 五、 STEP 3: Kickoff 跨部門共識備忘錄\n\`\`\`\n${memo}\n\`\`\`\n`;
+      md += `## 六、 STEP 3: Kickoff 跨部門共識備忘錄\n\`\`\`\n${memo}\n\`\`\`\n`;
 
       const blob = new Blob([md], { type: 'text/markdown' });
       const url = URL.createObjectURL(blob);
