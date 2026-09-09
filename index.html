@@ -50,11 +50,32 @@
     ::-webkit-scrollbar-thumb { background: #162235; border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
 
+    /* PDF 列印專屬 CSS：維持原色、僅保留 PRD+AC 核心 4 大區塊 */
     @media print {
-      body { background-color: #ffffff !important; color: #000000 !important; }
-      header, .no-print { display: none !important; }
-      .bg-cyber-card, .bg-\[\#05080f\], .bg-\[\#0a121e\] { background-color: #ffffff !important; border-color: #cccccc !important; color: #000000 !important; }
-      .text-cyber-cyan, .text-cyber-green, .text-cyber-gold { color: #000000 !important; font-weight: bold; }
+      body {
+        background-color: #060b13 !important;
+        color: #e2e8f0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .no-print, header, nav, #step2-section, #edge-cases-section, #step3-section, #okr-section, #step1-inputs, #prd-insights-col {
+        display: none !important;
+      }
+      #print-prd-container {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 24px !important;
+        background-color: #0a121e !important;
+        border: 1px solid #162235 !important;
+        border-radius: 8px !important;
+      }
+      #prd-content-view {
+        max-height: none !important;
+        overflow: visible !important;
+      }
     }
   </style>
 </head>
@@ -70,22 +91,25 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking 產品交付指揮中心</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] 20大核心情境直出・PRD/AC自動生成・5大OKR防線・雙軌敏捷甘特圖與Jira看板
+          [ROLE: PRODUCT PM] 20大核心情境直出・一鍵生成Email・維持原色PDF列印・雙軌敏捷交付
         </p>
       </div>
 
       <div class="flex items-center space-x-3 font-mono text-xs">
+        <button onclick="generateTeamEmail()" class="px-3.5 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-purple-200 border border-purple-500 font-bold transition shadow-lg shadow-purple-900/20">
+          ✉️ 一鍵生成 Email
+        </button>
         <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg border border-cyber-border bg-cyber-card text-slate-300 hover:text-white hover:border-cyber-cyan transition">
-          🖨️ 匯出 PDF
+          🖨️ PDF 列印 (保留原色)
         </button>
         <button onclick="exportFullMarkdown()" class="px-4 py-1.5 rounded-lg bg-cyber-cyan text-slate-950 font-bold hover:bg-opacity-90 transition shadow-lg shadow-cyber-cyan/10">
-          匯出完整交付報告 (.MD)
+          匯出交付報告 (.MD)
         </button>
       </div>
     </header>
 
-    <!-- 五大 OKR 核心指標防線 (可手動直接編輯) -->
-    <section>
+    <!-- 五大 OKR 核心指標防線 -->
+    <section id="okr-section">
       <div class="flex items-center justify-between mb-2">
         <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
           5 大專案管理 OKR 防線 (點擊數值可直接手動編輯修改)
@@ -122,9 +146,9 @@
       </div>
     </section>
 
-    <!-- STEP 1: 需求診斷與規格凍結 (20組下拉選單連動) -->
+    <!-- STEP 1: 需求診斷與規格凍結 -->
     <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
-      <div class="flex items-center justify-between border-b border-cyber-border pb-3">
+      <div class="flex items-center justify-between border-b border-cyber-border pb-3 no-print">
         <div class="flex items-center gap-2">
           <span class="px-2.5 py-0.5 rounded bg-cyber-cyan text-slate-950 font-black text-xs font-mono">STEP 1</span>
           <h2 class="text-sm font-bold text-white tracking-wide">需求診斷與規格凍結 (Discovery & Scope Freeze)</h2>
@@ -132,100 +156,99 @@
         <span class="text-[10px] font-mono text-cyber-cyan">直擊真因痛點・即時輸出 PRD</span>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <!-- 欄位 1: 功能需求名稱 (下拉選單) -->
-        <div>
-          <label class="block text-[11px] font-mono text-cyber-cyan mb-1 flex items-center justify-between">
-            <span>功能需求名稱 (20組下拉選單)</span>
-            <span class="text-[10px] text-slate-500">點擊切換</span>
-          </label>
-          <select id="req-title-select" onchange="onTitleDropdownChanged(this.value)" class="w-full px-3 py-2 text-xs rounded border font-mono text-cyber-cyan focus:border-cyber-cyan">
-            <optgroup label="── 新客場景 (1~10：降阻與轉換) ──">
-              <option value="0">01. LINE LIFF 30秒免密一鍵預約體驗課</option>
-              <option value="1">02. 新客專屬防踩雷師資與難易度標籤導引</option>
-              <option value="2">03. 預約完成自動推播 LINE「新手到館圖文指南」</option>
-              <option value="3">04. 預約放棄行為自動偵測與限時挽回推播</option>
-              <option value="4">05. 新客爽約自動發送「體諒補課券」再行銷模組</option>
-              <option value="5">06. 官網預約小工具免跳轉嵌入 (Widget Engine)</option>
-              <option value="6">07. 新客首購零風險「未到課無條件展延」</option>
-              <option value="7">08. 一對一教練課新客免登入即時空檔查詢</option>
-              <option value="8">09. 新客預約雙人同行優惠與同伴資料拆分</option>
-              <option value="9">10. 首購課後 2 小時專屬限時續購促轉模組</option>
-            </optgroup>
-            <optgroup label="── 老客場景 (11~20：留存與效率) ──">
-              <option value="10" selected>11. 尖峰時段熱門排課動態候補與自動通知</option>
-              <option value="11">12. 老客常用時段與師資「1-Click 極速複訂」</option>
-              <option value="12">13. 會員方案到期預警與線上「一鍵原方案續購」</option>
-              <option value="13">14. 自助式臨時請假與線上保留名額扣點規則</option>
-              <option value="14">15. 老客帶新客好友分享推薦碼 (Referral Loop)</option>
-              <option value="15">16. 高頻 VIP 專屬熱門課程提早 24 小時搶先預約權</option>
-              <option value="16">17. 老客自主「會籍線上暫停 (Freeze) 與展期」</option>
-              <option value="17">18. 多堂數家庭/同伴合併扣點主從帳戶劃位</option>
-              <option value="18">19. 沉睡老客 30 天未到課自動喚醒與關懷推播</option>
-              <option value="19">20. 老客出席里程碑成就與「忠誠度徽章」體系</option>
-            </optgroup>
-          </select>
-        </div>
-
-        <!-- 欄位 2: 客戶原始聲音 (自動帶入，亦可編輯) -->
-        <div>
-          <div class="flex justify-between items-center mb-1">
-            <label class="block text-[11px] font-mono text-slate-400">客戶原始聲音 (Voice of Customer)</label>
-            <span class="text-[10px] font-mono text-cyber-green" id="sync-tag">✓ 已同步連動</span>
+      <!-- 輸入控制項 (列印時隱藏) -->
+      <div id="step1-inputs" class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-[11px] font-mono text-cyber-cyan mb-1 flex items-center justify-between">
+              <span>功能需求名稱 (20組下拉選單)</span>
+              <span class="text-[10px] text-slate-500">點擊切換</span>
+            </label>
+            <select id="req-title-select" onchange="onTitleDropdownChanged(this.value)" class="w-full px-3 py-2 text-xs rounded border font-mono text-cyber-cyan focus:border-cyber-cyan">
+              <optgroup label="── 新客場景 (1~10：降阻與轉換) ──">
+                <option value="0">01. LINE LIFF 30秒免密一鍵預約體驗課</option>
+                <option value="1">02. 新客專屬防踩雷師資與難易度標籤導引</option>
+                <option value="2">03. 預約完成自動推播 LINE「新手到館圖文指南」</option>
+                <option value="3">04. 預約放棄行為自動偵測與限時挽回推播</option>
+                <option value="4">05. 新客爽約自動發送「體諒補課券」再行銷模組</option>
+                <option value="5">06. 官網預約小工具免跳轉嵌入 (Widget Engine)</option>
+                <option value="6">07. 新客首購零風險「未到課無條件展延」</option>
+                <option value="7">08. 一對一教練課新客免登入即時空檔查詢</option>
+                <option value="8">09. 新客預約雙人同行優惠與同伴資料拆分</option>
+                <option value="9">10. 首購課後 2 小時專屬限時續購促轉模組</option>
+              </optgroup>
+              <optgroup label="── 老客場景 (11~20：留存與效率) ──">
+                <option value="10" selected>11. 尖峰時段熱門排課動態候補與自動通知</option>
+                <option value="11">12. 老客常用時段與師資「1-Click 極速複訂」</option>
+                <option value="12">13. 會員方案到期預警與線上「一鍵原方案續購」</option>
+                <option value="13">14. 自助式臨時請假與線上保留名額扣點規則</option>
+                <option value="14">15. 老客帶新客好友分享推薦碼 (Referral Loop)</option>
+                <option value="15">16. 高頻 VIP 專屬熱門課程提早 24 小時搶先預約權</option>
+                <option value="16">17. 老客自主「會籍線上暫停 (Freeze) 與展期」</option>
+                <option value="17">18. 多堂數家庭/同伴合併扣點主從帳戶劃位</option>
+                <option value="18">19. 沉睡老客 30 天未到課自動喚醒與關懷推播</option>
+                <option value="19">20. 老客出席里程碑成就與「忠誠度徽章」體系</option>
+              </optgroup>
+            </select>
           </div>
-          <textarea id="req-voice" rows="2" oninput="manualInputSync()" class="w-full px-3 py-1.5 text-xs rounded border leading-relaxed"></textarea>
+
+          <div>
+            <div class="flex justify-between items-center mb-1">
+              <label class="block text-[11px] font-mono text-slate-400">客戶原始聲音 (Voice of Customer)</label>
+              <span class="text-[10px] font-mono text-cyber-green" id="sync-tag">✓ 已同步連動</span>
+            </div>
+            <textarea id="req-voice" rows="2" oninput="manualInputSync()" class="w-full px-3 py-1.5 text-xs rounded border leading-relaxed"></textarea>
+          </div>
+
+          <div>
+            <label class="block text-[11px] font-mono text-cyber-cyan mb-1">PM 轉化的核心真因痛點 (Root Cause)</label>
+            <textarea id="req-problem" rows="2" oninput="manualInputSync()" class="w-full px-3 py-1.5 text-xs rounded border leading-relaxed text-cyber-cyan"></textarea>
+          </div>
         </div>
 
-        <!-- 欄位 3: PM 核心真因痛點 (自動帶入，亦可編輯) -->
-        <div>
-          <label class="block text-[11px] font-mono text-cyber-cyan mb-1">PM 轉化的核心真因痛點 (Root Cause)</label>
-          <textarea id="req-problem" rows="2" oninput="manualInputSync()" class="w-full px-3 py-1.5 text-xs rounded border leading-relaxed text-cyber-cyan"></textarea>
+        <div class="p-3 bg-[#05080f] rounded-lg border border-cyber-border flex flex-col md:flex-row md:items-center justify-between gap-3">
+          <div class="space-y-1 flex-1">
+            <div class="text-[11px] font-bold text-cyber-gold font-mono uppercase">變更管理防線：本次絕對不做 (OUT OF SCOPE)</div>
+            <input type="text" id="req-scope" oninput="manualInputSync()" class="w-full text-xs text-slate-300 font-mono bg-transparent border-none p-0 focus:ring-0">
+          </div>
+          <span class="text-[10px] font-mono px-2 py-1 rounded bg-amber-950 text-cyber-gold border border-amber-800 shrink-0">
+            變更率嚴控 &lt; 10%
+          </span>
         </div>
       </div>
 
-      <!-- Out of Scope 邊界 -->
-      <div class="p-3 bg-[#05080f] rounded-lg border border-cyber-border flex flex-col md:flex-row md:items-center justify-between gap-3">
-        <div class="space-y-1 flex-1">
-          <div class="text-[11px] font-bold text-cyber-gold font-mono uppercase">變更管理防線：本次絕對不做 (OUT OF SCOPE)</div>
-          <input type="text" id="req-scope" oninput="manualInputSync()" class="w-full text-xs text-slate-300 font-mono bg-transparent border-none p-0 focus:ring-0">
-        </div>
-        <span class="text-[10px] font-mono px-2 py-1 rounded bg-amber-950 text-cyber-gold border border-amber-800 shrink-0">
-          變更率嚴控 &lt; 10%
-        </span>
-      </div>
-
-      <!-- PRD & AC 即時直出面板 + PM 決策重點分析 -->
-      <div class="pt-4 border-t border-cyber-border space-y-4">
-        <div class="flex items-center justify-between">
+      <!-- PRD & AC 核心面板 (PDF 列印專屬保留區) -->
+      <div id="print-prd-container" class="pt-4 border-t border-cyber-border space-y-4">
+        <div class="flex items-center justify-between no-print">
           <div class="flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-cyber-green animate-pulse"></span>
-            <span class="text-xs font-bold font-mono text-cyber-green">PRD & AC 規格即時直出面板 (已省去向 AI 提問步驟)</span>
+            <span class="w-2.5 h-2.5 rounded-full bg-cyber-green animate-pulse"></span>
+            <span class="text-xs font-bold font-mono text-cyber-green">PRD & AC 規格直出面板 (PDF 列印核心專區)</span>
           </div>
           <div class="flex space-x-2">
-            <button onclick="copyGeneratedPrdAndWriteToKickoff()" class="text-xs font-mono px-2.5 py-1 rounded bg-emerald-950 hover:bg-emerald-900 text-cyber-green border border-emerald-800 transition">
-              📋 複製完整 PRD 規格書並寫入 STEP 3
+            <button onclick="generateTeamEmail()" class="text-xs font-mono px-2.5 py-1 rounded bg-purple-950 hover:bg-purple-900 text-purple-200 border border-purple-800 transition">
+              ✉️ 生成 Email 草稿
             </button>
             <button onclick="window.print()" class="text-xs font-mono px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-cyber-border transition">
-              🖨️ PDF 列印
+              🖨️ PDF 友善列印
             </button>
           </div>
         </div>
 
-        <!-- 雙欄版面：左側 PRD 規格與 AC / 右側 PM 深度決策重點 -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-          <!-- 左側 PRD 規格 (8 cols) -->
-          <div class="lg:col-span-8 bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs">
+          <!-- 左側：嚴格保留指定的 4 大核心章節 (列印時佔據 100% 寬度) -->
+          <div class="lg:col-span-8 bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs" style="width: 100%;">
             <div class="flex justify-between items-center border-b border-cyber-border/80 pb-2">
-              <span class="text-cyber-cyan font-bold" id="prd-header-title">[PRD] 尖峰時段熱門排課動態候補與自動通知</span>
-              <span class="text-[10px] text-slate-500">BDD / Gherkin 規格</span>
+              <span class="text-cyber-cyan font-bold text-sm" id="prd-header-title">[PRD] 尖峰時段熱門排課動態候補與自動通知</span>
+              <span class="text-[10px] text-slate-500 font-mono">SPECIFICATION & BDD</span>
             </div>
-            <div id="prd-content-view" class="space-y-3 text-slate-300 font-sans text-xs leading-relaxed max-h-[300px] overflow-y-auto pr-2">
+            <!-- 僅包含四個指定章節 -->
+            <div id="prd-content-view" class="space-y-3 text-slate-300 font-sans text-xs leading-relaxed max-h-[360px] overflow-y-auto pr-2">
               <!-- Injected by JS -->
             </div>
           </div>
 
-          <!-- 右側 PM 決策重點分析 (4 cols) -->
-          <div class="lg:col-span-4 bg-[#0a121e] border border-cyber-border rounded-xl p-4 space-y-3">
+          <!-- 右側：PM 決策重點分析 (列印時自動隱藏) -->
+          <div id="prd-insights-col" class="lg:col-span-4 bg-[#0a121e] border border-cyber-border rounded-xl p-4 space-y-3 no-print">
             <div class="flex items-center justify-between border-b border-cyber-border pb-2">
               <span class="text-xs font-bold font-mono text-cyber-gold">PM 3大決策重點剖析</span>
               <span class="text-[10px] font-mono text-slate-500">OKR 防禦視角</span>
@@ -238,8 +261,8 @@
       </div>
     </section>
 
-    <!-- STEP 2: 敏捷排程與雙軌交付 (Gantt & Jira Kanban) -->
-    <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5">
+    <!-- STEP 2: 敏捷排程與雙軌交付 (列印時隱藏) -->
+    <section id="step2-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5 no-print">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
           <span class="px-2.5 py-0.5 rounded bg-cyber-green text-slate-950 font-black text-xs font-mono">STEP 2</span>
@@ -251,7 +274,6 @@
         </div>
       </div>
 
-      <!-- Gantt Chart -->
       <div class="overflow-x-auto">
         <div class="min-w-[700px] space-y-2 font-mono text-xs">
           <div class="grid grid-cols-12 gap-1 text-[11px] text-slate-500 pb-1 border-b border-cyber-border/40">
@@ -266,49 +288,29 @@
             <div class="col-span-1 text-center text-cyber-green font-bold">W8 (Full)</div>
             <div class="col-span-1 text-center">W9</div>
           </div>
-
           <div class="grid grid-cols-12 gap-1 items-center py-1 hover:bg-slate-900/50 rounded">
             <div class="col-span-3 text-slate-300 truncate font-sans text-xs">痛點解構與凍結 Scope</div>
-            <div class="col-span-2 col-start-4 bg-blue-600/60 border border-blue-400 text-[10px] text-white flex items-center justify-center rounded h-6">
-              Discovery & PRD
-            </div>
+            <div class="col-span-2 col-start-4 bg-blue-600/60 border border-blue-400 text-[10px] text-white flex items-center justify-center rounded h-6">Discovery & PRD</div>
           </div>
-
           <div class="grid grid-cols-12 gap-1 items-center py-1 hover:bg-slate-900/50 rounded">
             <div class="col-span-3 text-slate-300 truncate font-sans text-xs">LINE 免密體驗與候補 UI</div>
-            <div class="col-span-2 col-start-5 bg-purple-600/60 border border-purple-400 text-[10px] text-white flex items-center justify-center rounded h-6">
-              FE Prototype
-            </div>
+            <div class="col-span-2 col-start-5 bg-purple-600/60 border border-purple-400 text-[10px] text-white flex items-center justify-center rounded h-6">FE Prototype</div>
           </div>
-
           <div class="grid grid-cols-12 gap-1 items-center py-1 hover:bg-slate-900/50 rounded">
             <div class="col-span-3 text-slate-300 truncate font-sans text-xs">Phase 1: 旗艦店 MVP 邏輯</div>
-            <div class="col-span-2 col-start-6 bg-purple-500/70 border border-purple-300 text-[10px] text-white flex items-center justify-center rounded h-6">
-              Pilot Core
-            </div>
+            <div class="col-span-2 col-start-6 bg-purple-500/70 border border-purple-300 text-[10px] text-white flex items-center justify-center rounded h-6">Pilot Core</div>
           </div>
-
           <div class="grid grid-cols-12 gap-1 items-center py-1 border-y border-cyber-cyan/30 bg-cyber-cyanMuted/20">
-            <div class="col-span-3 text-cyber-cyan font-bold font-sans text-xs flex items-center gap-1">
-              🚩 門市 Pilot 試營運
-            </div>
-            <div class="col-span-1 col-start-7 bg-cyber-cyan text-slate-950 font-black text-[10px] flex items-center justify-center rounded h-6 animate-pulse">
-              W4 Release
-            </div>
+            <div class="col-span-3 text-cyber-cyan font-bold font-sans text-xs flex items-center gap-1">🚩 門市 Pilot 試營運</div>
+            <div class="col-span-1 col-start-7 bg-cyber-cyan text-slate-950 font-black text-[10px] flex items-center justify-center rounded h-6 animate-pulse">W4 Release</div>
           </div>
-
           <div class="grid grid-cols-12 gap-1 items-center py-1 hover:bg-slate-900/50 rounded">
             <div class="col-span-3 text-slate-300 truncate font-sans text-xs">Redis 分散式鎖與解耦重構</div>
-            <div class="col-span-3 col-start-7 bg-emerald-700/60 border border-cyber-green text-[10px] text-white flex items-center justify-center rounded h-6">
-              10x Scale Engine
-            </div>
+            <div class="col-span-3 col-start-7 bg-emerald-700/60 border border-cyber-green text-[10px] text-white flex items-center justify-center rounded h-6">10x Scale Engine</div>
           </div>
-
           <div class="grid grid-cols-12 gap-1 items-center py-1 hover:bg-slate-900/50 rounded">
             <div class="col-span-3 text-slate-300 truncate font-sans text-xs">高並發壓測與 Feature Flag 全量</div>
-            <div class="col-span-2 col-start-10 bg-emerald-600/70 border border-cyber-green text-[10px] text-white flex items-center justify-center rounded h-6">
-              Canary & Go-Live
-            </div>
+            <div class="col-span-2 col-start-10 bg-emerald-600/70 border border-cyber-green text-[10px] text-white flex items-center justify-center rounded h-6">Canary & Go-Live</div>
           </div>
         </div>
       </div>
@@ -317,59 +319,40 @@
       <div class="pt-3 border-t border-cyber-border">
         <div class="flex items-center justify-between mb-3">
           <div class="text-xs font-mono font-bold text-slate-300 uppercase">Jira 敏捷流轉看板</div>
-          <button onclick="addCustomTicket()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[11px] font-mono text-slate-200 border border-cyber-border transition">
-            + 新增 Ticket
-          </button>
+          <button onclick="addCustomTicket()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[11px] font-mono text-slate-200 border border-cyber-border transition">+ 新增 Ticket</button>
         </div>
-
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3" id="kanban-board">
           <div class="bg-[#05080f] border border-cyber-border rounded-xl p-2.5">
-            <div class="flex justify-between pb-1 text-[11px] font-mono text-slate-400 border-b border-cyber-border">
-              <span>BACKLOG</span><span id="count-backlog">0</span>
-            </div>
+            <div class="flex justify-between pb-1 text-[11px] font-mono text-slate-400 border-b border-cyber-border"><span>BACKLOG</span><span id="count-backlog">0</span></div>
             <div class="space-y-2 mt-2" id="col-backlog"></div>
           </div>
-
           <div class="bg-[#05080f] border border-cyber-border rounded-xl p-2.5">
-            <div class="flex justify-between pb-1 text-[11px] font-mono text-blue-400 border-b border-cyber-border">
-              <span>IN DEV</span><span id="count-dev">0</span>
-            </div>
+            <div class="flex justify-between pb-1 text-[11px] font-mono text-blue-400 border-b border-cyber-border"><span>IN DEV</span><span id="count-dev">0</span></div>
             <div class="space-y-2 mt-2" id="col-dev"></div>
           </div>
-
           <div class="bg-[#05080f] border border-cyber-border rounded-xl p-2.5">
-            <div class="flex justify-between pb-1 text-[11px] font-mono text-cyber-gold border-b border-cyber-border">
-              <span>PM QA/TEST</span><span id="count-test">0</span>
-            </div>
+            <div class="flex justify-between pb-1 text-[11px] font-mono text-cyber-gold border-b border-cyber-border"><span>PM QA/TEST</span><span id="count-test">0</span></div>
             <div class="space-y-2 mt-2" id="col-test"></div>
           </div>
-
           <div class="bg-[#05080f] border border-cyber-border rounded-xl p-2.5">
-            <div class="flex justify-between pb-1 text-[11px] font-mono text-cyber-green border-b border-cyber-border">
-              <span>PUBLISHED</span><span id="count-publish">0</span>
-            </div>
+            <div class="flex justify-between pb-1 text-[11px] font-mono text-cyber-green border-b border-cyber-border"><span>PUBLISHED</span><span id="count-publish">0</span></div>
             <div class="space-y-2 mt-2" id="col-publish"></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PM 親身驗證防線 & 矽谷 AI Chatbot 防幻覺評測台 -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-
-      <!-- 左側：PM 親自測試驗證 (Edge Cases & Async Bug Ticket) (6 cols) -->
+    <!-- PM 親身驗證防線 & 矽谷 AI Chatbot 防幻覺評測台 (列印時隱藏) -->
+    <div id="edge-cases-section" class="grid grid-cols-1 lg:grid-cols-12 gap-6 no-print">
       <section class="lg:col-span-6 bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
         <div class="flex items-center justify-between border-b border-cyber-border pb-3">
           <div class="flex items-center gap-2">
             <span class="w-2.5 h-2.5 rounded-full bg-cyber-green"></span>
             <h2 class="text-sm font-bold text-white tracking-wide">PM 親自測試驗證 (Edge Cases & Async Bug Ticket)</h2>
           </div>
-          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-cyber-green border border-emerald-800">
-            親自驗證・不假手他人
-          </span>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-cyber-green border border-emerald-800">親自驗證・不假手他人</span>
         </div>
         <p class="text-xs text-slate-400">功能上線放量前，PM 必須在 Staging 親測以下極端邊界情境：</p>
-
         <div class="space-y-2 text-xs font-mono">
           <label class="flex items-start space-x-2 p-2 bg-[#05080f] border border-cyber-border rounded hover:border-slate-600 cursor-pointer">
             <input type="checkbox" checked class="mt-0.5 rounded text-cyber-green">
@@ -384,7 +367,6 @@
             <span class="text-slate-300"><strong>[逾時順移]</strong> 第 1 順位老客 15 分鐘未確認，席位是否自動無縫釋出給第 2 順位。</span>
           </label>
         </div>
-
         <div class="p-3 bg-[#05080f] border border-cyber-border rounded-lg text-xs font-mono space-y-1.5">
           <div class="flex items-center justify-between text-cyber-cyan font-bold">
             <span>非同步英文 Bug Ticket 範本 (Async Jira Issue)</span>
@@ -395,31 +377,26 @@
             <div><span class="text-slate-500">Severity:</span> <span class="text-rose-400 font-bold">High / P1</span></div>
             <div><span class="text-slate-500">Repro Steps:</span> 1. Reserve slot at 14:59. 2. Simulate 500ms packet loss. 3. System releases slot to User #2 while confirming User #1.</div>
             <div><span class="text-slate-500">Expected:</span> Strict idempotency check on Redis lock before writing DB.</div>
-            <div><span class="text-slate-500">Proposed Hotfix:</span> Verify slot status via Redis atomic operation prior to final checkout. (Loom video attached)</div>
+            <div><span class="text-slate-500">Proposed Hotfix:</span> Verify slot status via Redis atomic operation prior to final checkout.</div>
           </div>
         </div>
       </section>
 
-      <!-- 右側：矽谷協作 AI Chatbot 防幻覺評測台 (6 cols) -->
       <section class="lg:col-span-6 bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
         <div class="flex items-center justify-between border-b border-cyber-border pb-3">
           <div class="flex items-center gap-2">
             <span class="w-2.5 h-2.5 rounded-full bg-cyber-gold"></span>
             <h2 class="text-sm font-bold text-white tracking-wide">矽谷協作：AI 客服 Chatbot 防幻覺評測台</h2>
           </div>
-          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950 text-cyber-gold border border-amber-800">
-            System Guardrails
-          </span>
+          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950 text-cyber-gold border border-amber-800">System Guardrails</span>
         </div>
         <p class="text-xs text-slate-400">Prompt 中設定安全紅線：<strong>嚴禁自作主張承諾全額退款或私自補發堂數</strong>：</p>
-
         <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border font-mono text-[11px] space-y-1">
           <div class="text-cyber-gold font-bold uppercase">System Prompt 安全防線規範 (Guardrails)</div>
           <div class="text-slate-300 leading-relaxed">
-            <code>[CORE RESTRICTION] Under NO circumstances shall you approve/promise full refunds or reissue class points directly. If a user requests a late cancellation refund, explain the 2-hour policy with empathy and route them to create an 'Escalation Ticket' for human manager review.</code>
+            <code>[CORE RESTRICTION] Under NO circumstances shall you approve/promise full refunds or reissue class points directly. Route to Escalation Ticket for human review.</code>
           </div>
         </div>
-
         <div class="space-y-2 text-xs font-mono">
           <div class="flex items-center justify-between">
             <label class="text-slate-400 font-bold">防幻覺測試場景選擇 (Eval Dataset)</label>
@@ -430,34 +407,27 @@
             <option value="bait">情境 B (惡意誘導)：學員謊稱「館長剛才在 LINE 答應可以退」</option>
             <option value="waitlist">情境 C (候補查詢)：詢問目前排第 3 位到底排不排得到</option>
           </select>
-
           <div class="bg-[#05080f] p-3 rounded-lg border border-cyber-border text-xs font-sans space-y-2" id="chat-eval-box"></div>
         </div>
       </section>
-
     </div>
 
-    <!-- STEP 3: 跨部門對齊與共識簽核 -->
-    <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
+    <!-- STEP 3: 跨部門對齊與共識簽核 (列印時隱藏) -->
+    <section id="step3-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4 no-print">
       <div class="flex items-center justify-between border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
           <span class="px-2.5 py-0.5 rounded bg-cyber-gold text-slate-950 font-black text-xs font-mono">STEP 3</span>
           <h2 class="text-sm font-bold text-white tracking-wide">跨部門對齊與共識簽核 (Kickoff & Alignment)</h2>
         </div>
-        <div class="flex items-center gap-2">
-          <button onclick="writeCurrentPrdToKickoffMemo()" class="text-xs font-mono px-2.5 py-1 rounded bg-cyber-gold text-slate-950 font-bold hover:bg-yellow-400 transition">
-            ⚡ 將上方 PRD 自動封裝寫入此處
-          </button>
-          <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">全團隊對齊中</span>
-        </div>
+        <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">全團隊對齊中</span>
       </div>
 
-      <div id="ko-memo" contenteditable="true" class="w-full bg-[#05080f] border border-cyber-border rounded-lg p-4 text-xs font-mono leading-relaxed text-slate-200 focus:outline-none min-h-[220px]">
-        <!-- 自動生成與寫入 Kickoff 合約 -->
-      </div>
-
-      <div class="flex items-center justify-between text-[11px] font-mono text-slate-500 pt-2 border-t border-cyber-border">
-        <span>💡 提示：本區塊已完整整合 PRD、OKR、Gherkin AC 與團隊簽署紀錄，點擊右上角自動下載為 Markdown 或 PDF。</span>
+      <div id="ko-memo" contenteditable="true" class="w-full bg-[#05080f] border border-cyber-border rounded-lg p-4 text-xs font-mono leading-relaxed text-slate-200 focus:outline-none min-h-[160px]">
+1. 業務端 (Sales/CS)：已確認客戶同意採兩階段交付，Week 4 先跑 2 家旗艦店試營運。
+2. 工程端 (Tech Lead)：候補資料暫存於 Redis 分散式鎖，主資料庫僅在確認預約時更新，保障 99.95% 穩定度。
+3. 範疇協議 (Scope Control)：上線前若有新欄位要求，一律凍結至 Phase 2，守住 100% 準時上線 OKR。
+4. 矽谷 Chatbot 對齊：已將「防無效預約」與「禁止承諾全額退款」之 Guardrail 寫入 System Prompt。
+5. 知識沉澱：下週二同步產出 CS 專用「候補常見 QA」與後台店家操作 Help Center 文件。
       </div>
     </section>
 
@@ -465,7 +435,7 @@
 
   <script>
     // ----------------------------------------------------
-    // 完整 20 組熱門真實需求資料庫 (新客 10 組 + 老客 10 組)
+    // 完整 20 組熱門真實需求資料庫
     // ----------------------------------------------------
     const allPresets = [
       // 新客 1 ~ 10
@@ -602,7 +572,6 @@
       document.getElementById('req-scope').value = preset.scope;
 
       renderInstantPrdAndInsights(preset);
-      writeCurrentPrdToKickoffMemo();
     }
 
     function manualInputSync() {
@@ -615,11 +584,10 @@
         scope: document.getElementById('req-scope').value
       };
       renderInstantPrdAndInsights(customPreset);
-      writeCurrentPrdToKickoffMemo();
     }
 
     // ----------------------------------------------------
-    // PRD & AC 自動生成引擎 + PM 決策重點剖析
+    // PRD & AC 自動直出 (嚴格保留指定的 4 大核心章節)
     // ----------------------------------------------------
     function renderInstantPrdAndInsights(data) {
       document.getElementById('prd-header-title').innerText = `[PRD] ${data.title}`;
@@ -627,23 +595,23 @@
       const prdHtml = `
         <div class="border-b border-cyber-border/50 pb-2 mb-2">
           <span class="text-cyber-cyan font-bold block mb-1">【一、 痛點對比與架構取捨】</span>
-          <div>▸ <strong>客戶訴求：</strong>${data.voice}</div>
-          <div>▸ <strong>PM 真因核心解法：</strong>${data.problem}</div>
-          <div class="text-cyber-gold mt-1">▸ <strong>Out of Scope 防線：</strong>${data.scope}</div>
+          <div>▸ <strong>客戶原始訴求：</strong>${data.voice}</div>
+          <div>▸ <strong>PM 轉化真因核心解法：</strong>${data.problem}</div>
+          <div class="text-cyber-gold mt-1">▸ <strong>Out of Scope 邊界防線：</strong>${data.scope}</div>
         </div>
 
         <div class="border-b border-cyber-border/50 pb-2 mb-2">
           <span class="text-cyber-cyan font-bold block mb-1">【二、 核心使用者故事 (User Stories)】</span>
-          <div>• <strong>As a</strong> 終端學員 (User)，<strong>I want to</strong> 在極致低摩擦或公平通知機制下完成預約，<strong>So that</strong> 我不需要忍受繁複的操作或隨時刷課表。</div>
-          <div>• <strong>As a</strong> 場館管理者 (Admin)，<strong>I want to</strong> 系統全自動化執行狀態流轉，<strong>So that</strong> 現場櫃台與客服人員不再承擔手動通知與爭議風險。</div>
+          <div>• <strong>As a</strong> 終端學員 (User)，<strong>I want to</strong> 在低摩擦與公平通知機制下完成預約，<strong>So that</strong> 不需要隨時手動刷新課表。</div>
+          <div>• <strong>As a</strong> 場館管理者 (Admin)，<strong>I want to</strong> 系統全自動化執行狀態流轉與釋出，<strong>So that</strong> 現場櫃台不再承擔手動通知客訴風險。</div>
         </div>
 
         <div class="border-b border-cyber-border/50 pb-2 mb-2">
           <span class="text-cyber-cyan font-bold block mb-1">【三、 結構化驗收標準 (Acceptance Criteria - Gherkin)】</span>
-          <div class="space-y-1.5 font-mono text-[11px] bg-[#080d17] p-2 rounded border border-cyber-border/40">
-            <div><strong class="text-emerald-400">AC 1 (正向流動)：</strong> Given 進入預約/候補狀態，When 用戶觸發核心操作，Then 系統預先完成資產與權限檢查，並在 200ms 內反饋成功狀態。</div>
+          <div class="space-y-1.5 font-mono text-[11px] bg-[#080d17] p-2.5 rounded border border-cyber-border/40">
+            <div><strong class="text-emerald-400">AC 1 (正向流動)：</strong> Given 進入預約/候補狀態，When 用戶觸發預約，Then 系統預先完成點數資產與權限檢查，並在 200ms 內反饋成功狀態。</div>
             <div><strong class="text-emerald-400">AC 2 (分散式鎖定)：</strong> Given 席位釋出或狀態變更，When 多用戶並發搶位，Then 系統透過 Redis 分散式鎖進行原子鎖定，嚴禁 Double-Booking。</div>
-            <div><strong class="text-emerald-400">AC 3 (逾時補償)：</strong> Given 進入保留倒數（如 15 分鐘），When 倒數逾時未確認，Then 狀態自動釋放並透過非同步佇列順移至下一位。</div>
+            <div><strong class="text-emerald-400">AC 3 (逾時補償)：</strong> Given 進入保留倒數（15 分鐘），When 倒數逾時未確認，Then 狀態自動釋放並透過非同步佇列順移至下一順位。</div>
             <div><strong class="text-emerald-400">AC 4 (防呆與邊界)：</strong> Given 斷網或 Webhook 延遲，When 客戶端重新請求，Then 系統實施等冪性校驗（Idempotency Check），不重複扣點。</div>
           </div>
         </div>
@@ -651,7 +619,7 @@
         <div>
           <span class="text-cyber-cyan font-bold block mb-1">【四、 非功能性需求 (NFR)】</span>
           <div>• <strong>10x 負載防禦：</strong>尖峰承載 1,500 QPS 壓測，API P99 &lt; 250ms。</div>
-          <div>• <strong>安全與灰度：</strong>全量由 Feature Flag 隔離，Week 4 旗艦試營運驗證通過後才全量放量。</div>
+          <div>• <strong>安全與灰度放量：</strong>全量由 Feature Flag 隔離，Week 4 旗艦門市試營運驗證通過後才全量放量。</div>
         </div>
       `;
       document.getElementById('prd-content-view').innerHTML = prdHtml;
@@ -674,74 +642,63 @@
     }
 
     // ----------------------------------------------------
-    // 將完整 PRD 規格自動組裝為 Markdown 格式並寫入 STEP 3
+    // 一鍵生成 Email 功能
     // ----------------------------------------------------
-    function getFullPrdMarkdown() {
+    function generateTeamEmail() {
       const selectEl = document.getElementById('req-title-select');
       const title = selectEl.options[selectEl.selectedIndex].text;
       const voice = document.getElementById('req-voice').value;
       const problem = document.getElementById('req-problem').value;
       const scope = document.getElementById('req-scope').value;
 
-      const okr1 = document.getElementById('okr-val-1').innerText.trim();
-      const okr2 = document.getElementById('okr-val-2').innerText.trim();
-      const okr3 = document.getElementById('okr-val-3').innerText.trim();
-      const okr4 = document.getElementById('okr-val-4').innerText.trim();
-      const okr5 = document.getElementById('okr-val-5').innerText.trim();
+      const subject = `[PRD & Kickoff Alignment] ${title} 交付審定與規格摘要`;
+      
+      const emailBody = `Hi Team,
 
-      return `# [Kickoff 審定合約] ${title} 交付規格書 (PRD)
+我是負責 Omcean Booking 的 Product PM。
 
-| 文件屬性 | 規格內容 |
-| :--- | :--- |
-| **專案名稱** | ${title} |
-| **負責產品經理** | Product PM |
-| **審定日期** | 2026-09-09 |
-| **交付模式** | 雙軌交付 (Week 4 旗艦試營運 / Week 8 全量微服務解耦) |
-| **合約狀態** | ✅ 已於 STEP 3 跨部門會議共識凍結 (Scope Frozen) |
+針對【${title}】模組，我們已完成需求結構化診斷與 PRD/AC 規格凍結。
+本信件檢附核心規格摘要，完整規格書請參閱附件 PDF。
 
----
+==================================================
+【附件 PDF 檔案】: PRD_${encodeURIComponent(title)}.pdf
+【附件預覽與下載連結】: https://docs.omceanbooking.internal/prd/download?id=OB-PRD-LATEST
+==================================================
 
-### 一、 5 大專案管理 OKR 指標防線
-* **OKR 1 (穩定度):** ${okr1}，尖峰零超賣，Redis 原生原子鎖承載搶位
-* **OKR 2 (準確度):** ${okr2}，100% 符合 Gherkin AC 驗收
-* **OKR 3 (準時率):** ${okr3}，雙軌準時交付 (W4 Pilot / W8 Full)
-* **OKR 4 (變更率):** ${okr4}，嚴守 Out of Scope，本期禁止追加
-* **OKR 5 (成本控制):** ${okr5}，微服務解耦，0 額外技術債
+【一、 痛點對比與架構取捨】
+- 客戶原始訴求: ${voice}
+- PM 轉化真因: ${problem}
+- Out of Scope 邊界防線: ${scope}
 
----
+【二、 核心使用者故事 (User Stories)】
+- As a 學員: 在低摩擦或公平通知機制下完成預約，不需隨時手動刷新課表。
+- As a 場館管理者: 系統全自動化執行狀態流轉與遞補，消除手動爭議客訴。
 
-### 二、 核心痛點對比與邊界防線
-* **客戶原始訴求:** ${voice}
-* **PM 轉化之真因痛點:** ${problem}
-* **變更管理防線 (本次絕對不做):** ${scope}
+【三、 結構化驗收標準 (Acceptance Criteria - Gherkin)】
+- AC 1: 資產檢查，200ms 內完成預扣與排隊狀態反饋。
+- AC 2: 席位釋出走 Redis 分散式鎖進行原子鎖定，保證零超賣 (Zero Double-booking)。
+- AC 3: 15 分鐘保留倒數逾時未確認，非同步順移給下一順位。
+- AC 4: 弱網/斷網情境實施嚴格等冪性校驗 (Idempotency Check)。
 
----
+【四、 非功能性需求 (NFR)】
+- 10x 負載容量: 承受 1,500 QPS 壓測，P99 < 250ms。
+- 發布模式: Feature Flag 控制，Week 4 旗艦店試營運 (Pilot)，Week 8 全量發布。
 
-### 三、 驗收標準 (Gherkin AC)
-* **AC 1 (正向流動):** Given 進入預約/候補狀態, When 用戶觸發核心操作, Then 系統預先完成資產檢查並在 200ms 內反饋。
-* **AC 2 (分散式鎖定):** Given 席位釋出, When 多人並發搶位, Then 系統透過 Redis 分散式鎖進行原子鎖定，嚴禁超賣。
-* **AC 3 (逾時補償):** Given 進入保留倒數 15 分鐘, When 倒數逾時未確認, Then 狀態自動釋放並順移至下一位候補。
-* **AC 4 (防呆邊界):** Given 網路中斷或 Webhook 延遲, When 重新請求, Then 實施等冪性校驗不重複扣點。
+==================================================
+【後續跨部門行動 (Follow-up Actions)】
+1. [Tech Lead / Engineering]: 於本週五前確認 Redis Lock TTL 策略與 1,500 QPS 壓測腳本設計。
+2. [UX / Frontend]: 於下週二前交付 LINE LIFF 候補倒數視覺與防止重複點擊 Prototype。
+3. [Sales / CS]: 向指標場館同步「Week 4 旗艦館試營運」時程，嚴禁承諾手動特權插隊。
+4. [QA / DevOps]: 設定 Feature Flag 灰度放量開關與 APM 延遲警報 (推播 > 2s 觸發)。
 
----
+若有任何問題或對規格有建議，請於今日 EOD 前在 Jira 留言對齊。
 
-### 四、 跨部門承諾簽核 (Sign-off)
-1. 業務端 (Sales/CS): 已確認客戶接受兩階段導入，不承諾額外客製特權插隊。
-2. 工程端 (Tech Lead): 候補佇列全面由 Redis 承載，主資料庫僅在確認扣點時寫入，保障 1,500 QPS 負載。
-3. 測試端 (QA): 搭建 1,500 QPS 壓測與 Feature Flag 灰度開關，延遲 > 2 秒觸發自動警報。
-`;
-    }
+Best regards,
+Product PM (Sender: mshappyj@gmail.com)
+Omcean Booking Delivery Command Center`;
 
-    function writeCurrentPrdToKickoffMemo() {
-      const memoEl = document.getElementById('ko-memo');
-      memoEl.innerText = getFullPrdMarkdown();
-    }
-
-    function copyGeneratedPrdAndWriteToKickoff() {
-      writeCurrentPrdToKickoffMemo();
-      const md = getFullPrdMarkdown();
-      navigator.clipboard.writeText(md);
-      alert('PRD 規格已完整產生、寫入 STEP 3 簽核區，並已複製至剪貼簿！');
+      const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+      window.location.href = mailtoUrl;
     }
 
     // ----------------------------------------------------
@@ -833,12 +790,43 @@
     }
 
     function exportFullMarkdown() {
-      const md = getFullPrdMarkdown();
+      const selectEl = document.getElementById('req-title-select');
+      const title = selectEl.options[selectEl.selectedIndex].text;
+      const voice = document.getElementById('req-voice').value;
+      const problem = document.getElementById('req-problem').value;
+      const scope = document.getElementById('req-scope').value;
+
+      const okr1 = document.getElementById('okr-val-1').innerText.trim();
+      const okr2 = document.getElementById('okr-val-2').innerText.trim();
+      const okr3 = document.getElementById('okr-val-3').innerText.trim();
+      const okr4 = document.getElementById('okr-val-4').innerText.trim();
+      const okr5 = document.getElementById('okr-val-5').innerText.trim();
+
+      const memo = document.getElementById('ko-memo').innerText.trim();
+
+      let md = `# [Omcean Booking] 產品全維度交付與品質報告\n\n`;
+      md += `*專案名稱: ${title} | 負責 PM: Product PM (mshappyj@gmail.com) | 狀態: 雙軌衝刺中*\n\n`;
+      md += `## 一、 5 大自訂 OKR 指標防線\n`;
+      md += `- **1. 系統穩定度:** ${okr1}\n`;
+      md += `- **2. 交付準確度:** ${okr2}\n`;
+      md += `- **3. 準時交付率:** ${okr3}\n`;
+      md += `- **4. 範疇變更率:** ${okr4}\n`;
+      md += `- **5. 研發成本控制:** ${okr5}\n\n`;
+      md += `## 二、 核心痛點與真因\n`;
+      md += `- **客戶原始聲音:** ${voice}\n`;
+      md += `- **PM 診斷核心痛點:** ${problem}\n`;
+      md += `- **嚴格排除範疇 (Out of Scope):** ${scope}\n\n`;
+      md += `## 三、 Jira 敏捷看板目前流轉狀態\n`;
+      tickets.forEach(t => {
+        md += `- [${t.status.toUpperCase()}] **${t.id}**: ${t.title} *(Owner: ${t.tag})*\n`;
+      });
+      md += `\n## 四、 STEP 3: Kickoff 跨部門共識備忘錄\n\`\`\`\n${memo}\n\`\`\`\n`;
+
       const blob = new Blob([md], { type: 'text/markdown' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `Kickoff-Approved-PRD-${Date.now()}.md`;
+      a.download = `Delivery-Report-${Date.now()}.md`;
       a.click();
       URL.revokeObjectURL(url);
     }
