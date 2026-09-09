@@ -13,13 +13,11 @@
             cyber: {
               bg: '#060b13',
               card: '#0a121e',
-              cardHover: '#0e1828',
               border: '#162235',
               cyan: '#00f0ff',
               cyanMuted: '#0e3a47',
               green: '#10b981',
               gold: '#fbbf24',
-              purple: '#a855f7',
               red: '#f43f5e'
             }
           }
@@ -64,49 +62,21 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking 產品交付指揮中心</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] 需求規劃・親身驗證・AI重度賦能・矽谷協作・OKR防線・Jira甘特圖
+          [ROLE: PRODUCT PM] 需求結構化・5 大 OKR 防線・雙軌敏捷甘特圖與 Jira 看板
         </p>
       </div>
 
       <div class="flex items-center space-x-3 font-mono text-xs">
         <span class="px-2.5 py-1 rounded bg-cyber-cyanMuted text-cyber-cyan border border-cyber-cyan/30">
-          ● AI & 矽谷協作模式啟用
+          ● PM 標準交付流程啟用
         </span>
         <button onclick="exportFullMarkdown()" class="px-4 py-1.5 rounded-lg bg-cyber-cyan text-slate-950 font-bold hover:bg-opacity-90 transition shadow-lg shadow-cyber-cyan/10">
-          匯出全維度交付報告 (.MD)
+          匯出交付報告 (.MD)
         </button>
       </div>
     </header>
 
-    <!-- 1. 產品經理 6 大核心職能導航 (JD Matrix Blueprint) -->
-    <section class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 font-mono text-xs">
-      <div class="bg-cyber-card border border-cyber-border p-3 rounded-xl hover:border-cyber-cyan transition">
-        <div class="text-cyber-cyan font-bold mb-1">01 規劃與定義</div>
-        <div class="text-[11px] text-slate-400 font-sans">痛點解構・優先級排定・凍結 MVP 邊界</div>
-      </div>
-      <div class="bg-cyber-card border border-cyber-border p-3 rounded-xl hover:border-cyber-green transition">
-        <div class="text-cyber-green font-bold mb-1">02 測試與親驗</div>
-        <div class="text-[11px] text-slate-400 font-sans">設計 Edge Cases・親自手動 UAT・防線把關</div>
-      </div>
-      <div class="bg-cyber-card border border-cyber-border p-3 rounded-xl hover:border-purple-400 transition">
-        <div class="text-purple-400 font-bold mb-1">03 AI 重度賦能</div>
-        <div class="text-[11px] text-slate-400 font-sans">Claude/ChatGPT 加速規格・數據分析</div>
-      </div>
-      <div class="bg-cyber-card border border-cyber-border p-3 rounded-xl hover:border-cyber-gold transition">
-        <div class="text-cyber-gold font-bold mb-1">04 矽谷 Chatbot</div>
-        <div class="text-[11px] text-slate-400 font-sans">AI 客服情境・對話設計・防幻覺評測</div>
-      </div>
-      <div class="bg-cyber-card border border-cyber-border p-3 rounded-xl hover:border-blue-400 transition">
-        <div class="text-blue-400 font-bold mb-1">05 跨國英文協作</div>
-        <div class="text-[11px] text-slate-400 font-sans">非同步清晰 Ticket・Native 團隊 Trade-off</div>
-      </div>
-      <div class="bg-cyber-card border border-cyber-border p-3 rounded-xl hover:border-slate-500 transition">
-        <div class="text-slate-300 font-bold mb-1">06 知識庫沉澱</div>
-        <div class="text-[11px] text-slate-400 font-sans">PRD 文檔維護・CS FAQ 與 Help Center</div>
-      </div>
-    </section>
-
-    <!-- 2. 五大 OKR 核心指標防線 (可手動直接編輯) -->
+    <!-- 五大 OKR 核心指標防線 (可手動直接編輯) -->
     <section>
       <div class="flex items-center justify-between mb-2">
         <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
@@ -144,106 +114,56 @@
       </div>
     </section>
 
-    <!-- 3. AI 實用工具箱 & 矽谷 Chatbot 評測模組 (New Section) -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-
-      <!-- 左側：AI Copilot Prompt 生成器 (ChatGPT / Claude) -->
-      <section class="lg:col-span-6 bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
-        <div class="flex items-center justify-between border-b border-cyber-border pb-3">
-          <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-purple-400"></span>
-            <h2 class="text-sm font-bold text-white tracking-wide">AI 重度賦能工具箱 (Claude / ChatGPT 助手)</h2>
-          </div>
-          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-950 text-purple-300 border border-purple-800">
-            Prompt Generator
-          </span>
-        </div>
-        <p class="text-xs text-slate-400">把重複性工作交給 AI，保留時間做決策。選擇任務類型以生成給 Claude 的精準指令：</p>
-        
-        <div class="grid grid-cols-3 gap-2 text-xs font-mono">
-          <button onclick="generatePrompt('prd')" class="p-2 rounded bg-slate-900 border border-cyber-border text-slate-300 hover:border-purple-400 text-left">
-            1. 規格/PRD 展開
-          </button>
-          <button onclick="generatePrompt('edge')" class="p-2 rounded bg-slate-900 border border-cyber-border text-slate-300 hover:border-purple-400 text-left">
-            2. 極端邊界測試集
-          </button>
-          <button onclick="generatePrompt('feedback')" class="p-2 rounded bg-slate-900 border border-cyber-border text-slate-300 hover:border-purple-400 text-left">
-            3. 客服客訴痛點提煉
-          </button>
-        </div>
-
-        <div>
-          <div class="flex justify-between text-[11px] font-mono text-slate-400 mb-1">
-            <span>生成的最佳化 AI Prompt（可直接複製貼進 Claude/ChatGPT）</span>
-            <button onclick="copyPrompt()" class="text-cyber-cyan hover:underline">複製內容</button>
-          </div>
-          <textarea id="ai-prompt-box" rows="5" readonly class="w-full text-xs font-mono p-3 rounded-lg border border-cyber-border leading-relaxed text-slate-300"></textarea>
-        </div>
-      </section>
-
-      <!-- 右側：矽谷協作 AI 客服 Chatbot 測試與防幻覺工作台 -->
-      <section class="lg:col-span-6 bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
-        <div class="flex items-center justify-between border-b border-cyber-border pb-3">
-          <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-cyber-gold"></span>
-            <h2 class="text-sm font-bold text-white tracking-wide">矽谷協作：AI 客服 Chatbot 防幻覺評測台</h2>
-          </div>
-          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-950 text-cyber-gold border border-amber-800">
-            Silicon Valley Co-Dev
-          </span>
-        </div>
-        <p class="text-xs text-slate-400">定義對話流程，把控 AI 回答品質與邊界防護，防止捏造與未授權承諾：</p>
-
-        <div class="space-y-3 text-xs font-mono">
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="block text-[11px] text-slate-400 mb-1">測試意圖分類 (Intent)</label>
-              <select id="chat-intent" class="w-full p-2 text-xs rounded border" onchange="runChatbotEval()">
-                <option value="refund">臨時取消與退款要求 (高風險)</option>
-                <option value="pricing">私人教練課價格與包月諮詢</option>
-                <option value="waitlist">詢問排隊順位與候補時間</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-[11px] text-slate-400 mb-1">防幻覺安全防線 (Guardrail)</label>
-              <div class="p-2 bg-[#05080f] rounded border border-cyber-border text-cyber-green text-[11px]" id="guardrail-text">
-                禁承諾退費・自動引導審核工單
-              </div>
-            </div>
-          </div>
-
-          <div class="bg-[#05080f] p-3 rounded-lg border border-cyber-border space-y-2">
-            <div class="flex justify-between items-center">
-              <span class="text-[11px] text-slate-400 font-bold uppercase">Chatbot 模擬對話與品質驗證</span>
-              <span class="text-[10px] text-cyber-green" id="eval-status">✓ 評測通過 (No Hallucination)</span>
-            </div>
-            <div class="text-slate-300 leading-relaxed font-sans text-xs" id="chat-simulation">
-              <strong>學員:</strong> 「我今天突然感冒不能去，但離上課只剩 1 小時，你們能全額退費給我嗎？」<br>
-              <span class="text-cyber-cyan"><strong>AI Chatbot (已防護):</strong> 「很抱歉得知您身體不適！根據場館規則，課前 2 小時內取消無法由系統自動退回堂數。我已為您建立『特殊病假審核工單』並通知館長，稍後將由真人專人為您協助處理。」</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </div>
-
-    <!-- 4. GANTT CHART (雙軌交付排程甘特圖) -->
+    <!-- STEP 1: 需求診斷與規格凍結 -->
     <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-cyber-border pb-3">
-        <div>
-          <h2 class="text-sm font-bold text-white tracking-wide flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-cyber-cyan"></span>
-            專案雙軌敏捷甘特圖 (Gantt Delivery Timeline)
-          </h2>
-          <p class="text-[11px] text-slate-400 font-mono">先驗證再放大：第 4 週受控試營運 (Pilot)，第 8 週完成正統解耦微服務全量發布</p>
+      <div class="flex items-center justify-between border-b border-cyber-border pb-3">
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-0.5 rounded bg-cyber-cyan text-slate-950 font-black text-xs font-mono">STEP 1</span>
+          <h2 class="text-sm font-bold text-white tracking-wide">需求診斷與規格凍結 (Discovery & Scope Freeze)</h2>
         </div>
-        <div class="flex items-center space-x-4 text-[11px] font-mono">
-          <span class="flex items-center gap-1"><span class="w-3 h-2 bg-blue-500 rounded-sm"></span> Discovery & Scope</span>
-          <span class="flex items-center gap-1"><span class="w-3 h-2 bg-purple-500 rounded-sm"></span> Phase 1 (Week 4 MVP)</span>
-          <span class="flex items-center gap-1"><span class="w-3 h-2 bg-cyber-green rounded-sm"></span> Phase 2 (Week 8 10x Scale)</span>
+        <span class="text-[10px] font-mono text-cyber-cyan">直擊真因痛點・劃定邊界</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-[11px] font-mono text-slate-400 mb-1">功能需求名稱</label>
+          <input type="text" id="req-title" value="尖峰時段熱門排課動態候補與自動通知" class="w-full px-3 py-2 text-xs rounded border font-mono">
+        </div>
+        <div>
+          <label class="block text-[11px] font-mono text-slate-400 mb-1">客戶原始聲音 (Voice of Customer)</label>
+          <textarea id="req-voice" rows="2" class="w-full px-3 py-1.5 text-xs rounded border leading-relaxed">「熱門課一開就被秒殺，但很多人常常臨時不來！希望我們可以手動幫 VIP 插隊，或者有人取消時馬上通知下一位。」</textarea>
+        </div>
+        <div>
+          <label class="block text-[11px] font-mono text-cyber-cyan mb-1">PM 轉化的核心真因痛點 (Root Cause)</label>
+          <textarea id="req-problem" rows="2" class="w-full px-3 py-1.5 text-xs rounded border leading-relaxed">臨開課前爽約率達 18% 造成席位空置與教練費浪費，缺乏即時自動化補位機制；需兼顧公平性並保障高並發穩定。</textarea>
         </div>
       </div>
 
+      <div class="p-3 bg-[#05080f] rounded-lg border border-cyber-border flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <div class="space-y-0.5 flex-1">
+          <div class="text-[11px] font-bold text-cyber-gold font-mono uppercase">變更管理防線：本次絕對不做 (Out of Scope)</div>
+          <div class="text-xs text-slate-400 font-mono">1. 暫不做跨分店多幣別自動清算（維持人工報表批次）。 2. 暫不做階梯式動態違約罰款扣款。</div>
+        </div>
+        <span class="text-[10px] font-mono px-2 py-1 rounded bg-amber-950 text-cyber-gold border border-amber-800 shrink-0">
+          變更率嚴控 &lt; 10%
+        </span>
+      </div>
+    </section>
+
+    <!-- STEP 2: 敏捷排程與雙軌交付 (Gantt & Jira Kanban) -->
+    <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-cyber-border pb-3">
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-0.5 rounded bg-cyber-green text-slate-950 font-black text-xs font-mono">STEP 2</span>
+          <h2 class="text-sm font-bold text-white tracking-wide">敏捷排程與雙軌交付 (Delivery Schedule & Execution)</h2>
+        </div>
+        <div class="flex items-center space-x-4 text-[11px] font-mono">
+          <span class="flex items-center gap-1"><span class="w-3 h-2 bg-purple-500 rounded-sm"></span> Phase 1 (W4 Pilot)</span>
+          <span class="flex items-center gap-1"><span class="w-3 h-2 bg-cyber-green rounded-sm"></span> Phase 2 (W8 10x Scale)</span>
+        </div>
+      </div>
+
+      <!-- Gantt Chart -->
       <div class="overflow-x-auto">
         <div class="min-w-[700px] space-y-2 font-mono text-xs">
           <div class="grid grid-cols-12 gap-1 text-[11px] text-slate-500 pb-1 border-b border-cyber-border/40">
@@ -304,22 +224,12 @@
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- 5. JIRA 敏捷看板 & PM 親身測試驗證台 (Edge Cases & QA) -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-
-      <!-- 左側：Jira 看板 (7 cols) -->
-      <section class="lg:col-span-7 bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
-        <div class="flex items-center justify-between border-b border-cyber-border pb-3">
-          <div>
-            <h2 class="text-sm font-bold text-white tracking-wide flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-cyber-cyan"></span>
-              Jira 敏捷工作流看板 (Backlog → Dev → Test → Publish)
-            </h2>
-            <p class="text-[11px] text-slate-400 font-mono">點擊卡片按鈕流轉狀態；非同步協作推進</p>
-          </div>
-          <button onclick="addCustomTicket()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-200 border border-cyber-border transition">
+      <!-- Jira Kanban -->
+      <div class="pt-3 border-t border-cyber-border">
+        <div class="flex items-center justify-between mb-3">
+          <div class="text-xs font-mono font-bold text-slate-300 uppercase">Jira 敏捷流轉看板</div>
+          <button onclick="addCustomTicket()" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[11px] font-mono text-slate-200 border border-cyber-border transition">
             + 新增 Ticket
           </button>
         </div>
@@ -353,114 +263,39 @@
             <div class="space-y-2 mt-2" id="col-publish"></div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- 右側：PM 親身測試驗證與 Edge Cases 清單 (5 cols) -->
-      <section class="lg:col-span-5 bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
-        <div class="flex items-center justify-between border-b border-cyber-border pb-3">
-          <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-cyber-green"></span>
-            <h2 class="text-sm font-bold text-white tracking-wide">PM 親測驗證防線 (Edge Case Checklist)</h2>
-          </div>
-          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-cyber-green border border-emerald-800">
-            不把驗證當別人的事
-          </span>
+    <!-- STEP 3: 跨部門對齊與共識簽核 -->
+    <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
+      <div class="flex items-center justify-between border-b border-cyber-border pb-3">
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-0.5 rounded bg-cyber-gold text-slate-950 font-black text-xs font-mono">STEP 3</span>
+          <h2 class="text-sm font-bold text-white tracking-wide">跨部門對齊與共識簽核 (Kickoff & Alignment)</h2>
         </div>
-        <p class="text-xs text-slate-400">功能放量前，PM 必須親自在 Staging 環境驗證以下極端情況：</p>
+        <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">全團隊對齊中</span>
+      </div>
 
-        <div class="space-y-2 text-xs font-mono" id="qa-checklist">
-          <label class="flex items-start space-x-2 p-2 bg-[#05080f] border border-cyber-border rounded hover:border-slate-600 cursor-pointer">
-            <input type="checkbox" checked class="mt-0.5 rounded text-cyber-green">
-            <span class="text-slate-300"><strong>[並發超賣]</strong> 2 人於同一毫秒搶最後 1 個候補席位，Redis 鎖是否正常拒絕其一。</span>
-          </label>
-          <label class="flex items-start space-x-2 p-2 bg-[#05080f] border border-cyber-border rounded hover:border-slate-600 cursor-pointer">
-            <input type="checkbox" checked class="mt-0.5 rounded text-cyber-green">
-            <span class="text-slate-300"><strong>[金流斷網]</strong> LINE Pay 扣款成功瞬間手機關機，Webhook 能否非同步補償預約狀態。</span>
-          </label>
-          <label class="flex items-start space-x-2 p-2 bg-[#05080f] border border-cyber-border rounded hover:border-slate-600 cursor-pointer">
-            <input type="checkbox" class="mt-0.5 rounded text-cyber-green">
-            <span class="text-slate-300"><strong>[逾時順移]</strong> 第 1 順位老客超過 15 分鐘未確認，系統是否順暢釋出推播給第 2 順位。</span>
-          </label>
-          <label class="flex items-start space-x-2 p-2 bg-[#05080f] border border-cyber-border rounded hover:border-slate-600 cursor-pointer">
-            <input type="checkbox" class="mt-0.5 rounded text-cyber-green">
-            <span class="text-slate-300"><strong>[首購防呆]</strong> 既有舊學員重複領取「新客體驗券」時，介面是否優雅提示並阻擋。</span>
-          </label>
-        </div>
-
-        <div class="p-3 bg-[#05080f] border border-cyber-border rounded-lg text-xs font-mono text-slate-400">
-          <div class="text-cyber-cyan font-bold mb-1">跨國非同步回報格式 (Async Bug Ticket)</div>
-          <div class="text-[11px] leading-relaxed">
-            <code>[BUG] Waitlist lock release timeout on slow network</code><br>
-            Expected: auto-revert within 15min. Actual: state locked for 60min. (Loom video attached)
-          </div>
-        </div>
-      </section>
-
-    </div>
-
-    <!-- 6. 需求結構化輸入 & 會議備忘錄 (可手動直接編輯) -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-      
-      <section class="lg:col-span-5 bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-3">
-        <div class="flex justify-between items-center border-b border-cyber-border pb-2">
-          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300">客戶需求結構化 (PM Discovery)</h3>
-          <span class="text-[10px] font-mono text-cyber-cyan">直擊真因痛點</span>
-        </div>
-
-        <div>
-          <label class="block text-[11px] font-mono text-slate-400 mb-1">功能需求名稱</label>
-          <input type="text" id="req-title" value="尖峰時段熱門排課動態候補與自動通知" class="w-full px-3 py-1.5 text-xs rounded border font-mono">
-        </div>
-
-        <div>
-          <label class="block text-[11px] font-mono text-slate-400 mb-1">客戶原始抱怨聲音 (Voice of Customer)</label>
-          <textarea id="req-voice" rows="2" class="w-full px-3 py-1.5 text-xs rounded border leading-relaxed">「熱門課一開就被秒殺，但很多人常常臨時不來！希望我們可以手動幫 VIP 插隊，或者有人取消時馬上通知下一位。」</textarea>
-        </div>
-
-        <div>
-          <label class="block text-[11px] font-mono text-cyber-cyan mb-1">PM 轉化的真因痛點 (Root Problem)</label>
-          <textarea id="req-problem" rows="2" class="w-full px-3 py-1.5 text-xs rounded border leading-relaxed">臨開課前爽約率達 18% 造成席位空置與教練費浪費，缺乏即時自動化補位機制；需兼顧公平性並保障高並發穩定。</textarea>
-        </div>
-
-        <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
-          <div class="text-[11px] font-bold text-cyber-gold font-mono uppercase">變更管理：本次絕對不做 (Out of Scope)</div>
-          <textarea id="req-scope" rows="2" class="w-full p-1.5 text-[11px] rounded border text-slate-400 font-mono">1. 暫不做跨分店多幣別自動清算（維持人工報表）。
-2. 暫不做階梯式動態違約罰款扣款。</textarea>
-        </div>
-      </section>
-
-      <section class="lg:col-span-7 bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-3 flex flex-col justify-between">
-        <div>
-          <div class="flex justify-between items-center border-b border-cyber-border pb-2 mb-3">
-            <h3 class="text-xs font-bold uppercase tracking-wider text-white">Kickoff 5 分鐘跨部門共識紀錄 (可手動編輯)</h3>
-            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">全團隊對齊中</span>
-          </div>
-
-          <div id="ko-memo" contenteditable="true" class="w-full bg-[#05080f] border border-cyber-border rounded-lg p-3 text-xs font-mono leading-relaxed text-slate-200 focus:outline-none min-h-[160px]">
+      <div id="ko-memo" contenteditable="true" class="w-full bg-[#05080f] border border-cyber-border rounded-lg p-3 text-xs font-mono leading-relaxed text-slate-200 focus:outline-none min-h-[140px]">
 1. 業務端 (Sales/CS)：已確認客戶同意採兩階段交付，Week 4 先跑 2 家旗艦店試營運。
 2. 工程端 (Tech Lead)：候補資料暫存於 Redis 分散式鎖，主資料庫僅在確認預約時更新，保障 99.95% 穩定度。
 3. 範疇協議 (Scope Control)：上線前若有新欄位要求，一律凍結至 Phase 2，守住 100% 準時上線 OKR。
-4. 矽谷 Chatbot 對齊：已將「防無效預約」與「自動轉真人客服」之 Guardrail 寫入 System Prompt。
-5. 知識沉澱：下週二同步產出 CS 專用「候補常見 QA」與後台店家操作 Help Center 文件。
-          </div>
-        </div>
+4. 知識沉澱：下週二同步產出 CS 專用「候補常見 QA」與後台店家操作 Help Center 文件。
+      </div>
 
-        <div class="flex items-center justify-between text-[11px] font-mono text-slate-500 pt-2 border-t border-cyber-border">
-          <span>💡 提示：所有欄位皆可隨時修改，點擊右上角自動封裝為 Markdown。</span>
-        </div>
-      </section>
-
-    </div>
+      <div class="flex items-center justify-between text-[11px] font-mono text-slate-500 pt-2 border-t border-cyber-border">
+        <span>💡 提示：所有欄位皆可隨時修改，點擊右上角自動封裝為 Markdown。</span>
+      </div>
+    </section>
 
   </div>
 
   <script>
-    // 1. Jira Tickets Data
     let tickets = [
       { id: 'OB-101', title: '新客 30 秒 LINE 免密預約規格 (AC 凍結)', status: 'publish', tag: 'Product PM' },
       { id: 'OB-102', title: '老客 15 分鐘候補鎖位與倒數 UI 原型', status: 'test', tag: 'UX/FE' },
       { id: 'OB-103', title: 'Redis 分散式鎖防超賣 (1,500 QPS 負載驗證)', status: 'dev', tag: 'Backend' },
-      { id: 'OB-104', title: '矽谷協作：AI 客服 Chatbot 取消退費防幻覺測試', status: 'dev', tag: 'AI/Chatbot' },
+      { id: 'OB-104', title: 'Feature Flag 灰度放量網關與緊急 Rollback 機制', status: 'dev', tag: 'QA/Ops' },
       { id: 'OB-105', title: 'CS Help Center 與店家候補操作指引文件產出', status: 'backlog', tag: 'Knowledge' }
     ];
 
@@ -513,56 +348,6 @@
       }
     }
 
-    // 2. AI Prompt Generator
-    function generatePrompt(type) {
-      const box = document.getElementById('ai-prompt-box');
-      if (type === 'prd') {
-        box.value = `你是一位資深 B2B SaaS 產品經理。請根據以下功能主題：【尖峰時段熱門排課動態候補與自動通知】，
-以 RICE 框架與嚴格的 Out of Scope 邊界，輸出完整的 PRD 規格。
-需包含：
-1. 目標受眾（新客 vs 老客痛點差異）
-2. 5 個具體的 User Story 與可被單元測試的 Acceptance Criteria (AC)
-3. 非功能性需求（NFR）：P99 < 250ms、高並發零超賣防禦架構
-4. 灰度發布（Feature Flag）階段規劃`;
-      } else if (type === 'edge') {
-        box.value = `請扮演分散式架構師與惡意測試者（QA Lead）。
-針對我們的預約系統【15 分鐘候補自動遞補與 Redis 鎖定機制】，列出 10 個最極端的邊界情境（Edge Cases）。
-請涵蓋：網路瞬間斷線、同一毫秒並發搶位、跨時區預約、學員點數餘額剛好為 0、第三方金流 Webhook 延遲超過 3 分鐘等情境，並附上預期的補償機制（Fallback Logic）。`;
-      } else if (type === 'feedback') {
-        box.value = `以下是來自 50 家瑜珈與健身場館的客服工單與客訴摘要。
-請使用文字探勘與根因分析法（Root Cause Analysis），將這些零散抱怨歸納為前三大核心系統痛點，
-並為每個痛點提出「最小成本、最大效益」的 MVP 產品解法建議。`;
-      }
-    }
-
-    function copyPrompt() {
-      const box = document.getElementById('ai-prompt-box');
-      navigator.clipboard.writeText(box.value);
-      alert('Prompt 已成功複製至剪貼簿！可直接貼給 Claude 或 ChatGPT。');
-    }
-
-    // 3. Silicon Valley Chatbot Eval
-    function runChatbotEval() {
-      const intent = document.getElementById('chat-intent').value;
-      const sim = document.getElementById('chat-simulation');
-      const guard = document.getElementById('guardrail-text');
-
-      if (intent === 'refund') {
-        guard.innerText = '禁承諾退費・自動引導審核工單';
-        sim.innerHTML = `<strong>學員:</strong> 「我今天臨時感冒不能去，但離上課只剩 1 小時，你們能全額退費給我嗎？」<br>
-        <span class="text-cyber-cyan"><strong>AI Chatbot (已防護):</strong> 「很抱歉得知您身體不適！根據場館規則，課前 2 小時內取消無法自動退回堂數。我已為您建立『特殊病假審核工單』並通知館長，稍後將由真人專人為您協助處理。」</span>`;
-      } else if (intent === 'pricing') {
-        guard.innerText = '查詢即時方案庫・未公開報價轉真人';
-        sim.innerHTML = `<strong>學員:</strong> 「請問私人教練課買 20 堂可以算我 8 折嗎？」<br>
-        <span class="text-cyber-cyan"><strong>AI Chatbot (已防護):</strong> 「目前系統常態方案為 10 堂與 30 堂優惠。針對 20 堂的專屬方案與體驗優惠，我已將您的詢問直接轉發給顧問教練，將在 10 分鐘內為您說明最適合的折扣！」</span>`;
-      } else if (intent === 'waitlist') {
-        guard.innerText = '串接 Redis 即時順位・防保證預言';
-        sim.innerHTML = `<strong>學員:</strong> 「我排在週六晚上瑜珈的候補第 3 位，我到底排不排得到？」<br>
-        <span class="text-cyber-cyan"><strong>AI Chatbot (已防護):</strong> 「您目前排在第 3 順位！歷史數據顯示該時段課前 4 小時釋出機率約 65%。一旦前面學員取消，系統會立即透過 LINE 推播保留名額 15 分鐘，請留意推播訊息喔！」</span>`;
-      }
-    }
-
-    // 4. Export Markdown
     function exportFullMarkdown() {
       const okr1 = document.getElementById('okr-val-1').innerText.trim();
       const okr2 = document.getElementById('okr-val-2').innerText.trim();
@@ -573,7 +358,6 @@
       const title = document.getElementById('req-title').value;
       const voice = document.getElementById('req-voice').value;
       const problem = document.getElementById('req-problem').value;
-      const scope = document.getElementById('req-scope').value;
       const memo = document.getElementById('ko-memo').innerText.trim();
 
       let md = `# [Omcean Booking] 產品全維度交付與品質報告\n\n`;
@@ -586,43 +370,29 @@
       md += `- **4. 範疇變更率:** ${okr4} (${document.getElementById('okr-sub-4').innerText.trim()})\n`;
       md += `- **5. 研發成本控制:** ${okr5} (${document.getElementById('okr-sub-5').innerText.trim()})\n\n`;
 
-      md += `## 二、 PM 親身測試驗證 (Edge Cases QA)\n`;
-      const qaLabels = document.querySelectorAll('#qa-checklist label span');
-      qaLabels.forEach(l => {
-        md += `- [x] ${l.innerText}\n`;
-      });
-      md += `\n`;
-
-      md += `## 三、 客戶痛點與真因\n`;
+      md += `## 二、 STEP 1: 需求診斷與真因痛點\n`;
       md += `- **客戶原始聲音:** ${voice}\n`;
-      md += `- **PM 診斷核心痛點:** ${problem}\n`;
-      md += `- **嚴格排除範疇 (Out of Scope):**\n${scope}\n\n`;
+      md += `- **PM 診斷核心痛點:** ${problem}\n\n`;
 
-      md += `## 四、 Jira 敏捷看板目前流轉狀態\n`;
+      md += `## 三、 STEP 2: Jira 敏捷看板流轉狀態\n`;
       tickets.forEach(t => {
         md += `- [${t.status.toUpperCase()}] **${t.id}**: ${t.title} *(Owner: ${t.tag})*\n`;
       });
       md += `\n`;
 
-      md += `## 五、 矽谷協作 AI Chatbot 防線\n`;
-      md += `- **當前評測意圖:** ${document.getElementById('chat-intent').options[document.getElementById('chat-intent').selectedIndex].text}\n`;
-      md += `- **防幻覺策略:** ${document.getElementById('guardrail-text').innerText}\n\n`;
-
-      md += `## 六、 Kickoff 會議跨部門共識備忘錄\n\`\`\`\n${memo}\n\`\`\`\n`;
+      md += `## 四、 STEP 3: Kickoff 跨部門共識備忘錄\n\`\`\`\n${memo}\n\`\`\`\n`;
 
       const blob = new Blob([md], { type: 'text/markdown' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `PM-Full-Delivery-Report-${Date.now()}.md`;
+      a.download = `PM-Delivery-Report-${Date.now()}.md`;
       a.click();
       URL.revokeObjectURL(url);
     }
 
     window.onload = () => {
       renderKanban();
-      generatePrompt('prd');
-      runChatbotEval();
     };
   </script>
 </body>
