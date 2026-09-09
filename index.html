@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Omcean Booking - Product Ops Portal</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: { 50: '#f0fdfa', 500: '#0d9488', 600: '#0f766e', 700: '#115e59' }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen">
+
+  <!-- Header -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-9 h-9 bg-brand-600 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-sm">
+          OB
+        </div>
+        <div>
+          <h1 class="font-bold text-slate-900 leading-none">Omcean Booking</h1>
+          <span class="text-xs text-slate-500 font-medium">Product Ops Streamliner & PRD Engine</span>
+        </div>
+      </div>
+      <div class="flex items-center space-x-3">
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">
+          ● CTO Guardrails: Active
+        </span>
+        <button onclick="exportFullMarkdown()" class="bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition shadow-sm">
+          匯出完整 PRD (.md)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+    <!-- Top Banner: Guidance & CTO Principles -->
+    <div class="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-2xl p-6 mb-8 shadow-md">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-lg font-bold mb-1">Product Discovery & Delivery Framework</h2>
+          <p class="text-slate-300 text-sm max-w-2xl">
+            收斂客戶痛點，將解法分流為「新客極致降阻」與「老客資源最大化」，並以 CTO Michel 的 10 倍負載與高維護性作為規格防線。
+          </p>
+        </div>
+        <div class="flex gap-2">
+          <div class="bg-slate-800/80 border border-slate-700 rounded-xl px-3 py-2 text-center">
+            <div class="text-xs text-slate-400">系統標準</div>
+            <div class="text-sm font-semibold text-teal-400">10x Load Ready</div>
+          </div>
+          <div class="bg-slate-800/80 border border-slate-700 rounded-xl px-3 py-2 text-center">
+            <div class="text-xs text-slate-400">發布策略</div>
+            <div class="text-sm font-semibold text-emerald-400">Canary Rollout</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Segment Filter -->
+    <div class="flex items-center justify-between mb-6">
+      <div class="inline-flex bg-slate-200/80 p-1 rounded-xl text-sm font-medium">
+        <button onclick="filterSegment('all')" id="btn-all" class="px-4 py-1.5 rounded-lg bg-white text-slate-900 shadow-sm transition">
+          全部需求池
+        </button>
+        <button onclick="filterSegment('new')" id="btn-new" class="px-4 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">
+          新客場景（體驗與轉換）
+        </button>
+        <button onclick="filterSegment('returning')" id="btn-returning" class="px-4 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">
+          老客場景（留存與候補）
+        </button>
+      </div>
+      <div class="text-xs text-slate-500 font-mono" id="item-count">Showing 3 Items</div>
+    </div>
+
+    <!-- Main Grid Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+      <!-- Left Column: Feature Queue (5 cols) -->
+      <div class="lg:col-span-5 space-y-4" id="feature-list">
+        <!-- Feature Cards injected by JS -->
+      </div>
+
+      <!-- Right Column: Interactive Evaluation & PRD Inspector (7 cols) -->
+      <div class="lg:col-span-7">
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm sticky top-24">
+          
+          <div class="flex items-start justify-between border-b border-slate-100 pb-4 mb-6">
+            <div>
+              <span id="detail-segment-badge" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-teal-100 text-teal-800">新客體驗</span>
+              <h3 id="detail-title" class="text-xl font-bold text-slate-900 mt-2">選擇一個功能以檢視規格</h3>
+              <p id="detail-desc" class="text-sm text-slate-500 mt-1">點擊左側卡片即時調整 RICE 權重與架構評估。</p>
+            </div>
+            <div class="text-right">
+              <div class="text-xs font-medium text-slate-400">RICE Priority Score</div>
+              <div id="detail-rice-score" class="text-2xl font-black text-brand-600">--</div>
+            </div>
+          </div>
+
+          <!-- Interactive RICE Sliders -->
+          <div class="mb-6 bg-slate-50 p-4 rounded-xl border border-slate-100">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">RICE 優先級評估矩陣</h4>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <div class="flex justify-between text-xs font-medium text-slate-600 mb-1">
+                  <span>Reach (受眾規模: 1-10)</span>
+                  <span id="val-reach" class="font-bold text-slate-900">8</span>
+                </div>
+                <input type="range" min="1" max="10" id="slider-reach" oninput="updateCalculation()" class="w-full accent-brand-600">
+              </div>
+              <div>
+                <div class="flex justify-between text-xs font-medium text-slate-600 mb-1">
+                  <span>Impact (影響力: 1-5)</span>
+                  <span id="val-impact" class="font-bold text-slate-900">4</span>
+                </div>
+                <input type="range" min="1" max="5" id="slider-impact" oninput="updateCalculation()" class="w-full accent-brand-600">
+              </div>
+              <div>
+                <div class="flex justify-between text-xs font-medium text-slate-600 mb-1">
+                  <span>Confidence (信心度: %)</span>
+                  <span id="val-confidence" class="font-bold text-slate-900">80%</span>
+                </div>
+                <input type="range" min="50" max="100" step="10" id="slider-confidence" oninput="updateCalculation()" class="w-full accent-brand-600">
+              </div>
+              <div>
+                <div class="flex justify-between text-xs font-medium text-slate-600 mb-1">
+                  <span>Effort (開發週數: 1-10)</span>
+                  <span id="val-effort" class="font-bold text-slate-900">4</span>
+                </div>
+                <input type="range" min="1" max="10" id="slider-effort" oninput="updateCalculation()" class="w-full accent-brand-600">
+              </div>
+            </div>
+          </div>
+
+          <!-- CTO Michel Gatekeepers -->
+          <div class="mb-6">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">CTO Michel 架構檢查防線</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+              <label class="flex items-center space-x-2 p-2.5 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-50">
+                <input type="checkbox" id="check-scale" onchange="updateCalculation()" class="rounded text-brand-600 focus:ring-brand-500">
+                <span class="text-slate-700">支援 10x 負載架構</span>
+              </label>
+              <label class="flex items-center space-x-2 p-2.5 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-50">
+                <input type="checkbox" id="check-maintainable" onchange="updateCalculation()" class="rounded text-brand-600 focus:ring-brand-500">
+                <span class="text-slate-700">零客製化技術債</span>
+              </label>
+              <label class="flex items-center space-x-2 p-2.5 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-50">
+                <input type="checkbox" id="check-canary" onchange="updateCalculation()" class="rounded text-brand-600 focus:ring-brand-500">
+                <span class="text-slate-700">支援 Feature Flag 灰度發布</span>
+              </label>
+              <label class="flex items-center space-x-2 p-2.5 bg-white border border-slate-200 rounded-lg cursor-pointer hover:bg-slate-50">
+                <input type="checkbox" id="check-nfr" onchange="updateCalculation()" class="rounded text-brand-600 focus:ring-brand-500">
+                <span class="text-slate-700">含 APM 延遲與錯誤監控</span>
+              </label>
+            </div>
+            <div id="architecture-warning" class="hidden mt-3 p-3 bg-amber-50 border border-amber-200 rounded-lg text-xs text-amber-800">
+              ⚠️ <strong>CTO 警示：</strong> 開發工期超過 4 週且未滿足所有架構原則。建議切分為「Week 4 Phase 1 乾淨 MVP」與「Week 10 正統重構」。
+            </div>
+          </div>
+
+          <!-- User Story & AC Preview -->
+          <div class="border-t border-slate-100 pt-4">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">PRD 使用者故事與驗收標準 (AC)</h4>
+            <div id="detail-story" class="text-xs text-slate-600 bg-slate-50 p-3 rounded-lg border border-slate-200 mb-3 font-mono leading-relaxed">
+              請從左側點選功能以展開內容。
+            </div>
+            <ul id="detail-ac" class="space-y-1 text-xs text-slate-700">
+              <!-- Injected by JS -->
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+    const features = [
+      {
+        id: 'feat-1',
+        title: 'LINE 1-Click 無摩擦體驗預約',
+        segment: 'new',
+        segmentLabel: '新客體驗',
+        desc: '首購學員點擊 LINE 即可透過 LIFF 自動授權建檔，30 秒內完成單次體驗購課。',
+        reach: 9,
+        impact: 5,
+        confidence: 90,
+        effort: 3,
+        checks: { scale: true, maintainable: true, canary: true, nfr: true },
+        story: 'As a 第一次接觸場館的新學員,\nI want to 直接在 LINE 點擊時段並完成單次體驗預約,\nSo that 我不需要額外下載 App 或重複填寫會員密碼即可上課。',
+        acs: [
+          'LIFF 授權自動綁定 LINE UID，免設定密碼建檔',
+          '結帳支援 Apple Pay / LINE Pay 單次快捷扣款',
+          '報名成功後自動推播圖文卡片（含交通導航與新手到館須知）',
+          '重複 UID 自動隱藏新手體驗優惠'
+        ]
+      },
+      {
+        id: 'feat-2',
+        title: '熱門課動態候補與自動遞補引擎',
+        segment: 'returning',
+        segmentLabel: '老客留存',
+        desc: '額滿熱門課支援佇列排隊；有人取消時，系統自動透過 Redis 依序推播限時遞補。',
+        reach: 8,
+        impact: 4,
+        confidence: 80,
+        effort: 5,
+        checks: { scale: true, maintainable: true, canary: true, nfr: false },
+        story: 'As a 常態上課的活躍學員,\nI want to 在額滿課程上一鍵加入候補名單並自動獲得名額釋出通知,\nSo that 我不需要隨時手動刷課表，也能公平爭取到熱門時段空位。',
+        acs: [
+          '課程額滿時按鈕自動切換為「加入候補（顯示順位）」',
+          '釋出空位時，依序透過 LINE 推播提供 15 分鐘保留鎖定',
+          '開課前 2 小時切換為「廣播搶位模式」避免名額空置',
+          '加入候補前預先驗證既有堂數餘額，防止無效排隊'
+        ]
+      },
+      {
+        id: 'feat-3',
+        title: '老客會員中心資產一鍵展延與快速複訂',
+        segment: 'returning',
+        segmentLabel: '老客留存',
+        desc: '清晰顯示剩餘堂數與到期預警，並提供常上老師的 1-Click 快速複訂快捷鍵。',
+        reach: 7,
+        impact: 3,
+        confidence: 90,
+        effort: 2,
+        checks: { scale: true, maintainable: true, canary: true, nfr: true },
+        story: 'As a 每週固定回流的老學員,\nI want to 在首頁一鍵複訂常約教練與查詢堂數餘額,\nSo that 我能以最快速度完成日常課表安排。',
+        acs: [
+          '首頁頂部直接展示「最近常約師資與時段」推薦卡片',
+          '票券到期前 14 天/7 天觸發自動 LINE 提醒並附上續購優惠碼',
+          '歷史出席率與里程碑徽章展示（如：達成 50 堂課）'
+        ]
+      }
+    ];
+
+    let currentSegment = 'all';
+    let selectedFeature = features[0];
+
+    function renderFeatures() {
+      const container = document.getElementById('feature-list');
+      container.innerHTML = '';
+
+      const filtered = features.filter(f => currentSegment === 'all' || f.segment === currentSegment);
+      document.getElementById('item-count').innerText = `Showing ${filtered.length} Items`;
+
+      filtered.forEach(f => {
+        const isSelected = selectedFeature && selectedFeature.id === f.id;
+        const card = document.createElement('div');
+        card.className = `bg-white border ${isSelected ? 'border-brand-500 ring-2 ring-brand-500/10' : 'border-slate-200'} rounded-xl p-5 cursor-pointer hover:border-brand-400 transition shadow-sm`;
+        card.onclick = () => selectFeature(f.id);
+
+        const badgeColor = f.segment === 'new' ? 'bg-teal-50 text-teal-700 border-teal-200' : 'bg-indigo-50 text-indigo-700 border-indigo-200';
+        
+        card.innerHTML = `
+          <div class="flex items-start justify-between gap-2">
+            <span class="text-[11px] font-semibold px-2 py-0.5 rounded border ${badgeColor}">
+              ${f.segmentLabel}
+            </span>
+            <span class="text-xs font-mono text-slate-400">Score: ${calculateRiceScore(f)}</span>
+          </div>
+          <h4 class="font-bold text-slate-900 mt-2 mb-1">${f.title}</h4>
+          <p class="text-xs text-slate-500 line-clamp-2 leading-relaxed">${f.desc}</p>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function calculateRiceScore(f) {
+      return Math.round((f.reach * f.impact * (f.confidence / 100)) / (f.effort || 1) * 10);
+    }
+
+    function selectFeature(id) {
+      selectedFeature = features.find(f => f.id === id);
+      renderFeatures();
+      loadDetail();
+    }
+
+    function loadDetail() {
+      if (!selectedFeature) return;
+
+      document.getElementById('detail-title').innerText = selectedFeature.title;
+      document.getElementById('detail-desc').innerText = selectedFeature.desc;
+      document.getElementById('detail-segment-badge').innerText = selectedFeature.segmentLabel;
+      
+      // Update Inputs
+      document.getElementById('slider-reach').value = selectedFeature.reach;
+      document.getElementById('slider-impact').value = selectedFeature.impact;
+      document.getElementById('slider-confidence').value = selectedFeature.confidence;
+      document.getElementById('slider-effort').value = selectedFeature.effort;
+
+      document.getElementById('check-scale').checked = selectedFeature.checks.scale;
+      document.getElementById('check-maintainable').checked = selectedFeature.checks.maintainable;
+      document.getElementById('check-canary').checked = selectedFeature.checks.canary;
+      document.getElementById('check-nfr').checked = selectedFeature.checks.nfr;
+
+      document.getElementById('detail-story').innerText = selectedFeature.story;
+
+      const acList = document.getElementById('detail-ac');
+      acList.innerHTML = '';
+      selectedFeature.acs.forEach(ac => {
+        const li = document.createElement('li');
+        li.className = 'flex items-center space-x-2';
+        li.innerHTML = `<span class="text-emerald-500 font-bold">✓</span><span>${ac}</span>`;
+        acList.appendChild(li);
+      });
+
+      updateCalculation();
+    }
+
+    function updateCalculation() {
+      if (!selectedFeature) return;
+
+      const reach = parseInt(document.getElementById('slider-reach').value);
+      const impact = parseInt(document.getElementById('slider-impact').value);
+      const confidence = parseInt(document.getElementById('slider-confidence').value);
+      const effort = parseInt(document.getElementById('slider-effort').value);
+
+      document.getElementById('val-reach').innerText = reach;
+      document.getElementById('val-impact').innerText = impact;
+      document.getElementById('val-confidence').innerText = confidence + '%';
+      document.getElementById('val-effort').innerText = effort + ' 週';
+
+      selectedFeature.reach = reach;
+      selectedFeature.impact = impact;
+      selectedFeature.confidence = confidence;
+      selectedFeature.effort = effort;
+
+      selectedFeature.checks.scale = document.getElementById('check-scale').checked;
+      selectedFeature.checks.maintainable = document.getElementById('check-maintainable').checked;
+      selectedFeature.checks.canary = document.getElementById('check-canary').checked;
+      selectedFeature.checks.nfr = document.getElementById('check-nfr').checked;
+
+      const score = calculateRiceScore(selectedFeature);
+      document.getElementById('detail-rice-score').innerText = score;
+
+      // Architecture Guardrail Alert
+      const allChecksPassed = Object.values(selectedFeature.checks).every(Boolean);
+      const warningEl = document.getElementById('architecture-warning');
+      if (effort > 4 && !allChecksPassed) {
+        warningEl.classList.remove('hidden');
+      } else {
+        warningEl.classList.add('hidden');
+      }
+    }
+
+    function filterSegment(seg) {
+      currentSegment = seg;
+      ['all', 'new', 'returning'].forEach(s => {
+        const btn = document.getElementById(`btn-${s}`);
+        if (s === seg) {
+          btn.className = 'px-4 py-1.5 rounded-lg bg-white text-slate-900 shadow-sm transition';
+        } else {
+          btn.className = 'px-4 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition';
+        }
+      });
+      renderFeatures();
+    }
+
+    function exportFullMarkdown() {
+      let md = `# Omcean Booking Product Requirements Document (PRD)\n\n`;
+      md += `*Generated on: 2026-09-09 | Engineering Gatekeeper: CTO Michel*\n\n`;
+      features.forEach(f => {
+        md += `## ${f.title} (${f.segmentLabel})\n`;
+        md += `- **RICE Priority Score:** ${calculateRiceScore(f)}\n`;
+        md += `- **Effort:** ${f.effort} 週 | **Reach:** ${f.reach} | **Impact:** ${f.impact}\n\n`;
+        md += `### User Story\n\`\`\`\n${f.story}\n\`\`\`\n\n`;
+        md += `### Acceptance Criteria\n`;
+        f.acs.forEach(ac => { md += `- [ ] ${ac}\n`; });
+        md += `\n---\n\n`;
+      });
+
+      const blob = new Blob([md], { type: 'text/markdown' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'OmceanBooking-PRD.md';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // Initialize
+    window.onload = () => {
+      renderFeatures();
+      loadDetail();
+    };
+  </script>
+</body>
+</html>
