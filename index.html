@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Omcean Booking - 5分鐘需求對齊看板 (OKR 驅動)</title>
+  <title>Omcean Booking - PM OKR & Jira Gantt Dashboard</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -40,233 +40,293 @@
       border-color: #00f0ff !important;
       outline: none;
     }
+    [contenteditable="true"]:focus {
+      outline: 1px dashed #00f0ff;
+      background: #0d1e31;
+    }
+    /* 自訂捲軸 */
+    ::-webkit-scrollbar { width: 5px; height: 5px; }
+    ::-webkit-scrollbar-track { background: #060b13; }
+    ::-webkit-scrollbar-thumb { background: #162235; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
   </style>
 </head>
-<body class="min-h-screen px-4 sm:px-8 py-6 antialiased">
+<body class="min-h-screen px-4 sm:px-8 py-6 antialiased space-y-6">
 
-  <div class="max-w-7xl mx-auto space-y-6">
+  <div class="max-w-[1440px] mx-auto space-y-6">
 
-    <!-- 頂部標題與快速操作 -->
+    <!-- 頂部標題與快速操作列 -->
     <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyber-border pb-4">
       <div>
         <div class="flex items-center gap-3">
           <span class="w-8 h-8 rounded-lg bg-cyber-cyan text-slate-950 font-black flex items-center justify-center text-sm font-mono">OB</span>
-          <h1 class="text-2xl font-bold text-white tracking-tight">客戶需求 5 分鐘快速對齊工作台</h1>
+          <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking 產品交付指揮中心</h1>
         </div>
-        <p class="text-xs text-slate-400 font-mono mt-1">PM 核心原則：以客戶價值為本，以 5 大 OKR 防線控管研發風險</p>
+        <p class="text-xs text-slate-400 font-mono mt-1">
+          [ROLE: PRODUCT PM] 客戶需求驅動・5 大 OKR 防線・Jira 敏捷看板與排程甘特圖
+        </p>
       </div>
 
-      <div class="flex items-center space-x-3">
-        <button onclick="applyPreset('waitlist')" class="px-3 py-1.5 rounded-lg border border-cyber-border bg-cyber-card text-xs text-slate-300 hover:text-white hover:border-cyber-cyan transition font-mono">
-          帶入經典情境（熱門候補）
+      <div class="flex items-center space-x-3 font-mono">
+        <button onclick="applyPreset('waitlist')" class="px-3 py-1.5 rounded-lg border border-cyber-border bg-cyber-card text-xs text-slate-300 hover:text-white hover:border-cyber-cyan transition">
+          帶入熱門候補場景
         </button>
-        <button onclick="exportReport()" class="px-4 py-1.5 rounded-lg bg-cyber-cyan text-slate-950 font-bold text-xs hover:bg-opacity-90 transition font-mono shadow-lg shadow-cyber-cyan/10">
-          匯出團隊 Kickoff 結論 (.MD)
+        <button onclick="exportFullMarkdown()" class="px-4 py-1.5 rounded-lg bg-cyber-cyan text-slate-950 font-bold text-xs hover:bg-opacity-90 transition shadow-lg shadow-cyber-cyan/10">
+          匯出 Jira & OKR 報告 (.MD)
         </button>
       </div>
     </header>
 
-    <!-- 1. 五大 OKR 核心指標即時看板 -->
+    <!-- 1. 五大 OKR 核心指標（全手動直接編輯） -->
     <section>
-      <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider mb-2">5 大專案管理 OKR 指標防線</div>
+      <div class="flex items-center justify-between mb-2">
+        <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
+          5 大專案管理 OKR 防線 (點擊數值可直接手動編輯修改)
+        </div>
+        <span class="text-[10px] font-mono text-cyber-cyan">● 點擊欄位自訂指標</span>
+      </div>
+      
       <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 font-mono">
         
         <!-- OKR 1: 穩定度 -->
         <div class="bg-cyber-card border border-cyber-border p-3.5 rounded-xl">
           <div class="text-[11px] text-slate-400">OKR 1: 系統穩定度</div>
-          <div class="text-lg font-bold text-cyber-green mt-0.5" id="okr-stability">99.95% 可用</div>
-          <div class="text-[10px] text-slate-500">尖峰零崩潰・超賣=0</div>
+          <div id="okr-val-1" contenteditable="true" class="text-lg font-bold text-cyber-green mt-0.5 rounded px-1">99.95% 可用</div>
+          <div id="okr-sub-1" contenteditable="true" class="text-[10px] text-slate-500 rounded px-1">尖峰零崩潰・超賣=0</div>
         </div>
 
         <!-- OKR 2: 交付準確度 -->
         <div class="bg-cyber-card border border-cyber-border p-3.5 rounded-xl">
           <div class="text-[11px] text-slate-400">OKR 2: 交付準確度</div>
-          <div class="text-lg font-bold text-cyber-cyan mt-0.5" id="okr-accuracy">100% AC 驗收</div>
-          <div class="text-[10px] text-slate-500">直擊核心痛點・不偏離</div>
+          <div id="okr-val-2" contenteditable="true" class="text-lg font-bold text-cyber-cyan mt-0.5 rounded px-1">100% AC 驗收</div>
+          <div id="okr-sub-2" contenteditable="true" class="text-[10px] text-slate-500 rounded px-1">直擊客戶痛點・無偏差</div>
         </div>
 
         <!-- OKR 3: 準時率 -->
         <div class="bg-cyber-card border border-cyber-border p-3.5 rounded-xl">
           <div class="text-[11px] text-slate-400">OKR 3: 準時交付率</div>
-          <div class="text-lg font-bold text-white mt-0.5" id="okr-on-time">雙軌準時交付</div>
-          <div class="text-[10px] text-slate-500" id="okr-timeline-sub">W4 試營運 / W8 放量</div>
+          <div id="okr-val-3" contenteditable="true" class="text-lg font-bold text-white mt-0.5 rounded px-1">雙軌準時交付</div>
+          <div id="okr-sub-3" contenteditable="true" class="text-[10px] text-slate-500 rounded px-1">W4 試營運 / W8 全量</div>
         </div>
 
         <!-- OKR 4: 變更管理 -->
         <div class="bg-cyber-card border border-cyber-border p-3.5 rounded-xl">
           <div class="text-[11px] text-slate-400">OKR 4: 範疇變更率</div>
-          <div class="text-lg font-bold text-cyber-gold mt-0.5" id="okr-scope">&lt; 10% 變動</div>
-          <div class="text-[10px] text-slate-500">凍結 MVP・非必要下期做</div>
+          <div id="okr-val-4" contenteditable="true" class="text-lg font-bold text-cyber-gold mt-0.5 rounded px-1">&lt; 10% 變動</div>
+          <div id="okr-sub-4" contenteditable="true" class="text-[10px] text-slate-500 rounded px-1">嚴守 Out of Scope</div>
         </div>
 
         <!-- OKR 5: 成本控制 -->
         <div class="bg-cyber-card border border-cyber-border p-3.5 rounded-xl">
           <div class="text-[11px] text-slate-400">OKR 5: 研發成本控制</div>
-          <div class="text-lg font-bold text-white mt-0.5" id="okr-cost">0 額外技術債</div>
-          <div class="text-[10px] text-slate-500">利用既有模組水平擴展</div>
+          <div id="okr-val-5" contenteditable="true" class="text-lg font-bold text-white mt-0.5 rounded px-1">0 額外技術債</div>
+          <div id="okr-sub-5" contenteditable="true" class="text-[10px] text-slate-500 rounded px-1">微服務與 Redis 既有架構</div>
         </div>
 
       </div>
     </section>
 
-    <!-- 2. 主操作區：左側輸入需求，右側對齊四團隊 -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <!-- 2. GANTT CHART (雙軌交付排程甘特圖) -->
+    <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-cyber-border pb-3">
+        <div>
+          <h2 class="text-sm font-bold text-white tracking-wide flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-cyber-cyan"></span>
+            專案雙軌敏捷甘特圖 (Gantt Delivery Timeline)
+          </h2>
+          <p class="text-[11px] text-slate-400 font-mono">第 4 週交付受控試營運 (Pilot)，第 8 週完成正統解耦微服務全量上線</p>
+        </div>
+        <div class="flex items-center space-x-4 text-[11px] font-mono">
+          <span class="flex items-center gap-1"><span class="w-3 h-2 bg-blue-500 rounded-sm"></span> Discovery & Scope</span>
+          <span class="flex items-center gap-1"><span class="w-3 h-2 bg-purple-500 rounded-sm"></span> Phase 1 (Week 4 MVP)</span>
+          <span class="flex items-center gap-1"><span class="w-3 h-2 bg-cyber-green rounded-sm"></span> Phase 2 (Week 8 10x Scale)</span>
+        </div>
+      </div>
 
-      <!-- 左側：需求診斷（5 cols） -->
-      <section class="lg:col-span-5 bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
-        <div class="flex justify-between items-center border-b border-cyber-border pb-3">
-          <h2 class="text-sm font-bold text-white tracking-wide">第一步：客戶需求結構化 (5分鐘填寫)</h2>
-          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-cyber-cyanMuted text-cyber-cyan border border-cyber-cyan/30">
-            以客戶價值為核心
-          </span>
+      <!-- Gantt Canvas Layout -->
+      <div class="overflow-x-auto">
+        <div class="min-w-[700px] space-y-2 font-mono text-xs">
+          <!-- Timeline Header -->
+          <div class="grid grid-cols-12 gap-1 text-[11px] text-slate-500 pb-1 border-b border-cyber-border/40">
+            <div class="col-span-3 text-slate-400">Task / Module</div>
+            <div class="col-span-1 text-center">W1</div>
+            <div class="col-span-1 text-center">W2</div>
+            <div class="col-span-1 text-center">W3</div>
+            <div class="col-span-1 text-center text-cyber-cyan font-bold">W4 (Pilot)</div>
+            <div class="col-span-1 text-center">W5</div>
+            <div class="col-span-1 text-center">W6</div>
+            <div class="col-span-1 text-center">W7</div>
+            <div class="col-span-1 text-center text-cyber-green font-bold">W8 (Full)</div>
+            <div class="col-span-1 text-center">W9</div>
+          </div>
+
+          <!-- Task 1: PM Discovery -->
+          <div class="grid grid-cols-12 gap-1 items-center py-1 hover:bg-slate-900/50 rounded">
+            <div class="col-span-3 text-slate-300 truncate font-sans text-xs">痛點解構與凍結 Scope</div>
+            <div class="col-span-2 col-start-4 bg-blue-600/60 border border-blue-400 text-[10px] text-white flex items-center justify-center rounded h-6">
+              Discovery & PRD
+            </div>
+          </div>
+
+          <!-- Task 2: UX & Frontend -->
+          <div class="grid grid-cols-12 gap-1 items-center py-1 hover:bg-slate-900/50 rounded">
+            <div class="col-span-3 text-slate-300 truncate font-sans text-xs">LINE 免密體驗與候補 UI</div>
+            <div class="col-span-2 col-start-5 bg-purple-600/60 border border-purple-400 text-[10px] text-white flex items-center justify-center rounded h-6">
+              FE Prototype
+            </div>
+          </div>
+
+          <!-- Task 3: Backend Phase 1 -->
+          <div class="grid grid-cols-12 gap-1 items-center py-1 hover:bg-slate-900/50 rounded">
+            <div class="col-span-3 text-slate-300 truncate font-sans text-xs">Phase 1: 旗艦店 MVP 邏輯</div>
+            <div class="col-span-2 col-start-6 bg-purple-500/70 border border-purple-300 text-[10px] text-white flex items-center justify-center rounded h-6">
+              Pilot Core
+            </div>
+          </div>
+
+          <!-- Milestone: Week 4 Pilot -->
+          <div class="grid grid-cols-12 gap-1 items-center py-1 border-y border-cyber-cyan/30 bg-cyber-cyanMuted/20">
+            <div class="col-span-3 text-cyber-cyan font-bold font-sans text-xs flex items-center gap-1">
+              🚩 門市 Pilot 試營運
+            </div>
+            <div class="col-span-1 col-start-7 bg-cyber-cyan text-slate-950 font-black text-[10px] flex items-center justify-center rounded h-6 animate-pulse">
+              W4 Release
+            </div>
+          </div>
+
+          <!-- Task 4: 10x Load Architecture -->
+          <div class="grid grid-cols-12 gap-1 items-center py-1 hover:bg-slate-900/50 rounded">
+            <div class="col-span-3 text-slate-300 truncate font-sans text-xs">Redis 分散式鎖與解耦重構</div>
+            <div class="col-span-3 col-start-7 bg-emerald-700/60 border border-cyber-green text-[10px] text-white flex items-center justify-center rounded h-6">
+              10x Scale Engine
+            </div>
+          </div>
+
+          <!-- Task 5: QA & Full Rollout -->
+          <div class="grid grid-cols-12 gap-1 items-center py-1 hover:bg-slate-900/50 rounded">
+            <div class="col-span-3 text-slate-300 truncate font-sans text-xs">高並發壓測與 Feature Flag 全量</div>
+            <div class="col-span-2 col-start-10 bg-emerald-600/70 border border-cyber-green text-[10px] text-white flex items-center justify-center rounded h-6">
+              Canary & Go-Live
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. JIRA AGILE KANBAN DASHBOARD (Backlog → Dev → Test → Publish) -->
+    <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
+      <div class="flex items-center justify-between border-b border-cyber-border pb-3">
+        <div>
+          <h2 class="text-sm font-bold text-white tracking-wide flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-cyber-gold"></span>
+            Jira 敏捷看板 (Workflow Dashboard)
+          </h2>
+          <p class="text-[11px] text-slate-400 font-mono">點擊卡片右上角按鈕即可流轉狀態，跨部門同步一目了然</p>
+        </div>
+        <button onclick="addCustomTicket()" class="px-3 py-1 rounded bg-slate-800 hover:bg-slate-700 text-xs font-mono text-slate-200 border border-cyber-border transition">
+          + 新增 Ticket
+        </button>
+      </div>
+
+      <!-- 4 Columns Kanban -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" id="kanban-board">
+        
+        <!-- Col 1: Backlog -->
+        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-3 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-2 border-b border-cyber-border">
+              <span class="text-xs font-bold font-mono text-slate-400">1. BACKLOG</span>
+              <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-800 text-slate-400" id="count-backlog">0</span>
+            </div>
+            <div class="space-y-2 mt-3" id="col-backlog"></div>
+          </div>
         </div>
 
-        <div class="space-y-3 text-xs">
+        <!-- Col 2: Dev -->
+        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-3 flex flex-col justify-between">
           <div>
-            <label class="block font-bold text-slate-300 mb-1">功能需求名稱</label>
-            <input type="text" id="in-title" value="尖峰時段熱門排課動態候補與自動通知" class="w-full px-3 py-2 text-xs rounded border font-mono">
-          </div>
-
-          <div class="grid grid-cols-2 gap-2">
-            <div>
-              <label class="block font-bold text-slate-300 mb-1">客戶核心類別</label>
-              <select id="in-user-type" class="w-full px-2.5 py-2 text-xs rounded border font-mono">
-                <option value="老客留存">老客 (提高搶位公平與滿班率)</option>
-                <option value="新客轉換">新客 (LINE 30秒極致降阻預約)</option>
-                <option value="場館營運">店家 (對帳、防爽約與排課)</option>
-              </select>
+            <div class="flex items-center justify-between pb-2 border-b border-cyber-border">
+              <span class="text-xs font-bold font-mono text-blue-400">2. IN DEV (研發中)</span>
+              <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-blue-950 text-blue-300" id="count-dev">0</span>
             </div>
-            <div>
-              <label class="block font-bold text-slate-300 mb-1">期望上線時間 (週)</label>
-              <input type="number" id="in-deadline" value="4" min="2" max="12" class="w-full px-3 py-2 text-xs rounded border font-mono" onchange="syncOkr()">
+            <div class="space-y-2 mt-3" id="col-dev"></div>
+          </div>
+        </div>
+
+        <!-- Col 3: Test -->
+        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-3 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between pb-2 border-b border-cyber-border">
+              <span class="text-xs font-bold font-mono text-cyber-gold">3. QA & TEST (壓測)</span>
+              <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-amber-950 text-cyber-gold" id="count-test">0</span>
             </div>
+            <div class="space-y-2 mt-3" id="col-test"></div>
           </div>
+        </div>
 
+        <!-- Col 4: Publish -->
+        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-3 flex flex-col justify-between">
           <div>
-            <label class="block font-bold text-slate-300 mb-1">客戶原始抱怨 / 要求 (Voice of Customer)</label>
-            <textarea id="in-voice" rows="2" class="w-full px-3 py-2 text-xs rounded border leading-relaxed">「熱門課一開就被秒殺，但很多人常常臨時不來！希望我們可以手動幫 VIP 插隊，或者有人取消時馬上通知下一位。」</textarea>
+            <div class="flex items-center justify-between pb-2 border-b border-cyber-border">
+              <span class="text-xs font-bold font-mono text-cyber-green">4. PUBLISHED (已上線)</span>
+              <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-emerald-950 text-cyber-green" id="count-publish">0</span>
+            </div>
+            <div class="space-y-2 mt-3" id="col-publish"></div>
           </div>
+        </div>
 
-          <div>
-            <label class="block font-bold text-cyber-cyan mb-1">PM 提煉的核心真因痛點 (Core Problem)</label>
-            <textarea id="in-problem" rows="2" class="w-full px-3 py-2 text-xs rounded border leading-relaxed">臨開課前爽約率 18% 造成教室空席與教練費浪費，人工手動聯繫候補成本過高，需要自動化即時遞補機制。</textarea>
-          </div>
+      </div>
+    </section>
 
-          <div class="p-3 bg-[#05080f] rounded-lg border border-cyber-border space-y-2">
-            <div class="font-bold text-slate-300 text-[11px] uppercase tracking-wider">變更管理：本次絕對不做 (Out of Scope)</div>
-            <textarea id="in-scope" rows="2" class="w-full px-2.5 py-1.5 text-xs rounded border text-slate-400" placeholder="例如：暫不處理跨店票券手動清算、暫不提供動態階梯罰金...">1. 暫不做跨分店多幣別自動清算（維持每週報表手動匯出）。
-2. 暫不做自訂不同學員的階梯退費罰款。</textarea>
-            <div class="text-[10px] text-slate-500 font-mono">💡 嚴格劃定邊界才能保障 100% 準時率與成本控制</div>
-          </div>
+    <!-- 4. 需求結構化輸入 & 會議結論區 -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- 左側：需求診斷輸入 (5 cols) -->
+      <section class="lg:col-span-5 bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-3">
+        <div class="flex justify-between items-center border-b border-cyber-border pb-2">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300">客戶需求結構化 (PM Discovery)</h3>
+          <span class="text-[10px] font-mono text-cyber-cyan">直擊真因痛點</span>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-mono text-slate-400 mb-1">功能需求名稱</label>
+          <input type="text" id="req-title" value="尖峰時段熱門排課動態候補與自動通知" class="w-full px-3 py-1.5 text-xs rounded border font-mono">
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-mono text-slate-400 mb-1">客戶原始抱怨聲音 (Voice of Customer)</label>
+          <textarea id="req-voice" rows="2" class="w-full px-3 py-1.5 text-xs rounded border leading-relaxed">「熱門課一開就被秒殺，但很多人常常臨時不來！希望我們可以手動幫 VIP 插隊，或者有人取消時馬上通知下一位。」</textarea>
+        </div>
+
+        <div>
+          <label class="block text-[11px] font-mono text-cyber-cyan mb-1">PM 轉化的真因痛點 (Root Problem)</label>
+          <textarea id="req-problem" rows="2" class="w-full px-3 py-1.5 text-xs rounded border leading-relaxed">臨開課前爽約率達 18% 造成席位空置與教練費浪費，缺乏即時自動化補位機制；需兼顧公平性並保障高並發穩定。</textarea>
+        </div>
+
+        <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
+          <div class="text-[11px] font-bold text-cyber-gold font-mono uppercase">變更管理：本次絕對不做 (Out of Scope)</div>
+          <textarea id="req-scope" rows="2" class="w-full p-1.5 text-[11px] rounded border text-slate-400 font-mono">1. 暫不做跨分店多幣別自動清算（維持人工報表）。
+2. 暫不做階梯式動態違約罰款扣款。</textarea>
         </div>
       </section>
 
-      <!-- 右側：四部門 5 分鐘行動對齊 (7 cols) -->
-      <section class="lg:col-span-7 bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
-        <div class="flex justify-between items-center border-b border-cyber-border pb-3">
-          <div>
-            <h2 class="text-sm font-bold text-white tracking-wide">第二步：跨部門 5 分鐘同步看板 (Action Alignment)</h2>
-            <p class="text-[11px] text-slate-400">每個團隊只需看自己要做的 2 件事，直接對應 OKR 目標</p>
+      <!-- 右側：會議共識與即時紀錄 (7 cols) -->
+      <section class="lg:col-span-7 bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-3 flex flex-col justify-between">
+        <div>
+          <div class="flex justify-between items-center border-b border-cyber-border pb-2 mb-3">
+            <h3 class="text-xs font-bold uppercase tracking-wider text-white">Kickoff 5 分鐘跨部門共識紀錄 (可手動編輯)</h3>
+            <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">全團隊對齊中</span>
           </div>
-          <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-emerald-400 border border-emerald-800">
-            全團隊對齊中
-          </span>
+
+          <div id="ko-memo" contenteditable="true" class="w-full bg-[#05080f] border border-cyber-border rounded-lg p-3 text-xs font-mono leading-relaxed text-slate-200 focus:outline-none min-h-[160px]">
+1. 業務端 (Sales/CS)：已確認客戶同意採兩階段交付，Week 4 先跑 2 家旗艦店試營運。
+2. 工程端 (Tech Lead)：候補資料暫存於 Redis 分散式鎖，主資料庫僅在確認預約時更新，保障 99.95% 穩定度。
+3. 範疇協議 (Scope Control)：上線前若有新欄位要求，一律凍結至 Phase 2，守住 100% 準時上線 OKR。
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-          
-          <!-- 業務 / 客服團隊 -->
-          <div class="bg-[#05080f] border border-cyber-border p-3.5 rounded-lg space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="font-bold text-blue-400 flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-blue-400"></span>業務與客戶成功 (Sales/CS)
-              </span>
-              <span class="text-[10px] font-mono text-slate-500">準時 / 變更管理</span>
-            </div>
-            <div class="space-y-1.5 text-slate-300">
-              <div class="flex items-start gap-1.5">
-                <span class="text-cyber-cyan">▸</span>
-                <span><strong>客戶期望管理：</strong>向客戶溝通「第 4 週旗艦館先跑試營運 (Pilot)」，不貿然全開。</span>
-              </div>
-              <div class="flex items-start gap-1.5">
-                <span class="text-cyber-cyan">▸</span>
-                <span><strong>變更防線：</strong>客戶提出額外客製要求時，引導納入下一季度迭代。</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- 體驗與前端 -->
-          <div class="bg-[#05080f] border border-cyber-border p-3.5 rounded-lg space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="font-bold text-purple-400 flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-purple-400"></span>體驗設計與前端 (UX/FE)
-              </span>
-              <span class="text-[10px] font-mono text-slate-500">交付準確度</span>
-            </div>
-            <div class="space-y-1.5 text-slate-300">
-              <div class="flex items-start gap-1.5">
-                <span class="text-cyber-cyan">▸</span>
-                <span><strong>清晰候補反饋：</strong>介面一鍵顯示「當前順位：第 2 位」與「15分鐘倒數」。</span>
-              </div>
-              <div class="flex items-start gap-1.5">
-                <span class="text-cyber-cyan">▸</span>
-                <span><strong>防呆閉環：</strong>點數不足時，即時在同畫面跳轉加值，不跳出重來。</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- 後端與架構 -->
-          <div class="bg-[#05080f] border border-cyber-border p-3.5 rounded-lg space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="font-bold text-cyber-gold flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-cyber-gold"></span>後端工程團隊 (Backend)
-              </span>
-              <span class="text-[10px] font-mono text-slate-500">系統穩定度</span>
-            </div>
-            <div class="space-y-1.5 text-slate-300">
-              <div class="flex items-start gap-1.5">
-                <span class="text-cyber-cyan">▸</span>
-                <span><strong>高並發防超賣：</strong>利用 Redis 分散式鎖承載搶位，不讓尖峰直擊主資料庫。</span>
-              </div>
-              <div class="flex items-start gap-1.5">
-                <span class="text-cyber-cyan">▸</span>
-                <span><strong>非同步發送：</strong>將 LINE 推播與通知拆移至背景排程，保障主要預約 API 速度。</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- 測試與維運 -->
-          <div class="bg-[#05080f] border border-cyber-border p-3.5 rounded-lg space-y-2">
-            <div class="flex items-center justify-between">
-              <span class="font-bold text-cyber-green flex items-center gap-1.5">
-                <span class="w-2 h-2 rounded-full bg-cyber-green"></span>測試與維運 (QA/Ops)
-              </span>
-              <span class="text-[10px] font-mono text-slate-500">成本 / 準時交付</span>
-            </div>
-            <div class="space-y-1.5 text-slate-300">
-              <div class="flex items-start gap-1.5">
-                <span class="text-cyber-cyan">▸</span>
-                <span><strong>灰度保護 (Canary)：</strong>透過功能開關 (Feature Flag) 控制開放範圍，出問題 1 秒切回。</span>
-              </div>
-              <div class="flex items-start gap-1.5">
-                <span class="text-cyber-cyan">▸</span>
-                <span><strong>壓測驗收：</strong>驗收 1,200 QPS 模擬秒殺搶課情境，確保 P99 &lt; 250ms。</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- 即時可編輯的 Kickoff 會議共識結論 -->
-        <div class="pt-2">
-          <label class="block font-bold text-slate-300 text-xs mb-1">
-            Kickoff 5 分鐘會議最終共識 (點擊可直接修改)
-          </label>
-          <div id="ko-summary" contenteditable="true" class="w-full bg-[#05080f] border border-cyber-border rounded-lg p-3 text-xs font-mono leading-relaxed text-slate-200 focus:outline-none focus:border-cyber-cyan">
-1. 業務端已確認：客戶同意第 4 週先於 2 家旗艦店進行試營運驗收。
-2. 工程端已確認：候補資料暫存於 Redis，保障高負載下主系統穩定度達 99.95%。
-3. 範疇變更協議：上線前若有新欄位需求，一律排入下期，守住準時上線 OKR。
-          </div>
+        <div class="flex items-center justify-between text-[11px] font-mono text-slate-500 pt-2 border-t border-cyber-border">
+          <span>💡 提示：所有欄位皆可隨時修改，點擊右上角自動封裝為 Markdown。</span>
         </div>
       </section>
 
@@ -275,54 +335,121 @@
   </div>
 
   <script>
-    function syncOkr() {
-      const deadline = document.getElementById('in-deadline').value;
-      document.getElementById('okr-timeline-sub').innerText = `W${deadline} 旗艦試營運 / W${parseInt(deadline) + 4} 全量`;
+    // Jira Tickets Data Structure
+    let tickets = [
+      { id: 'OB-101', title: '定義新客 30 秒 LINE 免密預約驗收標準 (AC)', status: 'publish', tag: 'Product PM' },
+      { id: 'OB-102', title: '老客 15 分鐘候補即時鎖位與倒數 UI Prototype', status: 'test', tag: 'UX/FE' },
+      { id: 'OB-103', title: '建構 Redis 分散式鎖防超賣引擎 (1,500 QPS 負載)', status: 'dev', tag: 'Backend' },
+      { id: 'OB-104', title: 'Feature Flag 灰度放量網關與緊急 Rollback 機制', status: 'dev', tag: 'QA/Ops' },
+      { id: 'OB-105', title: '旗艦門市第 4 週試營運手動報表批次工具', status: 'backlog', tag: 'Sales/CS' }
+    ];
+
+    function renderKanban() {
+      const cols = { backlog: [], dev: [], test: [], publish: [] };
+      tickets.forEach(t => cols[t.status].push(t));
+
+      ['backlog', 'dev', 'test', 'publish'].forEach(status => {
+        const container = document.getElementById(`col-${status}`);
+        const count = document.getElementById(`count-${status}`);
+        container.innerHTML = '';
+        count.innerText = cols[status].length;
+
+        cols[status].forEach(t => {
+          const card = document.createElement('div');
+          card.className = 'p-3 bg-[#0a121e] border border-cyber-border rounded-lg text-xs hover:border-slate-600 transition space-y-2';
+          card.innerHTML = `
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-[10px] text-cyber-cyan font-bold">${t.id}</span>
+              <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-900 text-slate-400 border border-slate-800">${t.tag}</span>
+            </div>
+            <p class="text-slate-200 font-sans leading-snug">${t.title}</p>
+            <div class="flex justify-end space-x-1 pt-1 border-t border-cyber-border/40 font-mono text-[10px]">
+              ${status !== 'backlog' ? `<button onclick="moveTicket('${t.id}', 'prev')" class="px-1.5 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-slate-300">◀</button>` : ''}
+              ${status !== 'publish' ? `<button onclick="moveTicket('${t.id}', 'next')" class="px-1.5 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-cyber-cyan">▶</button>` : ''}
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      });
+    }
+
+    function moveTicket(id, dir) {
+      const flow = ['backlog', 'dev', 'test', 'publish'];
+      const ticket = tickets.find(t => t.id === id);
+      if (!ticket) return;
+
+      let idx = flow.indexOf(ticket.status);
+      if (dir === 'next' && idx < flow.length - 1) ticket.status = flow[idx + 1];
+      if (dir === 'prev' && idx > 0) ticket.status = flow[idx - 1];
+      renderKanban();
+    }
+
+    function addCustomTicket() {
+      const title = prompt('請輸入新 Jira Ticket 標題:');
+      if (title && title.trim() !== '') {
+        const newId = 'OB-' + (100 + tickets.length + 1);
+        tickets.push({ id: newId, title: title.trim(), status: 'backlog', tag: 'Custom' });
+        renderKanban();
+      }
     }
 
     function applyPreset(type) {
       if (type === 'waitlist') {
-        document.getElementById('in-title').value = '熱門時段動態候補與自動通知引擎';
-        document.getElementById('in-user-type').value = '老客留存';
-        document.getElementById('in-deadline').value = '4';
-        document.getElementById('in-voice').value = '「熱門課一開就被秒殺，但很多人常常臨時不來！希望能手動幫 VIP 插隊，或是自動通知下一位。」';
-        document.getElementById('in-problem').value = '爽約率造成教室空席，缺乏即時自動化補位機制；需兼顧候補公平性並保障尖峰高流量穩定。';
-        document.getElementById('in-scope').value = '1. 暫不做跨分店多幣別自動清算。\n2. 暫不做階梯式動態違約罰款扣款。';
-        syncOkr();
+        document.getElementById('req-title').value = '熱門時段動態候補與自動通知引擎';
+        document.getElementById('req-voice').value = '「熱門課一開就被秒殺，但很多人常常臨時不來！希望能手動幫 VIP 插隊，或是自動通知下一位。」';
+        document.getElementById('req-problem').value = '爽約率造成教室空席，缺乏即時自動化補位機制；需兼顧候補公平性並保障尖峰高流量穩定。';
+        document.getElementById('req-scope').value = '1. 暫不做跨分店多幣別自動清算。\n2. 暫不做階梯式動態違約罰款扣款。';
       }
     }
 
-    function exportReport() {
-      const title = document.getElementById('in-title').value;
-      const userType = document.getElementById('in-user-type').value;
-      const deadline = document.getElementById('in-deadline').value;
-      const voice = document.getElementById('in-voice').value;
-      const problem = document.getElementById('in-problem').value;
-      const scope = document.getElementById('in-scope').value;
-      const summary = document.getElementById('ko-summary').innerText.trim();
+    function exportFullMarkdown() {
+      const okr1 = document.getElementById('okr-val-1').innerText.trim();
+      const okr2 = document.getElementById('okr-val-2').innerText.trim();
+      const okr3 = document.getElementById('okr-val-3').innerText.trim();
+      const okr4 = document.getElementById('okr-val-4').innerText.trim();
+      const okr5 = document.getElementById('okr-val-5').innerText.trim();
 
-      let md = `# [專案需求 Kickoff 結論] ${title}\n\n`;
-      md += `*對象類型: ${userType} | 目標交期: 第 ${deadline} 週試營運*\n\n`;
-      md += `## 一、 5 大 OKR 指標防線\n`;
-      md += `- **1. 穩定度:** 99.95% 可用度，分散式鎖防止超賣，高負載 P99 < 250ms\n`;
-      md += `- **2. 交付準確度:** 100% 解決核心痛點，功能驗收通過方可放量\n`;
-      md += `- **3. 準時率:** 第 ${deadline} 週旗艦門市試營運，第 ${parseInt(deadline) + 4} 週全量上線\n`;
-      md += `- **4. 變更管理:** 嚴格排除 Out of Scope 項目，變更率控管在 10% 以內\n`;
-      md += `- **5. 成本控制:** 採用現有基礎建設與微服務，不產生額外技術負債\n\n`;
+      const title = document.getElementById('req-title').value;
+      const voice = document.getElementById('req-voice').value;
+      const problem = document.getElementById('req-problem').value;
+      const scope = document.getElementById('req-scope').value;
+      const memo = document.getElementById('ko-memo').innerText.trim();
+
+      let md = `# [Omcean Booking] 產品需求與交付報告\n\n`;
+      md += `*專案名稱: ${title} | 負責 PM: Product PM | 狀態: 雙軌衝刺中*\n\n`;
+      
+      md += `## 一、 5 大自訂 OKR 指標防線\n`;
+      md += `- **1. 系統穩定度:** ${okr1} (${document.getElementById('okr-sub-1').innerText.trim()})\n`;
+      md += `- **2. 交付準確度:** ${okr2} (${document.getElementById('okr-sub-2').innerText.trim()})\n`;
+      md += `- **3. 準時交付率:** ${okr3} (${document.getElementById('okr-sub-3').innerText.trim()})\n`;
+      md += `- **4. 範疇變更率:** ${okr4} (${document.getElementById('okr-sub-4').innerText.trim()})\n`;
+      md += `- **5. 研發成本控制:** ${okr5} (${document.getElementById('okr-sub-5').innerText.trim()})\n\n`;
+
       md += `## 二、 客戶痛點與真因\n`;
       md += `- **客戶原始聲音:** ${voice}\n`;
-      md += `- **PM 診斷真因:** ${problem}\n`;
-      md += `- **本次絕對不做 (Out of Scope):**\n${scope}\n\n`;
-      md += `## 三、 Kickoff 跨部門會議結論\n\`\`\`\n${summary}\n\`\`\`\n`;
+      md += `- **PM 診斷核心痛點:** ${problem}\n`;
+      md += `- **嚴格排除範疇 (Out of Scope):**\n${scope}\n\n`;
+
+      md += `## 三、 Jira 敏捷看板目前流轉狀態\n`;
+      tickets.forEach(t => {
+        md += `- [${t.status.toUpperCase()}] **${t.id}**: ${t.title} *(Owner: ${t.tag})*\n`;
+      });
+      md += `\n`;
+
+      md += `## 四、 Kickoff 會議跨部門共識備忘錄\n\`\`\`\n${memo}\n\`\`\`\n`;
 
       const blob = new Blob([md], { type: 'text/markdown' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `Kickoff-${Date.now()}.md`;
+      a.download = `PM-Alignment-Report-${Date.now()}.md`;
       a.click();
       URL.revokeObjectURL(url);
     }
+
+    window.onload = () => {
+      renderKanban();
+    };
   </script>
 </body>
 </html>
