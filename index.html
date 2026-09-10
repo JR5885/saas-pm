@@ -90,7 +90,7 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking 產品交付指揮中心</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] 跨部門多團隊 Sprint 同步拆解・甘特圖動態追蹤・RACI 標準化
+          [ROLE: PRODUCT PM] 甘特圖進度條直拉 Sprint 與 Kanban 雙向連動引擎
         </p>
       </div>
 
@@ -296,19 +296,19 @@
       </div>
     </section>
 
-    <!-- STEP 2: Delivery Schedule & Jira Execution (更新為：同一個 SPRINT 內各團隊子任務同步拆解) -->
+    <!-- STEP 2: Delivery Schedule & Jira Execution (支援甘特圖直接拖曳/選擇 Sprint 與調整進度) -->
     <section id="step2-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5 no-print">
       
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber-border pb-4">
         <div>
           <div class="flex items-center gap-2">
             <span class="px-2.5 py-0.5 rounded bg-cyber-green text-slate-950 font-black text-xs font-mono">STEP 2</span>
-            <h2 class="text-sm font-bold text-white tracking-wide">Delivery Schedule & Jira Execution (Cross-Functional Sprint Breakdown)</h2>
+            <h2 class="text-sm font-bold text-white tracking-wide">Delivery Schedule & Jira Execution (Interactive Gantt & Kanban)</h2>
           </div>
           <div class="flex flex-wrap items-center gap-3 mt-1 text-xs font-mono">
             <span class="text-slate-400">全案平均交付進度: <strong id="overall-progress-text" class="text-cyber-cyan text-sm">0%</strong></span>
             <span class="text-slate-500">|</span>
-            <span class="text-slate-400">實務協同原則: <strong class="text-cyber-gold">同一個 SPRINT 內同步包含各團隊子任務進度</strong></span>
+            <span class="text-slate-400">實務協同原則: <strong class="text-cyber-gold">甘特圖直接切換 Sprint 與調整進度 (雙向連動看板)</strong></span>
           </div>
         </div>
 
@@ -317,28 +317,28 @@
         </div>
       </div>
 
-      <!-- 甘特圖與篩選器列 (自動拆解 Product PM, UX/FE, Engineering, QA/Ops, Sales/CS) -->
+      <!-- 甘特圖與篩選器列 (直接內建 Sprint 切換與進度拉霸) -->
       <div class="space-y-3">
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 text-xs font-mono bg-[#05080f] p-3 rounded-xl border border-cyber-border">
           <div class="text-slate-300 font-bold flex items-center gap-2">
-            <span>📊 跨部門 Sprint 同步追蹤篩選器 (Select Module to View Teams)</span>
+            <span>📊 動態排程里程碑控制台 (直接在此調整 Sprint 與進度)</span>
           </div>
           
           <div class="flex flex-wrap items-center gap-3">
             <div class="flex items-center gap-1.5">
-              <span class="text-slate-400 text-[11px]">選擇模組 (Module):</span>
+              <span class="text-slate-400 text-[11px]">篩選模組:</span>
               <select id="gantt-filter-module" onchange="renderGanttSchedule()" class="p-1 text-xs rounded border text-cyber-cyan bg-[#0a121e]">
-                <!-- Dynamically Injected -->
+                <option value="ALL">全部模組 (All Modules)</option>
               </select>
             </div>
           </div>
         </div>
 
         <div class="overflow-x-auto bg-[#05080f] p-4 rounded-xl border border-cyber-border">
-          <div class="min-w-[760px] space-y-3 font-mono text-xs">
+          <div class="min-w-[800px] space-y-3 font-mono text-xs">
             
             <div class="grid grid-cols-12 gap-1 text-[11px] text-slate-500 pb-2 border-b border-cyber-border">
-              <div class="col-span-3 text-slate-300 font-bold">Cross-Functional Team & Subtask</div>
+              <div class="col-span-3 text-slate-300 font-bold">Task / Module & Owner</div>
               <div class="col-span-2 text-center bg-slate-900/60 rounded py-0.5 border border-slate-800">
                 <span class="text-blue-400 font-bold">Sprint 1</span> (W1-W2)
               </div>
@@ -353,8 +353,8 @@
               </div>
             </div>
 
-            <!-- 動態渲染該模組下各團隊在 Sprint 中的子任務進度 -->
-            <div id="gantt-rows-container" class="space-y-2">
+            <!-- 動態渲染甘特圖（附帶互動式 Sprint 下拉選單與進度滑桿） -->
+            <div id="gantt-rows-container" class="space-y-2.5">
               <!-- Dynamically Rendered -->
             </div>
 
@@ -367,9 +367,9 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
           <div>
             <div class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-              <span>JIRA AGILE KANBAN BOARD (支援跨團隊子任務與 OB-1 快速識別)</span>
+              <span>JIRA AGILE KANBAN BOARD (與上方甘特圖 100% 雙向連動)</span>
             </div>
-            <div class="text-[11px] text-slate-500 font-mono">點擊任一 Ticket 卡片可進行編輯或取消/刪除 Ticket</div>
+            <div class="text-[11px] text-slate-500 font-mono">點擊任一 Ticket 卡片可進行詳細編輯或刪除</div>
           </div>
 
           <div class="flex items-center gap-2">
@@ -635,9 +635,7 @@
     const allPresets = [
       {
         code: 'OB-101', title: '01. LINE LIFF 30秒免密一鍵預約體驗課',
-        voice: '「很多新人在 IG 看到廣告點進來，一看到要註冊帳號、收簡訊驗證碼還要設密碼，直接就不約了！」',
-        problem: '傳統註冊流程導致首購預約漏斗跳出率高達 40%；需利用 LINE UID 靜默建檔與單次快捷金流完成轉換。',
-        scope: '1. 暫不支援跨社群帳號合併。 2. 暫不支援體驗券轉贈。',
+        voice: 'قال...', problem: '...', scope: '...',
         defaultOwner: 'UX/FE', defaultSupport: 'Engineering',
         raci: [
           { role: 'Product PM', type: 'A', desc: '負責釐清 LINE LIFF 授權邊界與轉換率目標' },
@@ -651,9 +649,7 @@
       },
       {
         code: 'OB-102', title: '02. 新客專屬防踩雷師資與難易度標籤導引',
-        voice: '「客人常私訊問我『哪位教練比較溫柔？』、『我是完全新手可以上空中瑜珈嗎？』，客服疲於奔命。」',
-        problem: '課表資訊未結構化導致新客產生踩雷恐懼；需導入新手友善、體能強度、師資風格標籤體系降低認知門檻。',
-        scope: '1. 暫不支援學員自由上傳影片評論。 2. 暫不串接第三方外部評分平台。',
+        voice: '...', problem: '...', scope: '...',
         defaultOwner: 'Product PM', defaultSupport: 'Sales/CS',
         raci: [
           { role: 'Product PM', type: 'A', desc: '定義標籤分類體系（新手友善/強度/風格）' },
@@ -667,9 +663,7 @@
       },
       {
         code: 'OB-103', title: '03. 預約完成自動推播 LINE「新手到館圖文指南」',
-        voice: '「新客人常常找不到大門密碼、不知道停哪裡，甚至沒帶瑜珈墊跑來問，櫃台每天開課前都像菜市場。」',
-        problem: '線上預約與線下實體履約之間缺乏自動化交付銜接；需在預約成功後非同步觸發包含交通與密碼的圖文推播。',
-        scope: '1. 暫不支援即時室內藍牙定位導航。 2. 暫不串接第三方智慧門禁硬體 API。',
+        voice: '...', problem: '...', scope: '...',
         defaultOwner: 'UX/FE', defaultSupport: 'Sales/CS',
         raci: [
           { role: 'Product PM', type: 'A', desc: '審定新手到館圖文文案與自動推播觸發時機' },
@@ -683,9 +677,7 @@
       },
       {
         code: 'OB-104', title: '04. 預約放棄行為自動偵測與限時挽回推播',
-        voice: '「很多客人點進預約選了時間，但在結帳畫面看一看就跑了，我們白白花廣告費引流！」',
-        problem: '結帳最後一哩路缺乏挽回機制造成 ROAS 折損；需追蹤 Session 停滯事件，在跳出 15 分鐘後自動發送提醒或 9 折券。',
-        scope: '1. 暫不支援 SMS 簡訊主動追蹤。 2. 暫不支援 AI 動態計算折價。',
+        voice: '...', problem: '...', scope: '...',
         defaultOwner: 'Engineering', defaultSupport: 'Product PM',
         raci: [
           { role: 'Product PM', type: 'A', desc: '規劃挽回漏斗觸發時間點與折價券發放策略' },
@@ -699,9 +691,7 @@
       },
       {
         code: 'OB-105', title: '05. 新客爽約自動發送「體諒補課券」再行銷模組',
-        voice: '「新客第一次預約就臨時爽約，如果照規定直接沒收體驗費，客人直接在 Google 留一顆星負評！」',
-        problem: '剛性合約條款摧毀初次建立的品牌信任；需自動發放一次性溫情挽回券（限 7 天內重新劃位），將負評轉化為二訪機會。',
-        scope: '1. 暫不開放第二次爽約補發。 2. 暫不支援跨品牌通用。',
+        voice: '...', problem: '...', scope: '...',
         defaultOwner: 'Sales/CS', defaultSupport: 'Engineering',
         raci: [
           { role: 'Product PM', type: 'A', desc: '定義溫情補課券適用規則與防作弊邊界' },
@@ -715,9 +705,7 @@
       },
       {
         code: 'OB-106', title: '06. 官網預約小工具免跳轉嵌入 (Widget Engine)',
-        voice: '「客人從我們自架的 WordPress 官網點預約，會跳轉到你們系統的外部網址，看起來很像詐騙，客人都不敢刷卡。」',
-        problem: '外部跳轉造成網域不信任與視覺斷層；需提供跨網域安全 iframe / Web Component 預約小工具，維持官網品牌體驗。',
-        scope: '1. 暫不支援無頭 Headless API 開發。 2. 暫不支援非 HTTPS 網域。',
+        voice: '...', problem: '...', scope: '...',
         defaultOwner: 'UX/FE', defaultSupport: 'QA/Ops',
         raci: [
           { role: 'Product PM', type: 'A', desc: '確認 Widget 嵌入支援的官網CMS清單與合約範圍' },
@@ -731,9 +719,7 @@
       },
       {
         code: 'OB-107', title: '07. 新客首購零風險「未到課無條件展延」',
-        voice: '「新客常擔心買了體驗課後，當天臨時加班不能來，希望我們承諾不滿意或沒來可以退費。」',
-        problem: '消費承諾風險過高阻礙付款決策；需將單次體驗課設計為「未劃位/首次缺席無條件保留 30 天效期」，降低門檻。',
-        scope: '1. 暫不開放線上自動退現金。 2. 高單價工作坊不適用。',
+        voice: '...', problem: '...', scope: '...',
         defaultOwner: 'Product PM', defaultSupport: 'Sales/CS',
         raci: [
           { role: 'Product PM', type: 'A', desc: '制定首購無條件展延之票券生命週期規則' },
@@ -747,9 +733,7 @@
       },
       {
         code: 'OB-108', title: '08. 一對一教練課新客免登入即時空檔查詢',
-        voice: '「想約私人教練的新客人每次都要先加好友、報上名字，才能看到教練哪天有空，太沒效率了。」',
-        problem: '私人課時程透明度低，傳統非同步私訊導致潛在顧客流失；需提供只讀（Read-only）即時空檔行事曆。',
-        scope: '1. 暫不支援學員雙向同步個人日曆。 2. 暫不計算動態通勤時間。',
+        voice: '...', problem: '...', scope: '...',
         defaultOwner: 'Engineering', defaultSupport: 'UX/FE',
         raci: [
           { role: 'Product PM', type: 'A', desc: '定義教練行事曆隱私遮蔽與唯讀權限' },
@@ -763,9 +747,7 @@
       },
       {
         code: 'OB-109', title: '09. 新客預約雙人同行優惠與同伴資料拆分',
-        voice: '「閨蜜常常想一起來體驗瑜珈，但系統一次只能預約一個人，第二個人要再註冊一次，最後都只來一個。」',
-        problem: '缺乏同行劃位機制，強迫同伴重複註冊造成轉換率腰斬；需支援主約人一次結帳雙人名額，並以邀請連結補登資料。',
-        scope: '1. 暫不支援線上即時 AA 拆帳。 2. 團體上限 2-3 人。',
+        voice: '...', problem: '...', scope: '...',
         defaultOwner: 'Product PM', defaultSupport: 'UX/FE',
         raci: [
           { role: 'Product PM', type: 'A', desc: '規劃雙人同行優惠邏輯與同伴邀請狀態機' },
@@ -779,9 +761,7 @@
       },
       {
         code: 'OB-110', title: '10. 首購課後 2 小時專屬限時續購促轉模組',
-        voice: '「客人上完第一堂課明明很滿意，但教練不好意思開口推銷大堂數，客人回家後熱度退了就不買了。」',
-        problem: '上課結束到二次購買之間缺乏即時行銷槓桿；需在打卡報到完成 2 小時內，自動推播限時 24 小時早鳥續購優惠券。',
-        scope: '1. 暫不支援 AI 動態定價。 2. 暫不支援業務即時議價視窗。',
+        voice: '...', problem: '...', scope: '...',
         defaultOwner: 'Sales/CS', defaultSupport: 'Engineering',
         raci: [
           { role: 'Product PM', type: 'A', desc: '設計課後促轉漏斗觸發條件與優惠券效期規則' },
@@ -795,9 +775,7 @@
       },
       {
         code: 'OB-111', title: '11. 尖峰時段熱門排課動態候補與自動通知',
-        voice: '「熱門課一開就被秒殺，但很多人常常臨時不來！希望我們可以手動幫 VIP 插隊，或者有人取消時馬上通知下一位。」',
-        problem: '臨開課前爽約率 18% 造成席位空置，缺乏自動化補位；需建立基於 Redis 分散式鎖的高並發排隊佇列。',
-        scope: '1. 暫不做跨分店多幣別清算。 2. 暫不做特權動態插隊。',
+        voice: '...', problem: '...', scope: '...',
         defaultOwner: 'Engineering', defaultSupport: 'QA/Ops',
         raci: [
           { role: 'Product PM', type: 'A', desc: '凍結候補排隊與 15 分鐘鎖定核心 PRD 規格' },
@@ -811,9 +789,7 @@
       },
       {
         code: 'OB-112', title: '12. 老客常用時段與師資「1-Click 極速複訂」',
-        voice: '「老學員每週都要固定上兩次週三晚上的空中瑜珈，每次進系統都要從第一頁慢慢滑課表重新找，很難用。」',
-        problem: '高頻回流老客操作摩擦過大；需分析歷史行為，在首頁首屏置頂「常約課程/老師」快捷按鈕，達成一鍵扣點。',
-        scope: '1. 暫不支援語音助理下單。 2. 暫不跨品牌連鎖同步。',
+        voice: '...', problem: '...', scope: '...',
         defaultOwner: 'UX/FE', defaultSupport: 'Engineering',
         raci: [
           { role: 'Product PM', type: 'A', desc: '定義常約課程推薦演算法頻次與時間權重規則' },
@@ -827,9 +803,7 @@
       },
       {
         code: 'OB-113', title: '13. 會員方案到期預警與線上「一鍵原方案續購」',
-        voice: '「學員常到了現場才發現票券昨天過期，在櫃台跟我們吵架說沒提醒，最後鬧著要退費。」',
-        problem: '票券生命週期缺乏主動溝通；需在到期前 14 天與 3 天自動發送 LINE 通知，並附上一鍵刷卡續約並展延通道。',
-        scope: '1. 暫不實裝信用卡自動定期續扣。 2. 逾期超過 30 天不追溯。',
+        voice: '...', problem: '...', scope: '...',
         defaultOwner: 'Product PM', defaultSupport: 'Sales/CS',
         raci: [
           { role: 'Product PM', type: 'A', desc: '規劃方案到期通知時間軸與一鍵續費折扣' },
@@ -843,9 +817,7 @@
       },
       {
         code: 'OB-114', title: '14. 自助式臨時請假與線上保留名額扣點規則',
-        voice: '「學生臨時生病不能來，私訊小編請假，小編忘記幫他取消，結果系統自動扣了他點數，又被客訴投訴投訴！」',
-        problem: '人工請假延遲導致無效扣點爭議；需提供學員端合規時限內自主一鍵請假，自動返還點數並釋放名額。',
-        scope: '1. 暫不支援 AI 辨識診斷證明。 2. 階梯罰款規則上限 3 種。',
+        voice: '...', problem: '...', scope: '...',
         defaultOwner: 'Engineering', defaultSupport: 'QA/Ops',
         raci: [
           { role: 'Product PM', type: 'A', desc: '定義開課前多久取消可全額退點之商業規則' },
@@ -859,9 +831,7 @@
       },
       {
         code: 'OB-115', title: '15. 老客帶新客好友分享推薦碼 (Referral Loop)',
-        voice: '「老學員常帶朋友來，想要我們送他一堂課，但櫃台手動登記常常算錯，被教練抗議抽成算不清。」',
-        problem: '口碑裂變缺乏自動化歸因，手動記帳造成師資對帳混亂；需提供會員專屬 LINE 推薦連結，出席後雙方自動存入獎勵。',
-        scope: '1. 不提供現金返利。 2. 嚴禁多層級分銷。',
+        voice: '...', problem: '...', scope: '...',
         defaultOwner: 'Sales/CS', defaultSupport: 'UX/FE',
         raci: [
           { role: 'Product PM', type: 'A', desc: '設計推薦碼生成規則與防詐刷（同裝置/IP）限制' },
@@ -875,9 +845,7 @@
       },
       {
         code: 'OB-116', title: '16. 高頻 VIP 專屬熱門課程提早 24 小時搶先預約權',
-        voice: '「買了年約的大 VIP 常常抱怨跟單次買券的新人搶同一堂課搶不到，覺得繳那麼多錢沒有特權。」',
-        problem: '高價值客戶缺乏差異化權益；需在排課引擎導入會員等級權限控制，允許特定方案用戶提早進入劃位。',
-        scope: '1. 排除加價競標搶位。 2. 排除手動單一例外配置。',
+        voice: '...', problem: '...', scope: '...',
         defaultOwner: 'Engineering', defaultSupport: 'Product PM',
         raci: [
           { role: 'Product PM', type: 'A', desc: '定義 VIP 會員等級劃分與搶先預約時間差規則' },
@@ -891,9 +859,7 @@
       },
       {
         code: 'OB-117', title: '17. 老客自主「會籍線上暫停 (Freeze) 與展期」',
-        voice: '「學生出差、出國或懷孕要請長假停卡，常常拿著機票跑來櫃台填紙本，弄丟了又查不到歷史紀錄。」',
-        problem: '紙本停卡審批低效且缺乏稽核；需提供線上自主申請停卡，設定起訖日後自動凍結劃位並將到期日向後順延。',
-        scope: '1. 暫不收線上停卡手續費。 2. 每張會籍限暫停 2 次。',
+        voice: '...', problem: '...', scope: '...',
         defaultOwner: 'Product PM', defaultSupport: 'Sales/CS',
         raci: [
           { role: 'Product PM', type: 'A', desc: '制定線上暫停次數上限與效期動態重算規範' },
@@ -907,9 +873,7 @@
       },
       {
         code: 'OB-118', title: '18. 多堂數家庭/同伴合併扣點主從帳戶劃位',
-        voice: '「媽媽買了 50 堂家庭票，想要全家人一起用，每次都要媽媽手機登入幫小孩約，小孩自己根本不能看課表。」',
-        problem: '主帳戶資產無法授權子帳戶共用，導致代訂繁複；需建立主從帳戶關聯，允許子帳戶直接劃位並由主帳戶扣點。',
-        scope: '1. 子帳號上限 4 人。 2. 不支援跨非親屬無限制轉讓。',
+        voice: '...', problem: '...', scope: '...',
         defaultOwner: 'Engineering', defaultSupport: 'UX/FE',
         raci: [
           { role: 'Product PM', type: 'A', desc: '設計主從帳戶資料模型與點數共享授權架構' },
@@ -923,9 +887,7 @@
       },
       {
         code: 'OB-119', title: '19. 沉睡老客 30 天未到課自動喚醒與關懷推播',
-        voice: '「很多買了半年卡的學員，過了一個月都沒來，我們也忙到忘記關心，結果合約到期學員就默默流失了。」',
-        problem: '缺乏主動健康度預警，沉睡學員流失率高；需偵測最後出席日大於 30 天之學員，自動觸發關懷訊息與復課激勵。',
-        scope: '1. 暫不串接 AI 機器人打電話。 2. 每 30 天限推 1 次。',
+        voice: '...', problem: '...', scope: '...',
         defaultOwner: 'Sales/CS', defaultSupport: 'Product PM',
         raci: [
           { role: 'Product PM', type: 'A', desc: '定義沉睡會員判定天數與喚醒優惠卷策略' },
@@ -939,9 +901,7 @@
       },
       {
         code: 'OB-120', title: '20. 老客出席里程碑成就與「忠誠度徽章」體系',
-        voice: '「學員在我們這裡上了 100 堂課，很想拍照發 IG 炫耀，但系統什麼紀錄都沒有，感覺很冰冷。」',
-        problem: '缺乏正向心理回饋與社交貨幣；需在完成 10、50、100 堂時，於會員中心自動解鎖專屬成就圖卡與紀念折扣碼。',
-        scope: '1. 暫不串接實體獎品物流。 2. 不開放自訂徽章圖案。',
+        voice: '...', problem: '...', scope: '...',
         defaultOwner: 'UX/FE', defaultSupport: 'Sales/CS',
         raci: [
           { role: 'Product PM', type: 'A', desc: '規劃出席里程碑階梯（10/50/100堂）與解鎖獎勵' },
@@ -1101,7 +1061,7 @@
     }
 
     // ----------------------------------------------------
-    // JIRA 看板與甘特圖引擎 (更新為：同一個 SPRINT 內各團隊子任務同步拆解)
+    // JIRA 看板與甘特圖引擎 (支援跨團隊子任務與直接拖曳/選擇 Sprint)
     // ----------------------------------------------------
     let tickets = [
       { id: 'OB-1', title: '01. LINE LIFF 30秒免密一鍵預約體驗課', status: 'publish', primary: 'UX/FE', support: 'Engineering', sprint: 'Sprint 1 (W1-W2)', progress: 100, risk: false },
@@ -1181,7 +1141,6 @@
 
       const filterModule = document.getElementById('gantt-filter-module').value;
 
-      // 找出所選模組的 Ticket
       const targetTicket = tickets.find(t => t.id === filterModule);
       if (!targetTicket) {
         container.innerHTML = `<div class="text-center py-4 text-slate-500 font-mono text-xs">找不到此模組的排程資料</div>`;
@@ -1189,7 +1148,7 @@
       }
 
       // 實務原則：同一個 SPRINT 內，每一個 Task / Module 應該要包含每一個團隊的進度
-      // 我們將跨部門拆解為 5 個核心團隊子任務：Product PM, UX/FE, Engineering, QA/Ops, Sales/CS
+      // 我們將跨部門拆解為 5 個核心團隊子任務，並允許直接在甘特圖中切換 Sprint 與調整進度條
       const teamsBreakdown = [
         { role: 'Product PM (規格與凍結)', owner: 'Product PM', ratio: 1.0, color: 'bg-blue-600' },
         { role: 'UX / Frontend (介面原型與互動)', owner: 'UX/FE', ratio: 0.9, color: 'bg-purple-600' },
@@ -1198,28 +1157,38 @@
         { role: 'Sales / CS (業務對齊與培訓)', owner: 'Sales/CS', ratio: 0.5, color: 'bg-teal-600' }
       ];
 
-      let startCol = 4;
-      let colSpan = 2;
-      if (targetTicket.sprint.includes('Sprint 1')) { startCol = 4; colSpan = 2; }
-      else if (targetTicket.sprint.includes('Sprint 2')) { startCol = 6; colSpan = 2; }
-      else if (targetTicket.sprint.includes('Sprint 3')) { startCol = 8; colSpan = 2; }
-      else if (targetTicket.sprint.includes('Sprint 4')) { startCol = 10; colSpan = 3; }
-
-      teamsBreakdown.forEach((tb, i) => {
+      teamsBreakdown.forEach((tb) => {
         const subProgress = Math.round(Math.min(100, targetTicket.progress * tb.ratio));
+        
+        let startCol = 4;
+        let colSpan = 2;
+        if (targetTicket.sprint.includes('Sprint 1')) { startCol = 4; colSpan = 2; }
+        else if (targetTicket.sprint.includes('Sprint 2')) { startCol = 6; colSpan = 2; }
+        else if (targetTicket.sprint.includes('Sprint 3')) { startCol = 8; colSpan = 2; }
+        else if (targetTicket.sprint.includes('Sprint 4')) { startCol = 10; colSpan = 3; }
+
         const row = document.createElement('div');
-        row.className = 'grid grid-cols-12 gap-1 items-center py-1.5 hover:bg-slate-900/40 rounded px-1 transition';
+        row.className = 'grid grid-cols-12 gap-1 items-center py-2 hover:bg-slate-900/40 rounded px-1 transition border-b border-cyber-border/30';
 
         row.innerHTML = `
-          <div class="col-span-3 truncate text-slate-300 font-sans text-xs flex items-center justify-between pr-2">
-            <span class="truncate text-purple-300 font-bold" title="${tb.role}">${targetTicket.id} ▪ ${tb.role}</span>
-            <span class="text-[10px] text-slate-400 font-mono shrink-0">${subProgress}%</span>
+          <div class="col-span-3 text-slate-300 font-sans text-xs flex flex-col justify-center pr-2 space-y-1">
+            <span class="truncate font-bold text-purple-300" title="${tb.role}">${targetTicket.id} ▪ ${tb.role}</span>
+            <div class="flex items-center gap-1.5 font-mono text-[10px]">
+              <!-- 甘特圖直接切換 Sprint -->
+              <select onchange="updateTicketSprintFromGantt('${targetTicket.id}', this.value)" class="p-0.5 rounded text-[10px] text-yellow-400 bg-[#0a121e] border border-cyber-border">
+                <option value="Sprint 1 (W1-W2)" ${targetTicket.sprint.includes('Sprint 1') ? 'selected' : ''}>Sprint 1</option>
+                <option value="Sprint 2 (W3-W4)" ${targetTicket.sprint.includes('Sprint 2') ? 'selected' : ''}>Sprint 2</option>
+                <option value="Sprint 3 (W5-W6)" ${targetTicket.sprint.includes('Sprint 3') ? 'selected' : ''}>Sprint 3</option>
+                <option value="Sprint 4 (W7-W8)" ${targetTicket.sprint.includes('Sprint 4') ? 'selected' : ''}>Sprint 4</option>
+              </select>
+              <span class="text-slate-500">${subProgress}%</span>
+            </div>
           </div>
-          <div class="col-span-${colSpan} col-start-${startCol} relative">
-            <div class="w-full bg-slate-900 h-6 rounded border border-cyber-border overflow-hidden flex items-center relative">
-              <div class="h-full ${tb.color} transition-all duration-500 opacity-90" style="width: ${subProgress}%;"></div>
+          <div class="col-span-${colSpan} col-start-${startCol} relative flex items-center">
+            <div class="w-full bg-slate-900 h-7 rounded border border-cyber-border overflow-hidden flex items-center relative group">
+              <div class="h-full ${tb.color} transition-all duration-300 opacity-90" style="width: ${subProgress}%;"></div>
               <span class="absolute inset-0 flex items-center justify-between px-2 text-[10px] text-white font-mono font-bold z-10 pointer-events-none truncate">
-                <span>${tb.owner} (${targetTicket.sprint.split(' ')[0]} ${targetTicket.sprint.split(' ')[1]})</span>
+                <span>${tb.owner}</span>
                 <span>${subProgress}%</span>
               </span>
             </div>
@@ -1227,6 +1196,15 @@
         `;
         container.appendChild(row);
       });
+    }
+
+    // 甘特圖直接更新 Sprint
+    function updateTicketSprintFromGantt(id, newSprint) {
+      const ticket = tickets.find(t => t.id === id);
+      if (ticket) {
+        ticket.sprint = newSprint;
+        renderKanbanAndGantt();
+      }
     }
 
     function calculateProgressAndAlerts() {
