@@ -82,21 +82,24 @@
 
   <div class="max-w-[1440px] mx-auto space-y-6">
 
-    <!-- 頂部導航與狀態列 -->
+    <!-- 頂部導航與狀態列 (含語系切換按鈕) -->
     <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyber-border pb-4 no-print">
       <div>
         <div class="flex items-center gap-3">
           <span class="w-8 h-8 rounded-lg bg-cyber-cyan text-slate-950 font-black flex items-center justify-center text-sm font-mono">OB</span>
-          <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking 產品交付指揮中心</h1>
+          <h1 id="app-title" class="text-2xl font-bold text-white tracking-tight">Omcean Booking 產品交付指揮中心</h1>
         </div>
-        <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] 正常測試目標面板・極端異常 SOP 團隊分工・Gmail 召集信件 (mshappyj@gmail.com)
+        <p id="app-subtitle" class="text-xs text-slate-400 font-mono mt-1">
+          [ROLE: PRODUCT PM] 20大模組・極端異常 SOP 團隊分工・Gmail 召集信件 (mshappyj@gmail.com)
         </p>
       </div>
 
       <div class="flex items-center space-x-3 font-mono text-xs">
+        <button onclick="toggleLanguage()" class="px-3.5 py-1.5 rounded-lg bg-cyan-950 hover:bg-cyan-900 text-cyber-cyan border border-cyber-cyan font-bold transition shadow-lg flex items-center gap-1.5">
+          <span id="lang-btn-text">🌐 語言切換: 繁體中文</span>
+        </button>
         <button onclick="openGmailEmergencyCompose()" class="px-3.5 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-purple-200 border border-purple-500 font-bold transition shadow-lg shadow-purple-900/20">
-          ✉️ 寄發危機應變會議召集信 (Gmail)
+          ✉️ <span data-i18n="btn-email">寄發危機應變會議召集信 (Gmail)</span>
         </button>
         <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg border border-cyber-border bg-cyber-card text-slate-300 hover:text-white hover:border-cyber-cyan transition">
           🖨️ PDF Print
@@ -110,7 +113,7 @@
     <!-- OKR Core Guardrails -->
     <section id="okr-section">
       <div class="flex items-center justify-between mb-2">
-        <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
+        <div id="okr-title-label" class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
           5 大專案管理 OKR 防線 (點擊數值可直接手動編輯修改)
         </div>
         <span class="text-[10px] font-mono text-cyber-cyan">● Editable Fields</span>
@@ -150,7 +153,7 @@
       <div class="flex items-center justify-between border-b border-cyber-border pb-3 no-print">
         <div class="flex items-center gap-2">
           <span class="px-2.5 py-0.5 rounded bg-cyber-cyan text-slate-950 font-black text-xs font-mono">STEP 1</span>
-          <h2 class="text-sm font-bold text-white tracking-wide">Discovery & Scope Freeze</h2>
+          <h2 id="step1-heading" class="text-sm font-bold text-white tracking-wide">Discovery & Scope Freeze</h2>
         </div>
         <span class="text-[10px] font-mono text-cyber-cyan">Direct Root Cause Extraction・Instant PRD</span>
       </div>
@@ -159,8 +162,8 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label class="block text-[11px] font-mono text-cyber-cyan mb-1 flex items-center justify-between">
-              <span>Feature Requirement Title (20 Presets)</span>
-              <span class="text-[10px] text-slate-500">切換模組即時連動</span>
+              <span id="lbl-preset">Feature Requirement Title (20 Presets)</span>
+              <span class="text-[10px] text-slate-500" data-i18n="lbl-sync">切換模組即時連動</span>
             </label>
             <select id="req-title-select" onchange="onTitleDropdownChanged(this.value)" class="w-full px-3 py-2 text-xs rounded border font-mono text-cyber-cyan focus:border-cyber-cyan">
               <!-- Dynamically populated -->
@@ -169,21 +172,21 @@
 
           <div>
             <div class="flex justify-between items-center mb-1">
-              <label class="block text-[11px] font-mono text-slate-400">Voice of Customer (VoC)</label>
+              <label id="lbl-voc" class="block text-[11px] font-mono text-slate-400">Voice of Customer (VoC)</label>
               <span class="text-[10px] font-mono text-cyber-green" id="sync-tag">✓ 已同步連動</span>
             </div>
             <textarea id="req-voice" rows="2" oninput="manualInputSync()" class="w-full px-3 py-1.5 text-xs rounded border leading-relaxed"></textarea>
           </div>
 
           <div>
-            <label class="block text-[11px] font-mono text-cyber-cyan mb-1">PM Formulated Root Cause</label>
+            <label id="lbl-root" class="block text-[11px] font-mono text-cyber-cyan mb-1">PM Formulated Root Cause</label>
             <textarea id="req-problem" rows="2" oninput="manualInputSync()" class="w-full px-3 py-1.5 text-xs rounded border leading-relaxed text-cyber-cyan"></textarea>
           </div>
         </div>
 
         <div class="p-3 bg-[#05080f] rounded-lg border border-cyber-border flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div class="space-y-1 flex-1">
-            <div class="text-[11px] font-bold text-cyber-gold font-mono uppercase">Scope Boundary: Strictly Out of Scope for Phase 1</div>
+            <div id="lbl-scope-title" class="text-[11px] font-bold text-cyber-gold font-mono uppercase">Scope Boundary: Strictly Out of Scope for Phase 1</div>
             <input type="text" id="req-scope" oninput="manualInputSync()" class="w-full text-xs text-slate-300 font-mono bg-transparent border-none p-0 focus:ring-0">
           </div>
           <span class="text-[10px] font-mono px-2 py-1 rounded bg-amber-950 text-cyber-gold border border-amber-800 shrink-0">
@@ -196,7 +199,7 @@
         <div class="flex items-center justify-between no-print">
           <div class="flex items-center gap-2">
             <span class="w-2.5 h-2.5 rounded-full bg-cyber-green animate-pulse"></span>
-            <span class="text-xs font-bold font-mono text-cyber-green">Instant PRD & AC Specification Board</span>
+            <span id="lbl-prd-board" class="text-xs font-bold font-mono text-cyber-green">Instant PRD & AC Specification Board</span>
           </div>
           <div class="flex space-x-2">
             <button onclick="openGmailCompose()" class="text-xs font-mono px-2.5 py-1 rounded bg-purple-950 hover:bg-purple-900 text-purple-200 border border-purple-800 transition">
@@ -221,7 +224,7 @@
 
           <div id="prd-insights-col" class="lg:col-span-4 bg-[#0a121e] border border-cyber-border rounded-xl p-4 space-y-3 no-print">
             <div class="flex items-center justify-between border-b border-cyber-border pb-2">
-              <span class="text-xs font-bold font-mono text-cyber-gold">PM Strategic Decisions</span>
+              <span id="lbl-pm-decisions" class="text-xs font-bold font-mono text-cyber-gold">PM Strategic Decisions</span>
               <span class="text-[10px] font-mono text-slate-500">OKR Perspective</span>
             </div>
             <div id="prd-pm-insights" class="space-y-2.5 text-[11px] leading-relaxed text-slate-300">
@@ -238,9 +241,9 @@
         <div>
           <div class="flex items-center gap-2">
             <span class="px-2.5 py-0.5 rounded bg-purple-600 text-white font-black text-xs font-mono">RACI</span>
-            <h2 class="text-sm font-bold text-white tracking-wide">跨部門 RACI 標準化權責矩陣與交付標準 (DoD)</h2>
+            <h2 id="raci-heading" class="text-sm font-bold text-white tracking-wide">跨部門 RACI 標準化權責矩陣與交付標準 (DoD)</h2>
           </div>
-          <p class="text-xs text-slate-400 font-mono mt-1">連動當前選定模組，確保各團隊依據客觀標準執行，消除個人主觀意見落差</p>
+          <p id="raci-desc" class="text-xs text-slate-400 font-mono mt-1">連動當前選定模組，確保各團隊依據客觀標準執行，消除個人主觀意見落差</p>
         </div>
         <span class="text-[10px] font-mono text-purple-300 bg-purple-950 px-2 py-0.5 rounded border border-purple-800">
           ● 已與 Jira Ticket 任務標準連動
@@ -259,9 +262,9 @@
             <table class="w-full text-left text-xs font-mono">
               <thead>
                 <tr class="text-slate-400 border-b border-cyber-border/80 text-[11px]">
-                  <th class="py-2 px-2">跨部門角色 (Team / Role)</th>
+                  <th id="th-role" class="py-2 px-2">跨部門角色 (Team / Role)</th>
                   <th class="py-2 px-2 text-center text-cyber-cyan">RACI</th>
-                  <th class="py-2 px-2">標準化核心職責 (Standardized Responsibility)</th>
+                  <th id="th-resp" class="py-2 px-2">標準化核心職責 (Standardized Responsibility)</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-cyber-border/50 text-slate-300" id="raci-table-body">
@@ -274,7 +277,7 @@
         <div class="lg:col-span-5 bg-[#0a121e] border border-cyber-border rounded-xl p-4 space-y-4">
           <div class="space-y-2">
             <div class="text-xs font-mono font-bold text-cyber-gold uppercase tracking-wider border-b border-cyber-border pb-2 flex items-center justify-between">
-              <span>Action Items (核心行動指派)</span>
+              <span id="lbl-actions">Action Items (核心行動指派)</span>
               <span class="text-[10px] text-slate-400">會議決議事項</span>
             </div>
             <div id="raci-action-items" class="space-y-1.5 text-xs text-slate-200 font-sans">
@@ -284,7 +287,7 @@
 
           <div class="space-y-2 pt-2 border-t border-cyber-border/80">
             <div class="text-xs font-mono font-bold text-cyber-green uppercase tracking-wider border-b border-cyber-border pb-2 flex items-center justify-between">
-              <span>Definition of Done (DoD 交付標準)</span>
+              <span id="lbl-dod">Definition of Done (DoD 交付標準)</span>
               <span class="text-[10px] text-slate-400">發布前門檻</span>
             </div>
             <div id="raci-dod-list" class="space-y-1.5 text-xs text-slate-300 font-mono">
@@ -303,12 +306,12 @@
         <div>
           <div class="flex items-center gap-2">
             <span class="px-2.5 py-0.5 rounded bg-cyber-green text-slate-950 font-black text-xs font-mono">STEP 2</span>
-            <h2 class="text-sm font-bold text-white tracking-wide">Delivery Schedule & Jira Execution (Interactive Gantt & Kanban)</h2>
+            <h2 id="step2-heading" class="text-sm font-bold text-white tracking-wide">Delivery Schedule & Jira Execution (Interactive Gantt & Kanban)</h2>
           </div>
           <div class="flex flex-wrap items-center gap-3 mt-1 text-xs font-mono">
-            <span class="text-slate-400">當前模組交付進度: <strong id="overall-progress-text" class="text-cyber-cyan text-sm">0%</strong></span>
+            <span class="text-slate-400"><span data-i18n="lbl-mod-prog">當前模組交付進度</span>: <strong id="overall-progress-text" class="text-cyber-cyan text-sm">0%</strong></span>
             <span class="text-slate-500">|</span>
-            <span class="text-slate-400">實務協同: <strong class="text-cyber-gold">下方看板與甘特圖皆可進行 OB-______ 模組智慧篩選</strong></span>
+            <span class="text-slate-400"><span data-i18n="lbl-collab">實務協同</span>: <strong class="text-cyber-gold" data-i18n="lbl-collab-desc">下方看板與甘特圖皆可進行 OB-______ 模組智慧篩選</strong></span>
           </div>
         </div>
 
@@ -320,13 +323,13 @@
       <!-- 甘特圖與篩選器列 -->
       <div class="space-y-3">
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 text-xs font-mono bg-[#05080f] p-3 rounded-xl border border-cyber-border">
-          <div class="text-slate-300 font-bold flex items-center gap-2">
+          <div id="lbl-gantt-title" class="text-slate-300 font-bold flex items-center gap-2">
             <span>📊 動態排程里程碑控制台 (點擊進度條即時連動 Jira Ticket)</span>
           </div>
           
           <div class="flex flex-wrap items-center gap-3">
             <div class="flex items-center gap-1.5">
-              <span class="text-slate-400 text-[11px]">選擇模組:</span>
+              <span id="lbl-select-mod" class="text-slate-400 text-[11px]">選擇模組:</span>
               <select id="gantt-filter-module" onchange="onGanttModuleChanged(this.value)" class="p-1 text-xs rounded border text-cyber-cyan bg-[#0a121e]">
                 <!-- Dynamically Injected -->
               </select>
@@ -338,7 +341,7 @@
           <div class="min-w-[800px] space-y-3 font-mono text-xs">
             
             <div class="grid grid-cols-12 gap-1 text-[11px] text-slate-500 pb-2 border-b border-cyber-border">
-              <div class="col-span-3 text-slate-300 font-bold">Cross-Functional Team & Subtask</div>
+              <div id="th-team-sub" class="col-span-3 text-slate-300 font-bold">Cross-Functional Team & Subtask</div>
               <div class="col-span-2 text-center bg-slate-900/60 rounded py-0.5 border border-slate-800">
                 <span class="text-blue-400 font-bold">Sprint 1</span> (W1-W2)
               </div>
@@ -365,17 +368,17 @@
       <div class="pt-2 space-y-3">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#05080f] p-3 rounded-xl border border-cyber-border">
           <div>
-            <div class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+            <div id="lbl-kanban-title" class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
               <span>JIRA AGILE KANBAN BOARD (跨團隊子任務各階段透視)</span>
             </div>
-            <div class="text-[11px] text-slate-500 font-mono">點擊任一 Ticket 卡片可進行詳細編輯或刪除</div>
+            <div id="lbl-kanban-sub" class="text-[11px] text-slate-500 font-mono">點擊任一 Ticket 卡片可進行詳細編輯或刪除</div>
           </div>
 
           <div class="flex flex-wrap items-center gap-3">
             <div class="flex items-center gap-1.5 font-mono text-xs">
-              <span class="text-slate-400 text-[11px]">🔍 看板篩選 OB-______:</span>
+              <span id="lbl-kanban-filter" class="text-slate-400 text-[11px]">🔍 看板篩選 OB-______:</span>
               <select id="kanban-filter-module" onchange="renderKanbanBoard()" class="p-1 text-xs rounded border text-cyber-cyan bg-[#0a121e] font-mono">
-                <option value="ALL">全部模組 (All OB Modules)</option>
+                <option value="ALL" data-i18n="opt-all-mod">全部模組 (All OB Modules)</option>
                 <!-- Dynamically Injected -->
               </select>
             </div>
@@ -437,93 +440,93 @@
       <div class="flex items-center justify-between border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
           <span class="px-2.5 py-0.5 rounded bg-cyber-green text-slate-950 font-black text-xs font-mono">UAT</span>
-          <h2 class="text-sm font-bold text-white tracking-wide">PM 正常測試目標（Edge Cases Checklists）- 即時模組連動驗收</h2>
+          <h2 id="uat-heading" class="text-sm font-bold text-white tracking-wide">PM 正常測試目標（Edge Cases Checklists）- 即時模組連動驗收</h2>
         </div>
         <span class="text-[10px] font-mono text-cyber-green bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">Staging 通過標準</span>
       </div>
-      <p class="text-xs text-slate-400 font-mono">當前選定模組之極端邊界測試正常目標與驗收清單（隨上方案源即時連動）：</p>
+      <p id="uat-desc" class="text-xs text-slate-400 font-mono">當前選定模組之極端邊界測試正常目標與驗收清單（隨上方案源即時連動）：</p>
       <div id="edge-checklist-container" class="space-y-2 text-xs font-mono">
         <!-- Dynamically populated by JS -->
       </div>
     </section>
 
-    <!-- NEW SECTION: 極端邊界異常與危機應變標準作業程序 (SOP) - 位於測試目標下方 -->
+    <!-- NEW SECTION: 極端邊界異常與危機應變標準作業程序 (SOP) -->
     <section id="sop-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4 no-print">
       <div class="flex items-center justify-between border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
           <span class="px-2.5 py-0.5 rounded bg-rose-600 text-white font-black text-xs font-mono">SOP</span>
-          <h2 class="text-sm font-bold text-white tracking-wide">Omcean Booking ｜ 極端邊界異常與危機應變標準作業程序 (隨模組連動且可手動編輯)</h2>
+          <h2 id="sop-heading" class="text-sm font-bold text-white tracking-wide">Omcean Booking ｜ 極端邊界異常與危機應變標準作業程序 (隨模組連動且可手動編輯)</h2>
         </div>
         <div class="flex items-center gap-2">
           <button onclick="syncSopToStep3()" class="px-3 py-1 rounded bg-purple-900/70 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-xs font-bold transition">
-            🔄 同步 SOP 至 STEP 3 會議備忘錄
+            🔄 <span data-i18n="btn-sync-sop">同步 SOP 至 STEP 3 會議備忘錄</span>
           </button>
         </div>
       </div>
 
-      <p class="text-xs text-slate-400 font-mono">此 SOP 會隨著上方 Step 1 選擇的模組自動載入對應內容，亦可直接點擊文字進行手動編輯修改：</p>
+      <p id="sop-desc" class="text-xs text-slate-400 font-mono">此 SOP 會隨著上方 Step 1 選擇的模組自動載入對應內容，亦可直接點擊文字進行手動編輯修改：</p>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
         <!-- SOP 1 -->
         <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-2.5">
           <div class="text-cyber-gold font-bold flex items-center gap-1.5">
-            <span>🚨 異常一：[Concurrency] 高並發超賣</span>
+            <span>🚨 <span data-i18n="sop-1-title">異常一：[Concurrency] 高並發超賣</span></span>
           </div>
-          <p class="text-[11px] text-slate-400 font-sans leading-relaxed">Redis 鎖或唯一約束失效，導致兩位用戶同時搶最後席位。</p>
+          <p id="sop-1-desc" class="text-[11px] text-slate-400 font-sans leading-relaxed">Redis 鎖或唯一約束失效，導致兩位用戶同時搶最後席位。</p>
           <div class="space-y-1.5 text-[11px] pt-2 border-t border-cyber-border/60">
-            <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" id="sop-p1-team" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Engineering & Product PM</span></div>
-            <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" id="sop-p1-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Sprint 2 (W3-W4)</span></div>
-            <div><strong class="text-slate-300">修正事情:</strong> <span contenteditable="true" id="sop-p1-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">導入 Redis Redlock 分散式原子鎖與等冪性校驗。</span></div>
-            <div><strong class="text-rose-400">限期 (Deadline):</strong> <span contenteditable="true" id="sop-p1-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">2026-03-28 EOD</span></div>
-            <div><strong class="text-cyber-green">正常測試目標 (Deliverable):</strong> <span contenteditable="true" id="sop-p1-result" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">1,500 QPS 壓測下超賣數 = 0 (P99 < 250ms)。</span></div>
-            <div><strong class="text-amber-400">若失敗再進行:</strong> <span contenteditable="true" id="sop-p1-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">強制改寫資料庫唯一約束 (Unique Constraint) 並降級為佇列排隊。</span></div>
+            <div><strong class="text-blue-400" data-i18n="lbl-team">負責團隊:</strong> <span contenteditable="true" id="sop-p1-team" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Engineering & Product PM</span></div>
+            <div><strong class="text-yellow-400" data-i18n="lbl-sprint">目標 Sprint:</strong> <span contenteditable="true" id="sop-p1-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Sprint 2 (W3-W4)</span></div>
+            <div><strong class="text-slate-300" data-i18n="lbl-tasks">修正事情:</strong> <span contenteditable="true" id="sop-p1-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">導入 Redis Redlock 分散式原子鎖與等冪性校驗。</span></div>
+            <div><strong class="text-rose-400" data-i18n="lbl-deadline">限期 (Deadline):</strong> <span contenteditable="true" id="sop-p1-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">2026-03-28 EOD</span></div>
+            <div><strong class="text-cyber-green" data-i18n="lbl-deliverable">正常測試目標 (Deliverable):</strong> <span contenteditable="true" id="sop-p1-result" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">1,500 QPS 壓測下超賣數 = 0 (P99 < 250ms)。</span></div>
+            <div><strong class="text-amber-400" data-i18n="lbl-fail">若失敗再進行:</strong> <span contenteditable="true" id="sop-p1-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">強制改寫資料庫唯一約束 (Unique Constraint) 並降級為佇列排隊。</span></div>
           </div>
         </div>
 
         <!-- SOP 2 -->
         <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-2.5">
           <div class="text-cyber-gold font-bold flex items-center gap-1.5">
-            <span>⚡ 異常二：[Network Drop] 孤兒交易</span>
+            <span>⚡ <span data-i18n="sop-2-title">異常二：[Network Drop] 孤兒交易</span></span>
           </div>
-          <p class="text-[11px] text-slate-400 font-sans leading-relaxed">扣款成功瞬間斷網，Webhook 未回調導致扣款卻未入帳。</p>
+          <p id="sop-2-desc" class="text-[11px] text-slate-400 font-sans leading-relaxed">扣款成功瞬間斷網，Webhook 未回調導致扣款卻未入帳。</p>
           <div class="space-y-1.5 text-[11px] pt-2 border-t border-cyber-border/60">
-            <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" id="sop-p2-team" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Engineering & Sales/CS</span></div>
-            <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" id="sop-p2-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Sprint 3 (W5-W6)</span></div>
-            <div><strong class="text-slate-300">修正事情:</strong> <span contenteditable="true" id="sop-p2-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">建置金流非同步對帳 Worker 與前端輪詢機制。</span></div>
-            <div><strong class="text-rose-400">限期 (Deadline):</strong> <span contenteditable="true" id="sop-p2-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">2026-04-11 EOD</span></div>
-            <div><strong class="text-cyber-green">正常測試目標 (Deliverable):</strong> <span contenteditable="true" id="sop-p2-result" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">斷網重連後交易狀態 100% 自動恢復同步。</span></div>
-            <div><strong class="text-amber-400">若失敗再進行:</strong> <span contenteditable="true" id="sop-p2-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">啟動人工對帳通道並由客服於 10 分鐘內手動補發。</span></div>
+            <div><strong class="text-blue-400" data-i18n="lbl-team">負責團隊:</strong> <span contenteditable="true" id="sop-p2-team" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Engineering & Sales/CS</span></div>
+            <div><strong class="text-yellow-400" data-i18n="lbl-sprint">目標 Sprint:</strong> <span contenteditable="true" id="sop-p2-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Sprint 3 (W5-W6)</span></div>
+            <div><strong class="text-slate-300" data-i18n="lbl-tasks">修正事情:</strong> <span contenteditable="true" id="sop-p2-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">建置金流非同步對帳 Worker 與前端輪詢機制。</span></div>
+            <div><strong class="text-rose-400" data-i18n="lbl-deadline">限期 (Deadline):</strong> <span contenteditable="true" id="sop-p2-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">2026-04-11 EOD</span></div>
+            <div><strong class="text-cyber-green" data-i18n="lbl-deliverable">正常測試目標 (Deliverable):</strong> <span contenteditable="true" id="sop-p2-result" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">斷網重連後交易狀態 100% 自動恢復同步。</span></div>
+            <div><strong class="text-amber-400" data-i18n="lbl-fail">若失敗再進行:</strong> <span contenteditable="true" id="sop-p2-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">啟動人工對帳通道並由客服於 10 分鐘內手動補發。</span></div>
           </div>
         </div>
 
         <!-- SOP 3 -->
         <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-2.5">
           <div class="text-cyber-gold font-bold flex items-center gap-1.5">
-            <span>⏳ 異常三：[Timeout Fallback] 候補逾時</span>
+            <span>⏳ <span data-i18n="sop-3-title">異常三：[Timeout Fallback] 候補逾時</span></span>
           </div>
-          <p class="text-[11px] text-slate-400 font-sans leading-relaxed">15 分鐘保留期限未確認，系統未自動順移給下個順位。</p>
+          <p id="sop-3-desc" class="text-[11px] text-slate-400 font-sans leading-relaxed">15 分鐘保留期限未確認，系統未自動順移給下個順位。</p>
           <div class="space-y-1.5 text-[11px] pt-2 border-t border-cyber-border/60">
-            <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" id="sop-p3-team" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Engineering & QA/Ops</span></div>
-            <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" id="sop-p3-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Sprint 2 (W3-W4)</span></div>
-            <div><strong class="text-slate-300">修正事情:</strong> <span contenteditable="true" id="sop-p3-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">優化 Celery 倒數計時任務與事件驅動自動順移。</span></div>
-            <div><strong class="text-rose-400">限期 (Deadline):</strong> <span contenteditable="true" id="sop-p3-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">2026-03-31 EOD</span></div>
-            <div><strong class="text-cyber-green">正常測試目標 (Deliverable):</strong> <span contenteditable="true" id="sop-p3-result" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">逾時 15 分鐘無條件釋出並 100% 準確順移。</span></div>
-            <div><strong class="text-amber-400">若失敗再進行:</strong> <span contenteditable="true" id="sop-p3-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">改由排程掃描每 3 分鐘批次強制回收過期席位。</span></div>
+            <div><strong class="text-blue-400" data-i18n="lbl-team">負責團隊:</strong> <span contenteditable="true" id="sop-p3-team" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Engineering & QA/Ops</span></div>
+            <div><strong class="text-yellow-400" data-i18n="lbl-sprint">目標 Sprint:</strong> <span contenteditable="true" id="sop-p3-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Sprint 2 (W3-W4)</span></div>
+            <div><strong class="text-slate-300" data-i18n="lbl-tasks">修正事情:</strong> <span contenteditable="true" id="sop-p3-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">優化 Celery 倒數計時任務與事件驅動自動順移。</span></div>
+            <div><strong class="text-rose-400" data-i18n="lbl-deadline">限期 (Deadline):</strong> <span contenteditable="true" id="sop-p3-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">2026-03-31 EOD</span></div>
+            <div><strong class="text-cyber-green" data-i18n="lbl-deliverable">正常測試目標 (Deliverable):</strong> <span contenteditable="true" id="sop-p3-result" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">逾時 15 分鐘無條件釋出並 100% 準確順移。</span></div>
+            <div><strong class="text-amber-400" data-i18n="lbl-fail">若失敗再進行:</strong> <span contenteditable="true" id="sop-p3-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">改由排程掃描每 3 分鐘批次強制回收過期席位。</span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- STEP 3: Cross-Functional Kickoff Alignment & Sign-off (含自動 Email 按鈕) -->
+    <!-- STEP 3: Cross-Functional Kickoff Alignment & Sign-off -->
     <section id="step3-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4 no-print">
       <div class="flex items-center justify-between border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
           <span class="px-2.5 py-0.5 rounded bg-cyber-gold text-slate-950 font-black text-xs font-mono">STEP 3</span>
-          <h2 class="text-sm font-bold text-white tracking-wide">Cross-Functional Kickoff Alignment & Sign-off (跨部門會議與決議)</h2>
+          <h2 id="step3-heading" class="text-sm font-bold text-white tracking-wide">Cross-Functional Kickoff Alignment & Sign-off (跨部門會議與決議)</h2>
         </div>
         <div class="flex items-center gap-2">
           <button onclick="openGmailEmergencyCompose()" class="px-3.5 py-1.5 rounded-lg bg-purple-900 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-xs font-bold transition shadow-lg">
-            ✉️ 寄發跨部門會議決議給各團隊 (mshappyj@gmail.com)
+            ✉️ <span data-i18n="btn-step3-email">寄發跨部門會議決議給各團隊 (mshappyj@gmail.com)</span>
           </button>
         </div>
       </div>
@@ -652,6 +655,148 @@
   </div>
 
   <script>
+    // ----------------------------------------------------
+    // 雙語翻譯字典 (Localization Dictionary)
+    // ----------------------------------------------------
+    let currentLang = 'zh';
+
+    const i18n = {
+      zh: {
+        'app-title': 'Omcean Booking 產品交付指揮中心',
+        'app-subtitle': '[ROLE: PRODUCT PM] 正常測試目標面板・極端異常 SOP 團隊分工・Gmail 召集信件 (mshappyj@gmail.com)',
+        'lang-text': '🌐 語言切換: 繁體中文',
+        'btn-email': '寄發危機應變會議召集信 (Gmail)',
+        'step1-heading': 'Discovery & Scope Freeze',
+        'lbl-preset': 'Feature Requirement Title (20 Presets)',
+        'lbl-sync': '切換模組即時連動',
+        'lbl-voc': 'Voice of Customer (VoC)',
+        'lbl-root': 'PM Formulated Root Cause',
+        'lbl-scope-title': 'Scope Boundary: Strictly Out of Scope for Phase 1',
+        'lbl-prd-board': 'Instant PRD & AC Specification Board',
+        'lbl-pm-decisions': 'PM Strategic Decisions',
+        'raci-heading': '跨部門 RACI 標準化權責矩陣與交付標準 (DoD)',
+        'raci-desc': '連動當前選定模組，確保各團隊依據客觀標準執行，消除個人主觀意見落差',
+        'th-role': '跨部門角色 (Team / Role)',
+        'th-resp': '標準化核心職責 (Standardized Responsibility)',
+        'lbl-actions': 'Action Items (核心行動指派)',
+        'lbl-dod': 'Definition of Done (DoD 交付標準)',
+        'step2-heading': 'Delivery Schedule & Jira Execution (Interactive Gantt & Kanban)',
+        'lbl-mod-prog': '當前模組交付進度',
+        'lbl-collab': '實務協同',
+        'lbl-collab-desc': '下方看板與甘特圖皆可進行 OB-______ 模組智慧篩選',
+        'lbl-gantt-title': '📊 動態排程里程碑控制台 (點擊進度條即時連動 Jira Ticket)',
+        'lbl-select-mod': '選擇模組:',
+        'th-team-sub': 'Cross-Functional Team & Subtask',
+        'lbl-kanban-title': 'JIRA AGILE KANBAN BOARD (跨團隊子任務各階段透視)',
+        'lbl-kanban-sub': '點擊任一 Ticket 卡片可進行詳細編輯或刪除',
+        'lbl-kanban-filter': '🔍 看板篩選 OB-______:',
+        'opt-all-mod': '全部模組 (All OB Modules)',
+        'uat-heading': 'PM 正常測試目標（Edge Cases Checklists）- 即時模組連動驗收',
+        'uat-desc': '當前選定模組之極端邊界測試正常目標與驗收清單（隨上方案源即時連動）：',
+        'sop-heading': 'Omcean Booking ｜ 極端邊界異常與危機應變標準作業程序 (隨模組連動且可手動編輯)',
+        'btn-sync-sop': '同步 SOP 至 STEP 3 會議備忘錄',
+        'sop-desc': '此 SOP 會隨著上方 Step 1 選擇的模組自動載入對應內容，亦可直接點擊文字進行手動編輯修改：',
+        'sop-1-title': '異常一：[Concurrency] 高並發超賣',
+        'sop-1-desc': 'Redis 鎖或唯一約束失效，導致兩位用戶同時搶最後席位。',
+        'sop-2-title': '異常二：[Network Drop] 孤兒交易',
+        'sop-2-desc': '扣款成功瞬間斷網，Webhook 未回調導致扣款卻未入帳。',
+        'sop-3-title': '異常三：[Timeout Fallback] 候補逾時',
+        'sop-3-desc': '15 分鐘保留期限未確認，系統未自動順移給下個順位。',
+        'lbl-team': '負責團隊:',
+        'lbl-sprint': '目標 Sprint:',
+        'lbl-tasks': '修正事情:',
+        'lbl-deadline': '限期 (Deadline):',
+        'lbl-deliverable': '正常測試目標 (Deliverable):',
+        'lbl-fail': '若失敗再進行:',
+        'step3-heading': 'Cross-Functional Kickoff Alignment & Sign-off (跨部門會議與決議)',
+        'btn-step3-email': '寄發跨部門會議決議給各團隊 (mshappyj@gmail.com)'
+      },
+      en: {
+        'app-title': 'Omcean Booking Delivery Command Center',
+        'app-subtitle': '[ROLE: PRODUCT PM] UAT Testing Goals・Extreme Edge SOP Team Breakdown・Gmail Dispatch (mshappyj@gmail.com)',
+        'lang-text': '🌐 Language: English',
+        'btn-email': 'Compose Emergency Meeting Email (Gmail)',
+        'step1-heading': 'Discovery & Scope Freeze',
+        'lbl-preset': 'Feature Requirement Title (20 Presets)',
+        'lbl-sync': 'Real-time Module Sync',
+        'lbl-voc': 'Voice of Customer (VoC)',
+        'lbl-root': 'PM Formulated Root Cause',
+        'lbl-scope-title': 'Scope Boundary: Strictly Out of Scope for Phase 1',
+        'lbl-prd-board': 'Instant PRD & AC Specification Board',
+        'lbl-pm-decisions': 'PM Strategic Decisions',
+        'raci-heading': 'Cross-Functional RACI Matrix & Definition of Done (DoD)',
+        'raci-desc': 'Aligned with selected module to ensure objective execution and eliminate personal subjectivity.',
+        'th-role': 'Cross-Functional Role / Team',
+        'th-resp': 'Standardized Core Responsibility',
+        'lbl-actions': 'Action Items & Assignments',
+        'lbl-dod': 'Definition of Done (DoD)',
+        'step2-heading': 'Delivery Schedule & Jira Execution (Interactive Gantt & Kanban)',
+        'lbl-mod-prog': 'Module Progress',
+        'lbl-collab': 'Collaboration',
+        'lbl-collab-desc': 'Smart OB-______ filtering supported in both Gantt and Kanban views',
+        'lbl-gantt-title': '📊 Gantt Milestone Control Panel (Click progress bar to link Jira Ticket)',
+        'lbl-select-mod': 'Select Module:',
+        'th-team-sub': 'Cross-Functional Team & Subtask',
+        'lbl-kanban-title': 'JIRA AGILE KANBAN BOARD (Cross-Functional Stage Transparency)',
+        'lbl-kanban-sub': 'Click any ticket card to edit details or delete',
+        'lbl-kanban-filter': '🔍 Kanban Filter OB-______:',
+        'opt-all-mod': 'All Modules (All OB Modules)',
+        'uat-heading': 'PM Normal Testing Targets (Edge Cases Checklists) - Real-time Sync',
+        'uat-desc': 'Verification checklist and normal test targets for the currently selected module:',
+        'sop-heading': 'Omcean Booking ｜ Extreme Edge Case Incident Response SOP (Editable & Linked)',
+        'btn-sync-sop': 'Sync SOP to STEP 3 Meeting Memo',
+        'sop-desc': 'SOP auto-loads based on Step 1 selection and supports direct inline manual editing:',
+        'sop-1-title': 'Issue 1: [Concurrency] Overbooking',
+        'sop-1-desc': 'Redis lock or unique constraint failure causing simultaneous slot claims.',
+        'sop-2-title': 'Issue 2: [Network Drop] Orphaned Tx',
+        'sop-2-desc': 'Connection drop at payment success without Webhook callback.',
+        'sop-3-title': 'Issue 3: [Timeout Fallback] Waitlist Timeout',
+        'sop-3-desc': '15-min reservation timeout without confirmation or auto-rollover.',
+        'lbl-team': 'Responsible Team:',
+        'lbl-sprint': 'Target Sprint:',
+        'lbl-tasks': 'Required Fixes:',
+        'lbl-deadline': 'Deadline:',
+        'lbl-deliverable': 'Normal Testing Deliverable:',
+        'lbl-fail': 'Fallback Plan:',
+        'step3-heading': 'Cross-Functional Kickoff Alignment & Sign-off',
+        'btn-step3-email': 'Dispatch Cross-Functional Meeting Resolutions (mshappyj@gmail.com)'
+      }
+    };
+
+    function toggleLanguage() {
+      currentLang = (currentLang === 'zh') ? 'en' : 'zh';
+      document.getElementById('lang-btn-text').innerText = i18n[currentLang]['lang-text'];
+
+      // 更新靜態文字
+      document.getElementById('app-title').innerText = i18n[currentLang]['app-title'];
+      document.getElementById('app-subtitle').innerText = i18n[currentLang]['app-subtitle'];
+      document.getElementById('step1-heading').innerText = i18n[currentLang]['step1-heading'];
+      document.getElementById('lbl-preset').innerText = i18n[currentLang]['lbl-preset'];
+      document.getElementById('lbl-voc').innerText = i18n[currentLang]['lbl-voc'];
+      document.getElementById('lbl-root').innerText = i18n[currentLang]['lbl-root'];
+      document.getElementById('lbl-scope-title').innerText = i18n[currentLang]['lbl-scope-title'];
+      document.getElementById('lbl-prd-board').innerText = i18n[currentLang]['lbl-prd-board'];
+      document.getElementById('lbl-pm-decisions').innerText = i18n[currentLang]['lbl-pm-decisions'];
+      document.getElementById('raci-heading').innerText = i18n[currentLang]['raci-heading'];
+      document.getElementById('raci-desc').innerText = i18n[currentLang]['raci-desc'];
+      document.getElementById('th-role').innerText = i18n[currentLang]['th-role'];
+      document.getElementById('th-resp').innerText = i18n[currentLang]['th-resp'];
+      document.getElementById('lbl-actions').innerText = i18n[currentLang]['lbl-actions'];
+      document.getElementById('lbl-dod').innerText = i18n[currentLang]['lbl-dod'];
+      document.getElementById('step2-heading').innerText = i18n[currentLang]['step2-heading'];
+      document.getElementById('lbl-gantt-title').innerHTML = `<span>${i18n[currentLang]['lbl-gantt-title']}</span>`;
+      document.getElementById('lbl-select-mod').innerText = i18n[currentLang]['lbl-select-mod'];
+      document.getElementById('th-team-sub').innerText = i18n[currentLang]['th-team-sub'];
+      document.getElementById('lbl-kanban-title').innerHTML = `<span>${i18n[currentLang]['lbl-kanban-title']}</span>`;
+      document.getElementById('lbl-kanban-sub').innerText = i18n[currentLang]['lbl-kanban-sub'];
+      document.getElementById('lbl-kanban-filter').innerText = i18n[currentLang]['lbl-kanban-filter'];
+      document.getElementById('uat-heading').innerText = i18n[currentLang]['uat-heading'];
+      document.getElementById('uat-desc').innerText = i18n[currentLang]['uat-desc'];
+      document.getElementById('sop-heading').innerText = i18n[currentLang]['sop-heading'];
+      document.getElementById('sop-desc').innerText = i18n[currentLang]['sop-desc'];
+      document.getElementById('step3-heading').innerText = i18n[currentLang]['step3-heading'];
+    }
+
     // ----------------------------------------------------
     // 完整 20 組熱門真實需求資料庫 (OB-101 ~ OB-120)
     // ----------------------------------------------------
@@ -821,7 +966,6 @@
       document.getElementById('gantt-filter-module').value = preset.code;
       document.getElementById('kanban-filter-module').value = preset.code;
 
-      // 渲染動態正常測試目標 (Edge Checklists)
       const checklistContainer = document.getElementById('edge-checklist-container');
       checklistContainer.innerHTML = '';
       if (preset.edgeChecklists) {
@@ -836,7 +980,6 @@
         });
       }
 
-      // 即時更新 SOP 內容
       if (preset.sopData) {
         document.getElementById('sop-p1-team').innerText = preset.sopData.p1.team;
         document.getElementById('sop-p1-sprint').innerText = preset.sopData.p1.sprint;
@@ -872,9 +1015,6 @@
 
     function manualInputSync() {}
 
-    // ----------------------------------------------------
-    // 同步 SOP 內容至 STEP 3 會議備忘錄
-    // ----------------------------------------------------
     function syncSopToStep3() {
       const p1Team = document.getElementById('sop-p1-team').innerText;
       const p1Sprint = document.getElementById('sop-p1-sprint').innerText;
@@ -899,9 +1039,6 @@
       alert('已成功將最新 SOP 團隊分工與正常測試目標同步至 STEP 3 跨部門會議備忘錄！');
     }
 
-    // ----------------------------------------------------
-    // 寄發危機應變與跨部門會議召集信 (Gmail - mshappyj@gmail.com)
-    // ----------------------------------------------------
     function openGmailEmergencyCompose() {
       const selectEl = document.getElementById('req-title-select');
       const code = selectEl.value;
