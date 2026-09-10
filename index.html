@@ -59,7 +59,7 @@
         padding: 0 !important;
         margin: 0 !important;
       }
-      .no-print, header, nav, #step2-section, #raci-section, #edge-cases-section, #step3-section, #okr-section, #step1-inputs, #prd-insights-col {
+      .no-print, header, nav, #step2-section, #raci-section, #sop-section, #edge-cases-section, #step3-section, #okr-section, #step1-inputs, #prd-insights-col {
         display: none !important;
       }
       #print-prd-container {
@@ -90,7 +90,7 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking 產品交付指揮中心</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] 20大模組 4-Sprint 跨部門實務排程・甘特圖與 Kanban 雙向連動・異常應變 SOP
+          [ROLE: PRODUCT PM] 20大模組排程・極端異常應變 SOP 整合・Jira 雙向連動
         </p>
       </div>
 
@@ -428,6 +428,60 @@
             </div>
           </div>
 
+        </div>
+      </div>
+    </section>
+
+    <!-- NEW SECTION: 極端邊界異常與危機應變標準作業程序 (SOP) -->
+    <section id="sop-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4 no-print">
+      <div class="flex items-center justify-between border-b border-cyber-border pb-3">
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-0.5 rounded bg-rose-600 text-white font-black text-xs font-mono">SOP</span>
+          <h2 class="text-sm font-bold text-white tracking-wide">Omcean Booking ｜ 極端邊界異常與危機應變標準作業程序 (SOP)</h2>
+        </div>
+        <span class="text-[10px] font-mono text-rose-300 bg-rose-950 px-2 py-0.5 rounded border border-rose-800">P1 級別重大異常應變</span>
+      </div>
+
+      <p class="text-xs text-slate-400 font-mono">適用於 OB-101 至 OB-120 全系列模組在 Staging 或 Production 遭遇高並發超賣、網路斷線孤兒交易、或候補逾時失效時的跨部門 SOP 指派：</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
+        <!-- SOP 1 -->
+        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-2.5">
+          <div class="text-cyber-gold font-bold flex items-center gap-1.5">
+            <span>🚨 異常一：[Concurrency] 高並發超賣</span>
+          </div>
+          <p class="text-[11px] text-slate-400 font-sans leading-relaxed">Redis 鎖或唯一約束失效，導致兩位用戶同時搶最後席位。</p>
+          <div class="space-y-1 text-[11px] pt-2 border-t border-cyber-border/60">
+            <div><strong class="text-blue-400">Product PM ACTION:</strong> 盤點受影響名單，聯絡客服提供「全額退費 + VIP 補償券」。</div>
+            <div><strong class="text-emerald-400">Engineering ACTION:</strong> 復盤 Redis Redlock TTL，部署強制等冪性校驗 Hotfix。</div>
+            <div><strong class="text-amber-400">QA / DevOps ACTION:</strong> 重跑 1,500 QPS 壓測確認超賣數為 0 後始可簽核。</div>
+          </div>
+        </div>
+
+        <!-- SOP 2 -->
+        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-2.5">
+          <div class="text-cyber-gold font-bold flex items-center gap-1.5">
+            <span>⚡ 異常二：[Network Drop] 孤兒交易</span>
+          </div>
+          <p class="text-[11px] text-slate-400 font-sans leading-relaxed">扣款成功瞬間斷網，Webhook 未回調導致扣款卻未入帳。</p>
+          <div class="space-y-1 text-[11px] pt-2 border-t border-cyber-border/60">
+            <div><strong class="text-emerald-400">Engineering ACTION:</strong> 檢查 Gateway Logs，執行自動對帳修正 script 補發點數。</div>
+            <div><strong class="text-purple-400">Sales/CS ACTION:</strong> 10 分鐘內核對後台金流單號並人工補發課程券。</div>
+            <div><strong class="text-blue-400">UX/FE ACTION:</strong> 優化前端輪詢 (Polling) 與重試佇列機制避免畫面卡死。</div>
+          </div>
+        </div>
+
+        <!-- SOP 3 -->
+        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-2.5">
+          <div class="text-cyber-gold font-bold flex items-center gap-1.5">
+            <span>⏳ 異常三：[Timeout Fallback] 候補逾時</span>
+          </div>
+          <p class="text-[11px] text-slate-400 font-sans leading-relaxed">15 分鐘保留期限未確認，系統未自動順移給下個順位。</p>
+          <div class="space-y-1 text-[11px] pt-2 border-t border-cyber-border/60">
+            <div><strong class="text-emerald-400">Engineering ACTION:</strong> 排查 Cron Job / Celery Worker 阻塞，改用事件驅動架構。</div>
+            <div><strong class="text-amber-400">QA/Ops ACTION:</strong> 針對倒數計時邊界進行極端自動化與 APM 警報設定。</div>
+            <div><strong class="text-blue-400">Product PM ACTION:</strong> 評估調整 Sprint 優先序，確保營運席位利用率不受影響。</div>
+          </div>
         </div>
       </div>
     </section>
