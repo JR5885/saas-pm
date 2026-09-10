@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Omcean Booking - PM Core Operations & Delivery OS</title>
+  <title>Omcean Booking - PM Command Center</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -49,145 +49,115 @@
     ::-webkit-scrollbar-track { background: #060b13; }
     ::-webkit-scrollbar-thumb { background: #162235; border-radius: 3px; }
     ::-webkit-scrollbar-thumb:hover { background: #00f0ff; }
-
-    @media print {
-      body {
-        background-color: #060b13 !important;
-        color: #e2e8f0 !important;
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        padding: 0 !important;
-        margin: 0 !important;
-      }
-      .no-print, header, nav, #step2-section, #raci-section, #edge-checklist-section, #sop-section, #edge-cases-section, #step3-section, #okr-section, #step1-inputs, #prd-insights-col {
-        display: none !important;
-      }
-      #print-prd-container {
-        display: block !important;
-        width: 100% !important;
-        margin: 0 !important;
-        padding: 24px !important;
-        background-color: #0a121e !important;
-        border: 1px solid #162235 !important;
-        border-radius: 8px !important;
-      }
-      #prd-content-view {
-        max-height: none !important;
-        overflow: visible !important;
-      }
-    }
   </style>
 </head>
 <body class="min-h-screen px-4 sm:px-8 py-6 antialiased space-y-6">
 
   <div class="max-w-[1440px] mx-auto space-y-6">
 
-    <!-- 頂部導航與狀態列 (含語系切換按鈕) -->
+    <!-- Top Header -->
     <header class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-cyber-border pb-4 no-print">
       <div>
         <div class="flex items-center gap-3">
           <span class="w-8 h-8 rounded-lg bg-cyber-cyan text-slate-950 font-black flex items-center justify-center text-sm font-mono">OB</span>
-          <h1 id="app-title" class="text-2xl font-bold text-white tracking-tight">Omcean Booking 產品交付指揮中心</h1>
+          <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking PM Command Center</h1>
         </div>
-        <p id="app-subtitle" class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] 20大模組・極端異常 SOP 團隊分工・Gmail 召集信件 (mshappyj@gmail.com)
+        <p class="text-xs text-slate-400 font-mono mt-1">
+          [ROLE: PRODUCT PM] 20 Modules &bull; Edge SOP Team Tasks &bull; Gmail Dispatch (mshappyj@gmail.com)
         </p>
       </div>
 
       <div class="flex items-center space-x-3 font-mono text-xs">
-        <button onclick="toggleLanguage()" class="px-3.5 py-1.5 rounded-lg bg-cyan-950 hover:bg-cyan-900 text-cyber-cyan border border-cyber-cyan font-bold transition shadow-lg flex items-center gap-1.5">
-          <span id="lang-btn-text">🌐 語言切換: 繁體中文</span>
-        </button>
-        <button onclick="openGmailEmergencyCompose()" class="px-3.5 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-purple-200 border border-purple-500 font-bold transition shadow-lg shadow-purple-900/20">
-          ✉️ <span data-i18n="btn-email">寄發危機應變會議召集信 (Gmail)</span>
+        <button onclick="openGmailEmergencyCompose()" class="px-3.5 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-purple-200 border border-purple-500 font-bold transition shadow-lg">
+          ✉️ Send Emergency Email (Gmail)
         </button>
         <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg border border-cyber-border bg-cyber-card text-slate-300 hover:text-white hover:border-cyber-cyan transition">
           🖨️ PDF Print
         </button>
-        <button onclick="exportFullMarkdown()" class="px-4 py-1.5 rounded-lg bg-cyber-cyan text-slate-950 font-bold hover:bg-opacity-90 transition shadow-lg shadow-cyber-cyan/10">
-          Export Report (.MD)
+        <button onclick="exportFullMarkdown()" class="px-4 py-1.5 rounded-lg bg-cyber-cyan text-slate-950 font-bold hover:bg-opacity-90 transition">
+          Export (.MD)
         </button>
       </div>
     </header>
 
     <!-- OKR Core Guardrails -->
-    <section id="okr-section">
+    <section>
       <div class="flex items-center justify-between mb-2">
-        <div id="okr-title-label" class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
-          5 大專案管理 OKR 防線 (點擊數值可直接手動編輯修改)
+        <div class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">
+          5 Project OKR Guardrails (Click values to edit)
         </div>
-        <span class="text-[10px] font-mono text-cyber-cyan">● Editable Fields</span>
+        <span class="text-[10px] font-mono text-cyber-cyan">&bull; Editable Fields</span>
       </div>
       
       <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 font-mono">
         <div class="bg-cyber-card border border-cyber-border p-3.5 rounded-xl">
-          <div class="text-[11px] text-slate-400">OKR 1: System Stability</div>
-          <div id="okr-val-1" contenteditable="true" class="text-lg font-bold text-cyber-green mt-0.5 rounded px-1">99.95% SLA</div>
-          <div id="okr-sub-1" contenteditable="true" class="text-[10px] text-slate-500 rounded px-1">Zero Overbooking・No DB Deadlock</div>
+          <div class="text-[11px] text-slate-400">OKR 1: Stability</div>
+          <div contenteditable="true" class="text-lg font-bold text-cyber-green mt-0.5 rounded px-1">99.95% SLA</div>
+          <div class="text-[10px] text-slate-500 rounded px-1">Zero Overbooking</div>
         </div>
         <div class="bg-cyber-card border border-cyber-border p-3.5 rounded-xl">
-          <div class="text-[11px] text-slate-400">OKR 2: Delivery Accuracy</div>
-          <div id="okr-val-2" contenteditable="true" class="text-lg font-bold text-cyber-cyan mt-0.5 rounded px-1">100% AC Pass</div>
-          <div id="okr-sub-2" contenteditable="true" class="text-[10px] text-slate-500 rounded px-1">Root Cause Solved・Zero Scope Drift</div>
+          <div class="text-[11px] text-slate-400">OKR 2: Accuracy</div>
+          <div contenteditable="true" class="text-lg font-bold text-cyber-cyan mt-0.5 rounded px-1">100% AC Pass</div>
+          <div class="text-[10px] text-slate-500 rounded px-1">Root Cause Solved</div>
         </div>
         <div class="bg-cyber-card border border-cyber-border p-3.5 rounded-xl">
-          <div class="text-[11px] text-slate-400">OKR 3: On-Time Delivery</div>
-          <div id="okr-val-3" contenteditable="true" class="text-lg font-bold text-white mt-0.5 rounded px-1">Two-Phase On-Time</div>
-          <div id="okr-sub-3" contenteditable="true" class="text-[10px] text-slate-500 rounded px-1">W4 Pilot / W8 Full Scale</div>
+          <div class="text-[11px] text-slate-400">OKR 3: On-Time</div>
+          <div contenteditable="true" class="text-lg font-bold text-white mt-0.5 rounded px-1">Two-Phase On-Time</div>
+          <div class="text-[10px] text-slate-500 rounded px-1">W4 Pilot / W8 Full</div>
         </div>
         <div class="bg-cyber-card border border-cyber-border p-3.5 rounded-xl">
-          <div class="text-[11px] text-slate-400">OKR 4: Scope Management</div>
-          <div id="okr-val-4" contenteditable="true" class="text-lg font-bold text-cyber-gold mt-0.5 rounded px-1">&lt; 10% Churn</div>
-          <div id="okr-sub-4" contenteditable="true" class="text-[10px] text-slate-500 rounded px-1">Strict Out of Scope Enforcement</div>
+          <div class="text-[11px] text-slate-400">OKR 4: Scope</div>
+          <div contenteditable="true" class="text-lg font-bold text-cyber-gold mt-0.5 rounded px-1">&lt; 10% Churn</div>
+          <div class="text-[10px] text-slate-500 rounded px-1">Strict Out-of-Scope</div>
         </div>
         <div class="bg-cyber-card border border-cyber-border p-3.5 rounded-xl">
-          <div class="text-[11px] text-slate-400">OKR 5: Cost & Tech Debt</div>
-          <div id="okr-val-5" contenteditable="true" class="text-lg font-bold text-white mt-0.5 rounded px-1">0 Extra Debt</div>
-          <div id="okr-sub-5" contenteditable="true" class="text-[10px] text-slate-500 rounded px-1">Decoupled Microservices & Redis</div>
+          <div class="text-[11px] text-slate-400">OKR 5: Tech Debt</div>
+          <div contenteditable="true" class="text-lg font-bold text-white mt-0.5 rounded px-1">0 Extra Debt</div>
+          <div class="text-[10px] text-slate-500 rounded px-1">Redis & Microservices</div>
         </div>
       </div>
     </section>
 
     <!-- STEP 1: Discovery & Scope Freeze -->
     <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
-      <div class="flex items-center justify-between border-b border-cyber-border pb-3 no-print">
+      <div class="flex items-center justify-between border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
           <span class="px-2.5 py-0.5 rounded bg-cyber-cyan text-slate-950 font-black text-xs font-mono">STEP 1</span>
-          <h2 id="step1-heading" class="text-sm font-bold text-white tracking-wide">Discovery & Scope Freeze</h2>
+          <h2 class="text-sm font-bold text-white tracking-wide">Discovery & Scope Freeze</h2>
         </div>
-        <span class="text-[10px] font-mono text-cyber-cyan">Direct Root Cause Extraction・Instant PRD</span>
+        <span class="text-[10px] font-mono text-cyber-cyan">Direct Root Cause Extraction &bull; Instant PRD</span>
       </div>
 
-      <div id="step1-inputs" class="space-y-4">
+      <div class="space-y-4">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label class="block text-[11px] font-mono text-cyber-cyan mb-1 flex items-center justify-between">
-              <span id="lbl-preset">Feature Requirement Title (20 Presets)</span>
-              <span class="text-[10px] text-slate-500" data-i18n="lbl-sync">切換模組即時連動</span>
+              <span>Feature Requirement Title (20 Presets)</span>
+              <span class="text-[10px] text-slate-500">Auto Syncs Below</span>
             </label>
-            <select id="req-title-select" onchange="onTitleDropdownChanged(this.value)" class="w-full px-3 py-2 text-xs rounded border font-mono text-cyber-cyan focus:border-cyber-cyan">
-              <!-- Dynamically populated -->
+            <select id="req-title-select" onchange="onTitleDropdownChanged(this.value)" class="w-full px-3 py-2 text-xs rounded border font-mono text-cyber-cyan">
+              <!-- Populated by JS -->
             </select>
           </div>
 
           <div>
             <div class="flex justify-between items-center mb-1">
-              <label id="lbl-voc" class="block text-[11px] font-mono text-slate-400">Voice of Customer (VoC)</label>
-              <span class="text-[10px] font-mono text-cyber-green" id="sync-tag">✓ 已同步連動</span>
+              <label class="block text-[11px] font-mono text-slate-400">Voice of Customer (VoC)</label>
+              <span class="text-[10px] font-mono text-cyber-green">✓ Synced</span>
             </div>
-            <textarea id="req-voice" rows="2" oninput="manualInputSync()" class="w-full px-3 py-1.5 text-xs rounded border leading-relaxed"></textarea>
+            <textarea id="req-voice" rows="2" class="w-full px-3 py-1.5 text-xs rounded border leading-relaxed"></textarea>
           </div>
 
           <div>
-            <label id="lbl-root" class="block text-[11px] font-mono text-cyber-cyan mb-1">PM Formulated Root Cause</label>
-            <textarea id="req-problem" rows="2" oninput="manualInputSync()" class="w-full px-3 py-1.5 text-xs rounded border leading-relaxed text-cyber-cyan"></textarea>
+            <label class="block text-[11px] font-mono text-cyber-cyan mb-1">PM Formulated Root Cause</label>
+            <textarea id="req-problem" rows="2" class="w-full px-3 py-1.5 text-xs rounded border leading-relaxed text-cyber-cyan"></textarea>
           </div>
         </div>
 
         <div class="p-3 bg-[#05080f] rounded-lg border border-cyber-border flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div class="space-y-1 flex-1">
-            <div id="lbl-scope-title" class="text-[11px] font-bold text-cyber-gold font-mono uppercase">Scope Boundary: Strictly Out of Scope for Phase 1</div>
-            <input type="text" id="req-scope" oninput="manualInputSync()" class="w-full text-xs text-slate-300 font-mono bg-transparent border-none p-0 focus:ring-0">
+            <div class="text-[11px] font-bold text-cyber-gold font-mono uppercase">Scope Boundary: Strictly Out of Scope for Phase 1</div>
+            <input type="text" id="req-scope" class="w-full text-xs text-slate-300 font-mono bg-transparent border-none p-0 focus:ring-0">
           </div>
           <span class="text-[10px] font-mono px-2 py-1 rounded bg-amber-950 text-cyber-gold border border-amber-800 shrink-0">
             Scope Churn &lt; 10%
@@ -195,202 +165,151 @@
         </div>
       </div>
 
-      <div id="print-prd-container" class="pt-4 border-t border-cyber-border space-y-4">
-        <div class="flex items-center justify-between no-print">
+      <div class="pt-4 border-t border-cyber-border space-y-4">
+        <div class="flex items-center justify-between">
           <div class="flex items-center gap-2">
             <span class="w-2.5 h-2.5 rounded-full bg-cyber-green animate-pulse"></span>
-            <span id="lbl-prd-board" class="text-xs font-bold font-mono text-cyber-green">Instant PRD & AC Specification Board</span>
-          </div>
-          <div class="flex space-x-2">
-            <button onclick="openGmailCompose()" class="text-xs font-mono px-2.5 py-1 rounded bg-purple-950 hover:bg-purple-900 text-purple-200 border border-purple-800 transition">
-              ✉️ Compose Email in Gmail (EN)
-            </button>
-            <button onclick="window.print()" class="text-xs font-mono px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 border border-cyber-border transition">
-              🖨️ PDF Print
-            </button>
+            <span class="text-xs font-bold font-mono text-cyber-green">Instant PRD & AC Specification Board</span>
           </div>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
-          <div class="lg:col-span-8 bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs" style="width: 100%;">
+          <div class="lg:col-span-8 bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs">
             <div class="flex justify-between items-center border-b border-cyber-border/80 pb-2">
-              <span class="text-cyber-cyan font-bold text-sm" id="prd-header-title">[PRD] Peak Slot Dynamic Waitlist Engine</span>
-              <span class="text-[10px] text-slate-500 font-mono">SPECIFICATION & BDD</span>
+              <span class="text-cyber-cyan font-bold text-sm" id="prd-header-title">[PRD] Waitlist Engine</span>
+              <span class="text-[10px] text-slate-500 font-mono">SPEC & BDD</span>
             </div>
             <div id="prd-content-view" class="space-y-3 text-slate-300 font-sans text-xs leading-relaxed max-h-[360px] overflow-y-auto pr-2">
-              <!-- Injected by JS -->
+              <!-- Injected -->
             </div>
           </div>
 
-          <div id="prd-insights-col" class="lg:col-span-4 bg-[#0a121e] border border-cyber-border rounded-xl p-4 space-y-3 no-print">
+          <div class="lg:col-span-4 bg-[#0a121e] border border-cyber-border rounded-xl p-4 space-y-3">
             <div class="flex items-center justify-between border-b border-cyber-border pb-2">
-              <span id="lbl-pm-decisions" class="text-xs font-bold font-mono text-cyber-gold">PM Strategic Decisions</span>
-              <span class="text-[10px] font-mono text-slate-500">OKR Perspective</span>
+              <span class="text-xs font-bold font-mono text-cyber-gold">PM Strategic Decisions</span>
+              <span class="text-[10px] font-mono text-slate-500">OKR View</span>
             </div>
             <div id="prd-pm-insights" class="space-y-2.5 text-[11px] leading-relaxed text-slate-300">
-              <!-- Injected by JS -->
+              <!-- Injected -->
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- RACI 協同矩陣與標準化定義模組 -->
-    <section id="raci-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5 no-print">
+    <!-- RACI Matrix -->
+    <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber-border pb-3">
         <div>
           <div class="flex items-center gap-2">
             <span class="px-2.5 py-0.5 rounded bg-purple-600 text-white font-black text-xs font-mono">RACI</span>
-            <h2 id="raci-heading" class="text-sm font-bold text-white tracking-wide">跨部門 RACI 標準化權責矩陣與交付標準 (DoD)</h2>
+            <h2 class="text-sm font-bold text-white tracking-wide">Cross-Functional RACI Matrix & Definition of Done (DoD)</h2>
           </div>
-          <p id="raci-desc" class="text-xs text-slate-400 font-mono mt-1">連動當前選定模組，確保各團隊依據客觀標準執行，消除個人主觀意見落差</p>
+          <p class="text-xs text-slate-400 font-mono mt-1">Linked with current module to ensure objective team execution.</p>
         </div>
-        <span class="text-[10px] font-mono text-purple-300 bg-purple-950 px-2 py-0.5 rounded border border-purple-800">
-          ● 已與 Jira Ticket 任務標準連動
-        </span>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        
         <div class="lg:col-span-7 bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3">
-          <div class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider flex items-center justify-between border-b border-cyber-border pb-2">
-            <span>RACI Responsibility Assignment Matrix</span>
-            <span class="text-[10px] text-cyber-cyan">R:Responsible | A:Accountable | C:Consulted | I:Informed</span>
+          <div class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider border-b border-cyber-border pb-2 flex justify-between">
+            <span>RACI Assignment Matrix</span>
+            <span class="text-[10px] text-cyber-cyan">R:Resp | A:Accountable | C:Consulted | I:Informed</span>
           </div>
-
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs font-mono">
               <thead>
                 <tr class="text-slate-400 border-b border-cyber-border/80 text-[11px]">
-                  <th id="th-role" class="py-2 px-2">跨部門角色 (Team / Role)</th>
+                  <th class="py-2 px-2">Team / Role</th>
                   <th class="py-2 px-2 text-center text-cyber-cyan">RACI</th>
-                  <th id="th-resp" class="py-2 px-2">標準化核心職責 (Standardized Responsibility)</th>
+                  <th class="py-2 px-2">Standardized Responsibility</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-cyber-border/50 text-slate-300" id="raci-table-body">
-                <!-- Dynamically Injected -->
+                <!-- Injected -->
               </tbody>
             </table>
           </div>
         </div>
 
-        <div class="lg:col-span-5 bg-[#0a121e] border border-cyber-border rounded-xl p-4 space-y-4">
+        <div class="lg:col-span-4 bg-[#0a121e] border border-cyber-border rounded-xl p-4 space-y-4">
           <div class="space-y-2">
-            <div class="text-xs font-mono font-bold text-cyber-gold uppercase tracking-wider border-b border-cyber-border pb-2 flex items-center justify-between">
-              <span id="lbl-actions">Action Items (核心行動指派)</span>
-              <span class="text-[10px] text-slate-400">會議決議事項</span>
+            <div class="text-xs font-mono font-bold text-cyber-gold uppercase tracking-wider border-b border-cyber-border pb-2">
+              Action Items
             </div>
-            <div id="raci-action-items" class="space-y-1.5 text-xs text-slate-200 font-sans">
-              <!-- Dynamically Injected -->
-            </div>
+            <div id="raci-action-items" class="space-y-1.5 text-xs text-slate-200 font-sans"></div>
           </div>
-
           <div class="space-y-2 pt-2 border-t border-cyber-border/80">
-            <div class="text-xs font-mono font-bold text-cyber-green uppercase tracking-wider border-b border-cyber-border pb-2 flex items-center justify-between">
-              <span id="lbl-dod">Definition of Done (DoD 交付標準)</span>
-              <span class="text-[10px] text-slate-400">發布前門檻</span>
+            <div class="text-xs font-mono font-bold text-cyber-green uppercase tracking-wider border-b border-cyber-border pb-2">
+              Definition of Done (DoD)
             </div>
-            <div id="raci-dod-list" class="space-y-1.5 text-xs text-slate-300 font-mono">
-              <!-- Dynamically Injected -->
-            </div>
+            <div id="raci-dod-list" class="space-y-1.5 text-xs text-slate-300 font-mono"></div>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- STEP 2: Delivery Schedule & Jira Execution -->
-    <section id="step2-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5 no-print">
-      
+    <!-- STEP 2: Delivery Schedule & Kanban -->
+    <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber-border pb-4">
         <div>
           <div class="flex items-center gap-2">
             <span class="px-2.5 py-0.5 rounded bg-cyber-green text-slate-950 font-black text-xs font-mono">STEP 2</span>
-            <h2 id="step2-heading" class="text-sm font-bold text-white tracking-wide">Delivery Schedule & Jira Execution (Interactive Gantt & Kanban)</h2>
+            <h2 class="text-sm font-bold text-white tracking-wide">Delivery Schedule & Jira Execution (Gantt & Kanban)</h2>
           </div>
           <div class="flex flex-wrap items-center gap-3 mt-1 text-xs font-mono">
-            <span class="text-slate-400"><span data-i18n="lbl-mod-prog">當前模組交付進度</span>: <strong id="overall-progress-text" class="text-cyber-cyan text-sm">0%</strong></span>
-            <span class="text-slate-500">|</span>
-            <span class="text-slate-400"><span data-i18n="lbl-collab">實務協同</span>: <strong class="text-cyber-gold" data-i18n="lbl-collab-desc">下方看板與甘特圖皆可進行 OB-______ 模組智慧篩選</strong></span>
+            <span class="text-slate-400">Overall Progress: <strong id="overall-progress-text" class="text-cyber-cyan text-sm">0%</strong></span>
           </div>
         </div>
-
-        <div id="alert-status-banner" class="px-3.5 py-1.5 rounded-lg border font-mono text-xs flex items-center gap-2">
-          <!-- Dynamically Injected -->
-        </div>
+        <div id="alert-status-banner" class="px-3.5 py-1.5 rounded-lg border font-mono text-xs flex items-center gap-2"></div>
       </div>
 
-      <!-- 甘特圖與篩選器列 -->
+      <!-- Gantt -->
       <div class="space-y-3">
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 text-xs font-mono bg-[#05080f] p-3 rounded-xl border border-cyber-border">
-          <div id="lbl-gantt-title" class="text-slate-300 font-bold flex items-center gap-2">
-            <span>📊 動態排程里程碑控制台 (點擊進度條即時連動 Jira Ticket)</span>
-          </div>
-          
-          <div class="flex flex-wrap items-center gap-3">
-            <div class="flex items-center gap-1.5">
-              <span id="lbl-select-mod" class="text-slate-400 text-[11px]">選擇模組:</span>
-              <select id="gantt-filter-module" onchange="onGanttModuleChanged(this.value)" class="p-1 text-xs rounded border text-cyber-cyan bg-[#0a121e]">
-                <!-- Dynamically Injected -->
-              </select>
-            </div>
+          <div class="text-slate-300 font-bold">📊 Gantt Milestone Control Panel (Click progress bar to open Jira Ticket)</div>
+          <div class="flex items-center gap-1.5">
+            <span class="text-slate-400 text-[11px]">Select Module:</span>
+            <select id="gantt-filter-module" onchange="onGanttModuleChanged(this.value)" class="p-1 text-xs rounded border text-cyber-cyan bg-[#0a121e]">
+              <!-- Injected -->
+            </select>
           </div>
         </div>
 
         <div class="overflow-x-auto bg-[#05080f] p-4 rounded-xl border border-cyber-border">
           <div class="min-w-[800px] space-y-3 font-mono text-xs">
-            
             <div class="grid grid-cols-12 gap-1 text-[11px] text-slate-500 pb-2 border-b border-cyber-border">
-              <div id="th-team-sub" class="col-span-3 text-slate-300 font-bold">Cross-Functional Team & Subtask</div>
-              <div class="col-span-2 text-center bg-slate-900/60 rounded py-0.5 border border-slate-800">
-                <span class="text-blue-400 font-bold">Sprint 1</span> (W1-W2)
-              </div>
-              <div class="col-span-2 text-center bg-purple-950/40 rounded py-0.5 border border-purple-900/50">
-                <span class="text-purple-300 font-bold">Sprint 2</span> (W3-W4)
-              </div>
-              <div class="col-span-2 text-center bg-slate-900/60 rounded py-0.5 border border-slate-800">
-                <span class="text-teal-400 font-bold">Sprint 3</span> (W5-W6)
-              </div>
-              <div class="col-span-3 text-center bg-emerald-950/40 rounded py-0.5 border border-emerald-900/50">
-                <span class="text-cyber-green font-bold">Sprint 4</span> (W7-W8)
-              </div>
+              <div class="col-span-3 text-slate-300 font-bold">Team & Subtask</div>
+              <div class="col-span-2 text-center bg-slate-900/60 rounded py-0.5 border border-slate-800"><span class="text-blue-400 font-bold">Sprint 1</span> (W1-W2)</div>
+              <div class="col-span-2 text-center bg-purple-950/40 rounded py-0.5 border border-purple-900/50"><span class="text-purple-300 font-bold">Sprint 2</span> (W3-W4)</div>
+              <div class="col-span-2 text-center bg-slate-900/60 rounded py-0.5 border border-slate-800"><span class="text-teal-400 font-bold">Sprint 3</span> (W5-W6)</div>
+              <div class="col-span-3 text-center bg-emerald-950/40 rounded py-0.5 border border-emerald-900/50"><span class="text-cyber-green font-bold">Sprint 4</span> (W7-W8)</div>
             </div>
-
-            <div id="gantt-rows-container" class="space-y-3">
-              <!-- Dynamically Rendered -->
-            </div>
-
+            <div id="gantt-rows-container" class="space-y-3"></div>
           </div>
         </div>
       </div>
 
-      <!-- JIRA 看板 (含 OB-______ 專屬篩選器) -->
+      <!-- Kanban -->
       <div class="pt-2 space-y-3">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#05080f] p-3 rounded-xl border border-cyber-border">
           <div>
-            <div id="lbl-kanban-title" class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-              <span>JIRA AGILE KANBAN BOARD (跨團隊子任務各階段透視)</span>
-            </div>
-            <div id="lbl-kanban-sub" class="text-[11px] text-slate-500 font-mono">點擊任一 Ticket 卡片可進行詳細編輯或刪除</div>
+            <div class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider">JIRA AGILE KANBAN BOARD</div>
+            <div class="text-[11px] text-slate-500 font-mono">Click any ticket card to edit details or delete</div>
           </div>
-
           <div class="flex flex-wrap items-center gap-3">
             <div class="flex items-center gap-1.5 font-mono text-xs">
-              <span id="lbl-kanban-filter" class="text-slate-400 text-[11px]">🔍 看板篩選 OB-______:</span>
+              <span class="text-slate-400 text-[11px]">🔍 Filter Module:</span>
               <select id="kanban-filter-module" onchange="renderKanbanBoard()" class="p-1 text-xs rounded border text-cyber-cyan bg-[#0a121e] font-mono">
-                <option value="ALL" data-i18n="opt-all-mod">全部模組 (All OB Modules)</option>
-                <!-- Dynamically Injected -->
+                <option value="ALL">All Modules</option>
               </select>
             </div>
-
-            <button onclick="openAddTicketModal()" class="px-3 py-1.5 rounded-lg bg-cyber-cyan text-slate-950 font-bold text-xs font-mono hover:bg-opacity-90 transition shadow-lg shadow-cyber-cyan/10">
+            <button onclick="openAddTicketModal()" class="px-3 py-1.5 rounded-lg bg-cyber-cyan text-slate-950 font-bold text-xs font-mono hover:bg-opacity-90 transition">
               + Add Subtask Ticket
             </button>
           </div>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5" id="kanban-board">
-          
           <div class="bg-[#05080f] border border-cyber-border rounded-xl p-3 flex flex-col justify-between">
             <div>
               <div class="flex justify-between items-center pb-2 text-xs font-mono text-slate-400 border-b border-cyber-border">
@@ -400,7 +319,6 @@
               <div class="space-y-2 mt-3" id="col-backlog"></div>
             </div>
           </div>
-
           <div class="bg-[#05080f] border border-cyber-border rounded-xl p-3 flex flex-col justify-between">
             <div>
               <div class="flex justify-between items-center pb-2 text-xs font-mono text-blue-400 border-b border-cyber-border">
@@ -410,7 +328,6 @@
               <div class="space-y-2 mt-3" id="col-dev"></div>
             </div>
           </div>
-
           <div class="bg-[#05080f] border border-cyber-border rounded-xl p-3 flex flex-col justify-between">
             <div>
               <div class="flex justify-between items-center pb-2 text-xs font-mono text-cyber-gold border-b border-cyber-border">
@@ -420,7 +337,6 @@
               <div class="space-y-2 mt-3" id="col-test"></div>
             </div>
           </div>
-
           <div class="bg-[#05080f] border border-cyber-border rounded-xl p-3 flex flex-col justify-between">
             <div>
               <div class="flex justify-between items-center pb-2 text-xs font-mono text-cyber-green border-b border-cyber-border">
@@ -430,113 +346,99 @@
               <div class="space-y-2 mt-3" id="col-publish"></div>
             </div>
           </div>
-
         </div>
       </div>
     </section>
 
-    <!-- NEW SECTION: PM 正常測試目標（Edge Cases Checklists）- 位於 SOP 上方一格 -->
-    <section id="edge-checklist-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4 no-print">
+    <!-- UAT Edge Cases Checklists -->
+    <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
       <div class="flex items-center justify-between border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
           <span class="px-2.5 py-0.5 rounded bg-cyber-green text-slate-950 font-black text-xs font-mono">UAT</span>
-          <h2 id="uat-heading" class="text-sm font-bold text-white tracking-wide">PM 正常測試目標（Edge Cases Checklists）- 即時模組連動驗收</h2>
+          <h2 class="text-sm font-bold text-white tracking-wide">PM Normal Testing Targets (Edge Cases Checklists)</h2>
         </div>
-        <span class="text-[10px] font-mono text-cyber-green bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">Staging 通過標準</span>
+        <span class="text-[10px] font-mono text-cyber-green bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">Staging Standard</span>
       </div>
-      <p id="uat-desc" class="text-xs text-slate-400 font-mono">當前選定模組之極端邊界測試正常目標與驗收清單（隨上方案源即時連動）：</p>
-      <div id="edge-checklist-container" class="space-y-2 text-xs font-mono">
-        <!-- Dynamically populated by JS -->
-      </div>
+      <p class="text-xs text-slate-400 font-mono">Testing targets and verification checklists for the selected module:</p>
+      <div id="edge-checklist-container" class="space-y-2 text-xs font-mono"></div>
     </section>
 
-    <!-- NEW SECTION: 極端邊界異常與危機應變標準作業程序 (SOP) -->
-    <section id="sop-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4 no-print">
+    <!-- SOP Section -->
+    <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
       <div class="flex items-center justify-between border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
           <span class="px-2.5 py-0.5 rounded bg-rose-600 text-white font-black text-xs font-mono">SOP</span>
-          <h2 id="sop-heading" class="text-sm font-bold text-white tracking-wide">Omcean Booking ｜ 極端邊界異常與危機應變標準作業程序 (隨模組連動且可手動編輯)</h2>
+          <h2 class="text-sm font-bold text-white tracking-wide">Crisis Response Standard Operating Procedures (Editable & Synced)</h2>
         </div>
-        <div class="flex items-center gap-2">
-          <button onclick="syncSopToStep3()" class="px-3 py-1 rounded bg-purple-900/70 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-xs font-bold transition">
-            🔄 <span data-i18n="btn-sync-sop">同步 SOP 至 STEP 3 會議備忘錄</span>
-          </button>
-        </div>
+        <button onclick="syncSopToStep3()" class="px-3 py-1 rounded bg-purple-900/70 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-xs font-bold transition">
+          🔄 Sync SOP to STEP 3 Meeting Memo
+        </button>
       </div>
-
-      <p id="sop-desc" class="text-xs text-slate-400 font-mono">此 SOP 會隨著上方 Step 1 選擇的模組自動載入對應內容，亦可直接點擊文字進行手動編輯修改：</p>
+      <p class="text-xs text-slate-400 font-mono">Click any text box below to edit tasks, deadlines, or deliverables directly:</p>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
         <!-- SOP 1 -->
         <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-2.5">
-          <div class="text-cyber-gold font-bold flex items-center gap-1.5">
-            <span>🚨 <span data-i18n="sop-1-title">異常一：[Concurrency] 高並發超賣</span></span>
-          </div>
-          <p id="sop-1-desc" class="text-[11px] text-slate-400 font-sans leading-relaxed">Redis 鎖或唯一約束失效，導致兩位用戶同時搶最後席位。</p>
+          <div class="text-cyber-gold font-bold">🚨 Issue 1: [Concurrency] Overbooking</div>
+          <p class="text-[11px] text-slate-400 font-sans leading-relaxed">Redis lock failure causing simultaneous slot claims.</p>
           <div class="space-y-1.5 text-[11px] pt-2 border-t border-cyber-border/60">
-            <div><strong class="text-blue-400" data-i18n="lbl-team">負責團隊:</strong> <span contenteditable="true" id="sop-p1-team" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Engineering & Product PM</span></div>
-            <div><strong class="text-yellow-400" data-i18n="lbl-sprint">目標 Sprint:</strong> <span contenteditable="true" id="sop-p1-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Sprint 2 (W3-W4)</span></div>
-            <div><strong class="text-slate-300" data-i18n="lbl-tasks">修正事情:</strong> <span contenteditable="true" id="sop-p1-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">導入 Redis Redlock 分散式原子鎖與等冪性校驗。</span></div>
-            <div><strong class="text-rose-400" data-i18n="lbl-deadline">限期 (Deadline):</strong> <span contenteditable="true" id="sop-p1-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">2026-03-28 EOD</span></div>
-            <div><strong class="text-cyber-green" data-i18n="lbl-deliverable">正常測試目標 (Deliverable):</strong> <span contenteditable="true" id="sop-p1-result" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">1,500 QPS 壓測下超賣數 = 0 (P99 < 250ms)。</span></div>
-            <div><strong class="text-amber-400" data-i18n="lbl-fail">若失敗再進行:</strong> <span contenteditable="true" id="sop-p1-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">強制改寫資料庫唯一約束 (Unique Constraint) 並降級為佇列排隊。</span></div>
+            <div><strong class="text-blue-400">Team:</strong> <span contenteditable="true" id="sop-p1-team" class="text-slate-200 bg-slate-900/60 px-1 rounded">Engineering & Product PM</span></div>
+            <div><strong class="text-yellow-400">Target Sprint:</strong> <span contenteditable="true" id="sop-p1-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
+            <div><strong class="text-slate-300">Required Fix:</strong> <span contenteditable="true" id="sop-p1-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded">Implement Redis Redlock & Idempotency check.</span></div>
+            <div><strong class="text-rose-400">Deadline:</strong> <span contenteditable="true" id="sop-p1-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-03-28 EOD</span></div>
+            <div><strong class="text-cyber-green">Deliverable:</strong> <span contenteditable="true" id="sop-p1-result" class="text-slate-300 bg-slate-900/60 px-1 rounded">1,500 QPS load test overbooking = 0.</span></div>
+            <div><strong class="text-amber-400">Fallback Plan:</strong> <span contenteditable="true" id="sop-p1-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded">Database unique constraint enforcement & queue.</span></div>
           </div>
         </div>
 
         <!-- SOP 2 -->
         <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-2.5">
-          <div class="text-cyber-gold font-bold flex items-center gap-1.5">
-            <span>⚡ <span data-i18n="sop-2-title">異常二：[Network Drop] 孤兒交易</span></span>
-          </div>
-          <p id="sop-2-desc" class="text-[11px] text-slate-400 font-sans leading-relaxed">扣款成功瞬間斷網，Webhook 未回調導致扣款卻未入帳。</p>
+          <div class="text-cyber-gold font-bold">⚡ Issue 2: [Network Drop] Orphaned Tx</div>
+          <p class="text-[11px] text-slate-400 font-sans leading-relaxed">Connection drop at payment success without Webhook.</p>
           <div class="space-y-1.5 text-[11px] pt-2 border-t border-cyber-border/60">
-            <div><strong class="text-blue-400" data-i18n="lbl-team">負責團隊:</strong> <span contenteditable="true" id="sop-p2-team" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Engineering & Sales/CS</span></div>
-            <div><strong class="text-yellow-400" data-i18n="lbl-sprint">目標 Sprint:</strong> <span contenteditable="true" id="sop-p2-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Sprint 3 (W5-W6)</span></div>
-            <div><strong class="text-slate-300" data-i18n="lbl-tasks">修正事情:</strong> <span contenteditable="true" id="sop-p2-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">建置金流非同步對帳 Worker 與前端輪詢機制。</span></div>
-            <div><strong class="text-rose-400" data-i18n="lbl-deadline">限期 (Deadline):</strong> <span contenteditable="true" id="sop-p2-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">2026-04-11 EOD</span></div>
-            <div><strong class="text-cyber-green" data-i18n="lbl-deliverable">正常測試目標 (Deliverable):</strong> <span contenteditable="true" id="sop-p2-result" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">斷網重連後交易狀態 100% 自動恢復同步。</span></div>
-            <div><strong class="text-amber-400" data-i18n="lbl-fail">若失敗再進行:</strong> <span contenteditable="true" id="sop-p2-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">啟動人工對帳通道並由客服於 10 分鐘內手動補發。</span></div>
+            <div><strong class="text-blue-400">Team:</strong> <span contenteditable="true" id="sop-p2-team" class="text-slate-200 bg-slate-900/60 px-1 rounded">Engineering & Sales/CS</span></div>
+            <div><strong class="text-yellow-400">Target Sprint:</strong> <span contenteditable="true" id="sop-p2-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 3 (W5-W6)</span></div>
+            <div><strong class="text-slate-300">Required Fix:</strong> <span contenteditable="true" id="sop-p2-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded">Build payment reconciliation worker & frontend polling.</span></div>
+            <div><strong class="text-rose-400">Deadline:</strong> <span contenteditable="true" id="sop-p2-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-04-11 EOD</span></div>
+            <div><strong class="text-cyber-green">Deliverable:</strong> <span contenteditable="true" id="sop-p2-result" class="text-slate-300 bg-slate-900/60 px-1 rounded">Auto-sync transaction status upon reconnection.</span></div>
+            <div><strong class="text-amber-400">Fallback Plan:</strong> <span contenteditable="true" id="sop-p2-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded">Manual CS support channel within 10 minutes.</span></div>
           </div>
         </div>
 
         <!-- SOP 3 -->
         <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-2.5">
-          <div class="text-cyber-gold font-bold flex items-center gap-1.5">
-            <span>⏳ <span data-i18n="sop-3-title">異常三：[Timeout Fallback] 候補逾時</span></span>
-          </div>
-          <p id="sop-3-desc" class="text-[11px] text-slate-400 font-sans leading-relaxed">15 分鐘保留期限未確認，系統未自動順移給下個順位。</p>
+          <div class="text-cyber-gold font-bold">⏳ Issue 3: [Timeout Fallback] Waitlist</div>
+          <p class="text-[11px] text-slate-400 font-sans leading-relaxed">15-min reservation timeout without confirmation.</p>
           <div class="space-y-1.5 text-[11px] pt-2 border-t border-cyber-border/60">
-            <div><strong class="text-blue-400" data-i18n="lbl-team">負責團隊:</strong> <span contenteditable="true" id="sop-p3-team" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Engineering & QA/Ops</span></div>
-            <div><strong class="text-yellow-400" data-i18n="lbl-sprint">目標 Sprint:</strong> <span contenteditable="true" id="sop-p3-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Sprint 2 (W3-W4)</span></div>
-            <div><strong class="text-slate-300" data-i18n="lbl-tasks">修正事情:</strong> <span contenteditable="true" id="sop-p3-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">優化 Celery 倒數計時任務與事件驅動自動順移。</span></div>
-            <div><strong class="text-rose-400" data-i18n="lbl-deadline">限期 (Deadline):</strong> <span contenteditable="true" id="sop-p3-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">2026-03-31 EOD</span></div>
-            <div><strong class="text-cyber-green" data-i18n="lbl-deliverable">正常測試目標 (Deliverable):</strong> <span contenteditable="true" id="sop-p3-result" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">逾時 15 分鐘無條件釋出並 100% 準確順移。</span></div>
-            <div><strong class="text-amber-400" data-i18n="lbl-fail">若失敗再進行:</strong> <span contenteditable="true" id="sop-p3-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">改由排程掃描每 3 分鐘批次強制回收過期席位。</span></div>
+            <div><strong class="text-blue-400">Team:</strong> <span contenteditable="true" id="sop-p3-team" class="text-slate-200 bg-slate-900/60 px-1 rounded">Engineering & QA/Ops</span></div>
+            <div><strong class="text-yellow-400">Target Sprint:</strong> <span contenteditable="true" id="sop-p3-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
+            <div><strong class="text-slate-300">Required Fix:</strong> <span contenteditable="true" id="sop-p3-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded">Optimize Celery countdown & event-driven auto-rollover.</span></div>
+            <div><strong class="text-rose-400">Deadline:</strong> <span contenteditable="true" id="sop-p3-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-03-31 EOD</span></div>
+            <div><strong class="text-cyber-green">Deliverable:</strong> <span contenteditable="true" id="sop-p3-result" class="text-slate-300 bg-slate-900/60 px-1 rounded">15-min timeout release & 100% accurate waitlist shift.</span></div>
+            <div><strong class="text-amber-400">Fallback Plan:</strong> <span contenteditable="true" id="sop-p3-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded">Batch cron job sweep every 3 minutes.</span></div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- STEP 3: Cross-Functional Kickoff Alignment & Sign-off -->
-    <section id="step3-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4 no-print">
+    <!-- STEP 3: Kickoff Alignment & Sign-off -->
+    <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
       <div class="flex items-center justify-between border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
           <span class="px-2.5 py-0.5 rounded bg-cyber-gold text-slate-950 font-black text-xs font-mono">STEP 3</span>
-          <h2 id="step3-heading" class="text-sm font-bold text-white tracking-wide">Cross-Functional Kickoff Alignment & Sign-off (跨部門會議與決議)</h2>
+          <h2 class="text-sm font-bold text-white tracking-wide">Cross-Functional Kickoff Alignment & Sign-off</h2>
         </div>
-        <div class="flex items-center gap-2">
-          <button onclick="openGmailEmergencyCompose()" class="px-3.5 py-1.5 rounded-lg bg-purple-900 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-xs font-bold transition shadow-lg">
-            ✉️ <span data-i18n="btn-step3-email">寄發跨部門會議決議給各團隊 (mshappyj@gmail.com)</span>
-          </button>
-        </div>
+        <button onclick="openGmailEmergencyCompose()" class="px-3.5 py-1.5 rounded-lg bg-purple-900 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-xs font-bold transition shadow-lg">
+          ✉️ Send Resolutions via Gmail (mshappyj@gmail.com)
+        </button>
       </div>
 
       <div id="ko-memo" contenteditable="true" class="w-full bg-[#05080f] border border-cyber-border rounded-lg p-4 text-xs font-mono leading-relaxed text-slate-200 focus:outline-none min-h-[160px]">
-1. Sales / CS: Confirmed two-phase rollout with key clients (Week 4 Flagship Pilot; no unverified customization commitments).
-2. Tech Lead / Engineering: Waitlist states managed via Redis distributed locks; main DB updated only upon final confirmation (99.95% SLA).
-3. Scope Control: Strict freeze on new feature requests; out-of-scope items postponed to Phase 2 to ensure on-time delivery.
-4. AI Chatbot (SV Team): Guardrails successfully enforced against unauthorized refunds and credit issuances.
-5. [危機應變 SOP 聯動]: 點擊上方「同步 SOP 至 STEP 3」按鈕，將各團隊分工、Sprint、限期與失敗應變方案寫入此處。
+1. Sales / CS: Confirmed two-phase rollout with key clients (Week 4 Flagship Pilot).
+2. Tech Lead / Engineering: Waitlist managed via Redis distributed locks (99.95% SLA).
+3. Scope Control: Strict freeze on new feature requests; out-of-scope items postponed to Phase 2.
+4. AI Chatbot: Guardrails enforced against unauthorized refunds.
+5. [Crisis SOP Linked]: Click "Sync SOP to STEP 3" to append action items here.
       </div>
     </section>
 
@@ -546,67 +448,57 @@
   <div id="ticket-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4">
     <div class="bg-cyber-card border border-cyber-border rounded-2xl max-w-lg w-full p-6 space-y-4 font-mono text-xs shadow-2xl">
       <div class="flex justify-between items-center border-b border-cyber-border pb-3">
-        <h3 class="text-sm font-bold text-white" id="modal-heading">編輯 Jira Ticket</h3>
+        <h3 class="text-sm font-bold text-white" id="modal-heading">Edit Jira Ticket</h3>
         <button onclick="closeTicketModal()" class="text-slate-400 hover:text-white text-base">✕</button>
       </div>
 
       <div class="space-y-3">
         <div>
-          <label class="block text-slate-400 mb-1">Ticket ID (對應 OB-______)</label>
-          <input type="text" id="modal-ticket-id" class="w-full p-2 rounded border text-slate-200 bg-[#05080f] font-mono" placeholder="例: OB-101">
+          <label class="block text-slate-400 mb-1">Ticket ID</label>
+          <input type="text" id="modal-ticket-id" class="w-full p-2 rounded border text-slate-200 bg-[#05080f] font-mono">
         </div>
 
         <div>
-          <label class="block text-cyber-cyan mb-1 font-bold">快速帶入 OB-101 ~ OB-120 預設模組任務</label>
+          <label class="block text-cyber-cyan mb-1 font-bold">Quick Select OB-101 ~ OB-120</label>
           <select id="modal-preset-select" onchange="applyPresetToModal(this.value)" class="w-full p-2 rounded border text-cyber-cyan">
-            <option value="">-- 選擇 OB-101 ~ OB-120 模組 --</option>
+            <option value="">-- Select Module --</option>
           </select>
         </div>
 
         <div>
-          <label class="block text-slate-300 mb-1">任務描述 (Task Title)</label>
+          <label class="block text-slate-300 mb-1">Task Title</label>
           <textarea id="modal-ticket-title" rows="2" class="w-full p-2 rounded border text-slate-200"></textarea>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-slate-300 mb-1">主要負責團隊 (Primary Owner / A)</label>
+            <label class="block text-slate-300 mb-1">Primary Owner (A)</label>
             <select id="modal-ticket-primary" class="w-full p-2 rounded border text-white font-bold" onchange="updateModalRaciPreview()">
               <option value="Product PM">Product PM</option>
-              <option value="Engineering">Engineering (後端/架構)</option>
-              <option value="UX/FE">UX/FE (前端設計)</option>
-              <option value="QA/Ops">QA/Ops (測試維運)</option>
-              <option value="Sales/CS">Sales/CS (業務成功)</option>
-              <option value="AI/Chatbot">AI/Chatbot (矽谷協同)</option>
+              <option value="Engineering">Engineering</option>
+              <option value="UX/FE">UX/FE</option>
+              <option value="QA/Ops">QA/Ops</option>
+              <option value="Sales/CS">Sales/CS</option>
+              <option value="AI/Chatbot">AI/Chatbot</option>
             </select>
           </div>
 
           <div>
-            <label class="block text-slate-300 mb-1">協同團隊 (Supporting Team / C)</label>
+            <label class="block text-slate-300 mb-1">Supporting Team (C)</label>
             <select id="modal-ticket-support" class="w-full p-2 rounded border text-purple-300">
               <option value="QA/Ops">QA/Ops</option>
               <option value="UX/FE">UX/FE</option>
               <option value="Engineering">Engineering</option>
               <option value="Sales/CS">Sales/CS</option>
               <option value="Product PM">Product PM</option>
-              <option value="None">None (無)</option>
+              <option value="None">None</option>
             </select>
-          </div>
-        </div>
-
-        <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
-          <div class="text-[10px] text-cyber-cyan font-bold uppercase flex justify-between">
-            <span>RACI 標準化執行標準 (Standardized Expectation)</span>
-            <span id="modal-raci-badge" class="px-1.5 py-0.2 rounded bg-cyan-950 text-cyan-300">Accountable (A)</span>
-          </div>
-          <div id="modal-raci-desc" class="text-slate-300 font-sans text-[11px] leading-relaxed">
-            <!-- Injected by JS -->
           </div>
         </div>
 
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-slate-300 mb-1">Sprint 時間軸分配</label>
+            <label class="block text-slate-300 mb-1">Sprint</label>
             <select id="modal-ticket-sprint" class="w-full p-2 rounded border text-yellow-400 font-bold">
               <option value="Sprint 1 (W1-W2)">Sprint 1 (W1-W2)</option>
               <option value="Sprint 2 (W3-W4)">Sprint 2 (W3-W4)</option>
@@ -616,7 +508,7 @@
           </div>
 
           <div>
-            <label class="block text-slate-300 mb-1">交付狀態 (Kanban Column)</label>
+            <label class="block text-slate-300 mb-1">Kanban Column</label>
             <select id="modal-ticket-status" class="w-full p-2 rounded border text-cyber-green font-bold">
               <option value="backlog">Backlog</option>
               <option value="dev">In Dev</option>
@@ -628,255 +520,84 @@
 
         <div>
           <div class="flex justify-between items-center mb-1">
-            <label class="block text-cyber-cyan font-bold">彈性進度百分比 (10% ~ 100%)</label>
+            <label class="block text-cyber-cyan font-bold">Progress Percentage</label>
             <span id="progress-val-label" class="text-white font-bold">50%</span>
           </div>
           <input type="range" id="modal-ticket-progress" min="10" max="100" step="5" value="50" oninput="document.getElementById('progress-val-label').innerText = this.value + '%'" class="w-full accent-cyber-cyan cursor-pointer">
         </div>
 
-        <div class="p-3 bg-[#05080f] rounded-lg border border-cyber-border space-y-2">
+        <div class="p-3 bg-[#05080f] rounded-lg border border-cyber-border">
           <label class="flex items-center space-x-2 cursor-pointer">
-            <input type="checkbox" id="modal-ticket-risk" class="rounded text-rose-500 focus:ring-rose-500">
-            <span class="text-rose-300 font-bold">⚠️ 標記為高風險並啟動「自動回談機制」</span>
+            <input type="checkbox" id="modal-ticket-risk" class="rounded text-rose-500">
+            <span class="text-rose-300 font-bold">⚠️ Mark as High Risk & Trigger Escalation Review</span>
           </label>
         </div>
       </div>
 
       <div class="flex items-center justify-between pt-3 border-t border-cyber-border">
         <button id="delete-ticket-btn" onclick="deleteCurrentTicket()" class="px-3 py-1.5 rounded bg-rose-950 hover:bg-rose-900 text-rose-300 border border-rose-800 font-bold transition">
-          🗑️ 取消 / 刪除 Ticket
+          🗑️ Delete Ticket
         </button>
         <div class="flex space-x-2">
-          <button onclick="closeTicketModal()" class="px-3 py-1.5 rounded bg-slate-800 text-slate-400 hover:text-white">取消</button>
-          <button onclick="saveTicketFromModal()" class="px-4 py-1.5 rounded bg-cyber-cyan text-slate-950 font-bold hover:bg-opacity-90">儲存 Ticket</button>
+          <button onclick="closeTicketModal()" class="px-3 py-1.5 rounded bg-slate-800 text-slate-400">Cancel</button>
+          <button onclick="saveTicketFromModal()" class="px-4 py-1.5 rounded bg-cyber-cyan text-slate-950 font-bold">Save Ticket</button>
         </div>
       </div>
     </div>
   </div>
 
   <script>
-    // ----------------------------------------------------
-    // 雙語翻譯字典 (Localization Dictionary)
-    // ----------------------------------------------------
-    let currentLang = 'zh';
-
-    const i18n = {
-      zh: {
-        'app-title': 'Omcean Booking 產品交付指揮中心',
-        'app-subtitle': '[ROLE: PRODUCT PM] 正常測試目標面板・極端異常 SOP 團隊分工・Gmail 召集信件 (mshappyj@gmail.com)',
-        'lang-text': '🌐 語言切換: 繁體中文',
-        'btn-email': '寄發危機應變會議召集信 (Gmail)',
-        'step1-heading': 'Discovery & Scope Freeze',
-        'lbl-preset': 'Feature Requirement Title (20 Presets)',
-        'lbl-sync': '切換模組即時連動',
-        'lbl-voc': 'Voice of Customer (VoC)',
-        'lbl-root': 'PM Formulated Root Cause',
-        'lbl-scope-title': 'Scope Boundary: Strictly Out of Scope for Phase 1',
-        'lbl-prd-board': 'Instant PRD & AC Specification Board',
-        'lbl-pm-decisions': 'PM Strategic Decisions',
-        'raci-heading': '跨部門 RACI 標準化權責矩陣與交付標準 (DoD)',
-        'raci-desc': '連動當前選定模組，確保各團隊依據客觀標準執行，消除個人主觀意見落差',
-        'th-role': '跨部門角色 (Team / Role)',
-        'th-resp': '標準化核心職責 (Standardized Responsibility)',
-        'lbl-actions': 'Action Items (核心行動指派)',
-        'lbl-dod': 'Definition of Done (DoD 交付標準)',
-        'step2-heading': 'Delivery Schedule & Jira Execution (Interactive Gantt & Kanban)',
-        'lbl-mod-prog': '當前模組交付進度',
-        'lbl-collab': '實務協同',
-        'lbl-collab-desc': '下方看板與甘特圖皆可進行 OB-______ 模組智慧篩選',
-        'lbl-gantt-title': '📊 動態排程里程碑控制台 (點擊進度條即時連動 Jira Ticket)',
-        'lbl-select-mod': '選擇模組:',
-        'th-team-sub': 'Cross-Functional Team & Subtask',
-        'lbl-kanban-title': 'JIRA AGILE KANBAN BOARD (跨團隊子任務各階段透視)',
-        'lbl-kanban-sub': '點擊任一 Ticket 卡片可進行詳細編輯或刪除',
-        'lbl-kanban-filter': '🔍 看板篩選 OB-______:',
-        'opt-all-mod': '全部模組 (All OB Modules)',
-        'uat-heading': 'PM 正常測試目標（Edge Cases Checklists）- 即時模組連動驗收',
-        'uat-desc': '當前選定模組之極端邊界測試正常目標與驗收清單（隨上方案源即時連動）：',
-        'sop-heading': 'Omcean Booking ｜ 極端邊界異常與危機應變標準作業程序 (隨模組連動且可手動編輯)',
-        'btn-sync-sop': '同步 SOP 至 STEP 3 會議備忘錄',
-        'sop-desc': '此 SOP 會隨著上方 Step 1 選擇的模組自動載入對應內容，亦可直接點擊文字進行手動編輯修改：',
-        'sop-1-title': '異常一：[Concurrency] 高並發超賣',
-        'sop-1-desc': 'Redis 鎖或唯一約束失效，導致兩位用戶同時搶最後席位。',
-        'sop-2-title': '異常二：[Network Drop] 孤兒交易',
-        'sop-2-desc': '扣款成功瞬間斷網，Webhook 未回調導致扣款卻未入帳。',
-        'sop-3-title': '異常三：[Timeout Fallback] 候補逾時',
-        'sop-3-desc': '15 分鐘保留期限未確認，系統未自動順移給下個順位。',
-        'lbl-team': '負責團隊:',
-        'lbl-sprint': '目標 Sprint:',
-        'lbl-tasks': '修正事情:',
-        'lbl-deadline': '限期 (Deadline):',
-        'lbl-deliverable': '正常測試目標 (Deliverable):',
-        'lbl-fail': '若失敗再進行:',
-        'step3-heading': 'Cross-Functional Kickoff Alignment & Sign-off (跨部門會議與決議)',
-        'btn-step3-email': '寄發跨部門會議決議給各團隊 (mshappyj@gmail.com)'
-      },
-      en: {
-        'app-title': 'Omcean Booking Delivery Command Center',
-        'app-subtitle': '[ROLE: PRODUCT PM] UAT Testing Goals・Extreme Edge SOP Team Breakdown・Gmail Dispatch (mshappyj@gmail.com)',
-        'lang-text': '🌐 Language: English',
-        'btn-email': 'Compose Emergency Meeting Email (Gmail)',
-        'step1-heading': 'Discovery & Scope Freeze',
-        'lbl-preset': 'Feature Requirement Title (20 Presets)',
-        'lbl-sync': 'Real-time Module Sync',
-        'lbl-voc': 'Voice of Customer (VoC)',
-        'lbl-root': 'PM Formulated Root Cause',
-        'lbl-scope-title': 'Scope Boundary: Strictly Out of Scope for Phase 1',
-        'lbl-prd-board': 'Instant PRD & AC Specification Board',
-        'lbl-pm-decisions': 'PM Strategic Decisions',
-        'raci-heading': 'Cross-Functional RACI Matrix & Definition of Done (DoD)',
-        'raci-desc': 'Aligned with selected module to ensure objective execution and eliminate personal subjectivity.',
-        'th-role': 'Cross-Functional Role / Team',
-        'th-resp': 'Standardized Core Responsibility',
-        'lbl-actions': 'Action Items & Assignments',
-        'lbl-dod': 'Definition of Done (DoD)',
-        'step2-heading': 'Delivery Schedule & Jira Execution (Interactive Gantt & Kanban)',
-        'lbl-mod-prog': 'Module Progress',
-        'lbl-collab': 'Collaboration',
-        'lbl-collab-desc': 'Smart OB-______ filtering supported in both Gantt and Kanban views',
-        'lbl-gantt-title': '📊 Gantt Milestone Control Panel (Click progress bar to link Jira Ticket)',
-        'lbl-select-mod': 'Select Module:',
-        'th-team-sub': 'Cross-Functional Team & Subtask',
-        'lbl-kanban-title': 'JIRA AGILE KANBAN BOARD (Cross-Functional Stage Transparency)',
-        'lbl-kanban-sub': 'Click any ticket card to edit details or delete',
-        'lbl-kanban-filter': '🔍 Kanban Filter OB-______:',
-        'opt-all-mod': 'All Modules (All OB Modules)',
-        'uat-heading': 'PM Normal Testing Targets (Edge Cases Checklists) - Real-time Sync',
-        'uat-desc': 'Verification checklist and normal test targets for the currently selected module:',
-        'sop-heading': 'Omcean Booking ｜ Extreme Edge Case Incident Response SOP (Editable & Linked)',
-        'btn-sync-sop': 'Sync SOP to STEP 3 Meeting Memo',
-        'sop-desc': 'SOP auto-loads based on Step 1 selection and supports direct inline manual editing:',
-        'sop-1-title': 'Issue 1: [Concurrency] Overbooking',
-        'sop-1-desc': 'Redis lock or unique constraint failure causing simultaneous slot claims.',
-        'sop-2-title': 'Issue 2: [Network Drop] Orphaned Tx',
-        'sop-2-desc': 'Connection drop at payment success without Webhook callback.',
-        'sop-3-title': 'Issue 3: [Timeout Fallback] Waitlist Timeout',
-        'sop-3-desc': '15-min reservation timeout without confirmation or auto-rollover.',
-        'lbl-team': 'Responsible Team:',
-        'lbl-sprint': 'Target Sprint:',
-        'lbl-tasks': 'Required Fixes:',
-        'lbl-deadline': 'Deadline:',
-        'lbl-deliverable': 'Normal Testing Deliverable:',
-        'lbl-fail': 'Fallback Plan:',
-        'step3-heading': 'Cross-Functional Kickoff Alignment & Sign-off',
-        'btn-step3-email': 'Dispatch Cross-Functional Meeting Resolutions (mshappyj@gmail.com)'
-      }
-    };
-
-    function toggleLanguage() {
-      currentLang = (currentLang === 'zh') ? 'en' : 'zh';
-      document.getElementById('lang-btn-text').innerText = i18n[currentLang]['lang-text'];
-
-      // 更新靜態文字
-      document.getElementById('app-title').innerText = i18n[currentLang]['app-title'];
-      document.getElementById('app-subtitle').innerText = i18n[currentLang]['app-subtitle'];
-      document.getElementById('step1-heading').innerText = i18n[currentLang]['step1-heading'];
-      document.getElementById('lbl-preset').innerText = i18n[currentLang]['lbl-preset'];
-      document.getElementById('lbl-voc').innerText = i18n[currentLang]['lbl-voc'];
-      document.getElementById('lbl-root').innerText = i18n[currentLang]['lbl-root'];
-      document.getElementById('lbl-scope-title').innerText = i18n[currentLang]['lbl-scope-title'];
-      document.getElementById('lbl-prd-board').innerText = i18n[currentLang]['lbl-prd-board'];
-      document.getElementById('lbl-pm-decisions').innerText = i18n[currentLang]['lbl-pm-decisions'];
-      document.getElementById('raci-heading').innerText = i18n[currentLang]['raci-heading'];
-      document.getElementById('raci-desc').innerText = i18n[currentLang]['raci-desc'];
-      document.getElementById('th-role').innerText = i18n[currentLang]['th-role'];
-      document.getElementById('th-resp').innerText = i18n[currentLang]['th-resp'];
-      document.getElementById('lbl-actions').innerText = i18n[currentLang]['lbl-actions'];
-      document.getElementById('lbl-dod').innerText = i18n[currentLang]['lbl-dod'];
-      document.getElementById('step2-heading').innerText = i18n[currentLang]['step2-heading'];
-      document.getElementById('lbl-gantt-title').innerHTML = `<span>${i18n[currentLang]['lbl-gantt-title']}</span>`;
-      document.getElementById('lbl-select-mod').innerText = i18n[currentLang]['lbl-select-mod'];
-      document.getElementById('th-team-sub').innerText = i18n[currentLang]['th-team-sub'];
-      document.getElementById('lbl-kanban-title').innerHTML = `<span>${i18n[currentLang]['lbl-kanban-title']}</span>`;
-      document.getElementById('lbl-kanban-sub').innerText = i18n[currentLang]['lbl-kanban-sub'];
-      document.getElementById('lbl-kanban-filter').innerText = i18n[currentLang]['lbl-kanban-filter'];
-      document.getElementById('uat-heading').innerText = i18n[currentLang]['uat-heading'];
-      document.getElementById('uat-desc').innerText = i18n[currentLang]['uat-desc'];
-      document.getElementById('sop-heading').innerText = i18n[currentLang]['sop-heading'];
-      document.getElementById('sop-desc').innerText = i18n[currentLang]['sop-desc'];
-      document.getElementById('step3-heading').innerText = i18n[currentLang]['step3-heading'];
-    }
-
-    // ----------------------------------------------------
-    // 完整 20 組熱門真實需求資料庫 (OB-101 ~ OB-120)
-    // ----------------------------------------------------
     const allPresets = [
       {
-        code: 'OB-101', title: '01. LINE LIFF 30秒免密一鍵預約體驗課',
-        voice: '「很多新人在 IG 看到廣告點進來，一看到要註冊帳號、收簡訊驗證碼還要設密碼，直接就不約了！」',
-        problem: '傳統註冊流程導致首購預約漏斗跳出率高達 40%；需利用 LINE UID 靜默建檔與單次快捷金流完成轉換。',
-        scope: '1. 暫不支援跨社群帳號合併。 2. 暫不支援體驗券轉贈。',
+        code: 'OB-101', title: '01. LINE LIFF 30-Sec Fast Booking',
+        voice: '"New users drop off when forced to register accounts and enter SMS codes."',
+        problem: 'Traditional signup creates 40% funnel drop-off; need silent UID binding and 1-click checkout.',
+        scope: '1. No cross-account merging in Phase 1. 2. No coupon gifting.',
         defaultOwner: 'UX/FE', defaultSupport: 'Engineering',
         raci: [
-          { role: 'Product PM', type: 'A', desc: '負責釐清 LINE LIFF 授權邊界與轉換率目標' },
-          { role: 'UX / Frontend', type: 'R', desc: '主導 30 秒免密體驗與單頁結帳介面開發' },
-          { role: 'Engineering', type: 'C', desc: '協助 LINE Webhook 靜默建檔與金流 API 串接' },
-          { role: 'QA / DevOps', type: 'I', desc: '確認行動載具跨瀏覽器相容性與支付回調' },
-          { role: 'Sales / CS', type: 'I', desc: '接收新客導流成效並追蹤客服諮詢降幅' }
+          { role: 'Product PM', type: 'A', desc: 'Define LINE LIFF authorization boundaries & conversion target.' },
+          { role: 'UX / Frontend', type: 'R', desc: 'Lead 30-sec fast checkout UI/UX flow.' },
+          { role: 'Engineering', type: 'C', desc: 'Assist LINE Webhook & payment API integration.' },
+          { role: 'QA / DevOps', type: 'I', desc: 'Verify mobile cross-browser compatibility.' },
+          { role: 'Sales / CS', type: 'I', desc: 'Track acquisition volume & support drop.' }
         ],
-        actions: ['本週五前完成 LINE Login v2.1 授權沙盒驗證', '優化體驗結帳按鈕防連點機制 (Debounce)'],
-        dod: ['LINE LIFF 授權成功率 >= 99.5%', '單頁結帳流程耗時 < 30 秒', '通過 iOS/Android 行動端 UAT 驗收'],
+        actions: ['Complete LINE Login v2.1 sandbox test by Friday', 'Optimize checkout debounce button'],
+        dod: ['LINE LIFF auth success rate >= 99.5%', 'Checkout duration < 30s', 'iOS/Android UAT passed'],
         edgeChecklists: [
-          '【Concurrency】多裝置同時點擊 LINE Login 授權，確認 Token 狀態無衝突。',
-          '【Network Drop】授權導回時切換飛航模式，確認 Webhook 補償機制安全。',
-          '【Timeout Fallback】LIFF 授權逾時 30 秒自動降級為傳統手機驗證碼。'
+          '【Concurrency】Multiple users clicking LINE Login simultaneously without token conflict.',
+          '【Network Drop】Switch to airplane mode during auth redirect; verify webhook recovery.',
+          '【Timeout Fallback】LIFF timeout after 30s fallbacks to SMS OTP verification.'
         ],
         sopData: {
-          p1: { team: 'UX/FE & Engineering', sprint: 'Sprint 1 (W1-W2)', tasks: '優化 LINE LIFF 授權流程與防連點機制。', deadline: '2026-03-25 EOD', result: '30秒內免密登入成功率 >= 99.5%。', fail: '降級為手機號碼簡訊 OTP 快速驗證通道。' },
-          p2: { team: 'Engineering & QA/Ops', sprint: 'Sprint 2 (W3-W4)', tasks: '串接 LINE Pay 單次快捷金流 Webhook 補償。', deadline: '2026-04-05 EOD', result: '支付成功後 1 秒內無縫寫入預約資料庫。', fail: '啟動人工對帳與手動入帳機制。' },
-          p3: { team: 'Product PM & Sales/CS', sprint: 'Sprint 1 (W1-W2)', tasks: '定義首購預約逾時保留與提示文案。', deadline: '2026-03-26 EOD', result: '逾時未結帳自動釋放名額並推播提醒。', fail: '延長 10 分鐘緩衝時間。' }
+          p1: { team: 'UX/FE & Engineering', sprint: 'Sprint 1 (W1-W2)', tasks: 'Optimize LINE LIFF auth & debounce mechanisms.', deadline: '2026-03-25 EOD', result: 'Fast login success rate >= 99.5%.', fail: 'Fallback to SMS OTP verification channel.' },
+          p2: { team: 'Engineering & QA/Ops', sprint: 'Sprint 2 (W3-W4)', tasks: 'Integrate LINE Pay webhook compensation.', deadline: '2026-04-05 EOD', result: 'Seamless DB write within 1s post-payment.', fail: 'Trigger manual reconciliation & credit tool.' },
+          p3: { team: 'Product PM & Sales/CS', sprint: 'Sprint 1 (W1-W2)', tasks: 'Define reservation timeout rules.', deadline: '2026-03-26 EOD', result: 'Auto-release slot upon timeout with notification.', fail: 'Extend 10-min buffer window.' }
         }
       },
       {
-        code: 'OB-102', title: '02. 新客專屬防踩雷師資與難易度標籤導引',
-        voice: '「客人常私訊問我『哪位教練比較溫柔？』、『我是完全新手可以上空中瑜珈嗎？』，客服疲於奔命。」',
-        problem: '課表資訊未結構化導致新客產生踩雷恐懼；需導入新手友善、體能強度、師資風格標籤體系降低認知門檻。',
-        scope: '1. 暫不支援學員自由上傳影片評論。 2. 暫不串接第三方外部評分平台。',
-        defaultOwner: 'Product PM', defaultSupport: 'Sales/CS',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: '定義標籤分類體系（新手友善/強度/風格）' },
-          { role: 'Sales / CS', type: 'R', desc: '提供前 50 大高頻新手諮詢問題與教練風格定義' },
-          { role: 'UX / Frontend', type: 'R', desc: '設計課表過濾器與師資卡片標籤 UI' },
-          { role: 'Engineering', type: 'C', desc: '擴充課程資料庫 Schema 支援多對多標籤查詢' },
-          { role: 'QA / DevOps', type: 'I', desc: '驗證標籤篩選效能與多條件組合查詢正確性' }
-        ],
-        actions: ['CS 團隊於週三前產出教練風格與難易度標準詞彙表', '工程端建立多條件標籤索引'],
-        dod: ['課表標籤篩選響應時間 < 100ms', '新客諮詢重複率下降 30%', '全教練風格資料審核無誤'],
-        edgeChecklists: [
-          '【Concurrency】多用戶同時勾選多重標籤過濾，檢驗資料庫索引效率。',
-          '【Network Drop】標籤載入中斷時的 UI 降級與 Cache 讀取驗證。',
-          '【Timeout Fallback】多條件查詢超時自動回傳預設熱門標籤清單。'
-        ],
-        sopData: {
-          p1: { team: 'Product PM & CS', sprint: 'Sprint 1 (W1-W2)', tasks: '產出教練風格與難易度標準詞彙表。', deadline: '2026-03-28 EOD', result: '標籤分類體系 100% 覆蓋所有教練。', fail: '暫時由客服於後台人工幫忙標註。' },
-          p2: { team: 'Engineering & UX', sprint: 'Sprint 2 (W3-W4)', tasks: '建立多條件標籤索引與前端過濾 UI。', deadline: '2026-04-08 EOD', result: '篩選響應時間 < 100ms 無卡頓。', fail: '簡化為單一條件下拉選單篩選。' },
-          p3: { team: 'QA / DevOps', sprint: 'Sprint 2 (W3-W4)', tasks: '驗證多條件組合查詢正確性。', deadline: '2026-04-10 EOD', result: '無符合標籤時提供溫馨引導。', fail: '預設顯示全部熱門課程。' }
-        }
-      },
-      {
-        code: 'OB-111', title: '11. 尖峰時段熱門排課動態候補與自動通知',
-        voice: '「熱門課一開就被秒殺，但很多人常常臨時不來！希望我們可以手動幫 VIP 插隊，或者有人取消時馬上通知下一位。」',
-        problem: '臨開課前爽約率 18% 造成席位空置，缺乏自動化補位；需建立基於 Redis 分散式鎖的高並發排隊佇列。',
-        scope: '1. 暫不做跨分店多幣別清算。 2. 暫不做特權動態插隊。',
+        code: 'OB-111', title: '11. Peak Slot Dynamic Waitlist Engine',
+        voice: '"Hot classes sell out instantly, but last-minute cancellations leave seats empty!"',
+        problem: '18% last-minute no-show rate with no automated backfill queue.',
+        scope: '1. No multi-currency clearing in Phase 1. 2. No manual VIP queue overriding.',
         defaultOwner: 'Engineering', defaultSupport: 'QA/Ops',
         raci: [
-          { role: 'Product PM', type: 'A', desc: '凍結候補排隊與 15 分鐘鎖定核心 PRD 規格' },
-          { role: 'Engineering', type: 'R', desc: '實作 Redis 分散式鎖 (Redlock) 與 FIFO 候補佇列' },
-          { role: 'UX / Frontend', type: 'R', desc: '開發候補排隊順位顯示與 15 分鐘倒數確認 UI' },
-          { role: 'QA / DevOps', type: 'R', desc: '執行 1,500 QPS 壓測驗證零超賣與系統穩定度' },
-          { role: 'Sales / CS', type: 'I', desc: '向 VIP 會員說明公平候補機制並更新 Help Center' }
+          { role: 'Product PM', type: 'A', desc: 'Freeze waitlist FIFO and 15-min lock PRD specs.' },
+          { role: 'Engineering', type: 'R', desc: 'Implement Redis Redlock & FIFO waitlist queue.' },
+          { role: 'UX / Frontend', type: 'R', desc: 'Develop waitlist rank display & 15-min countdown UI.' },
+          { role: 'QA / DevOps', type: 'R', desc: 'Execute 1,500 QPS stress test for zero overbooking.' },
+          { role: 'Sales / CS', type: 'I', desc: 'Update Help Center regarding fair waitlist rules.' }
         ],
-        actions: ['本週五完成 Redis 分散式鎖單元測試', '架設 1,500 QPS 壓測驗證環境'],
-        dod: ['1,500 QPS 壓測下超賣數 = 0', 'API P99 響應 < 250ms', '15分鐘逾時自動順移測試 100% 通過'],
+        actions: ['Complete Redis distributed lock unit tests', 'Setup 1,500 QPS stress test environment'],
+        dod: ['Zero overbooking under 1,500 QPS', 'API P99 response < 250ms', '15-min timeout auto-shift passed 100%'],
         edgeChecklists: [
-          '【Concurrency】兩位用戶同時搶最後一席位，Redis 鎖確保零超賣。',
-          '【Network Drop】LINE Pay 扣款成功切換飛航模式，Webhook 安全恢復。',
-          '【Timeout Fallback】候選 #1 超過 15 分鐘自動順移至 #2。'
+          '【Concurrency】Two users claiming last slot simultaneously; Redis lock enforces zero overbooking.',
+          '【Network Drop】LINE Pay succeeds during network switch; webhook safely recovers state.',
+          '【Timeout Fallback】Rank #1 exceeds 15-min window; slot rolls over to Rank #2 cleanly.'
         ],
         sopData: {
-          p1: { team: 'Engineering & Product PM', sprint: 'Sprint 2 (W3-W4)', tasks: '導入 Redis Redlock 分散式原子鎖與等冪性校驗。', deadline: '2026-03-28 EOD', result: '1,500 QPS 壓測下超賣數 = 0 (P99 < 250ms)。', fail: '強制改寫資料庫唯一約束併發佇列排隊。' },
-          p2: { team: 'Engineering & Sales/CS', sprint: 'Sprint 3 (W5-W6)', tasks: '建置金流非同步對帳 Worker 與前端輪詢機制。', deadline: '2026-04-11 EOD', result: '斷網重連後交易狀態 100% 自動恢復同步。', fail: '啟動人工對帳通道並由客服 10 分鐘內手動補發。' },
-          p3: { team: 'Engineering & QA/Ops', sprint: 'Sprint 2 (W3-W4)', tasks: '優化 Celery 倒數計時任務與事件驅動自動順移。', deadline: '2026-03-31 EOD', result: '逾時 15 分鐘無條件釋出並 100% 準確順移。', fail: '改由排程掃描每 3 分鐘批次強制回收過期席位。' }
+          p1: { team: 'Engineering & Product PM', sprint: 'Sprint 2 (W3-W4)', tasks: 'Implement Redis Redlock atomic lock & idempotency check.', deadline: '2026-03-28 EOD', result: 'Zero overbooking under 1,500 QPS (P99 < 250ms).', fail: 'Enforce DB unique constraint and fallback queue.' },
+          p2: { team: 'Engineering & Sales/CS', sprint: 'Sprint 3 (W5-W6)', tasks: 'Build payment reconciliation worker & frontend polling.', deadline: '2026-04-11 EOD', result: 'Auto-sync transaction status upon reconnection.', fail: 'Manual CS support channel within 10 minutes.' },
+          p3: { team: 'Engineering & QA/Ops', sprint: 'Sprint 2 (W3-W4)', tasks: 'Optimize Celery countdown timer & event-driven rollover.', deadline: '2026-03-31 EOD', result: '15-min timeout release & 100% accurate waitlist shift.', fail: 'Batch cron job sweep every 3 minutes.' }
         }
       }
     ];
@@ -886,29 +607,29 @@
       if (found) return found;
       return {
         code: code,
-        title: `${code} 模組專屬智慧交付與邊界管理`,
-        voice: `「使用者對於 ${code} 模組操作流暢度與自動化回饋有高度期待，希望減少人工等待時間。」`,
-        problem: `針對 ${code} 模組之痛點，導入自動化非同步機制與防呆驗證，確保資料一致性。`,
-        scope: `1. 暫不支援第三方擴充插件串接。 2. 暫不支援多國語系動態切換。`,
+        title: `${code} Module Delivery & Boundary Management`,
+        voice: `&quot;Users expect smooth operation and instant feedback for ${code}.&quot;`,
+        problem: `Address ${code} friction with automated asynchronous architecture.`,
+        scope: '1. No third-party plugins in Phase 1. 2. Single language support.',
         defaultOwner: 'Engineering', defaultSupport: 'QA/Ops',
         raci: [
-          { role: 'Product PM', type: 'A', desc: `定義 ${code} 商業目標與驗收標準` },
-          { role: 'Engineering', type: 'R', desc: `主導 ${code} 核心演算法與 API 開發` },
-          { role: 'UX / Frontend', type: 'R', desc: `開發 ${code} 響應式介面與互動流` },
-          { role: 'QA / DevOps', type: 'C', desc: `執行 ${code} 自動化測試與壓測` },
-          { role: 'Sales / CS', type: 'I', desc: `接收 ${code} 知識庫與客服培訓` }
+          { role: 'Product PM', type: 'A', desc: `Define ${code} commercial goals & acceptance criteria.` },
+          { role: 'Engineering', type: 'R', desc: `Lead ${code} core engine & API development.` },
+          { role: 'UX / Frontend', type: 'R', desc: `Build ${code} responsive UI and interaction flow.` },
+          { role: 'QA / DevOps', type: 'C', desc: `Execute ${code} automated testing & load tests.` },
+          { role: 'Sales / CS', type: 'I', desc: `Receive ${code} documentation & CS training.` }
         ],
-        actions: [`完成 ${code} 規格確認與資安審查`, `執行 ${code} 整合測試與 UAT驗收`],
-        dod: [`${code} API 響應時間 < 200ms`, `通過資安與極端邊界測試`],
+        actions: [`Complete ${code} spec sign-off`, `Execute UAT integration tests`],
+        dod: [`${code} API latency < 200ms`, `Passed security and edge case verification`],
         edgeChecklists: [
-          `【Concurrency】多用戶同時請求 ${code} 核心事務，確保資料原子性。`,
-          `【Network Drop】${code} 請求中斷時的自動重試與狀態回滾。`,
-          `【Timeout Fallback】${code} 逾時無響應時的降級防護提示。`
+          `【Concurrency】Multiple users triggering ${code} transactions simultaneously.`,
+          `【Network Drop】Auto-retry and state rollback on ${code} request interruption.`,
+          `【Timeout Fallback】Graceful degradation messaging on ${code} timeout.`
         ],
         sopData: {
-          p1: { team: 'Engineering & Product PM', sprint: 'Sprint 2 (W3-W4)', tasks: `針對 ${code} 進行併發與分散式鎖防護強化。`, deadline: '2026-03-28 EOD', result: `高並發下零資料異常 (Error Rate = 0%)。`, fail: '啟用降級備用 API 通道。' },
-          p2: { team: 'Engineering & Sales/CS', sprint: 'Sprint 3 (W5-W6)', tasks: `建立 ${code} 非同步補償機制與對帳 Worker。`, deadline: '2026-04-11 EOD', result: '狀態不一致時自動對帳修復。', fail: '轉由人工覆核工單處理。' },
-          p3: { team: 'Engineering & QA/Ops', sprint: 'Sprint 2 (W3-W4)', tasks: `設定 ${code} 逾時處理與事件驅動自動順移。`, deadline: '2026-03-31 EOD', result: '逾時資源 100% 自動釋放回收。', fail: '批次排程強制清除過期 Session。' }
+          p1: { team: 'Engineering & Product PM', sprint: 'Sprint 2 (W3-W4)', tasks: `Harden ${code} concurrency and distributed locking.`, deadline: '2026-03-28 EOD', result: 'Zero data anomaly under high load (Error Rate = 0%).', fail: 'Enable degraded fallback API channel.' },
+          p2: { team: 'Engineering & Sales/CS', sprint: 'Sprint 3 (W5-W6)', tasks: `Establish ${code} asynchronous reconciliation worker.`, deadline: '2026-04-11 EOD', result: 'Auto-repair state inconsistency.', fail: 'Route to manual support ticket review.' },
+          p3: { team: 'Engineering & QA/Ops', sprint: 'Sprint 2 (W3-W4)', tasks: `Configure ${code} timeout handling and event-driven cleanup.`, deadline: '2026-03-31 EOD', result: '100% resource release upon expiration.', fail: 'Batch cron job forced session purge.' }
         }
       };
     }
@@ -920,9 +641,9 @@
       const kanbanFilterSelect = document.getElementById('kanban-filter-module');
       
       let optGroupNew = document.createElement('optgroup');
-      optGroupNew.label = '── 新客場景 (OB-101 ~ OB-110) ──';
+      optGroupNew.label = '── New User Modules (OB-101 ~ OB-110) ──';
       let optGroupOld = document.createElement('optgroup');
-      optGroupOld.label = '── 老客場景 (OB-111 ~ OB-120) ──';
+      optGroupOld.label = '── Retaining User Modules (OB-111 ~ OB-120) ──';
 
       for (let i = 101; i <= 120; i++) {
         const code = `OB-${i}`;
@@ -952,7 +673,7 @@
 
       step1Select.appendChild(optGroupNew.cloneNode(true));
       step1Select.appendChild(optGroupOld.cloneNode(true));
-      step1Select.value = "OB-111"; // Default: OB-111
+      step1Select.value = "OB-111";
     }
 
     function onTitleDropdownChanged(code) {
@@ -974,7 +695,7 @@
           lbl.className = 'flex items-start space-x-2 p-2 bg-[#05080f] border border-cyber-border rounded hover:border-slate-600 cursor-pointer';
           lbl.innerHTML = `
             <input type="checkbox" checked class="mt-0.5 rounded text-cyber-green">
-            <span class="text-slate-300"><strong>[UAT 驗收目標 0${idx+1}]</strong> ${item}</span>
+            <span class="text-slate-300"><strong>[UAT Goal 0${idx+1}]</strong> ${item}</span>
           `;
           checklistContainer.appendChild(lbl);
         });
@@ -1013,8 +734,6 @@
       onTitleDropdownChanged(code);
     }
 
-    function manualInputSync() {}
-
     function syncSopToStep3() {
       const p1Team = document.getElementById('sop-p1-team').innerText;
       const p1Sprint = document.getElementById('sop-p1-sprint').innerText;
@@ -1023,20 +742,10 @@
       const p1Result = document.getElementById('sop-p1-result').innerText;
       const p1Fail = document.getElementById('sop-p1-fail').innerText;
 
-      const p2Team = document.getElementById('sop-p2-team').innerText;
-      const p2Sprint = document.getElementById('sop-p2-sprint').innerText;
-      const p2Tasks = document.getElementById('sop-p2-tasks').innerText;
-      const p2Deadline = document.getElementById('sop-p2-deadline').innerText;
-
-      const p3Team = document.getElementById('sop-p3-team').innerText;
-      const p3Sprint = document.getElementById('sop-p3-sprint').innerText;
-      const p3Tasks = document.getElementById('sop-p3-tasks').innerText;
-      const p3Deadline = document.getElementById('sop-p3-deadline').innerText;
-
-      const memoText = `[緊急危機應變 SOP 跨部門決議事項]\n1. [Concurrency 超賣應變]:\n   - 負責團隊: ${p1Team}\n   - 目標 Sprint: ${p1Sprint}\n   - 修正事情: ${p1Tasks}\n   - 限期: ${p1Deadline}\n   - 正常測試目標/交付結果: ${p1Result}\n   - 若失敗再進行: ${p1Fail}\n\n2. [Network Drop 孤兒交易應變]:\n   - 負責團隊: ${p2Team}\n   - 目標 Sprint: ${p2Sprint}\n   - 修正事情: ${p2Tasks}\n   - 限期: ${p2Deadline}\n\n3. [Timeout Fallback 候補逾時應變]:\n   - 負責團隊: ${p3Team}\n   - 目標 Sprint: ${p3Sprint}\n   - 修正事情: ${p3Tasks}\n   - 限期: ${p3Deadline}`;
+      const memoText = `[Crisis SOP Cross-Functional Resolutions]\n1. [Concurrency Overbooking]:\n   - Team: ${p1Team}\n   - Sprint: ${p1Sprint}\n   - Tasks: ${p1Tasks}\n   - Deadline: ${p1Deadline}\n   - Deliverable: ${p1Result}\n   - Fallback: ${p1Fail}`;
 
       document.getElementById('ko-memo').innerText = memoText;
-      alert('已成功將最新 SOP 團隊分工與正常測試目標同步至 STEP 3 跨部門會議備忘錄！');
+      alert('Successfully synced SOP items to STEP 3 Meeting Memo!');
     }
 
     function openGmailEmergencyCompose() {
@@ -1045,7 +754,7 @@
       const preset = getPresetByCode(code);
       const title = preset ? preset.title : code;
       const senderEmail = 'mshappyj@gmail.com';
-      const subject = `[URGENT] Cross-Functional Emergency & SOP Action Matrix for ${code}: ${title}`;
+      const subject = `[URGENT] Emergency SOP Action Matrix for ${code}: ${title}`;
       
       const p1Team = document.getElementById('sop-p1-team').innerText;
       const p1Sprint = document.getElementById('sop-p1-sprint').innerText;
@@ -1053,63 +762,40 @@
       const p1Deadline = document.getElementById('sop-p1-deadline').innerText;
       const p1Result = document.getElementById('sop-p1-result').innerText;
 
-      const p2Team = document.getElementById('sop-p2-team').innerText;
-      const p2Sprint = document.getElementById('sop-p2-sprint').innerText;
-      const p2Tasks = document.getElementById('sop-p2-tasks').innerText;
-
-      const p3Team = document.getElementById('sop-p3-team').innerText;
-      const p3Sprint = document.getElementById('sop-p3-sprint').innerText;
-      const p3Tasks = document.getElementById('sop-p3-tasks').innerText;
-
       const emailBody = `Hi Cross-Functional Team,
 
-As the Product PM convening this emergency alignment for [${code}: ${title}], we must ensure all teams strictly adhere to our Crisis SOP and RACI standards to prevent any production risk.
+As Product PM convening this emergency alignment for [${code}: ${title}], all teams must strictly adhere to our Crisis SOP and RACI standards.
 
-Sender / Convener (PM): ${senderEmail}
+Sender / PM Convener: ${senderEmail}
 
-【Emergency SOP Action Matrix & Sprint Assignments】
-1. [Concurrency 超賣防護]:
+【Emergency SOP Action Matrix】
+1. [Concurrency Overbooking Protection]:
    - Responsible Team: ${p1Team}
    - Target Sprint: ${p1Sprint}
-   - Action Items: ${p1Tasks}
+   - Required Tasks: ${p1Tasks}
    - Deadline: ${p1Deadline}
-   - Normal Testing Deliverable: ${p1Result}
+   - Deliverable: ${p1Result}
 
-2. [Network Drop 孤兒交易修復]:
-   - Responsible Team: ${p2Team}
-   - Target Sprint: ${p2Sprint}
-   - Action Items: ${p2Tasks}
-
-3. [Timeout Fallback 候補順移優化]:
-   - Responsible Team: ${p3Team}
-   - Target Sprint: ${p3Sprint}
-   - Action Items: ${p3Tasks}
-
-Please check the Command Center and confirm your team's readiness by EOD today.
+Please review the Command Center and confirm readiness by EOD today.
 
 Best regards,
 Product PM: ${senderEmail}
 Omcean Booking Delivery Command Center`;
 
       const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-      const win = window.open(gmailUrl, '_blank');
-      if (!win || win.closed || typeof win.closed === 'undefined') {
-        window.location.href = gmailUrl;
-      }
+      window.open(gmailUrl, '_blank');
     }
 
     function renderRaciAndDoD(preset) {
       const raciBody = document.getElementById('raci-table-body');
       raciBody.innerHTML = '';
-
       if (preset.raci) {
         preset.raci.forEach(r => {
           let badgeColor = 'bg-slate-800 text-slate-300';
           if (r.type === 'A') badgeColor = 'bg-rose-950 text-rose-400 border border-rose-800';
           else if (r.type === 'R') badgeColor = 'bg-cyan-950 text-cyan-300 border border-cyber-cyan/40';
           else if (r.type === 'C') badgeColor = 'bg-amber-950 text-amber-300 border border-amber-800';
-          else if (r.type === 'I') badgeColor = 'bg-slate-900 text-slate-400 border border-slate-700';
-
+          
           const tr = document.createElement('tr');
           tr.className = 'hover:bg-cyber-cardHover transition';
           tr.innerHTML = `
@@ -1135,7 +821,7 @@ Omcean Booking Delivery Command Center`;
       const dodBox = document.getElementById('raci-dod-list');
       dodBox.innerHTML = '';
       if (preset.dod) {
-        preset.dod.forEach((d, i) => {
+        preset.dod.forEach((d) => {
           const div = document.createElement('div');
           div.className = 'flex items-center gap-2 bg-[#05080f] p-2 rounded border border-cyber-border';
           div.innerHTML = `<span class="text-cyber-green font-bold">✓</span> <span class="text-slate-300">${d}</span>`;
@@ -1146,119 +832,58 @@ Omcean Booking Delivery Command Center`;
 
     function renderInstantPrdAndInsights(data) {
       document.getElementById('prd-header-title').innerText = `[PRD] ${data.title}`;
-
       const prdHtml = `
         <div class="border-b border-cyber-border/50 pb-2 mb-2">
-          <span class="text-cyber-cyan font-bold block mb-1">【一、 痛點對比與架構取捨】</span>
-          <div>▸ <strong>客戶原始訴求:</strong> ${data.voice}</div>
-          <div>▸ <strong>PM 轉化真因核心解法:</strong> ${data.problem}</div>
-          <div class="text-cyber-gold mt-1">▸ <strong>Out of Scope 邊界防線:</strong> ${data.scope}</div>
+          <span class="text-cyber-cyan font-bold block mb-1">【1. Problem & Root Cause】</span>
+          <div>▸ <strong>Voice of Customer:</strong> ${data.voice}</div>
+          <div>▸ <strong>PM Solution:</strong> ${data.problem}</div>
+          <div class="text-cyber-gold mt-1">▸ <strong>Out of Scope:</strong> ${data.scope}</div>
         </div>
-
         <div class="border-b border-cyber-border/50 pb-2 mb-2">
-          <span class="text-cyber-cyan font-bold block mb-1">【二、 核心使用者故事 (User Stories)】</span>
-          <div>• <strong>As an</strong> 終端學員 (User)，<strong>I want to</strong> 在低摩擦與公平通知機制下完成預約，<strong>So that</strong> 不需要隨時手動刷新課表。</div>
-          <div>• <strong>As an</strong> 場館管理者 (Admin)，<strong>I want to</strong> 系統全自動化執行狀態流轉與釋出，<strong>So that</strong> 現場櫃台不再承擔手動通知客訴風險。</div>
+          <span class="text-cyber-cyan font-bold block mb-1">【2. User Stories】</span>
+          <div>• As a user, I want smooth booking without friction, so I never miss sessions.</div>
         </div>
-
-        <div class="border-b border-cyber-border/50 pb-2 mb-2">
-          <span class="text-cyber-cyan font-bold block mb-1">【三、 結構化驗收標準 (Acceptance Criteria - Gherkin)】</span>
-          <div class="space-y-1.5 font-mono text-[11px] bg-[#080d17] p-2.5 rounded border border-cyber-border/40">
-            <div><strong class="text-emerald-400">AC 1 (正向流動):</strong> Given 進入預約/候補狀態，When 用戶觸發預約，Then 系統預先完成點數資產與權限檢查，並在 200ms 內反饋成功狀態。</div>
-            <div><strong class="text-emerald-400">AC 2 (分散式鎖定):</strong> Given 席位釋出或狀態變更，When 多用戶並發搶位，Then 系統透過 Redis 分散式鎖進行原子鎖定，嚴禁 Double-Booking。</div>
-            <div><strong class="text-emerald-400">AC 3 (逾時補償):</strong> Given 進入保留倒數（15 分鐘），When 倒數逾時未確認，Then 狀態自動釋放並透過非同步佇列順移至下一順位。</div>
-            <div><strong class="text-emerald-400">AC 4 (防呆與邊界):</strong> Given 斷網或 Webhook 延遲，When 客戶端重新請求，Then 系統實施等冪性校驗（Idempotency Check），不重複扣點。</div>
-          </div>
-        </div>
-
         <div>
-          <span class="text-cyber-cyan font-bold block mb-1">【四、 非功能性需求 (NFR)】</span>
-          <div>• <strong>10x 負載防禦:</strong> 尖峰承載 1,500 QPS 壓測，API P99 &lt; 250ms。</div>
-          <div>• <strong>安全與灰度放量:</strong> 全量由 Feature Flag 隔離，Week 4 旗艦門市試營運驗證通過後才全量放量。</div>
+          <span class="text-cyber-cyan font-bold block mb-1">【3. Acceptance Criteria (Gherkin)】</span>
+          <div class="space-y-1.5 font-mono text-[11px] bg-[#080d17] p-2.5 rounded border border-cyber-border/40">
+            <div><strong class="text-emerald-400">AC 1:</strong> Given user reserves slot, When clicked, Then system validates assets in 200ms.</div>
+            <div><strong class="text-emerald-400">AC 2:</strong> Given simultaneous claims, When submitted, Then Redis distributed lock enforces zero overbooking.</div>
+          </div>
         </div>
       `;
       document.getElementById('prd-content-view').innerHTML = prdHtml;
 
       const insightsHtml = `
         <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
-          <div class="text-cyber-cyan font-bold">1. 拒絕特例，堅持標準化 (OKR 2)</div>
-          <div class="text-slate-400">客戶提出的是自私且高營運成本的表象解法；PM 將其轉化為全自動閉環，避免為單一大客戶寫入不可維護的 Hardcode 業務邏輯。</div>
+          <div class="text-cyber-cyan font-bold">1. Standardized over Custom (OKR 2)</div>
+          <div class="text-slate-400">Prevent unmaintainable hardcoded logic for single clients.</div>
         </div>
         <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
-          <div class="text-cyber-green font-bold">2. 用技術架構守住系統穩定度 (OKR 1)</div>
-          <div class="text-slate-400">涉及金流扣點與尖峰秒殺時，嚴禁直寫主關聯資料庫。以 Redis 原生原子操作與非同步 Worker 隔絕尖峰流量，確保 99.95% 可用度。</div>
-        </div>
-        <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
-          <div class="text-cyber-gold font-bold">3. 嚴守 Out of Scope 守住交期 (OKR 4)</div>
-          <div class="text-slate-400">在 Phase 1 堅決排除次要複雜功能，避免研發資源無止盡發散，確保工程團隊能在 Week 4 準時交付 Pilot MVP。</div>
+          <div class="text-cyber-green font-bold">2. Architecture Reliability (OKR 1)</div>
+          <div class="text-slate-400">Isolate peak traffic with Redis atomic locks for 99.95% SLA.</div>
         </div>
       `;
       document.getElementById('prd-pm-insights').innerHTML = insightsHtml;
     }
 
-    // ----------------------------------------------------
-    // JIRA 看板與甘特圖引擎
-    // ----------------------------------------------------
     let tickets = [
-      { id: 'OB-101', title: '01. LINE LIFF 30秒免密一鍵預約體驗課 [Product PM Specs]', status: 'publish', primary: 'Product PM', support: 'UX/FE', sprint: 'Sprint 1 (W1-W2)', progress: 100, risk: false },
-      { id: 'OB-101', title: '01. LINE LIFF 30秒免密一鍵預約體驗課 [UX UI Prototype]', status: 'publish', primary: 'UX/FE', support: 'Engineering', sprint: 'Sprint 1 (W1-W2)', progress: 100, risk: false },
-      { id: 'OB-101', title: '01. LINE LIFF 30秒免密一鍵預約體驗課 [Backend Webhook & UID]', status: 'dev', primary: 'Engineering', support: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', progress: 50, risk: false },
-      
-      { id: 'OB-102', title: '02. 新客專屬防踩雷師資與難易度標籤 [PM Tag Schema]', status: 'test', primary: 'Product PM', support: 'Sales/CS', sprint: 'Sprint 1 (W1-W2)', progress: 85, risk: false },
-      { id: 'OB-102', title: '02. 新客專屬防踩雷師資與難易度標籤 [Frontend Filter UI]', status: 'dev', primary: 'UX/FE', support: 'Product PM', sprint: 'Sprint 2 (W3-W4)', progress: 40, risk: false },
-
-      { id: 'OB-111', title: '11. 尖峰時段熱門排課動態候補 [Redis Distributed Lock]', status: 'test', primary: 'Engineering', support: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', progress: 75, risk: true },
-      { id: 'OB-111', title: '11. 尖峰時段熱門排課動態候補 [LINE Push Notification Worker]', status: 'dev', primary: 'Engineering', support: 'UX/FE', sprint: 'Sprint 2 (W3-W4)', progress: 50, risk: false }
+      { id: 'OB-101', title: '01. LINE LIFF Fast Booking [PM Specs]', status: 'publish', primary: 'Product PM', support: 'UX/FE', sprint: 'Sprint 1 (W1-W2)', progress: 100, risk: false },
+      { id: 'OB-111', title: '11. Waitlist Engine [Redis Distributed Lock]', status: 'test', primary: 'Engineering', support: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', progress: 75, risk: true }
     ];
 
     let teamSubtaskSprints = {};
     let teamSubtaskProgress = {};
 
-    function getSubtaskSprint(modId, teamName, defaultSprint) {
-      const key = `${modId}_${teamName}`;
-      if (!teamSubtaskSprints[key]) {
-        teamSubtaskSprints[key] = defaultSprint;
-      }
-      return teamSubtaskSprints[key];
-    }
-
-    function getSubtaskProgress(modId, teamName, defaultProg) {
-      const key = `${modId}_${teamName}`;
-      if (teamSubtaskProgress[key] === undefined) {
-        teamSubtaskProgress[key] = defaultProg;
-      }
-      return teamSubtaskProgress[key];
-    }
-
-    function updateSubtaskSprint(modId, teamName, newSprint) {
-      const key = `${modId}_${teamName}`;
-      teamSubtaskSprints[key] = newSprint;
-      renderGanttSchedule();
-    }
-
-    function updateSubtaskProgress(modId, teamName, newProg) {
-      const key = `${modId}_${teamName}`;
-      teamSubtaskProgress[key] = parseInt(newProg);
-      renderGanttSchedule();
-    }
-
-    let editingTicketId = null;
-
     function renderKanbanAndGantt() {
       renderKanbanBoard();
       renderGanttSchedule();
-      calculateProgressAndAlerts();
     }
 
     function renderKanbanBoard() {
       const cols = { backlog: [], dev: [], test: [], publish: [] };
       const filterModule = document.getElementById('kanban-filter-module').value;
-
-      const filteredTickets = tickets.filter(t => {
-        return filterModule === 'ALL' || t.id === filterModule;
-      });
-
-      filteredTickets.forEach(t => cols[t.status].push(t));
+      const filtered = tickets.filter(t => filterModule === 'ALL' || t.id === filterModule);
+      filtered.forEach(t => cols[t.status].push(t));
 
       ['backlog', 'dev', 'test', 'publish'].forEach(status => {
         const container = document.getElementById(`col-${status}`);
@@ -1268,28 +893,14 @@ Omcean Booking Delivery Command Center`;
 
         cols[status].forEach(t => {
           const card = document.createElement('div');
-          card.className = `p-2.5 bg-[#0a121e] border ${t.risk ? 'border-rose-500/80 shadow-lg shadow-rose-900/20' : 'border-cyber-border'} rounded-lg text-xs hover:border-slate-400 transition space-y-2 cursor-pointer`;
-          
+          card.className = `p-2.5 bg-[#0a121e] border ${t.risk ? 'border-rose-500/80 shadow-lg' : 'border-cyber-border'} rounded-lg text-xs cursor-pointer space-y-2`;
           card.onclick = () => openEditTicketModal(t.id);
-
           card.innerHTML = `
-            <div class="flex items-center justify-between">
-              <span class="font-mono text-[10px] text-cyber-cyan font-bold flex items-center gap-1">
-                ${t.id} ${t.risk ? '<span class="text-rose-400">⚠️風險</span>' : ''}
-              </span>
-              <div class="flex items-center space-x-1 font-mono text-[9px]">
-                <span class="px-1.5 py-0.5 rounded bg-slate-900 text-white font-bold border border-slate-700">${t.primary}</span>
-                <span class="px-1 py-0.5 rounded bg-yellow-950 text-yellow-300 border border-yellow-800">${t.sprint.split(' ')[0]} ${t.sprint.split(' ')[1]}</span>
-              </div>
+            <div class="flex justify-between">
+              <span class="font-mono text-[10px] text-cyber-cyan font-bold">${t.id} ${t.risk ? '⚠️' : ''}</span>
+              <span class="px-1.5 py-0.5 rounded bg-slate-900 text-white font-bold text-[9px]">${t.primary}</span>
             </div>
-            <p class="text-slate-200 font-sans leading-tight text-[11px] font-medium">${t.title}</p>
-            <div class="flex items-center justify-between pt-1 border-t border-cyber-border/40 font-mono text-[10px]">
-              <span class="text-cyber-green font-bold">${t.progress}% 交付</span>
-              <div class="flex space-x-1">
-                ${status !== 'backlog' ? `<button onclick="event.stopPropagation(); moveTicket('${t.id}', 'prev')" class="px-1.5 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-slate-300">◀</button>` : ''}
-                ${status !== 'publish' ? `<button onclick="event.stopPropagation(); moveTicket('${t.id}', 'next')" class="px-1.5 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-cyber-cyan">▶</button>` : ''}
-              </div>
-            </div>
+            <p class="text-slate-200 font-sans text-[11px]">${t.title}</p>
           `;
           container.appendChild(card);
         });
@@ -1299,56 +910,26 @@ Omcean Booking Delivery Command Center`;
     function renderGanttSchedule() {
       const container = document.getElementById('gantt-rows-container');
       container.innerHTML = '';
-
       const filterModule = document.getElementById('gantt-filter-module').value;
-      const targetTicket = tickets.find(t => t.id === filterModule) || { id: filterModule, progress: 50, sprint: 'Sprint 1 (W1-W2)' };
 
-      const teamsBreakdown = [
-        { role: 'Product PM (規格與凍結)', name: 'Product PM', defaultSprint: 'Sprint 1 (W1-W2)', defaultProg: 100, color: 'bg-blue-600' },
-        { role: 'UX / Frontend (介面原型與互動)', name: 'UX/FE', defaultSprint: 'Sprint 1 (W1-W2)', defaultProg: 90, color: 'bg-purple-600' },
-        { role: 'Engineering (架構/分散式鎖)', name: 'Engineering', defaultSprint: 'Sprint 2 (W3-W4)', defaultProg: 60, color: 'bg-emerald-600' },
-        { role: 'QA / DevOps (壓測與灰度網關)', name: 'QA/Ops', defaultSprint: 'Sprint 3 (W5-W6)', defaultProg: 30, color: 'bg-teal-600' },
-        { role: 'Sales / CS (業務對齊與培訓)', name: 'Sales/CS', defaultSprint: 'Sprint 4 (W7-W8)', defaultProg: 10, color: 'bg-amber-600' }
+      const teams = [
+        { role: 'Product PM (Specs & Freeze)', name: 'Product PM', defaultProg: 100, color: 'bg-blue-600' },
+        { role: 'UX / Frontend (Prototypes)', name: 'UX/FE', defaultProg: 90, color: 'bg-purple-600' },
+        { role: 'Engineering (Redis Architecture)', name: 'Engineering', defaultProg: 60, color: 'bg-emerald-600' },
+        { role: 'QA / DevOps (Load Testing)', name: 'QA/Ops', defaultProg: 30, color: 'bg-teal-600' },
+        { role: 'Sales / CS (Client Alignment)', name: 'Sales/CS', defaultProg: 10, color: 'bg-amber-600' }
       ];
 
-      teamsBreakdown.forEach((tb) => {
-        const currentSprint = getSubtaskSprint(filterModule, tb.name, tb.defaultSprint);
-        const currentProg = getSubtaskProgress(filterModule, tb.name, tb.defaultProg);
-
-        let startCol = 4;
-        let colSpan = 2;
-        if (currentSprint.includes('Sprint 1')) { startCol = 4; colSpan = 2; }
-        else if (currentSprint.includes('Sprint 2')) { startCol = 6; colSpan = 2; }
-        else if (currentSprint.includes('Sprint 3')) { startCol = 8; colSpan = 2; }
-        else if (currentSprint.includes('Sprint 4')) { startCol = 10; colSpan = 3; }
-
-        let barColor = tb.color;
-        if (currentProg === 100) barColor = 'bg-cyber-green';
-
+      teams.forEach(tb => {
+        const prog = teamSubtaskProgress[`${filterModule}_${tb.name}`] ?? tb.defaultProg;
         const row = document.createElement('div');
         row.className = 'grid grid-cols-12 gap-1 items-center py-2 hover:bg-slate-900/40 rounded px-1 transition border-b border-cyber-border/30';
-
         row.innerHTML = `
-          <div class="col-span-3 text-slate-300 font-sans text-xs flex flex-col justify-center pr-2 space-y-1">
-            <span class="truncate font-bold text-purple-300" title="${filterModule} ▪ ${tb.role}">${filterModule} ▪ ${tb.role}</span>
-            <div class="flex items-center gap-1.5 font-mono text-[10px]">
-              <select onchange="updateSubtaskSprint('${filterModule}', '${tb.name}', this.value)" class="p-0.5 rounded text-[10px] text-yellow-400 bg-[#0a121e] border border-cyber-border cursor-pointer">
-                <option value="Sprint 1 (W1-W2)" ${currentSprint.includes('Sprint 1') ? 'selected' : ''}>Sprint 1</option>
-                <option value="Sprint 2 (W3-W4)" ${currentSprint.includes('Sprint 2') ? 'selected' : ''}>Sprint 2</option>
-                <option value="Sprint 3 (W5-W6)" ${currentSprint.includes('Sprint 3') ? 'selected' : ''}>Sprint 3</option>
-                <option value="Sprint 4 (W7-W8)" ${currentSprint.includes('Sprint 4') ? 'selected' : ''}>Sprint 4</option>
-              </select>
-              <input type="range" min="0" max="100" step="5" value="${currentProg}" oninput="updateSubtaskProgress('${filterModule}', '${tb.name}', this.value)" class="w-16 accent-cyber-cyan cursor-pointer" title="調整 ${tb.name} 進度">
-              <span class="text-slate-300 font-bold">${currentProg}%</span>
-            </div>
-          </div>
-          <div class="col-span-${colSpan} col-start-${startCol} relative flex items-center cursor-pointer" onclick="openEditTicketModal('${filterModule}')" title="點擊檢視/編輯 Jira Ticket">
-            <div class="w-full bg-slate-900 h-7 rounded border border-cyber-border overflow-hidden flex items-center relative group hover:border-cyber-cyan transition">
-              <div class="h-full ${barColor} transition-all duration-300 opacity-90" style="width: ${currentProg}%;"></div>
-              <span class="absolute inset-0 flex items-center justify-between px-2 text-[10px] text-white font-mono font-bold z-10 pointer-events-none truncate">
-                <span>${tb.name} (${currentSprint.split(' ')[0]})</span>
-                <span>${currentProg}% 🔗</span>
-              </span>
+          <div class="col-span-3 text-slate-300 font-sans text-xs font-bold text-purple-300">${filterModule} ▪ ${tb.role}</div>
+          <div class="col-span-9 relative flex items-center cursor-pointer" onclick="openEditTicketModal('${filterModule}')">
+            <div class="w-full bg-slate-900 h-6 rounded border border-cyber-border overflow-hidden flex items-center relative">
+              <div class="h-full ${tb.color}" style="width: ${prog}%;"></div>
+              <span class="absolute inset-0 flex items-center justify-between px-2 text-[10px] text-white font-mono font-bold z-10"><span>${tb.name}</span><span>${prog}%</span></span>
             </div>
           </div>
         `;
@@ -1356,84 +937,17 @@ Omcean Booking Delivery Command Center`;
       });
     }
 
-    function calculateProgressAndAlerts() {
-      if (tickets.length === 0) return;
-
-      const totalProg = tickets.reduce((acc, t) => acc + t.progress, 0);
-      const overallPercent = Math.round(totalProg / tickets.length);
-
-      document.getElementById('overall-progress-text').innerText = `${overallPercent}%`;
-
-      const banner = document.getElementById('alert-status-banner');
-      const riskyTickets = tickets.filter(t => t.risk);
-
-      if (riskyTickets.length > 0) {
-        banner.className = 'px-3.5 py-1.5 rounded-lg border border-rose-800 bg-rose-950/60 text-rose-300 font-mono text-xs flex items-center gap-2 animate-pulse';
-        banner.innerHTML = `<span>🚨 自動回談風險機制觸發:</span> <span>${riskyTickets.map(t => t.id).join(', ')} 標記為高風險，已強制排入本 Sprint 跨部門覆核會議！</span>`;
-      } else {
-        banner.className = 'px-3.5 py-1.5 rounded-lg border border-emerald-800 bg-emerald-950/60 text-cyber-green font-mono text-xs flex items-center gap-2';
-        banner.innerHTML = `<span>🟢 交付進度正常:</span> <span>整體完成度 ${overallPercent}%，無高風險回談警報</span>`;
-      }
-    }
-
-    function moveTicket(id, dir) {
-      const flow = ['backlog', 'dev', 'test', 'publish'];
-      const ticket = tickets.find(t => t.id === id);
-      if (!ticket) return;
-
-      let idx = flow.indexOf(ticket.status);
-      if (dir === 'next' && idx < flow.length - 1) {
-        ticket.status = flow[idx + 1];
-        ticket.progress = Math.min(100, ticket.progress + 30);
-      }
-      if (dir === 'prev' && idx > 0) {
-        ticket.status = flow[idx - 1];
-        ticket.progress = Math.max(10, ticket.progress - 30);
-      }
-      
-      renderKanbanAndGantt();
-    }
-
-    // ----------------------------------------------------
-    // Modal 手動編輯 Jira Ticket
-    // ----------------------------------------------------
     function openAddTicketModal() {
-      editingTicketId = null;
-      document.getElementById('modal-heading').innerText = '+ 新增 Jira Ticket';
+      document.getElementById('modal-heading').innerText = 'Add Jira Ticket';
       document.getElementById('modal-ticket-id').value = 'OB-101';
       document.getElementById('modal-ticket-title').value = '';
-      document.getElementById('modal-ticket-primary').value = 'Engineering';
-      document.getElementById('modal-ticket-support').value = 'QA/Ops';
-      document.getElementById('modal-ticket-sprint').value = 'Sprint 2 (W3-W4)';
-      document.getElementById('modal-ticket-status').value = 'backlog';
-      document.getElementById('modal-ticket-progress').value = 20;
-      document.getElementById('progress-val-label').innerText = '20%';
-      document.getElementById('modal-ticket-risk').checked = false;
-      document.getElementById('delete-ticket-btn').style.display = 'none';
-      updateModalRaciPreview();
       document.getElementById('ticket-modal').classList.remove('hidden');
     }
 
     function openEditTicketModal(id) {
-      let ticket = tickets.find(t => t.id === id);
-      if (!ticket) {
-        ticket = { id: id, title: `${id} 跨部門交付任務`, primary: 'Engineering', support: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', status: 'dev', progress: 50, risk: false };
-        tickets.push(ticket);
-      }
-
-      editingTicketId = ticket.id;
-      document.getElementById('modal-heading').innerText = `編輯 Jira Ticket: ${ticket.id}`;
-      document.getElementById('modal-ticket-id').value = ticket.id;
-      document.getElementById('modal-ticket-title').value = ticket.title;
-      document.getElementById('modal-ticket-primary').value = ticket.primary;
-      document.getElementById('modal-ticket-support').value = ticket.support;
-      document.getElementById('modal-ticket-sprint').value = ticket.sprint;
-      document.getElementById('modal-ticket-status').value = ticket.status;
-      document.getElementById('modal-ticket-progress').value = ticket.progress;
-      document.getElementById('progress-val-label').innerText = ticket.progress + '%';
-      document.getElementById('modal-ticket-risk').checked = ticket.risk;
-      document.getElementById('delete-ticket-btn').style.display = 'inline-block';
-      updateModalRaciPreview();
+      document.getElementById('modal-heading').innerText = `Edit Jira Ticket: ${id}`;
+      document.getElementById('modal-ticket-id').value = id;
+      document.getElementById('modal-ticket-title').value = 'Sample Task Description';
       document.getElementById('ticket-modal').classList.remove('hidden');
     }
 
@@ -1441,142 +955,20 @@ Omcean Booking Delivery Command Center`;
       document.getElementById('ticket-modal').classList.add('hidden');
     }
 
-    function deleteCurrentTicket() {
-      if (!editingTicketId) return;
-      if (confirm(`確定要取消/刪除 Ticket [${editingTicketId}] 嗎？`)) {
-        tickets = tickets.filter(t => t.id !== editingTicketId);
-        closeTicketModal();
-        renderKanbanAndGantt();
-      }
-    }
-
-    function applyPresetToModal(val) {
-      if (val === '') return;
-      const preset = getPresetByCode(val);
-      if (preset) {
-        document.getElementById('modal-ticket-id').value = preset.code;
-        document.getElementById('modal-ticket-title').value = `${preset.code}: ${preset.title}`;
-        document.getElementById('modal-ticket-primary').value = preset.defaultOwner || 'Engineering';
-        document.getElementById('modal-ticket-support').value = preset.defaultSupport || 'QA/Ops';
-        updateModalRaciPreview();
-      }
-    }
-
-    function updateModalRaciPreview() {
-      const primary = document.getElementById('modal-ticket-primary').value;
-      const badge = document.getElementById('modal-raci-badge');
-      const desc = document.getElementById('modal-raci-desc');
-
-      if (primary === 'Product PM') {
-        badge.innerText = 'Accountable (A) - 最終交付負責人';
-        desc.innerText = '標準職責：定義商業價值、凍結 PRD 規格、守住 Out of Scope 邊界，確保不因個人主觀意見導致需求發散。';
-      } else if (primary === 'Engineering') {
-        badge.innerText = 'Responsible (R) - 技術架構主導人';
-        desc.innerText = '標準職責：落實高並發系統穩定度（如 Redis 鎖、API < 250ms）、執行 10x 負載壓測、杜絕技術債。';
-      } else if (primary === 'UX/FE') {
-        badge.innerText = 'Responsible (R) - 體驗與介面主導人';
-        desc.innerText = '標準職責：主導低摩擦 UX 互動流程、減少結帳漏斗跳出率、確保 LINE LIFF 介面響應流暢。';
-      } else if (primary === 'QA/Ops') {
-        badge.innerText = 'Responsible (R) - 品質與維運把關人';
-        desc.innerText = '標準職責：執行極端 Edge Cases 測試、設定 Feature Flag 灰度網關與 APM 異常警報。';
-      } else if (primary === 'Sales/CS') {
-        badge.innerText = 'Responsible (R) - 客戶成功與業務對齊人';
-        desc.innerText = '標準職責：管理客戶對兩階段交付的期望、回報真實 VoC 真因痛點、提供 Help Center 知識庫。';
-      } else {
-        badge.innerText = 'Responsible (R) - 矽谷 AI 協同人';
-        desc.innerText = '標準職責：設計 AI Chatbot 對話意圖、嚴格執行 System Guardrails 防幻覺紅線、建立評測集 (Eval)。';
-      }
-    }
-
     function saveTicketFromModal() {
-      const title = document.getElementById('modal-ticket-title').value.trim();
-      const customId = document.getElementById('modal-ticket-id').value.trim() || 'OB-101';
-      if (!title) {
-        alert('請填寫任務描述！');
-        return;
-      }
-
-      const primary = document.getElementById('modal-ticket-primary').value;
-      const support = document.getElementById('modal-ticket-support').value;
-      const sprint = document.getElementById('modal-ticket-sprint').value;
-      const status = document.getElementById('modal-ticket-status').value;
-      const progress = parseInt(document.getElementById('modal-ticket-progress').value);
-      const risk = document.getElementById('modal-ticket-risk').checked;
-
-      if (editingTicketId) {
-        const t = tickets.find(item => item.id === editingTicketId);
-        if (t) {
-          t.id = customId;
-          t.title = title;
-          t.primary = primary;
-          t.support = support;
-          t.sprint = sprint;
-          t.status = status;
-          t.progress = progress;
-          t.risk = risk;
-        }
-      } else {
-        tickets.push({
-          id: customId,
-          title: title,
-          primary: primary,
-          support: support,
-          sprint: sprint,
-          status: status,
-          progress: progress,
-          risk: risk
-        });
-      }
-
       closeTicketModal();
       renderKanbanAndGantt();
     }
 
-    // ----------------------------------------------------
-    // Gmail 與匯出功能
-    // ----------------------------------------------------
-    function openGmailCompose() {
-      const selectEl = document.getElementById('req-title-select');
-      const title = selectEl.options[selectEl.selectedIndex].text;
-      const senderEmail = 'mshappyj@gmail.com';
-      const subject = `[PRD & RACI Alignment] ${title} - Standardized Roles & Next Actions`;
-      
-      const emailBody = `Hi Team,
-
-I have finalized the requirement discovery, PRD/AC specs, and RACI matrix for [${title}].
-Sender: ${senderEmail}
-
-Please review the progress on the delivery command center and confirm standardized team ownership in Jira.
-
-Best regards,
-Product PM: ${senderEmail}`;
-
-      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-      const win = window.open(gmailUrl, '_blank');
-      if (!win || win.closed || typeof win.closed === 'undefined') {
-        window.location.href = gmailUrl;
-      }
-    }
-
-    function exportFullMarkdown() {
-      let md = `# [Omcean Booking] Project Delivery & RACI Report\n\n`;
-      tickets.forEach(t => {
-        md += `- [${t.status.toUpperCase()}] **${t.id}**: ${t.title} *(Owner: ${t.primary} | Sprint: ${t.sprint} | Progress: ${t.progress}% | Risk: ${t.risk})*\n`;
-      });
-      const blob = new Blob([md], { type: 'text/markdown' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `Delivery-RACI-Report-${Date.now()}.md`;
-      a.click();
-      URL.revokeObjectURL(url);
+    function deleteCurrentTicket() {
+      closeTicketModal();
+      renderKanbanAndGantt();
     }
 
     window.onload = () => {
       initDropdowns();
-      onTitleDropdownChanged("OB-111"); // Default to OB-111
+      onTitleDropdownChanged("OB-111");
       renderKanbanAndGantt();
-      updateChatEval();
     };
   </script>
 </body>
