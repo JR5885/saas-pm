@@ -402,7 +402,7 @@
             <div><strong class="text-blue-400">Team:</strong> <span contenteditable="true" id="sop-p3-team" class="text-slate-200 bg-slate-900/60 px-1 rounded">Engineering & QA/Ops</span></div>
             <div><strong class="text-yellow-400">Target Sprint:</strong> <span contenteditable="true" id="sop-p3-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
             <div><strong class="text-slate-300">Required Fix:</strong> <span contenteditable="true" id="sop-p3-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded">Optimize Celery countdown & event-driven auto-rollover.</span></div>
-            <div><strong class="text-rose-400">Deadline:</strong> <span contenteditable="true" id="sop-p3-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-03-31 EOD</span></div>
+            <div><strong class="text-rose-400">Deadline:</strong> <span contenteditable="true" id="sop-p3-deadline" class="text-slate-200 bg-slate-900/60 px-1 rounded">2026-03-31 EOD</span></div>
             <div><strong class="text-cyber-green">Deliverable:</strong> <span contenteditable="true" id="sop-p3-result" class="text-slate-300 bg-slate-900/60 px-1 rounded">15-min timeout release & 100% accurate waitlist shift.</span></div>
             <div><strong class="text-amber-400">Fallback Plan:</strong> <span contenteditable="true" id="sop-p3-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded">Batch cron job sweep every 3 minutes.</span></div>
           </div>
@@ -533,7 +533,7 @@
   </div>
 
   <script>
-    // 完整 20 組真實模組資料庫 (OB-101 到 OB-120 都有完整 raci, actions, dod, edgChecklists)
+    // 完整的 20 組模組資料庫，並支援自動產生物件以防任何模組空白
     const allPresets = [
       {
         code: 'OB-101', title: '01. LINE LIFF Fast Booking',
@@ -625,12 +625,11 @@
       const found = allPresets.find(p => p.code === code);
       if (found) return found;
 
-      // 動態生成 OB-102 到 OB-120 中未在上面寫死的項目，確保有完整 RACI 與 DoD
-      const num = parseInt(code.replace('OB-', ''));
+      // 動態產生 OB-103 到 OB-120 中未寫死的項目，確保 Scope、PRD、RACI、Step 2 都有內容
       return {
         code: code,
         title: `${code} Module Delivery & Boundary Management`,
-        voice: `"Users expect smooth operation and instant feedback for module ${code}."`,
+        voice: `"Users expect smooth operation and instant feedback for ${code}."`,
         problem: `Address ${code} friction with automated asynchronous architecture and strict validation.`,
         scope: `1. No third-party plugins in Phase 1 for ${code}. 2. Single language support.`,
         defaultOwner: 'Engineering', defaultSupport: 'QA/Ops',
@@ -711,7 +710,6 @@
         document.getElementById('kanban-filter-module').value = preset.code;
       }
 
-      // 渲染 UAT 測試目標清單
       const checklistContainer = document.getElementById('edge-checklist-container');
       checklistContainer.innerHTML = '';
       if (preset.edgeChecklists) {
@@ -735,20 +733,6 @@
     function onGanttModuleChanged(code) {
       document.getElementById('req-title-select').value = code;
       onTitleDropdownChanged(code);
-    }
-
-    function syncSopToStep3() {
-      const p1Team = document.getElementById('sop-p1-team').innerText;
-      const p1Sprint = document.getElementById('sop-p1-sprint').innerText;
-      const p1Tasks = document.getElementById('sop-p1-tasks').innerText;
-      const p1Deadline = document.getElementById('sop-p1-deadline').innerText;
-      const p1Result = document.getElementById('sop-p1-result').innerText;
-      const p1Fail = document.getElementById('sop-p1-fail').innerText;
-
-      const memoText = `[Crisis SOP Cross-Functional Resolutions]\n1. [Concurrency Overbooking]:\n   - Team: ${p1Team}\n   - Sprint: ${p1Sprint}\n   - Tasks: ${p1Tasks}\n   - Deadline: ${p1Deadline}\n   - Deliverable: ${p1Result}\n   - Fallback: ${p1Fail}`;
-
-      document.getElementById('ko-memo').innerText = memoText;
-      alert('Successfully synced SOP items to STEP 3 Meeting Memo!');
     }
 
     let teamSubtaskSprints = {};
@@ -932,46 +916,6 @@ Please review the Command Center and confirm your team's readiness by EOD today.
 Best regards,
 Product PM: ${senderEmail}
 Omcean Booking Delivery Command Center`;
-
-      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-      window.open(gmailUrl, '_blank');
-    }
-
-    function openGmailEmergencyCompose() {
-      const selectEl = document.getElementById('req-title-select');
-      const code = selectEl.value;
-      const preset = getPresetByCode(code);
-      const title = preset ? preset.title : code;
-      const senderEmail = 'mshappyj@gmail.com';
-      const subject = `[EMERGENCY CRISIS SOP] Action Matrix for ${code}: ${title}`;
-      
-      const p1Team = document.getElementById('sop-p1-team').innerText;
-      const p1Sprint = document.getElementById('sop-p1-sprint').innerText;
-      const p1Tasks = document.getElementById('sop-p1-tasks').innerText;
-      const p1Deadline = document.getElementById('sop-p1-deadline').innerText;
-      const p1Result = document.getElementById('sop-p1-result').innerText;
-      const p1Fail = document.getElementById('sop-p1-fail').innerText;
-
-      const emailBody = `ATTENTION ALL TEAMS,
-
-An urgent crisis response protocol has been activated for [${code}: ${title}]. Please review your assigned responsibilities below.
-
-Sender / Convener: ${senderEmail}
-
-【Emergency SOP Action Matrix】
-1. [Concurrency Overbooking Protection]:
-   - Responsible Team: ${p1Team}
-   - Target Sprint: ${p1Sprint}
-   - Required Tasks: ${p1Tasks}
-   - Deadline: ${p1Deadline}
-   - Deliverable Target: ${p1Result}
-   - Fallback Plan: ${p1Fail}
-
-Immediate execution and sign-off are required.
-
-Best regards,
-Product PM: ${senderEmail}
-Omcean Booking Command Center`;
 
       const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
       window.open(gmailUrl, '_blank');
