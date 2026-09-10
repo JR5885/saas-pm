@@ -90,7 +90,7 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking 產品交付指揮中心</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] 20大模組 2-Sprint 跨部門交付重建・Jira 雙向即時同步
+          [ROLE: PRODUCT PM] 20大模組 4-Sprint 跨部門實務拆解・進度條雙向連動 Jira Ticket
         </p>
       </div>
 
@@ -296,19 +296,19 @@
       </div>
     </section>
 
-    <!-- STEP 2: Delivery Schedule & Jira Execution (2-Sprint 跨部門交付重建) -->
+    <!-- STEP 2: Delivery Schedule & Jira Execution (4-Sprint 跨部門實務拆解與甘特圖點擊連動 Jira Ticket) -->
     <section id="step2-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5 no-print">
       
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber-border pb-4">
         <div>
           <div class="flex items-center gap-2">
             <span class="px-2.5 py-0.5 rounded bg-cyber-green text-slate-950 font-black text-xs font-mono">STEP 2</span>
-            <h2 class="text-sm font-bold text-white tracking-wide">Delivery Schedule & Jira Execution (2-Sprint Cross-Functional Breakdown)</h2>
+            <h2 class="text-sm font-bold text-white tracking-wide">Delivery Schedule & Jira Execution (4-Sprint Breakdown & Interactive Gantt)</h2>
           </div>
           <div class="flex flex-wrap items-center gap-3 mt-1 text-xs font-mono">
-            <span class="text-slate-400">當前選定模組總進度: <strong id="overall-progress-text" class="text-cyber-cyan text-sm">0%</strong></span>
+            <span class="text-slate-400">當前模組交付進度: <strong id="overall-progress-text" class="text-cyber-cyan text-sm">0%</strong></span>
             <span class="text-slate-500">|</span>
-            <span class="text-slate-400">交付原則: <strong class="text-cyber-gold">每個模組歷經 Sprint 1 (規格與架構) 與 Sprint 2 (開發與驗證)</strong></span>
+            <span class="text-slate-400">實務協同: <strong class="text-cyber-gold">點擊甘特圖進度條可直接開啟並編輯對應的 Jira Ticket</strong></span>
           </div>
         </div>
 
@@ -317,11 +317,11 @@
         </div>
       </div>
 
-      <!-- 甘特圖與模組篩選器 -->
+      <!-- 甘特圖與篩選器列 -->
       <div class="space-y-3">
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 text-xs font-mono bg-[#05080f] p-3 rounded-xl border border-cyber-border">
           <div class="text-slate-300 font-bold flex items-center gap-2">
-            <span>📊 2-Sprint 跨部門交付追蹤控制台 (切換模組即時檢視 5 大團隊在 Sprint 1 & 2 的任務)</span>
+            <span>📊 4-Sprint 跨部門排程控制台 (切換模組檢視 Sprint 1~4 任務細節)</span>
           </div>
           
           <div class="flex flex-wrap items-center gap-3">
@@ -335,19 +335,25 @@
         </div>
 
         <div class="overflow-x-auto bg-[#05080f] p-4 rounded-xl border border-cyber-border">
-          <div class="min-w-[800px] space-y-3 font-mono text-xs">
+          <div class="min-w-[850px] space-y-3 font-mono text-xs">
             
             <div class="grid grid-cols-12 gap-1 text-[11px] text-slate-500 pb-2 border-b border-cyber-border">
-              <div class="col-span-3 text-slate-300 font-bold">Cross-Functional Team & 2-Sprint Tasks</div>
-              <div class="col-span-4 text-center bg-blue-950/40 rounded py-0.5 border border-blue-900/50">
-                <span class="text-blue-400 font-bold">Sprint 1 (W1-W2)</span> ▪ 規格與架構凍結
+              <div class="col-span-3 text-slate-300 font-bold">Cross-Functional Team & 4-Sprint Breakdown</div>
+              <div class="col-span-2 text-center bg-blue-950/40 rounded py-0.5 border border-blue-900/50">
+                <span class="text-blue-400 font-bold">Sprint 1</span> (W1-W2)
               </div>
-              <div class="col-span-5 text-center bg-purple-950/40 rounded py-0.5 border border-purple-900/50">
-                <span class="text-purple-300 font-bold">Sprint 2 (W3-W4)</span> ▪ 開發、壓測與 Pilot 上線
+              <div class="col-span-2 text-center bg-purple-950/40 rounded py-0.5 border border-purple-900/50">
+                <span class="text-purple-300 font-bold">Sprint 2</span> (W3-W4)
+              </div>
+              <div class="col-span-2 text-center bg-teal-950/40 rounded py-0.5 border border-teal-900/50">
+                <span class="text-teal-300 font-bold">Sprint 3</span> (W5-W6)
+              </div>
+              <div class="col-span-3 text-center bg-emerald-950/40 rounded py-0.5 border border-emerald-900/50">
+                <span class="text-cyber-green font-bold">Sprint 4</span> (W7-W8)
               </div>
             </div>
 
-            <!-- 動態渲染 5 大團隊在 2 個 Sprint 中的子任務進度 -->
+            <!-- 動態渲染甘特圖（點擊進度條直接連動開啟 Jira Ticket） -->
             <div id="gantt-rows-container" class="space-y-3">
               <!-- Dynamically Rendered -->
             </div>
@@ -356,14 +362,14 @@
         </div>
       </div>
 
-      <!-- JIRA 看板 (依當前模組即時重建與同步) -->
+      <!-- JIRA 看板 -->
       <div class="pt-2">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
           <div>
             <div class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-              <span>JIRA AGILE KANBAN BOARD (當前模組跨團隊子任務看板)</span>
+              <span>JIRA AGILE KANBAN BOARD</span>
             </div>
-            <div class="text-[11px] text-slate-500 font-mono">點擊任一 Ticket 卡片可調整該團隊子任務進度或進行 Sprint 調度</div>
+            <div class="text-[11px] text-slate-500 font-mono">點擊任一 Ticket 卡片可進行詳細編輯或刪除</div>
           </div>
 
           <div class="flex items-center gap-2">
@@ -578,6 +584,8 @@
             <select id="modal-ticket-sprint" class="w-full p-2 rounded border text-yellow-400 font-bold">
               <option value="Sprint 1 (W1-W2)">Sprint 1 (W1-W2)</option>
               <option value="Sprint 2 (W3-W4)">Sprint 2 (W3-W4)</option>
+              <option value="Sprint 3 (W5-W6)">Sprint 3 (W5-W6)</option>
+              <option value="Sprint 4 (W7-W8)">Sprint 4 (W7-W8)</option>
             </select>
           </div>
 
@@ -988,8 +996,12 @@
       document.getElementById('req-problem').value = preset.problem;
       document.getElementById('req-scope').value = preset.scope;
 
+      // 同步更新甘特圖篩選器選中的模組
+      document.getElementById('gantt-filter-module').value = preset.code;
+
       renderInstantPrdAndInsights(preset);
       renderRaciAndDoD(preset);
+      renderGanttSchedule();
     }
 
     function manualInputSync() {}
@@ -1093,7 +1105,7 @@
     }
 
     // ----------------------------------------------------
-    // JIRA 看板與甘特圖引擎 (2-Sprint 跨部門拆解)
+    // JIRA 看板與甘特圖引擎 (各團隊獨立 Sprint 與進度控制，點擊甘特圖連動 Jira Ticket)
     // ----------------------------------------------------
     let tickets = [
       { id: 'OB-1', title: '01. LINE LIFF 30秒免密一鍵預約體驗課', status: 'publish', primary: 'UX/FE', support: 'Engineering', sprint: 'Sprint 1 (W1-W2)', progress: 100, risk: false },
@@ -1103,20 +1115,20 @@
       { id: 'OB-104', title: '04. 預約放棄行為自動偵測與限時挽回推播', status: 'dev', primary: 'Engineering', support: 'Product PM', sprint: 'Sprint 2 (W3-W4)', progress: 40, risk: false },
       { id: 'OB-105', title: '05. 新客爽約自動發送「體諒補課券」再行銷模組', status: 'backlog', primary: 'Sales/CS', support: 'Engineering', sprint: 'Sprint 2 (W3-W4)', progress: 15, risk: false },
       { id: 'OB-106', title: '06. 官網預約小工具免跳轉嵌入 (Widget Engine)', status: 'backlog', primary: 'UX/FE', support: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', progress: 10, risk: false },
-      { id: 'OB-107', title: '07. 新客首購零風險「未到課無條件展延」', status: 'backlog', primary: 'Product PM', support: 'Sales/CS', sprint: 'Sprint 2 (W3-W4)', progress: 10, risk: false },
+      { id: 'OB-107', title: '07. 新客首購零風險「未到課無條件展延」', status: 'backlog', primary: 'Product PM', support: 'Sales/CS', sprint: 'Sprint 1 (W1-W2)', progress: 10, risk: false },
       { id: 'OB-108', title: '08. 一對一教練課新客免登入即時空檔查詢', status: 'backlog', primary: 'Engineering', support: 'UX/FE', sprint: 'Sprint 2 (W3-W4)', progress: 10, risk: false },
-      { id: 'OB-109', title: '09. 新客預約雙人同行優惠與同伴資料拆分', status: 'backlog', primary: 'Product PM', support: 'UX/FE', sprint: 'Sprint 2 (W3-W4)', progress: 10, risk: false },
+      { id: 'OB-109', title: '09. 新客預約雙人同行優惠與同伴資料拆分', status: 'backlog', primary: 'Product PM', support: 'UX/FE', sprint: 'Sprint 1 (W1-W2)', progress: 10, risk: false },
       { id: 'OB-110', title: '10. 首購課後 2 小時專屬限時續購促轉模組', status: 'backlog', primary: 'Sales/CS', support: 'Engineering', sprint: 'Sprint 2 (W3-W4)', progress: 10, risk: false },
       { id: 'OB-111', title: '11. 尖峰時段熱門排課動態候補與自動通知', status: 'test', primary: 'Engineering', support: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', progress: 75, risk: true },
-      { id: 'OB-112', title: '12. 老客常用時段與師資「1-Click 極速複訂」', status: 'dev', primary: 'UX/FE', support: 'Engineering', sprint: 'Sprint 2 (W3-W4)', progress: 40, risk: false },
-      { id: 'OB-113', title: '13. 會員方案到期預警與線上「一鍵原方案續購」', status: 'backlog', primary: 'Product PM', support: 'Sales/CS', sprint: 'Sprint 2 (W3-W4)', progress: 15, risk: false },
+      { id: 'OB-112', title: '12. 老客常用時段與師資「1-Click 極速複訂」', status: 'dev', primary: 'UX/FE', support: 'Engineering', sprint: 'Sprint 1 (W1-W2)', progress: 40, risk: false },
+      { id: 'OB-113', title: '13. 會員方案到期預警與線上「一鍵原方案續購」', status: 'backlog', primary: 'Product PM', support: 'Sales/CS', sprint: 'Sprint 1 (W1-W2)', progress: 15, risk: false },
       { id: 'OB-114', title: '14. 自助式臨時請假與線上保留名額扣點規則', status: 'backlog', primary: 'Engineering', support: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', progress: 10, risk: false },
       { id: 'OB-115', title: '15. 老客帶新客好友分享推薦碼 (Referral Loop)', status: 'backlog', primary: 'Sales/CS', support: 'UX/FE', sprint: 'Sprint 2 (W3-W4)', progress: 10, risk: false },
       { id: 'OB-116', title: '16. 高頻 VIP 專屬熱門課程提早 24 小時搶先預約權', status: 'backlog', primary: 'Engineering', support: 'Product PM', sprint: 'Sprint 2 (W3-W4)', progress: 10, risk: false },
-      { id: 'OB-117', title: '17. 老客自主「會籍線上暫停 (Freeze) 與展期」', status: 'backlog', primary: 'Product PM', support: 'Sales/CS', sprint: 'Sprint 2 (W3-W4)', progress: 10, risk: false },
+      { id: 'OB-117', title: '17. 老客自主「會籍線上暫停 (Freeze) 與展期」', status: 'backlog', primary: 'Product PM', support: 'Sales/CS', sprint: 'Sprint 1 (W1-W2)', progress: 10, risk: false },
       { id: 'OB-118', title: '18. 多堂數家庭/同伴合併扣點主從帳戶劃位', status: 'backlog', primary: 'Engineering', support: 'UX/FE', sprint: 'Sprint 2 (W3-W4)', progress: 10, risk: false },
       { id: 'OB-119', title: '19. 沉睡老客 30 天未到課自動喚醒與關懷推播', status: 'backlog', primary: 'Sales/CS', support: 'Product PM', sprint: 'Sprint 2 (W3-W4)', progress: 10, risk: false },
-      { id: 'OB-120', title: '20. 老客出席里程碑成就與「忠誠度徽章」體系', status: 'backlog', primary: 'UX/FE', support: 'Sales/CS', sprint: 'Sprint 2 (W3-W4)', progress: 10, risk: false }
+      { id: 'OB-120', title: '20. 老客出席里程碑成就與「忠誠度徽章」體系', status: 'backlog', primary: 'UX/FE', support: 'Sales/CS', sprint: 'Sprint 1 (W1-W2)', progress: 10, risk: false }
     ];
 
     let teamSubtaskSprints = {};
@@ -1209,13 +1221,13 @@
         return;
       }
 
-      // 實務原則：每一個模組在 2-Sprint 內拆解為 5 大團隊子任務，各自擁有獨立 Sprint (Sprint 1 或 Sprint 2) 與滑桿
+      // 實務原則：每個模組在 4 個 Sprint 中由 5 大團隊協同；點擊進度條可直接開啓 Jira Ticket 進行詳盡對齊
       const teamsBreakdown = [
-        { role: 'Product PM (規格與凍結)', name: 'Product PM', defaultSprint: 'Sprint 1 (W1-W2)', defaultProg: 100, color: 'bg-blue-600' },
+        { role: 'Product PM (需求規格與凍結)', name: 'Product PM', defaultSprint: 'Sprint 1 (W1-W2)', defaultProg: 100, color: 'bg-blue-600' },
         { role: 'UX / Frontend (介面原型與互動)', name: 'UX/FE', defaultSprint: 'Sprint 1 (W1-W2)', defaultProg: 90, color: 'bg-purple-600' },
-        { role: 'Engineering (架構與分散式鎖)', name: 'Engineering', defaultSprint: 'Sprint 2 (W3-W4)', defaultProg: targetTicket.progress, color: 'bg-emerald-600' },
-        { role: 'QA / DevOps (壓測與灰度網關)', name: 'QA/Ops', defaultSprint: 'Sprint 2 (W3-W4)', defaultProg: Math.max(10, targetTicket.progress - 20), color: 'bg-amber-600' },
-        { role: 'Sales / CS (業務對齊與培訓)', name: 'Sales/CS', defaultSprint: 'Sprint 2 (W3-W4)', defaultProg: Math.max(10, targetTicket.progress - 30), color: 'bg-teal-600' }
+        { role: 'Engineering (架構/分散式鎖)', name: 'Engineering', defaultSprint: 'Sprint 2 (W3-W4)', defaultProg: targetTicket.progress, color: 'bg-emerald-600' },
+        { role: 'QA / DevOps (壓測與灰度網關)', name: 'QA/Ops', defaultSprint: 'Sprint 3 (W5-W6)', defaultProg: Math.max(10, targetTicket.progress - 20), color: 'bg-teal-600' },
+        { role: 'Sales / CS (業務對齊與培訓)', name: 'Sales/CS', defaultSprint: 'Sprint 4 (W7-W8)', defaultProg: Math.max(10, targetTicket.progress - 30), color: 'bg-amber-600' }
       ];
 
       teamsBreakdown.forEach((tb) => {
@@ -1223,8 +1235,11 @@
         const currentProg = getSubtaskProgress(targetTicket.id, tb.name, tb.defaultProg);
 
         let startCol = 4;
-        let colSpan = 4; // Sprint 1 佔用前 4 欄
-        if (currentSprint.includes('Sprint 2')) { startCol = 8; colSpan = 5; } // Sprint 2 佔用後 5 欄
+        let colSpan = 2;
+        if (currentSprint.includes('Sprint 1')) { startCol = 4; colSpan = 2; }
+        else if (currentSprint.includes('Sprint 2')) { startCol = 6; colSpan = 2; }
+        else if (currentSprint.includes('Sprint 3')) { startCol = 8; colSpan = 2; }
+        else if (currentSprint.includes('Sprint 4')) { startCol = 10; colSpan = 3; }
 
         let barColor = tb.color;
         if (currentProg === 100) barColor = 'bg-cyber-green';
@@ -1234,24 +1249,27 @@
 
         row.innerHTML = `
           <div class="col-span-3 text-slate-300 font-sans text-xs flex flex-col justify-center pr-2 space-y-1">
-            <span class="truncate font-bold text-purple-300" title="${tb.role}">${targetTicket.id} ▪ ${tb.role}</span>
+            <span class="truncate font-bold text-purple-300 cursor-pointer hover:underline" onclick="openEditTicketModal('${targetTicket.id}')" title="點擊編輯 ${targetTicket.id} Jira Ticket">${targetTicket.id} ▪ ${tb.role}</span>
             <div class="flex items-center gap-1.5 font-mono text-[10px]">
               <!-- 獨立團隊 Sprint 切換 -->
               <select onchange="updateSubtaskSprint('${targetTicket.id}', '${tb.name}', this.value)" class="p-0.5 rounded text-[10px] text-yellow-400 bg-[#0a121e] border border-cyber-border cursor-pointer">
-                <option value="Sprint 1 (W1-W2)" ${currentSprint.includes('Sprint 1') ? 'selected' : ''}>Sprint 1 (W1-W2)</option>
-                <option value="Sprint 2 (W3-W4)" ${currentSprint.includes('Sprint 2') ? 'selected' : ''}>Sprint 2 (W3-W4)</option>
+                <option value="Sprint 1 (W1-W2)" ${currentSprint.includes('Sprint 1') ? 'selected' : ''}>Sprint 1</option>
+                <option value="Sprint 2 (W3-W4)" ${currentSprint.includes('Sprint 2') ? 'selected' : ''}>Sprint 2</option>
+                <option value="Sprint 3 (W5-W6)" ${currentSprint.includes('Sprint 3') ? 'selected' : ''}>Sprint 3</option>
+                <option value="Sprint 4 (W7-W8)" ${currentSprint.includes('Sprint 4') ? 'selected' : ''}>Sprint 4</option>
               </select>
               <!-- 獨立團隊進度調整拉霸 -->
               <input type="range" min="0" max="100" step="5" value="${currentProg}" oninput="updateSubtaskProgress('${targetTicket.id}', '${tb.name}', this.value)" class="w-16 accent-cyber-cyan cursor-pointer" title="調整 ${tb.name} 進度">
               <span class="text-slate-300 font-bold">${currentProg}%</span>
             </div>
           </div>
-          <div class="col-span-${colSpan} col-start-${startCol} relative flex items-center">
-            <div class="w-full bg-slate-900 h-7 rounded border border-cyber-border overflow-hidden flex items-center relative group">
+          <!-- 點擊甘特圖進度條直接連動開啟 Jira Ticket 詳細內容 -->
+          <div class="col-span-${colSpan} col-start-${startCol} relative flex items-center cursor-pointer" onclick="openEditTicketModal('${targetTicket.id}')" title="點擊檢視/編輯 Jira Ticket: ${targetTicket.id}">
+            <div class="w-full bg-slate-900 h-7 rounded border border-cyber-border overflow-hidden flex items-center relative group hover:border-cyber-cyan transition">
               <div class="h-full ${barColor} transition-all duration-300 opacity-90" style="width: ${currentProg}%;"></div>
               <span class="absolute inset-0 flex items-center justify-between px-2 text-[10px] text-white font-mono font-bold z-10 pointer-events-none truncate">
                 <span>${tb.name} (${currentSprint.split(' ')[0]})</span>
-                <span>${currentProg}%</span>
+                <span>${currentProg}% 🔗</span>
               </span>
             </div>
           </div>
@@ -1473,7 +1491,7 @@ Product PM: ${senderEmail}`;
 
     window.onload = () => {
       initDropdowns();
-      onTitleDropdownChanged(0); // Default to OB-101
+      onTitleDropdownChanged(10); // Default to OB-111
       renderKanbanAndGantt();
       updateChatEval();
     };
