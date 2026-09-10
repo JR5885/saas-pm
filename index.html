@@ -63,15 +63,12 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking PM Command Center</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] 20 Modules &bull; Custom Ad-hoc Handling &bull; Gmail Kickoff Dispatch (mshappyj@gmail.com)
+          [ROLE: PRODUCT PM] Interactive Gantt & Kanban &bull; Dynamic Ticket Creation &bull; Gmail Dispatch (mshappyj@gmail.com)
         </p>
       </div>
 
       <div class="flex items-center space-x-3 font-mono text-xs">
-        <button onclick="openGmailKickoffCompose()" class="px-3.5 py-1.5 rounded-lg bg-purple-900/70 hover:bg-purple-800 text-purple-200 border border-purple-500 font-bold transition shadow-lg">
-          ✉️ Send Kickoff Email (Gmail)
-        </button>
-        <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg border border-cyber-border bg-cyber-card text-slate-300 hover:text-white hover:border-cyber-cyan transition">
+        <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg border border-cyber-border bg-cyber-card text-slate-300 hover:text-white transition">
           🖨️ PDF Print
         </button>
         <button onclick="exportFullMarkdown()" class="px-4 py-1.5 rounded-lg bg-cyber-cyan text-slate-950 font-bold hover:bg-opacity-90 transition">
@@ -118,14 +115,16 @@
       </div>
     </section>
 
-    <!-- STEP 1: Discovery & Scope Freeze (支援 20 Presets + Custom Ad-hoc 處理機制) -->
+    <!-- STEP 1: Discovery & Scope Freeze -->
     <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
       <div class="flex items-center justify-between border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
           <span class="px-2.5 py-0.5 rounded bg-cyber-cyan text-slate-950 font-black text-xs font-mono">STEP 1</span>
           <h2 class="text-sm font-bold text-white tracking-wide">Discovery & Scope Freeze / Custom Ad-hoc Handling</h2>
         </div>
-        <span class="text-[10px] font-mono text-cyber-cyan">Presets + Custom Workflow Injection</span>
+        <button onclick="openGmailKickoffCompose()" class="px-3 py-1 rounded bg-purple-900/80 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-xs font-bold transition shadow-md">
+          ✉️ Send Kickoff Email (Gmail)
+        </button>
       </div>
 
       <div class="space-y-4">
@@ -156,7 +155,7 @@
 
         <div class="p-3 bg-[#05080f] rounded-lg border border-cyber-border flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div class="space-y-1 flex-1">
-            <div class="text-[11px] font-bold text-cyber-gold font-mono uppercase">Scope Boundary: Strictly Out of Scope for Phase 1 (Custom Policy Enforcement)</div>
+            <div class="text-[11px] font-bold text-cyber-gold font-mono uppercase">Scope Boundary: Strictly Out of Scope for Phase 1</div>
             <input type="text" id="req-scope" class="w-full text-xs text-slate-300 font-mono bg-transparent border-none p-0 focus:ring-0">
           </div>
           <span class="text-[10px] font-mono px-2 py-1 rounded bg-amber-950 text-cyber-gold border border-amber-800 shrink-0">
@@ -165,34 +164,18 @@
         </div>
       </div>
 
-      <!-- 如果不在 20 Presets 內的標準化處理指引說明 -->
-      <div class="p-3 bg-cyan-950/30 border border-cyber-cyan/40 rounded-lg text-xs font-mono space-y-1">
-        <div class="text-cyber-cyan font-bold">ℹ️ PM Protocol: Handling Requests Outside the 20 Presets (Custom Ad-hoc Workflow)</div>
-        <p class="text-slate-300 font-sans text-[11px] leading-relaxed">
-          If a stakeholder requests a feature <strong>not listed</strong> in OB-101 ~ OB-120: 
-          1. Select <strong>[+ Create Custom Ad-hoc Requirement]</strong> from the dropdown above. 
-          2. Enter the custom title in VoC and Root Cause. 
-          3. The system automatically enforces a <strong>Strict Out of Scope Review</strong>: Unless it blocks core revenue or core SLA (OKR 1), it is automatically postponed to Phase 2 to prevent schedule creep.
-        </p>
-      </div>
-
       <div class="pt-4 border-t border-cyber-border space-y-4">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full bg-cyber-green animate-pulse"></span>
-            <span class="text-xs font-bold font-mono text-cyber-green">Instant PRD & AC Specification Board</span>
-          </div>
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-cyber-green animate-pulse"></span>
+          <span class="text-xs font-bold font-mono text-cyber-green">Instant PRD & AC Specification Board</span>
         </div>
-
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
           <div class="lg:col-span-8 bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs">
             <div class="flex justify-between items-center border-b border-cyber-border/80 pb-2">
               <span class="text-cyber-cyan font-bold text-sm" id="prd-header-title">[PRD] Dynamic Module Spec</span>
               <span class="text-[10px] text-slate-500 font-mono">SPEC & BDD</span>
             </div>
-            <div id="prd-content-view" class="space-y-3 text-slate-300 font-sans text-xs leading-relaxed max-h-[360px] overflow-y-auto pr-2">
-              <!-- Injected -->
-            </div>
+            <div id="prd-content-view" class="space-y-3 text-slate-300 font-sans text-xs leading-relaxed max-h-[360px] overflow-y-auto pr-2"></div>
           </div>
 
           <div class="lg:col-span-4 bg-[#0a121e] border border-cyber-border rounded-xl p-4 space-y-3">
@@ -200,9 +183,7 @@
               <span class="text-xs font-bold font-mono text-cyber-gold">PM Strategic Decisions</span>
               <span class="text-[10px] text-slate-500">OKR View</span>
             </div>
-            <div id="prd-pm-insights" class="space-y-2.5 text-[11px] leading-relaxed text-slate-300">
-              <!-- Injected -->
-            </div>
+            <div id="prd-pm-insights" class="space-y-2.5 text-[11px] leading-relaxed text-slate-300"></div>
           </div>
         </div>
       </div>
@@ -210,13 +191,10 @@
 
     <!-- RACI Matrix -->
     <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber-border pb-3">
-        <div>
-          <div class="flex items-center gap-2">
-            <span class="px-2.5 py-0.5 rounded bg-purple-600 text-white font-black text-xs font-mono">RACI</span>
-            <h2 class="text-sm font-bold text-white tracking-wide">Cross-Functional RACI Matrix & Definition of Done (DoD)</h2>
-          </div>
-          <p class="text-xs text-slate-400 font-mono mt-1">Linked with current module to ensure objective team execution.</p>
+      <div class="flex items-center justify-between border-b border-cyber-border pb-3">
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-0.5 rounded bg-purple-600 text-white font-black text-xs font-mono">RACI</span>
+          <h2 class="text-sm font-bold text-white tracking-wide">Cross-Functional RACI Matrix & Definition of Done (DoD)</h2>
         </div>
       </div>
 
@@ -235,24 +213,18 @@
                   <th class="py-2 px-2">Standardized Responsibility</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-cyber-border/50 text-slate-300" id="raci-table-body">
-                <!-- Injected -->
-              </tbody>
+              <tbody class="divide-y divide-cyber-border/50 text-slate-300" id="raci-table-body"></tbody>
             </table>
           </div>
         </div>
 
         <div class="lg:col-span-4 bg-[#0a121e] border border-cyber-border rounded-xl p-4 space-y-4">
           <div class="space-y-2">
-            <div class="text-xs font-mono font-bold text-cyber-gold uppercase tracking-wider border-b border-cyber-border pb-2">
-              Action Items
-            </div>
+            <div class="text-xs font-mono font-bold text-cyber-gold uppercase tracking-wider border-b border-cyber-border pb-2">Action Items</div>
             <div id="raci-action-items" class="space-y-1.5 text-xs text-slate-200 font-sans"></div>
           </div>
           <div class="space-y-2 pt-2 border-t border-cyber-border/80">
-            <div class="text-xs font-mono font-bold text-cyber-green uppercase tracking-wider border-b border-cyber-border pb-2">
-              Definition of Done (DoD)
-            </div>
+            <div class="text-xs font-mono font-bold text-cyber-green uppercase tracking-wider border-b border-cyber-border pb-2">Definition of Done (DoD)</div>
             <div id="raci-dod-list" class="space-y-1.5 text-xs text-slate-300 font-mono"></div>
           </div>
         </div>
@@ -267,17 +239,17 @@
             <span class="px-2.5 py-0.5 rounded bg-cyber-green text-slate-950 font-black text-xs font-mono">STEP 2</span>
             <h2 class="text-sm font-bold text-white tracking-wide">Delivery Schedule & Jira Execution (Gantt & Kanban)</h2>
           </div>
-          <div class="flex flex-wrap items-center gap-3 mt-1 text-xs font-mono">
+          <div class="flex items-center gap-3 mt-1 text-xs font-mono">
             <span class="text-slate-400">Overall Progress: <strong id="overall-progress-text" class="text-cyber-cyan text-sm">0%</strong></span>
           </div>
         </div>
         <div id="alert-status-banner" class="px-3.5 py-1.5 rounded-lg border font-mono text-xs flex items-center gap-2"></div>
       </div>
 
-      <!-- Gantt -->
+      <!-- Gantt Control Panel -->
       <div class="space-y-3">
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 text-xs font-mono bg-[#05080f] p-3 rounded-xl border border-cyber-border">
-          <div class="text-slate-300 font-bold">📊 Gantt Milestone Control Panel (Click progress bar to open Jira Ticket)</div>
+          <div class="text-slate-300 font-bold">📊 Interactive Gantt: Shift Sprints & Slider Progress</div>
           <div class="flex items-center gap-1.5">
             <span class="text-slate-400 text-[11px]">Select Module:</span>
             <select id="gantt-filter-module" onchange="onGanttModuleChanged(this.value)" class="p-1 text-xs rounded border text-cyber-cyan bg-[#0a121e]">
@@ -287,29 +259,30 @@
         </div>
 
         <div class="overflow-x-auto bg-[#05080f] p-4 rounded-xl border border-cyber-border">
-          <div class="min-w-[800px] space-y-3 font-mono text-xs">
+          <div class="min-w-[950px] space-y-3 font-mono text-xs">
             <div class="grid grid-cols-12 gap-1 text-[11px] text-slate-500 pb-2 border-b border-cyber-border">
-              <div class="col-span-3 text-slate-300 font-bold">Team & Subtask</div>
-              <div class="col-span-2 text-center bg-slate-900/60 rounded py-0.5 border border-slate-800"><span class="text-blue-400 font-bold">Sprint 1</span> (W1-W2)</div>
+              <div class="col-span-3 text-slate-300 font-bold">Cross-Functional Team & Sprint / Progress Control</div>
+              <div class="col-span-2 text-center bg-blue-950/40 rounded py-0.5 border border-blue-900/50"><span class="text-blue-400 font-bold">Sprint 1</span> (W1-W2)</div>
               <div class="col-span-2 text-center bg-purple-950/40 rounded py-0.5 border border-purple-900/50"><span class="text-purple-300 font-bold">Sprint 2</span> (W3-W4)</div>
-              <div class="col-span-2 text-center bg-slate-900/60 rounded py-0.5 border border-slate-800"><span class="text-teal-400 font-bold">Sprint 3</span> (W5-W6)</div>
+              <div class="col-span-2 text-center bg-teal-950/40 rounded py-0.5 border border-teal-900/50"><span class="text-teal-300 font-bold">Sprint 3</span> (W5-W6)</div>
               <div class="col-span-3 text-center bg-emerald-950/40 rounded py-0.5 border border-emerald-900/50"><span class="text-cyber-green font-bold">Sprint 4</span> (W7-W8)</div>
             </div>
+            <!-- 動態甘特圖列 -->
             <div id="gantt-rows-container" class="space-y-3"></div>
           </div>
         </div>
       </div>
 
-      <!-- Kanban -->
+      <!-- Kanban Board -->
       <div class="pt-2 space-y-3">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#05080f] p-3 rounded-xl border border-cyber-border">
           <div>
             <div class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider">JIRA AGILE KANBAN BOARD</div>
             <div class="text-[11px] text-slate-500 font-mono">Click any ticket card to edit details or delete</div>
           </div>
-          <div class="flex flex-wrap items-center gap-3">
+          <div class="flex items-center gap-3">
             <div class="flex items-center gap-1.5 font-mono text-xs">
-              <span class="text-slate-400 text-[11px]">🔍 Filter Module:</span>
+              <span class="text-slate-400 text-[11px]">🔍 Filter:</span>
               <select id="kanban-filter-module" onchange="renderKanbanBoard()" class="p-1 text-xs rounded border text-cyber-cyan bg-[#0a121e] font-mono">
                 <option value="ALL">All Modules</option>
               </select>
@@ -381,9 +354,14 @@
           <span class="px-2.5 py-0.5 rounded bg-rose-600 text-white font-black text-xs font-mono">SOP</span>
           <h2 class="text-sm font-bold text-white tracking-wide">Crisis Response Standard Operating Procedures (Editable & Synced)</h2>
         </div>
-        <button onclick="syncSopToStep3()" class="px-3 py-1 rounded bg-purple-900/70 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-xs font-bold transition">
-          🔄 Sync SOP to STEP 3 Meeting Memo
-        </button>
+        <div class="flex items-center gap-2">
+          <button onclick="openGmailEmergencyCompose()" class="px-3 py-1 rounded bg-rose-900/80 hover:bg-rose-800 text-rose-200 border border-rose-500 font-mono text-xs font-bold transition shadow-md">
+            🚨 EMERGENCY EMAIL (Gmail)
+          </button>
+          <button onclick="syncSopToStep3()" class="px-3 py-1 rounded bg-purple-900/70 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-xs font-bold transition">
+            🔄 Sync SOP to STEP 3
+          </button>
+        </div>
       </div>
       <p class="text-xs text-slate-400 font-mono">Click any text box below to edit tasks, deadlines, or deliverables directly:</p>
 
@@ -439,9 +417,6 @@
           <span class="px-2.5 py-0.5 rounded bg-cyber-gold text-slate-950 font-black text-xs font-mono">STEP 3</span>
           <h2 class="text-sm font-bold text-white tracking-wide">Cross-Functional Kickoff Alignment & Sign-off</h2>
         </div>
-        <button onclick="openGmailKickoffCompose()" class="px-3.5 py-1.5 rounded-lg bg-purple-900 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-xs font-bold transition shadow-lg">
-          ✉️ Send Kickoff Email (Gmail: mshappyj@gmail.com)
-        </button>
       </div>
 
       <div id="ko-memo" contenteditable="true" class="w-full bg-[#05080f] border border-cyber-border rounded-lg p-4 text-xs font-mono leading-relaxed text-slate-200 focus:outline-none min-h-[160px]">
@@ -558,7 +533,6 @@
   </div>
 
   <script>
-    // 包含 20 Presets 與 [Custom Ad-hoc Requirement] 的完整資料庫
     const allPresets = [
       {
         code: 'OB-101', title: '01. LINE LIFF Fast Booking',
@@ -618,7 +592,7 @@
       if (code === 'CUSTOM-ADHOC') {
         return {
           code: 'CUSTOM-ADHOC',
-          title: 'Custom Ad-hoc Requirement (Outside 20 Presets)',
+          title: 'Custom Ad-hoc Requirement (Outside Presets)',
           voice: '"Stakeholder requested a custom feature outside standard Phase 1 backlog."',
           problem: 'Requires PM impact assessment, scope boundary check, and strict out-of-scope enforcement.',
           scope: '1. Strict Phase 1 freeze: Postponed to Phase 2 unless blocking core revenue.',
@@ -680,7 +654,6 @@
       const ganttFilterSelect = document.getElementById('gantt-filter-module');
       const kanbanFilterSelect = document.getElementById('kanban-filter-module');
       
-      // 新增自定義 Ad-hoc 選項
       const customOpt = document.createElement('option');
       customOpt.value = 'CUSTOM-ADHOC';
       customOpt.text = '⭐ [+ Create Custom Ad-hoc Requirement (Outside Presets)]';
@@ -796,136 +769,95 @@
       alert('Successfully synced SOP items to STEP 3 Meeting Memo!');
     }
 
-    function openGmailKickoffCompose() {
-      const selectEl = document.getElementById('req-title-select');
-      const code = selectEl.value;
-      const preset = getPresetByCode(code);
-      const title = preset ? preset.title : code;
-      const senderEmail = 'mshappyj@gmail.com';
-      const subject = `[KICKOFF & ALIGNMENT] Project Execution Plan for ${code}: ${title}`;
-      
-      const p1Team = document.getElementById('sop-p1-team').innerText;
-      const p1Sprint = document.getElementById('sop-p1-sprint').innerText;
-      const p1Tasks = document.getElementById('sop-p1-tasks').innerText;
-      const p1Deadline = document.getElementById('sop-p1-deadline').innerText;
-      const p1Result = document.getElementById('sop-p1-result').innerText;
+    let teamSubtaskSprints = {};
+    let teamSubtaskProgress = {};
 
-      const emailBody = `Hi Cross-Functional Team,
-
-As Product PM convening this kickoff alignment for [${code}: ${title}], all teams must strictly adhere to our Sprint schedule, RACI standards, and Crisis SOP.
-
-Sender / PM Convener: ${senderEmail}
-
-【Project Kickoff & Emergency SOP Action Matrix】
-1. [Core Execution & Concurrency Protection]:
-   - Responsible Team: ${p1Team}
-   - Target Sprint: ${p1Sprint}
-   - Required Tasks: ${p1Tasks}
-   - Deadline: ${p1Deadline}
-   - Testing Deliverable: ${p1Result}
-
-Please review the Command Center and confirm your team's readiness by EOD today.
-
-Best regards,
-Product PM: ${senderEmail}
-Omcean Booking Delivery Command Center`;
-
-      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-      window.open(gmailUrl, '_blank');
+    function updateSubtaskSprint(modId, teamName, newSprint) {
+      teamSubtaskSprints[`${modId}_${teamName}`] = newSprint;
+      renderGanttSchedule();
     }
 
-    function renderRaciAndDoD(preset) {
-      const raciBody = document.getElementById('raci-table-body');
-      raciBody.innerHTML = '';
-      if (preset.raci) {
-        preset.raci.forEach(r => {
-          let badgeColor = 'bg-slate-800 text-slate-300';
-          if (r.type === 'A') badgeColor = 'bg-rose-950 text-rose-400 border border-rose-800';
-          else if (r.type === 'R') badgeColor = 'bg-cyan-950 text-cyan-300 border border-cyber-cyan/40';
-          else if (r.type === 'C') badgeColor = 'bg-amber-950 text-amber-300 border border-amber-800';
-          
-          const tr = document.createElement('tr');
-          tr.className = 'hover:bg-cyber-cardHover transition';
-          tr.innerHTML = `
-            <td class="py-2.5 px-2 font-sans font-bold text-white">${r.role}</td>
-            <td class="py-2.5 px-2 text-center"><span class="px-2 py-0.5 rounded font-bold text-[11px] ${badgeColor}">${r.type}</span></td>
-            <td class="py-2.5 px-2 font-sans text-slate-300 text-[11px]">${r.desc}</td>
-          `;
-          raciBody.appendChild(tr);
-        });
-      }
-
-      const actionBox = document.getElementById('raci-action-items');
-      actionBox.innerHTML = '';
-      if (preset.actions) {
-        preset.actions.forEach((act, i) => {
-          const div = document.createElement('div');
-          div.className = 'flex items-start gap-2 bg-[#05080f] p-2 rounded border border-cyber-border';
-          div.innerHTML = `<span class="text-cyber-cyan font-bold font-mono">0${i+1}.</span> <span class="text-slate-300">${act}</span>`;
-          actionBox.appendChild(div);
-        });
-      }
-
-      const dodBox = document.getElementById('raci-dod-list');
-      dodBox.innerHTML = '';
-      if (preset.dod) {
-        preset.dod.forEach((d) => {
-          const div = document.createElement('div');
-          div.className = 'flex items-center gap-2 bg-[#05080f] p-2 rounded border border-cyber-border';
-          div.innerHTML = `<span class="text-cyber-green font-bold">✓</span> <span class="text-slate-300">${d}</span>`;
-          dodBox.appendChild(div);
-        });
-      }
+    function updateSubtaskProgress(modId, teamName, newProg) {
+      teamSubtaskProgress[`${modId}_${teamName}`] = parseInt(newProg);
+      renderGanttSchedule();
+      calculateOverallProgress();
     }
 
-    function renderInstantPrdAndInsights(data) {
-      document.getElementById('prd-header-title').innerText = `[PRD] ${data.title}`;
-      const prdHtml = `
-        <div class="border-b border-cyber-border/50 pb-2 mb-2">
-          <span class="text-cyber-cyan font-bold block mb-1">【1. Problem & Root Cause】</span>
-          <div>▸ <strong>Voice of Customer:</strong> ${data.voice}</div>
-          <div>▸ <strong>PM Solution:</strong> ${data.problem}</div>
-          <div class="text-cyber-gold mt-1">▸ <strong>Out of Scope:</strong> ${data.scope}</div>
-        </div>
-        <div class="border-b border-cyber-border/50 pb-2 mb-2">
-          <span class="text-cyber-cyan font-bold block mb-1">【2. User Stories】</span>
-          <div>• As a user, I want smooth booking without friction, so I never miss sessions.</div>
-        </div>
-        <div>
-          <span class="text-cyber-cyan font-bold block mb-1">【3. Acceptance Criteria (Gherkin)】</span>
-          <div class="space-y-1.5 font-mono text-[11px] bg-[#080d17] p-2.5 rounded border border-cyber-border/40">
-            <div><strong class="text-emerald-400">AC 1:</strong> Given user reserves slot, When clicked, Then system validates assets in 200ms.</div>
-            <div><strong class="text-emerald-400">AC 2:</strong> Given simultaneous claims, When submitted, Then Redis distributed lock enforces zero overbooking.</div>
+    function calculateOverallProgress() {
+      const filterModule = document.getElementById('gantt-filter-module').value;
+      const teams = ['Product PM', 'UX/FE', 'Engineering', 'QA/Ops', 'Sales/CS'];
+      let total = 0;
+      teams.forEach(t => {
+        total += (teamSubtaskProgress[`${filterModule}_${t}`] ?? 50);
+      });
+      const avg = Math.round(total / teams.length);
+      document.getElementById('overall-progress-text').innerText = `${avg}%`;
+    }
+
+    function renderGanttSchedule() {
+      const container = document.getElementById('gantt-rows-container');
+      container.innerHTML = '';
+      const filterModule = document.getElementById('gantt-filter-module').value;
+
+      const teams = [
+        { role: 'Product PM (Specs & Freeze)', name: 'Product PM', defaultSprint: 'Sprint 1 (W1-W2)', defaultProg: 100, color: 'bg-blue-600' },
+        { role: 'UX / Frontend (Prototypes)', name: 'UX/FE', defaultSprint: 'Sprint 1 (W1-W2)', defaultProg: 90, color: 'bg-purple-600' },
+        { role: 'Engineering (Redis Architecture)', name: 'Engineering', defaultSprint: 'Sprint 2 (W3-W4)', defaultProg: 60, color: 'bg-emerald-600' },
+        { role: 'QA / DevOps (Load Testing)', name: 'QA/Ops', defaultSprint: 'Sprint 3 (W5-W6)', defaultProg: 30, color: 'bg-teal-600' },
+        { role: 'Sales / CS (Client Alignment)', name: 'Sales/CS', defaultSprint: 'Sprint 4 (W7-W8)', defaultProg: 10, color: 'bg-amber-600' }
+      ];
+
+      teams.forEach(tb => {
+        const sprintKey = `${filterModule}_${tb.name}`;
+        const progKey = `${filterModule}_${tb.name}`;
+        const currentSprint = teamSubtaskSprints[sprintKey] || tb.defaultSprint;
+        const currentProg = teamSubtaskProgress[progKey] ?? tb.defaultProg;
+
+        let startCol = 4;
+        let colSpan = 2;
+        if (currentSprint.includes('Sprint 1')) { startCol = 4; colSpan = 2; }
+        else if (currentSprint.includes('Sprint 2')) { startCol = 6; colSpan = 2; }
+        else if (currentSprint.includes('Sprint 3')) { startCol = 8; colSpan = 2; }
+        else if (currentSprint.includes('Sprint 4')) { startCol = 10; colSpan = 3; }
+
+        let barColor = tb.color;
+        if (currentProg === 100) barColor = 'bg-cyber-green';
+
+        const row = document.createElement('div');
+        row.className = 'grid grid-cols-12 gap-1 items-center py-2 hover:bg-slate-900/40 rounded px-1 transition border-b border-cyber-border/30';
+        row.innerHTML = `
+          <div class="col-span-3 text-slate-300 font-sans text-xs flex flex-col justify-center pr-2 space-y-1">
+            <span class="truncate font-bold text-purple-300">${filterModule} ▪ ${tb.role}</span>
+            <div class="flex items-center gap-1.5 font-mono text-[10px]">
+              <select onchange="updateSubtaskSprint('${filterModule}', '${tb.name}', this.value)" class="p-0.5 rounded text-[10px] text-yellow-400 bg-[#0a121e] border border-cyber-border cursor-pointer">
+                <option value="Sprint 1 (W1-W2)" ${currentSprint.includes('Sprint 1') ? 'selected' : ''}>Sprint 1</option>
+                <option value="Sprint 2 (W3-W4)" ${currentSprint.includes('Sprint 2') ? 'selected' : ''}>Sprint 2</option>
+                <option value="Sprint 3 (W5-W6)" ${currentSprint.includes('Sprint 3') ? 'selected' : ''}>Sprint 3</option>
+                <option value="Sprint 4 (W7-W8)" ${currentSprint.includes('Sprint 4') ? 'selected' : ''}>Sprint 4</option>
+              </select>
+              <input type="range" min="0" max="100" step="5" value="${currentProg}" oninput="updateSubtaskProgress('${filterModule}', '${tb.name}', this.value)" class="w-16 accent-cyber-cyan cursor-pointer" title="Adjust Progress Slider">
+              <span class="text-slate-300 font-bold">${currentProg}%</span>
+            </div>
           </div>
-        </div>
-      `;
-      document.getElementById('prd-content-view').innerHTML = prdHtml;
-
-      const insightsHtml = `
-        <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
-          <div class="text-cyber-cyan font-bold">1. Standardized over Custom (OKR 2)</div>
-          <div class="text-slate-400">Prevent unmaintainable hardcoded logic for single clients.</div>
-        </div>
-        <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
-          <div class="text-cyber-green font-bold">2. Architecture Reliability (OKR 1)</div>
-          <div class="text-slate-400">Isolate peak traffic with Redis atomic locks for 99.95% SLA.</div>
-        </div>
-      `;
-      document.getElementById('prd-pm-insights').innerHTML = insightsHtml;
+          <div class="col-span-${colSpan} col-start-${startCol} relative flex items-center cursor-pointer" onclick="openEditTicketModal('${filterModule}')">
+            <div class="w-full bg-slate-900 h-7 rounded border border-cyber-border overflow-hidden flex items-center relative group hover:border-cyber-cyan transition">
+              <div class="h-full ${barColor} transition-all duration-300 opacity-90" style="width: ${currentProg}%;"></div>
+              <span class="absolute inset-0 flex items-center justify-between px-2 text-[10px] text-white font-mono font-bold z-10 pointer-events-none truncate">
+                <span>${tb.name} (${currentSprint.split(' ')[0]})</span>
+                <span>${currentProg}% 🔗</span>
+              </span>
+            </div>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+      calculateOverallProgress();
     }
 
     let tickets = [
       { id: 'OB-101', title: '01. LINE LIFF Fast Booking [PM Specs]', status: 'publish', primary: 'Product PM', support: 'UX/FE', sprint: 'Sprint 1 (W1-W2)', progress: 100, risk: false },
       { id: 'OB-111', title: '11. Waitlist Engine [Redis Distributed Lock]', status: 'test', primary: 'Engineering', support: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', progress: 75, risk: true }
     ];
-
-    let teamSubtaskSprints = {};
-    let teamSubtaskProgress = {};
-
-    function renderKanbanAndGantt() {
-      renderKanbanBoard();
-      renderGanttSchedule();
-    }
 
     function renderKanbanBoard() {
       const cols = { backlog: [], dev: [], test: [], publish: [] };
@@ -955,36 +887,6 @@ Omcean Booking Delivery Command Center`;
       });
     }
 
-    function renderGanttSchedule() {
-      const container = document.getElementById('gantt-rows-container');
-      container.innerHTML = '';
-      const filterModule = document.getElementById('gantt-filter-module').value;
-
-      const teams = [
-        { role: 'Product PM (Specs & Freeze)', name: 'Product PM', defaultProg: 100, color: 'bg-blue-600' },
-        { role: 'UX / Frontend (Prototypes)', name: 'UX/FE', defaultProg: 90, color: 'bg-purple-600' },
-        { role: 'Engineering (Redis Architecture)', name: 'Engineering', defaultProg: 60, color: 'bg-emerald-600' },
-        { role: 'QA / DevOps (Load Testing)', name: 'QA/Ops', defaultProg: 30, color: 'bg-teal-600' },
-        { role: 'Sales / CS (Client Alignment)', name: 'Sales/CS', defaultProg: 10, color: 'bg-amber-600' }
-      ];
-
-      teams.forEach(tb => {
-        const prog = teamSubtaskProgress[`${filterModule}_${tb.name}`] ?? tb.defaultProg;
-        const row = document.createElement('div');
-        row.className = 'grid grid-cols-12 gap-1 items-center py-2 hover:bg-slate-900/40 rounded px-1 transition border-b border-cyber-border/30';
-        row.innerHTML = `
-          <div class="col-span-3 text-slate-300 font-sans text-xs font-bold text-purple-300">${filterModule} ▪ ${tb.role}</div>
-          <div class="col-span-9 relative flex items-center cursor-pointer" onclick="openEditTicketModal('${filterModule}')">
-            <div class="w-full bg-slate-900 h-6 rounded border border-cyber-border overflow-hidden flex items-center relative">
-              <div class="h-full ${tb.color}" style="width: ${prog}%;"></div>
-              <span class="absolute inset-0 flex items-center justify-between px-2 text-[10px] text-white font-mono font-bold z-10"><span>${tb.name}</span><span>${prog}%</span></span>
-            </div>
-          </div>
-        `;
-        container.appendChild(row);
-      });
-    }
-
     function openAddTicketModal() {
       document.getElementById('modal-heading').innerText = 'Add Jira Ticket';
       document.getElementById('modal-ticket-id').value = 'OB-101';
@@ -1004,19 +906,29 @@ Omcean Booking Delivery Command Center`;
     }
 
     function saveTicketFromModal() {
+      const id = document.getElementById('modal-ticket-id').value.trim() || 'OB-101';
+      const title = document.getElementById('modal-ticket-title').value.trim() || 'New Subtask Ticket';
+      const primary = document.getElementById('modal-ticket-primary').value;
+      const sprint = document.getElementById('modal-ticket-sprint').value;
+      const status = document.getElementById('modal-ticket-status').value;
+      const progress = parseInt(document.getElementById('modal-ticket-progress').value);
+      const risk = document.getElementById('modal-ticket-risk').checked;
+
+      tickets.push({ id, title, primary, sprint, status, progress, risk });
       closeTicketModal();
-      renderKanbanAndGantt();
+      renderKanbanBoard();
+      renderGanttSchedule();
     }
 
     function deleteCurrentTicket() {
       closeTicketModal();
-      renderKanbanAndGantt();
+      renderKanbanBoard();
     }
 
     window.onload = () => {
       initDropdowns();
       onTitleDropdownChanged("OB-111");
-      renderKanbanAndGantt();
+      renderKanbanBoard();
     };
   </script>
 </body>
