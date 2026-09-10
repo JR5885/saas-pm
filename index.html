@@ -90,7 +90,7 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking 產品交付指揮中心</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] 看板模組智慧篩選器・OB-101~120 團隊階段即時透視
+          [ROLE: PRODUCT PM] 看板與甘特圖完美渲染・OB-101~120 跨部門實務追蹤
         </p>
       </div>
 
@@ -296,7 +296,7 @@
       </div>
     </section>
 
-    <!-- STEP 2: Delivery Schedule & Jira Execution (含看板專屬模組智慧篩選器) -->
+    <!-- STEP 2: Delivery Schedule & Jira Execution -->
     <section id="step2-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5 no-print">
       
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber-border pb-4">
@@ -308,7 +308,7 @@
           <div class="flex flex-wrap items-center gap-3 mt-1 text-xs font-mono">
             <span class="text-slate-400">當前模組交付進度: <strong id="overall-progress-text" class="text-cyber-cyan text-sm">0%</strong></span>
             <span class="text-slate-500">|</span>
-            <span class="text-slate-400">實務協同: <strong class="text-cyber-gold">下方看板支援 OB-______ 模組獨立篩選，即時檢視各團隊階段</strong></span>
+            <span class="text-slate-400">實務協同: <strong class="text-cyber-gold">下方看板與甘特圖皆可進行 OB-______ 模組智慧篩選</strong></span>
           </div>
         </div>
 
@@ -361,7 +361,7 @@
         </div>
       </div>
 
-      <!-- JIRA 看板 (新增 OB-______ 專屬篩選器) -->
+      <!-- JIRA 看板 (含 OB-______ 專屬篩選器) -->
       <div class="pt-2 space-y-3">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#05080f] p-3 rounded-xl border border-cyber-border">
           <div>
@@ -372,7 +372,6 @@
           </div>
 
           <div class="flex flex-wrap items-center gap-3">
-            <!-- 看板專屬 OB-______ 模組篩選器 -->
             <div class="flex items-center gap-1.5 font-mono text-xs">
               <span class="text-slate-400 text-[11px]">🔍 看板篩選 OB-______:</span>
               <select id="kanban-filter-module" onchange="renderKanbanBoard()" class="p-1 text-xs rounded border text-cyber-cyan bg-[#0a121e] font-mono">
@@ -534,8 +533,8 @@
 
       <div class="space-y-3">
         <div>
-          <label class="block text-slate-400 mb-1">Ticket ID</label>
-          <input type="text" id="modal-ticket-id" readonly class="w-full p-2 rounded border text-slate-500 bg-[#05080f]">
+          <label class="block text-slate-400 mb-1">Ticket ID (對應 OB-______)</label>
+          <input type="text" id="modal-ticket-id" class="w-full p-2 rounded border text-slate-200 bg-[#05080f] font-mono" placeholder="例: OB-101">
         </div>
 
         <div>
@@ -559,7 +558,7 @@
               <option value="UX/FE">UX/FE (前端設計)</option>
               <option value="QA/Ops">QA/Ops (測試維運)</option>
               <option value="Sales/CS">Sales/CS (業務成功)</option>
-              <option value="AI/Chatbot">AI/Chatbot (矽谷協作)</option>
+              <option value="AI/Chatbot">AI/Chatbot (矽谷協同)</option>
             </select>
           </div>
 
@@ -787,7 +786,7 @@
       },
       {
         code: 'OB-110', title: '10. 首購課後 2 小時專屬限時續購促轉模組',
-        voice: '「客人上完第一堂課明明很滿意，但教練不好意思開口推銷大堂數，客人回家後熱度退了就不買了。」',
+        voice: '「客人上完第一課明明很滿意，但教練不好意思開口推銷大堂數，客人回家後熱度退了就不買了。」',
         problem: '上課結束到二次購買之間缺乏即時行銷槓桿；需在打卡報到完成 2 小時內，自動推播限時 24 小時早鳥續購優惠券。',
         scope: '1. 暫不支援 AI 動態定價。 2. 暫不支援業務即時議價視窗。',
         defaultOwner: 'Sales/CS', defaultSupport: 'Engineering',
@@ -1019,7 +1018,6 @@
     }
 
     function onGanttModuleChanged(code) {
-      // 當甘特圖切換模組時，同步切換 STEP 1 與 Kanban 篩選器
       const presetIdx = allPresets.findIndex(p => p.code === code);
       if (presetIdx !== -1) {
         document.getElementById('req-title-select').value = presetIdx;
@@ -1130,7 +1128,7 @@
     }
 
     // ----------------------------------------------------
-    // JIRA 看板與甘特圖引擎 (支援看板專屬 OB-______ 模組篩選)
+    // JIRA 看板與甘特圖引擎
     // ----------------------------------------------------
     let tickets = [
       { id: 'OB-101', title: '01. LINE LIFF 30秒免密一鍵預約體驗課 [Product PM Specs]', status: 'publish', primary: 'Product PM', support: 'UX/FE', sprint: 'Sprint 1 (W1-W2)', progress: 100, risk: false },
@@ -1144,6 +1142,37 @@
       { id: 'OB-111', title: '11. 尖峰時段熱門排課動態候補 [LINE Push Notification Worker]', status: 'dev', primary: 'Engineering', support: 'UX/FE', sprint: 'Sprint 2 (W3-W4)', progress: 50, risk: false }
     ];
 
+    let teamSubtaskSprints = {};
+    let teamSubtaskProgress = {};
+
+    function getSubtaskSprint(modId, teamName, defaultSprint) {
+      const key = `${modId}_${teamName}`;
+      if (!teamSubtaskSprints[key]) {
+        teamSubtaskSprints[key] = defaultSprint;
+      }
+      return teamSubtaskSprints[key];
+    }
+
+    function getSubtaskProgress(modId, teamName, defaultProg) {
+      const key = `${modId}_${teamName}`;
+      if (teamSubtaskProgress[key] === undefined) {
+        teamSubtaskProgress[key] = defaultProg;
+      }
+      return teamSubtaskProgress[key];
+    }
+
+    function updateSubtaskSprint(modId, teamName, newSprint) {
+      const key = `${modId}_${teamName}`;
+      teamSubtaskSprints[key] = newSprint;
+      renderGanttSchedule();
+    }
+
+    function updateSubtaskProgress(modId, teamName, newProg) {
+      const key = `${modId}_${teamName}`;
+      teamSubtaskProgress[key] = parseInt(newProg);
+      renderGanttSchedule();
+    }
+
     let editingTicketId = null;
 
     function renderKanbanAndGantt() {
@@ -1156,7 +1185,6 @@
       const cols = { backlog: [], dev: [], test: [], publish: [] };
       const filterModule = document.getElementById('kanban-filter-module').value;
 
-      // 篩選看板卡片
       const filteredTickets = tickets.filter(t => {
         return filterModule === 'ALL' || t.id === filterModule;
       });
@@ -1204,8 +1232,7 @@
       container.innerHTML = '';
 
       const filterModule = document.getElementById('gantt-filter-module').value;
-      const targetPreset = allPresets.find(p => p.code === filterModule);
-      const titleName = targetPreset ? targetPreset.title : filterModule;
+      const targetTicket = tickets.find(t => t.id === filterModule) || { id: filterModule, progress: 50, sprint: 'Sprint 1 (W1-W2)' };
 
       const teamsBreakdown = [
         { role: 'Product PM (規格與凍結)', name: 'Product PM', defaultSprint: 'Sprint 1 (W1-W2)', defaultProg: 100, color: 'bg-blue-600' },
@@ -1246,12 +1273,12 @@
               <span class="text-slate-300 font-bold">${currentProg}%</span>
             </div>
           </div>
-          <div class="col-span-${colSpan} col-start-${startCol} relative flex items-center">
-            <div class="w-full bg-slate-900 h-7 rounded border border-cyber-border overflow-hidden flex items-center relative group">
+          <div class="col-span-${colSpan} col-start-${startCol} relative flex items-center cursor-pointer" onclick="openEditTicketModal('${filterModule}')" title="點擊檢視/編輯 Jira Ticket">
+            <div class="w-full bg-slate-900 h-7 rounded border border-cyber-border overflow-hidden flex items-center relative group hover:border-cyber-cyan transition">
               <div class="h-full ${barColor} transition-all duration-300 opacity-90" style="width: ${currentProg}%;"></div>
               <span class="absolute inset-0 flex items-center justify-between px-2 text-[10px] text-white font-mono font-bold z-10 pointer-events-none truncate">
                 <span>${tb.name} (${currentSprint.split(' ')[0]})</span>
-                <span>${currentProg}%</span>
+                <span>${currentProg}% 🔗</span>
               </span>
             </div>
           </div>
@@ -1304,7 +1331,7 @@
     function openAddTicketModal() {
       editingTicketId = null;
       document.getElementById('modal-heading').innerText = '+ 新增 Jira Ticket';
-      document.getElementById('modal-ticket-id').value = 'OB-' + (121);
+      document.getElementById('modal-ticket-id').value = 'OB-101';
       document.getElementById('modal-ticket-title').value = '';
       document.getElementById('modal-ticket-primary').value = 'Engineering';
       document.getElementById('modal-ticket-support').value = 'QA/Ops';
@@ -1319,10 +1346,14 @@
     }
 
     function openEditTicketModal(id) {
-      const ticket = tickets.find(t => t.id === id);
-      if (!ticket) return;
+      // 若點擊時傳入的是 OB 模組代碼（例如 OB-101），尋找對應 Ticket 或建立暫時編輯
+      let ticket = tickets.find(t => t.id === id);
+      if (!ticket) {
+        ticket = { id: id, title: `${id} 跨部門交付任務`, primary: 'Engineering', support: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', status: 'dev', progress: 50, risk: false };
+        tickets.push(ticket);
+      }
 
-      editingTicketId = id;
+      editingTicketId = ticket.id;
       document.getElementById('modal-heading').innerText = `編輯 Jira Ticket: ${ticket.id}`;
       document.getElementById('modal-ticket-id').value = ticket.id;
       document.getElementById('modal-ticket-title').value = ticket.title;
@@ -1355,6 +1386,7 @@
       if (val === '') return;
       const preset = allPresets[parseInt(val)];
       if (preset) {
+        document.getElementById('modal-ticket-id').value = preset.code;
         document.getElementById('modal-ticket-title').value = `${preset.code}: ${preset.title}`;
         document.getElementById('modal-ticket-primary').value = preset.defaultOwner || 'Engineering';
         document.getElementById('modal-ticket-support').value = preset.defaultSupport || 'QA/Ops';
@@ -1390,6 +1422,7 @@
 
     function saveTicketFromModal() {
       const title = document.getElementById('modal-ticket-title').value.trim();
+      const customId = document.getElementById('modal-ticket-id').value.trim() || 'OB-101';
       if (!title) {
         alert('請填寫任務描述！');
         return;
@@ -1405,6 +1438,7 @@
       if (editingTicketId) {
         const t = tickets.find(item => item.id === editingTicketId);
         if (t) {
+          t.id = customId;
           t.title = title;
           t.primary = primary;
           t.support = support;
@@ -1414,9 +1448,8 @@
           t.risk = risk;
         }
       } else {
-        const newId = document.getElementById('modal-ticket-id').value;
         tickets.push({
-          id: newId,
+          id: customId,
           title: title,
           primary: primary,
           support: support,
