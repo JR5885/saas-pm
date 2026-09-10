@@ -90,7 +90,7 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking 產品交付指揮中心</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] 20大模組排程・Sprint 級別異常應變 SOP 矩陣・Gmail 召集信件
+          [ROLE: PRODUCT PM] SOP 團隊分工與測試目標矩陣・STEP 3 自動 Email 召集連動 (mshappyj@gmail.com)
         </p>
       </div>
 
@@ -432,7 +432,7 @@
       </div>
     </section>
 
-    <!-- NEW SECTION: 極端邊界異常與危機應變標準作業程序 (SOP) - 支援手動編輯、期限、交付結果與失敗 fallback -->
+    <!-- NEW SECTION: 極端邊界異常與危機應變標準作業程序 (SOP) - 支援團隊分工與手動編輯 -->
     <section id="sop-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4 no-print">
       <div class="flex items-center justify-between border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
@@ -446,7 +446,7 @@
         </div>
       </div>
 
-      <p class="text-xs text-slate-400 font-mono">點擊文字可直接手動編輯各 Sprint 修正動作、限期、交付結果與失敗應變方案：</p>
+      <p class="text-xs text-slate-400 font-mono">點擊文字可直接手動編輯各團隊分工、Sprint、限期、交付結果與失敗應變方案：</p>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
         <!-- SOP 1 -->
@@ -456,8 +456,9 @@
           </div>
           <p class="text-[11px] text-slate-400 font-sans leading-relaxed">Redis 鎖或唯一約束失效，導致兩位用戶同時搶最後席位。</p>
           <div class="space-y-1.5 text-[11px] pt-2 border-t border-cyber-border/60">
+            <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" id="sop-p1-team" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Engineering & Product PM</span></div>
             <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" id="sop-p1-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Sprint 2 (W3-W4)</span></div>
-            <div><strong class="text-blue-400">修正事情:</strong> <span contenteditable="true" id="sop-p1-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">導入 Redis Redlock 分散式原子鎖與等冪性校驗。</span></div>
+            <div><strong class="text-slate-300">修正事情:</strong> <span contenteditable="true" id="sop-p1-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">導入 Redis Redlock 分散式原子鎖與等冪性校驗。</span></div>
             <div><strong class="text-rose-400">限期 (Deadline):</strong> <span contenteditable="true" id="sop-p1-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">2026-03-28 EOD</span></div>
             <div><strong class="text-cyber-green">交付結果:</strong> <span contenteditable="true" id="sop-p1-result" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">1,500 QPS 壓測下超賣數 = 0 (P99 < 250ms)。</span></div>
             <div><strong class="text-amber-400">若失敗再進行:</strong> <span contenteditable="true" id="sop-p1-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">強制改寫資料庫唯一約束 (Unique Constraint) 並降級為佇列排隊。</span></div>
@@ -471,8 +472,9 @@
           </div>
           <p class="text-[11px] text-slate-400 font-sans leading-relaxed">扣款成功瞬間斷網，Webhook 未回調導致扣款卻未入帳。</p>
           <div class="space-y-1.5 text-[11px] pt-2 border-t border-cyber-border/60">
+            <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" id="sop-p2-team" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Engineering & Sales/CS</span></div>
             <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" id="sop-p2-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Sprint 3 (W5-W6)</span></div>
-            <div><strong class="text-blue-400">修正事情:</strong> <span contenteditable="true" id="sop-p2-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">建置金流非同步對帳 Worker 與前端輪詢機制。</span></div>
+            <div><strong class="text-slate-300">修正事情:</strong> <span contenteditable="true" id="sop-p2-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">建置金流非同步對帳 Worker 與前端輪詢機制。</span></div>
             <div><strong class="text-rose-400">限期 (Deadline):</strong> <span contenteditable="true" id="sop-p2-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">2026-04-11 EOD</span></div>
             <div><strong class="text-cyber-green">交付結果:</strong> <span contenteditable="true" id="sop-p2-result" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">斷網重連後交易狀態 100% 自動恢復同步。</span></div>
             <div><strong class="text-amber-400">若失敗再進行:</strong> <span contenteditable="true" id="sop-p2-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">啟動人工對帳通道並由客服於 10 分鐘內手動補發。</span></div>
@@ -486,8 +488,9 @@
           </div>
           <p class="text-[11px] text-slate-400 font-sans leading-relaxed">15 分鐘保留期限未確認，系統未自動順移給下個順位。</p>
           <div class="space-y-1.5 text-[11px] pt-2 border-t border-cyber-border/60">
+            <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" id="sop-p3-team" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Engineering & QA/Ops</span></div>
             <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" id="sop-p3-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Sprint 2 (W3-W4)</span></div>
-            <div><strong class="text-blue-400">修正事情:</strong> <span contenteditable="true" id="sop-p3-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">優化 Celery 倒數計時任務與事件驅動自動順移。</span></div>
+            <div><strong class="text-slate-300">修正事情:</strong> <span contenteditable="true" id="sop-p3-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">優化 Celery 倒數計時任務與事件驅動自動順移。</span></div>
             <div><strong class="text-rose-400">限期 (Deadline):</strong> <span contenteditable="true" id="sop-p3-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">2026-03-31 EOD</span></div>
             <div><strong class="text-cyber-green">交付結果:</strong> <span contenteditable="true" id="sop-p3-result" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">逾時 15 分鐘無條件釋出並 100% 準確順移。</span></div>
             <div><strong class="text-amber-400">若失敗再進行:</strong> <span contenteditable="true" id="sop-p3-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">改由排程掃描每 3 分鐘批次強制回收過期席位。</span></div>
@@ -496,14 +499,18 @@
       </div>
     </section>
 
-    <!-- STEP 3: Cross-Functional Kickoff Alignment & Sign-off -->
+    <!-- STEP 3: Cross-Functional Kickoff Alignment & Sign-off (含自動 Email 按鈕) -->
     <section id="step3-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4 no-print">
       <div class="flex items-center justify-between border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
           <span class="px-2.5 py-0.5 rounded bg-cyber-gold text-slate-950 font-black text-xs font-mono">STEP 3</span>
           <h2 class="text-sm font-bold text-white tracking-wide">Cross-Functional Kickoff Alignment & Sign-off (跨部門會議與決議)</h2>
         </div>
-        <span class="text-[10px] font-mono text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">可同步 SOP 紀錄</span>
+        <div class="flex items-center gap-2">
+          <button onclick="openGmailEmergencyCompose()" class="px-3.5 py-1.5 rounded-lg bg-purple-900 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-xs font-bold transition shadow-lg">
+            ✉️ 自動產生並用 Gmail 寄送決議 (mshappyj@gmail.com)
+          </button>
+        </div>
       </div>
 
       <div id="ko-memo" contenteditable="true" class="w-full bg-[#05080f] border border-cyber-border rounded-lg p-4 text-xs font-mono leading-relaxed text-slate-200 focus:outline-none min-h-[160px]">
@@ -511,7 +518,7 @@
 2. Tech Lead / Engineering: Waitlist states managed via Redis distributed locks; main DB updated only upon final confirmation (99.95% SLA).
 3. Scope Control: Strict freeze on new feature requests; out-of-scope items postponed to Phase 2 to ensure on-time delivery.
 4. AI Chatbot (SV Team): Guardrails successfully enforced against unauthorized refunds and credit issuances.
-5. [危機應變 SOP 連動]: 點擊上方「同步 SOP 至 STEP 3」按鈕，將各 Sprint 修正動作、限期與失敗應變方案寫入此處。
+5. [危機應變 SOP 聯動]: 點擊上方「同步 SOP 至 STEP 3」按鈕，將各團隊分工、Sprint、限期與失敗應變方案寫入此處。
       </div>
     </section>
 
@@ -700,7 +707,7 @@
       },
       {
         code: 'OB-105', title: '05. 新客爽約自動發送「體諒補課券」再行銷模組',
-        voice: '「新客第一次預約就臨時爽約，如果照規定直接沒收體驗費，客人直接在 Google 留一顆星負評！」',
+        voice: '「新客 primeira 預約就臨時爽約，如果照規定直接沒收體驗費，客人直接在 Google 留一顆星負評！」',
         problem: '剛性合約條款摧毀初次建立的品牌信任；需自動發放一次性溫情挽回券（限 7 天內重新劃位），將負評轉化為二訪機會。',
         scope: '1. 暫不開放第二次爽約補發。 2. 暫不支援跨品牌通用。',
         defaultOwner: 'Sales/CS', defaultSupport: 'Engineering',
@@ -1027,39 +1034,51 @@
     // 同步 SOP 內容至 STEP 3 會議備忘錄
     // ----------------------------------------------------
     function syncSopToStep3() {
+      const p1Team = document.getElementById('sop-p1-team').innerText;
       const p1Sprint = document.getElementById('sop-p1-sprint').innerText;
       const p1Tasks = document.getElementById('sop-p1-tasks').innerText;
       const p1Deadline = document.getElementById('sop-p1-deadline').innerText;
       const p1Result = document.getElementById('sop-p1-result').innerText;
       const p1Fail = document.getElementById('sop-p1-fail').innerText;
 
+      const p2Team = document.getElementById('sop-p2-team').innerText;
       const p2Sprint = document.getElementById('sop-p2-sprint').innerText;
       const p2Tasks = document.getElementById('sop-p2-tasks').innerText;
       const p2Deadline = document.getElementById('sop-p2-deadline').innerText;
 
+      const p3Team = document.getElementById('sop-p3-team').innerText;
       const p3Sprint = document.getElementById('sop-p3-sprint').innerText;
       const p3Tasks = document.getElementById('sop-p3-tasks').innerText;
       const p3Deadline = document.getElementById('sop-p3-deadline').innerText;
 
-      const memoText = `[緊急危機應變 SOP 決議事項]\n1. [Concurrency 超賣應變]:\n   - 目標 Sprint: ${p1Sprint}\n   - 修正事情: ${p1Tasks}\n   - 限期: ${p1Deadline}\n   - 交付結果: ${p1Result}\n   - 若失敗再進行: ${p1Fail}\n2. [Network Drop 孤兒交易應變]:\n   - 目標 Sprint: ${p2Sprint}\n   - 修正事情: ${p2Tasks}\n   - 限期: ${p2Deadline}\n3. [Timeout Fallback 候補逾時應變]:\n   - 目標 Sprint: ${p3Sprint}\n   - 修正事情: ${p3Tasks}\n   - 限期: ${p3Deadline}`;
+      const memoText = `[緊急危機應變 SOP 跨部門決議事項]\n1. [Concurrency 超賣應變]:\n   - 負責團隊: ${p1Team}\n   - 目標 Sprint: ${p1Sprint}\n   - 修正事情: ${p1Tasks}\n   - 限期: ${p1Deadline}\n   - 交付結果: ${p1Result}\n   - 若失敗再進行: ${p1Fail}\n\n2. [Network Drop 孤兒交易應變]:\n   - 負責團隊: ${p2Team}\n   - 目標 Sprint: ${p2Sprint}\n   - 修正事情: ${p2Tasks}\n   - 限期: ${p2Deadline}\n\n3. [Timeout Fallback 候補逾時應變]:\n   - 負責團隊: ${p3Team}\n   - 目標 Sprint: ${p3Sprint}\n   - 修正事情: ${p3Tasks}\n   - 限期: ${p3Deadline}`;
 
       document.getElementById('ko-memo').innerText = memoText;
-      alert('已成功將最新 SOP 處置動作同步至 STEP 3 跨部門會議備忘錄！');
+      alert('已成功將最新 SOP 團隊分工與期限同步至 STEP 3 跨部門會議備忘錄！');
     }
 
     // ----------------------------------------------------
-    // 寄發危機應變與跨部門會議召集信 (Gmail)
+    // 寄發危機應變與跨部門會議召集信 (Gmail - mshappyj@gmail.com)
     // ----------------------------------------------------
     function openGmailEmergencyCompose() {
       const selectEl = document.getElementById('req-title-select');
       const title = selectEl.options[selectEl.selectedIndex].text;
       const senderEmail = 'mshappyj@gmail.com';
-      const subject = `[URGENT] Cross-Functional Emergency & SOP Alignment for ${title}`;
+      const subject = `[URGENT] Cross-Functional Emergency & SOP Action Matrix for ${title}`;
       
+      const p1Team = document.getElementById('sop-p1-team').innerText;
       const p1Sprint = document.getElementById('sop-p1-sprint').innerText;
       const p1Tasks = document.getElementById('sop-p1-tasks').innerText;
       const p1Deadline = document.getElementById('sop-p1-deadline').innerText;
       const p1Result = document.getElementById('sop-p1-result').innerText;
+
+      const p2Team = document.getElementById('sop-p2-team').innerText;
+      const p2Sprint = document.getElementById('sop-p2-sprint').innerText;
+      const p2Tasks = document.getElementById('sop-p2-tasks').innerText;
+
+      const p3Team = document.getElementById('sop-p3-team').innerText;
+      const p3Sprint = document.getElementById('sop-p3-sprint').innerText;
+      const p3Tasks = document.getElementById('sop-p3-tasks').innerText;
 
       const emailBody = `Hi Cross-Functional Team,
 
@@ -1067,12 +1086,23 @@ As the Product PM convening this emergency alignment for [${title}], we must ens
 
 Sender / Convener (PM): ${senderEmail}
 
-【Emergency SOP Action Matrix】
+【Emergency SOP Action Matrix & Sprint Assignments】
 1. [Concurrency 超賣應變]:
+   - Responsible Team: ${p1Team}
    - Target Sprint: ${p1Sprint}
-   - Required Tasks: ${p1Tasks}
+   - Action Items: ${p1Tasks}
    - Deadline: ${p1Deadline}
-   - Deliverables: ${p1Result}
+   - Expected Deliverables: ${p1Result}
+
+2. [Network Drop 孤兒交易應變]:
+   - Responsible Team: ${p2Team}
+   - Target Sprint: ${p2Sprint}
+   - Action Items: ${p2Tasks}
+
+3. [Timeout Fallback 候補逾時應變]:
+   - Responsible Team: ${p3Team}
+   - Target Sprint: ${p3Sprint}
+   - Action Items: ${p3Tasks}
 
 Please check the Command Center and confirm your team's readiness by EOD today.
 
