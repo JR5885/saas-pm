@@ -90,7 +90,7 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking 產品交付指揮中心</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] 看板與甘特圖完美渲染・OB-101~120 跨部門實務追蹤
+          [ROLE: PRODUCT PM] 20大模組 4-Sprint 跨部門實務排程・甘特圖與 Kanban 雙向連動
         </p>
       </div>
 
@@ -786,7 +786,7 @@
       },
       {
         code: 'OB-110', title: '10. 首購課後 2 小時專屬限時續購促轉模組',
-        voice: '「客人上完第一課明明很滿意，但教練不好意思開口推銷大堂數，客人回家後熱度退了就不買了。」',
+        voice: '「客人上完第一堂課明明很滿意，但教練不好意思開口推銷大堂數，客人回家後熱度退了就不買了。」',
         problem: '上課結束到二次購買之間缺乏即時行銷槓桿；需在打卡報到完成 2 小時內，自動推播限時 24 小時早鳥續購優惠券。',
         scope: '1. 暫不支援 AI 動態定價。 2. 暫不支援業務即時議價視窗。',
         defaultOwner: 'Sales/CS', defaultSupport: 'Engineering',
@@ -1346,7 +1346,6 @@
     }
 
     function openEditTicketModal(id) {
-      // 若點擊時傳入的是 OB 模組代碼（例如 OB-101），尋找對應 Ticket 或建立暫時編輯
       let ticket = tickets.find(t => t.id === id);
       if (!ticket) {
         ticket = { id: id, title: `${id} 跨部門交付任務`, primary: 'Engineering', support: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', status: 'dev', progress: 50, risk: false };
