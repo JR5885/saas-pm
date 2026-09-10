@@ -90,7 +90,7 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking 產品交付指揮中心</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] SOP 團隊分工與測試目標矩陣・STEP 3 自動 Email 召集連動 (mshappyj@gmail.com)
+          [ROLE: PRODUCT PM] 20大模組・極端異常 SOP 團隊分工與正常測試目標即時連動 (mshappyj@gmail.com)
         </p>
       </div>
 
@@ -160,7 +160,7 @@
           <div>
             <label class="block text-[11px] font-mono text-cyber-cyan mb-1 flex items-center justify-between">
               <span>Feature Requirement Title (20 Presets)</span>
-              <span class="text-[10px] text-slate-500">切換模組即時連動</span>
+              <span class="text-[10px] text-slate-500">切換模組即時連動 SOP 與 Edge Cases</span>
             </label>
             <select id="req-title-select" onchange="onTitleDropdownChanged(this.value)" class="w-full px-3 py-2 text-xs rounded border font-mono text-cyber-cyan focus:border-cyber-cyan">
               <!-- Dynamically populated -->
@@ -432,12 +432,12 @@
       </div>
     </section>
 
-    <!-- NEW SECTION: 極端邊界異常與危機應變標準作業程序 (SOP) - 支援團隊分工與手動編輯 -->
+    <!-- NEW SECTION: 極端邊界異常與危機應變標準作業程序 (SOP) - 支援即時連動、正常測試目標與手動編輯 -->
     <section id="sop-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4 no-print">
       <div class="flex items-center justify-between border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
           <span class="px-2.5 py-0.5 rounded bg-rose-600 text-white font-black text-xs font-mono">SOP</span>
-          <h2 class="text-sm font-bold text-white tracking-wide">Omcean Booking ｜ 極端邊界異常與危機應變標準作業程序 (可手動編輯)</h2>
+          <h2 class="text-sm font-bold text-white tracking-wide">Omcean Booking ｜ 極端邊界異常與危機應變標準作業程序 (隨模組連動且可手動編輯)</h2>
         </div>
         <div class="flex items-center gap-2">
           <button onclick="syncSopToStep3()" class="px-3 py-1 rounded bg-purple-900/70 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-xs font-bold transition">
@@ -446,7 +446,7 @@
         </div>
       </div>
 
-      <p class="text-xs text-slate-400 font-mono">點擊文字可直接手動編輯各團隊分工、Sprint、限期、交付結果與失敗應變方案：</p>
+      <p class="text-xs text-slate-400 font-mono">此 SOP 會隨著上方 Step 1 選擇的模組自動載入對應內容，亦可直接點擊文字進行手動編輯修改：</p>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
         <!-- SOP 1 -->
@@ -460,7 +460,7 @@
             <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" id="sop-p1-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Sprint 2 (W3-W4)</span></div>
             <div><strong class="text-slate-300">修正事情:</strong> <span contenteditable="true" id="sop-p1-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">導入 Redis Redlock 分散式原子鎖與等冪性校驗。</span></div>
             <div><strong class="text-rose-400">限期 (Deadline):</strong> <span contenteditable="true" id="sop-p1-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">2026-03-28 EOD</span></div>
-            <div><strong class="text-cyber-green">交付結果:</strong> <span contenteditable="true" id="sop-p1-result" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">1,500 QPS 壓測下超賣數 = 0 (P99 < 250ms)。</span></div>
+            <div><strong class="text-cyber-green">正常測試目標 (Deliverable):</strong> <span contenteditable="true" id="sop-p1-result" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">1,500 QPS 壓測下超賣數 = 0 (P99 < 250ms)。</span></div>
             <div><strong class="text-amber-400">若失敗再進行:</strong> <span contenteditable="true" id="sop-p1-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">強制改寫資料庫唯一約束 (Unique Constraint) 並降級為佇列排隊。</span></div>
           </div>
         </div>
@@ -476,7 +476,7 @@
             <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" id="sop-p2-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Sprint 3 (W5-W6)</span></div>
             <div><strong class="text-slate-300">修正事情:</strong> <span contenteditable="true" id="sop-p2-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">建置金流非同步對帳 Worker 與前端輪詢機制。</span></div>
             <div><strong class="text-rose-400">限期 (Deadline):</strong> <span contenteditable="true" id="sop-p2-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">2026-04-11 EOD</span></div>
-            <div><strong class="text-cyber-green">交付結果:</strong> <span contenteditable="true" id="sop-p2-result" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">斷網重連後交易狀態 100% 自動恢復同步。</span></div>
+            <div><strong class="text-cyber-green">正常測試目標 (Deliverable):</strong> <span contenteditable="true" id="sop-p2-result" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">斷網重連後交易狀態 100% 自動恢復同步。</span></div>
             <div><strong class="text-amber-400">若失敗再進行:</strong> <span contenteditable="true" id="sop-p2-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">啟動人工對帳通道並由客服於 10 分鐘內手動補發。</span></div>
           </div>
         </div>
@@ -492,7 +492,7 @@
             <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" id="sop-p3-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded focus:outline-none">Sprint 2 (W3-W4)</span></div>
             <div><strong class="text-slate-300">修正事情:</strong> <span contenteditable="true" id="sop-p3-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">優化 Celery 倒數計時任務與事件驅動自動順移。</span></div>
             <div><strong class="text-rose-400">限期 (Deadline):</strong> <span contenteditable="true" id="sop-p3-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">2026-03-31 EOD</span></div>
-            <div><strong class="text-cyber-green">交付結果:</strong> <span contenteditable="true" id="sop-p3-result" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">逾時 15 分鐘無條件釋出並 100% 準確順移。</span></div>
+            <div><strong class="text-cyber-green">正常測試目標 (Deliverable):</strong> <span contenteditable="true" id="sop-p3-result" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">逾時 15 分鐘無條件釋出並 100% 準確順移。</span></div>
             <div><strong class="text-amber-400">若失敗再進行:</strong> <span contenteditable="true" id="sop-p3-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded focus:outline-none">改由排程掃描每 3 分鐘批次強制回收過期席位。</span></div>
           </div>
         </div>
@@ -508,7 +508,7 @@
         </div>
         <div class="flex items-center gap-2">
           <button onclick="openGmailEmergencyCompose()" class="px-3.5 py-1.5 rounded-lg bg-purple-900 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-xs font-bold transition shadow-lg">
-            ✉️ 自動產生並用 Gmail 寄送決議 (mshappyj@gmail.com)
+            ✉️ 寄發跨部門會議決議給各團隊 (mshappyj@gmail.com)
           </button>
         </div>
       </div>
@@ -655,7 +655,12 @@
           { role: 'Sales / CS', type: 'I', desc: '接收新客導流成效並追蹤客服諮詢降幅' }
         ],
         actions: ['本週五前完成 LINE Login v2.1 授權沙盒驗證', '優化體驗結帳按鈕防連點機制 (Debounce)'],
-        dod: ['LINE LIFF 授權成功率 >= 99.5%', '單頁結帳流程耗時 < 30 秒', '通過 iOS/Android 行動端 UAT 驗收']
+        dod: ['LINE LIFF 授權成功率 >= 99.5%', '單頁結帳流程耗時 < 30 秒', '通過 iOS/Android 行動端 UAT 驗收'],
+        sopData: {
+          p1: { team: 'UX/FE & Engineering', sprint: 'Sprint 1 (W1-W2)', tasks: '優化 LINE LIFF 授權流程與防連點機制。', deadline: '2026-03-25 EOD', result: '30秒內免密登入成功率 >= 99.5%。', fail: '降級為手機號碼簡訊 OTP 快速驗證通道。' },
+          p2: { team: 'Engineering & QA/Ops', sprint: 'Sprint 2 (W3-W4)', tasks: '串接 LINE Pay 單次快捷金流 Webhook 補償。', deadline: '2026-04-05 EOD', result: '支付成功後 1 秒內無縫寫入預約資料庫。' },
+          p3: { team: 'Product PM & Sales/CS', sprint: 'Sprint 1 (W1-W2)', tasks: '定義首購預約逾時保留與提示文案。', deadline: '2026-03-26 EOD', result: '逾時未結帳自動釋放名額並推播提醒。' }
+        }
       },
       {
         code: 'OB-102', title: '02. 新客專屬防踩雷師資與難易度標籤導引',
@@ -671,7 +676,12 @@
           { role: 'QA / DevOps', type: 'I', desc: '驗證標籤篩選效能與多條件組合查詢正確性' }
         ],
         actions: ['CS 團隊於週三前產出教練風格與難易度標準詞彙表', '工程端建立多條件標籤索引'],
-        dod: ['課表標籤篩選響應時間 < 100ms', '新客諮詢重複率下降 30%', '全教練風格資料審核無誤']
+        dod: ['課表標籤篩選響應時間 < 100ms', '新客諮詢重複率下降 30%', '全教練風格資料審核無誤'],
+        sopData: {
+          p1: { team: 'Product PM & CS', sprint: 'Sprint 1 (W1-W2)', tasks: '產出教練風格與難易度標準詞彙表。', deadline: '2026-03-28 EOD', result: '標籤分類體系 100% 覆蓋所有教練。', fail: '暫時由客服人工於後台人工幫忙標註。' },
+          p2: { team: 'Engineering & UX', sprint: 'Sprint 2 (W3-W4)', tasks: '建立多條件標籤索引與前端過濾 UI。', deadline: '2026-04-08 EOD', result: '篩選響應時間 < 100ms 無卡頓。', fail: '簡化為單一條件下拉選單篩選。' },
+          p3: { team: 'QA / DevOps', sprint: 'Sprint 2 (W3-W4)', tasks: '驗證多條件組合查詢正確性。', deadline: '2026-04-10 EOD', result: '無符合標籤時提供溫馨引導。', fail: '預設顯示全部熱門課程。' }
+        }
       },
       {
         code: 'OB-103', title: '03. 預約完成自動推播 LINE「新手到館圖文指南」',
@@ -687,119 +697,12 @@
           { role: 'QA / DevOps', type: 'I', desc: '驗證預約成功事件觸發推播之送達率' }
         ],
         actions: ['收集全分店實體交通與門禁指引', '測試 LINE 圖片及圖文選單推播排程'],
-        dod: ['預約完成後 10 秒內送達圖文指引', '櫃台重複詢問電話減少 50%', '推播失敗自動重試機制運作正常']
-      },
-      {
-        code: 'OB-104', title: '04. 預約放棄行為自動偵測與限時挽回推播',
-        voice: '「很多客人點進預約選了時間，但在結帳畫面看一看就跑了，我們白白花廣告費引流！」',
-        problem: '結帳最後一哩路缺乏挽回機制造成 ROAS 折損；需追蹤 Session 停滯事件，在跳出 15 分鐘後自動發送提醒或 9 折券。',
-        scope: '1. 暫不支援 SMS 簡訊主動追蹤。 2. 暫不支援 AI 動態計算折價。',
-        defaultOwner: 'Engineering', defaultSupport: 'Product PM',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: '規劃挽回漏斗觸發時間點與折價券發放策略' },
-          { role: 'Engineering', type: 'R', desc: '實作 Checkout Abandonment 事件埋點與定時排程' },
-          { role: 'Sales / CS', type: 'C', desc: '確認首購挽回優惠券額度與成本上限' },
-          { role: 'UX / Frontend', type: 'I', desc: '確保挽回導流連結帶入原未結帳 Session' },
-          { role: 'QA / DevOps', type: 'I', desc: '進行高頻 Session 逾時觸發壓力測試' }
-        ],
-        actions: ['設定 15 分鐘未結帳事件捕捉 Worker', '定義優惠券自動派發防呆規則'],
-        dod: ['放棄結帳挽回轉換率提升 >= 12%', '定時排程任務無記憶體洩漏', '防騷擾機制（每人每天限推 1 次）生效']
-      },
-      {
-        code: 'OB-105', title: '05. 新客爽約自動發送「體諒補課券」再行銷模組',
-        voice: '「新客 primeira 預約就臨時爽約，如果照規定直接沒收體驗費，客人直接在 Google 留一顆星負評！」',
-        problem: '剛性合約條款摧毀初次建立的品牌信任；需自動發放一次性溫情挽回券（限 7 天內重新劃位），將負評轉化為二訪機會。',
-        scope: '1. 暫不開放第二次爽約補發。 2. 暫不支援跨品牌通用。',
-        defaultOwner: 'Sales/CS', defaultSupport: 'Engineering',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: '定義溫情補課券適用規則與防作弊邊界' },
-          { role: 'Sales / CS', type: 'R', desc: '制定應對爽約客群的溫情溝通腳本' },
-          { role: 'Engineering', type: 'R', desc: '實作爽約自動標記與補課券派發資料邏輯' },
-          { role: 'UX / Frontend', type: 'I', desc: '提供前台補課券領取與重新劃位專屬 UI' },
-          { role: 'QA / DevOps', type: 'I', desc: '測試 7 天效期到期自動作廢機制' }
-        ],
-        actions: ['CS 確定補課券溫情推播話術', '工程端建立爽約自動轉狀態排程'],
-        dod: ['Google 一星負評率下降 20%', '補課券二次到店轉換率 >= 25%', '系統防範重複領取機制正常']
-      },
-      {
-        code: 'OB-106', title: '06. 官網預約小工具免跳轉嵌入 (Widget Engine)',
-        voice: '「客人從我們自架的 WordPress 官網點預約，會跳轉到你們系統的外部網址，看起來很像詐騙，客人都不敢刷卡。」',
-        problem: '外部跳轉造成網域不信任與視覺斷層；需提供跨網域安全 iframe / Web Component 預約小工具，維持官網品牌體驗。',
-        scope: '1. 暫不支援無頭 Headless API 開發。 2. 暫不支援非 HTTPS 網域。',
-        defaultOwner: 'UX/FE', defaultSupport: 'QA/Ops',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: '確認 Widget 嵌入支援的官網CMS清單與合約範圍' },
-          { role: 'UX / Frontend', type: 'R', desc: '開發響應式 Web Component / iframe 嵌入組件' },
-          { role: 'Engineering', type: 'R', desc: '處理跨網域 CORS、CSP 安全協議與 Token 授權' },
-          { role: 'QA / DevOps', type: 'I', desc: '驗證在 WordPress / Wix 官網嵌入之相容性' },
-          { role: 'Sales / CS', type: 'I', desc: '提供店家官網嵌入操作手冊 (Help Center)' }
-        ],
-        actions: ['完成 iframe 跨網域安全性白名單設定', '輸出 WordPress 外掛嵌入指引'],
-        dod: ['支援主流 CMS 1-Click 嵌入', '跨網域金流支付成功率 100%', 'Widget 載入時間 < 1.2 秒']
-      },
-      {
-        code: 'OB-107', title: '07. 新客首購零風險「未到課無條件展延」',
-        voice: '「新客常擔心買了體驗課後，當天臨時加班不能來，希望我們承諾不滿意或沒來可以退費。」',
-        problem: '消費承諾風險過高阻礙付款決策；需將單次體驗課設計為「未劃位/首次缺席無條件保留 30 天效期」，降低門檻。',
-        scope: '1. 暫不開放線上自動退現金。 2. 高單價工作坊不適用。',
-        defaultOwner: 'Product PM', defaultSupport: 'Sales/CS',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: '制定首購無條件展延之票券生命週期規則' },
-          { role: 'Sales / CS', type: 'R', desc: '向學員溝通無風險承諾並監督退換機制流暢度' },
-          { role: 'Engineering', type: 'R', desc: '開發票券未出席自動展延 30 天排程程式' },
-          { role: 'UX / Frontend', type: 'I', desc: '於結帳頁面標註「首購無條件展延」安心保證' },
-          { role: 'QA / DevOps', type: 'I', desc: '驗證自動展延後之扣點與到期日計算' }
-        ],
-        actions: ['確認首購票券自動展延排程邏輯', '於首頁及結帳頁標示安心保證文案'],
-        dod: ['首購轉換率提升 >= 15%', '票券過期客訴歸零', '展延狀態變更正確無誤']
-      },
-      {
-        code: 'OB-108', title: '08. 一對一教練課新客免登入即時空檔查詢',
-        voice: '「想約私人教練的新客人每次都要先加好友、報上名字，才能看到教練哪天有空，太沒效率了。」',
-        problem: '私人課時程透明度低，傳統非同步私訊導致潛在顧客流失；需提供只讀（Read-only）即時空檔行事曆。',
-        scope: '1. 暫不支援學員雙向同步個人日曆。 2. 暫不計算動態通勤時間。',
-        defaultOwner: 'Engineering', defaultSupport: 'UX/FE',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: '定義教練行事曆隱私遮蔽與唯讀權限' },
-          { role: 'Engineering', type: 'R', desc: '串接教練班表與空檔計算 API 引擎' },
-          { role: 'UX / Frontend', type: 'R', desc: '設計簡潔易用之教練時段挑選日曆介面' },
-          { role: 'Sales / CS', type: 'I', desc: '確保教練排班表維護落實率' },
-          { role: 'QA / DevOps', type: 'I', desc: '測試時段查詢並發高壓反應時間' }
-        ],
-        actions: ['建立教練排班只讀 API 查詢快取', '前端實作時段點擊預約互動流'],
-        dod: ['私人教練預約詢問轉化率提升 25%', '時段查詢 API 響應 < 150ms', '個資隱私遮蔽無洩漏']
-      },
-      {
-        code: 'OB-109', title: '09. 新客預約雙人同行優惠與同伴資料拆分',
-        voice: '「閨蜜常常想一起來體驗瑜珈，但系統一次只能預約一個人，第二個人要再註冊一次，最後都只來一個。」',
-        problem: '缺乏同行劃位機制，強迫同伴重複註冊造成轉換率腰斬；需支援主約人一次結帳雙人名額，並以邀請連結補登資料。',
-        scope: '1. 暫不支援線上即時 AA 拆帳。 2. 團體上限 2-3 人。',
-        defaultOwner: 'Product PM', defaultSupport: 'UX/FE',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: '規劃雙人同行優惠邏輯與同伴邀請狀態機' },
-          { role: 'UX / Frontend', type: 'R', desc: '設計主約人合併劃位與同伴資料補登頁面' },
-          { role: 'Engineering', type: 'R', desc: '實作主約佔位、雙人折扣計算與邀請連結綁定' },
-          { role: 'Sales / CS', type: 'I', desc: '處理同伴未於期限內補登資料之例外客訴' },
-          { role: 'QA / DevOps', type: 'I', desc: '測試雙人同時佔位之並發鎖定' }
-        ],
-        actions: ['設計主約人一次結帳雙人名額邏輯', '製作同伴資料補登連結生成機制'],
-        dod: ['雙人同行訂單占比提升 >= 20%', '邀請連結補登成功率 98%', '訂單金額與折扣計算無誤']
-      },
-      {
-        code: 'OB-110', title: '10. 首購課後 2 小時專屬限時續購促轉模組',
-        voice: '「客人上完第一堂課明明很滿意，但教練不好意思開口推銷大堂數，客人回家後熱度退了就不買了。」',
-        problem: '上課結束到二次購買之間缺乏即時行銷槓桿；需在打卡報到完成 2 小時內，自動推播限時 24 小時早鳥續購優惠券。',
-        scope: '1. 暫不支援 AI 動態定價。 2. 暫不支援業務即時議價視窗。',
-        defaultOwner: 'Sales/CS', defaultSupport: 'Engineering',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: '設計課後促轉漏斗觸發條件與優惠券效期規則' },
-          { role: 'Sales / CS', type: 'R', desc: '擬定早鳥續購優惠方案與說服文案' },
-          { role: 'Engineering', type: 'R', desc: '實作打卡簽到事件觸發 2 小時延遲推播排程' },
-          { role: 'UX / Frontend', type: 'I', desc: '提供優惠券一鍵折抵續購結帳介面' },
-          { role: 'QA / DevOps', type: 'I', desc: '驗證優惠券 24 小時過期自動失效' }
-        ],
-        actions: ['設定打卡完成後 2 小時延遲任務佇列', '建立 24 小時限時折價券規則'],
-        dod: ['首購後 48 小時內續購率提升 30%', '推播準時發送率 100%', '優惠券折抵計算正確']
+        dod: ['預約完成後 10 秒內送達圖文指引', '櫃台重複詢問電話減少 50%', '推播失敗自動重試機制運作正常'],
+        sopData: {
+          p1: { team: 'Sales/CS & UX', sprint: 'Sprint 1 (W1-W2)', tasks: '收集全分店門禁密碼與製作圖文引導卡片。', deadline: '2026-03-27 EOD', result: '文案審定完成率 100%。', fail: '暫用文字簡訊發送門禁資訊。' },
+          p2: { team: 'Engineering', sprint: 'Sprint 2 (W3-W4)', tasks: '串接 LINE Messaging API 非同步發送。', deadline: '2026-04-06 EOD', result: '預約後 10 秒內送達率 >= 99%。', fail: '啟動 3 次自動重試機制。' },
+          p3: { team: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', tasks: '驗證推播失敗自動重試機制。', deadline: '2026-04-09 EOD', result: '櫃台電話諮詢量下降 50%。', fail: '發送 Email 備份通知。' }
+        }
       },
       {
         code: 'OB-111', title: '11. 尖峰時段熱門排課動態候補與自動通知',
@@ -815,153 +718,42 @@
           { role: 'Sales / CS', type: 'I', desc: '向 VIP 會員說明公平候補機制並更新 Help Center' }
         ],
         actions: ['本週五完成 Redis 分散式鎖單元測試', '架設 1,500 QPS 壓測驗證環境'],
-        dod: ['1,500 QPS 壓測下超賣數 = 0', 'API P99 響應 < 250ms', '15分鐘逾時自動順移測試 100% 通過']
-      },
-      {
-        code: 'OB-112', title: '12. 老客常用時段與師資「1-Click 極速複訂」',
-        voice: '「老學員每週都要固定上兩次週三晚上的空中瑜珈，每次進系統都要從第一頁慢慢滑課表重新找，很難用。」',
-        problem: '高頻回流老客操作摩擦過大；需分析歷史行為，在首頁首屏置頂「常約課程/老師」快捷按鈕，達成一鍵扣點。',
-        scope: '1. 暫不支援語音助理下單。 2. 暫不跨品牌連鎖同步。',
-        defaultOwner: 'UX/FE', defaultSupport: 'Engineering',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: '定義常約課程推薦演算法頻次與時間權重規則' },
-          { role: 'UX / Frontend', type: 'R', desc: '開發首頁極速複訂快捷卡片與樂觀鎖扣點交互' },
-          { role: 'Engineering', type: 'C', desc: '提供學員歷史預約行為聚合查詢 API' },
-          { role: 'QA / DevOps', type: 'I', desc: '驗證極速複訂之扣點正確性與防連點機制' },
-          { role: 'Sales / CS', type: 'I', desc: '收集高頻老客使用反饋' }
-        ],
-        actions: ['實作最近 30 天預約頻次統計 SQL 查詢', '首頁新增一鍵複訂快捷卡片 UI'],
-        dod: ['老客下單步驟由 5 步縮減至 1 步', '複訂結帳耗時 < 3 秒', '無重複扣點客訴']
-      },
-      {
-        code: 'OB-113', title: '13. 會員方案到期預警與線上「一鍵原方案續購」',
-        voice: '「學員常到了現場才發現票券昨天過期，在櫃台跟我們吵架說沒提醒，最後鬧著要退費。」',
-        problem: '票券生命週期缺乏主動溝通；需在到期前 14 天與 3 天自動發送 LINE 通知，並附上一鍵刷卡續約並展延通道。',
-        scope: '1. 暫不實裝信用卡自動定期續扣。 2. 逾期超過 30 天不追溯。',
-        defaultOwner: 'Product PM', defaultSupport: 'Sales/CS',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: '規劃方案到期通知時間軸與一鍵續費折扣' },
-          { role: 'Sales / CS', type: 'R', desc: '審定到期預警 LINE 推播話術與櫃台口徑' },
-          { role: 'Engineering', type: 'R', desc: '開發票券效期掃描排程與新舊票合併展延邏輯' },
-          { role: 'UX / Frontend', type: 'I', desc: '開發一鍵原方案續約結帳畫面' },
-          { role: 'QA / DevOps', type: 'I', desc: '驗證排程在大數據量下之執行效率' }
-        ],
-        actions: ['建立效期倒數 14 天與 3 天定時掃描 Cron Job', '測試續費後堂數自動累加機制'],
-        dod: ['到期爭議客訴歸零', '線上續購率提升 25%', '新舊票券效期計算無誤']
-      },
-      {
-        code: 'OB-114', title: '14. 自助式臨時請假與線上保留名額扣點規則',
-        voice: '「學生臨時生病不能來，私訊小編請假，小編忘記幫他取消，結果系統自動扣了他點數，又被客訴投訴投訴！」',
-        problem: '人工請假延遲導致無效扣點爭議；需提供學員端合規時限內自主一鍵請假，自動返還點數並釋放名額。',
-        scope: '1. 暫不支援 AI 辨識診斷證明。 2. 階梯罰款規則上限 3 種。',
-        defaultOwner: 'Engineering', defaultSupport: 'QA/Ops',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: '定義開課前多久取消可全額退點之商業規則' },
-          { role: 'Engineering', type: 'R', desc: '開發自助請假狀態機、點數自動返還與名額釋出' },
-          { role: 'UX / Frontend', type: 'R', desc: '設計會員中心「我的預約」一鍵請假按鈕與提示' },
-          { role: 'QA / DevOps', type: 'I', desc: '測試極端邊界（開課前 1 分鐘請假）系統防線' },
-          { role: 'Sales / CS', type: 'I', desc: '減少人工手動處理請假工單負擔' }
-        ],
-        actions: ['實作合規時限內自主請假與點數異動事務', '前台預約列表新增取消請假按鈕'],
-        dod: ['誤扣點數客訴下降 90%', '自主請假釋出名額即時率 100%', '退點交易紀錄完整']
-      },
-      {
-        code: 'OB-115', title: '15. 老客帶新客好友分享推薦碼 (Referral Loop)',
-        voice: '「老學員常帶朋友來，想要我們送他一堂課，但櫃台手動登記常常算錯，被教練抗議抽成算不清。」',
-        problem: '口碑裂變缺乏自動化歸因，手動記帳造成師資對帳混亂；需提供會員專屬 LINE 推薦連結，出席後雙方自動存入獎勵。',
-        scope: '1. 不提供現金返利。 2. 嚴禁多層級分銷。',
-        defaultOwner: 'Sales/CS', defaultSupport: 'UX/FE',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: '設計推薦碼生成規則與防詐刷（同裝置/IP）限制' },
-          { role: 'Sales / CS', type: 'R', desc: '擬定老帶新獎勵行銷方案與教練抽成對帳規則' },
-          { role: 'UX / Frontend', type: 'R', desc: '開發會員專屬推薦碼複製與分享圖卡介面' },
-          { role: 'Engineering', type: 'C', desc: '實作新客首購出席事件觸發雙方發券邏輯' },
-          { role: 'QA / DevOps', type: 'I', desc: '驗證防刷機制與獎勵入帳正確性' }
-        ],
-        actions: ['建立會員專屬推薦碼資料庫關聯', '實作新客首購出席後自動雙向派發獎勵'],
-        dod: ['推薦歸因準確率 100%', '教練抽成對帳爭議歸零', '推薦裂變訂單成長 >= 20%']
-      },
-      {
-        code: 'OB-116', title: '16. 高頻 VIP 專屬熱門課程提早 24 小時搶先預約權',
-        voice: '「買了年約的大 VIP 常常抱怨跟單次買券的新人搶同一堂課搶不到，覺得繳那麼多錢沒有特權。」',
-        problem: '高價值客戶缺乏差異化權益；需在排課引擎導入會員等級權限控制，允許特定方案用戶提早進入劃位。',
-        scope: '1. 排除加價競標搶位。 2. 排除手動單一例外配置。',
-        defaultOwner: 'Engineering', defaultSupport: 'Product PM',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: '定義 VIP 會員等級劃分與搶先預約時間差規則' },
-          { role: 'Engineering', type: 'R', desc: '在排課微服務中植入方案層級權限校驗與開門時間' },
-          { role: 'UX / Frontend', type: 'I', desc: '於課表顯示 VIP 專屬開跑倒數標籤' },
-          { role: 'Sales / CS', type: 'R', desc: '向 VIP 會員宣導專屬權益以提升年約續約率' },
-          { role: 'QA / DevOps', type: 'I', desc: '驗證一般會員在特權時間內無法提前預約' }
-        ],
-        actions: ['微服務新增會員等級動態開門時間校驗', 'VIP 會員卡背與課表新增特權標籤'],
-        dod: ['VIP 年約續約率提升 15%', '權限校驗漏洞測試 0 缺失', '提早預約搶位機制運作正常']
-      },
-      {
-        code: 'OB-117', title: '17. 老客自主「會籍線上暫停 (Freeze) 與展期」',
-        voice: '「學生出差、出國或懷孕要請長假停卡，常常拿著機票跑來櫃台填紙本，弄丟了又查不到歷史紀錄。」',
-        problem: '紙本停卡審批低效且缺乏稽核；需提供線上自主申請停卡，設定起訖日後自動凍結劃位並將到期日向後順延。',
-        scope: '1. 暫不收線上停卡手續費。 2. 每張會籍限暫停 2 次。',
-        defaultOwner: 'Product PM', defaultSupport: 'Sales/CS',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: '制定線上暫停次數上限與效期動態重算規範' },
-          { role: 'Sales / CS', type: 'R', desc: '審定停卡申請審核工作流與客服說明' },
-          { role: 'Engineering', type: 'R', desc: '開發會籍凍結狀態機與到期日自動展延排程' },
-          { role: 'UX / Frontend', type: 'R', desc: '開發會員中心自主申請停卡起訖日表單' },
-          { role: 'QA / DevOps', type: 'I', desc: '驗證暫停期間無法預約且復卡後效期正確' }
-        ],
-        actions: ['建立會員中心自主停卡起訖日申請表單', '實作停卡期間預約狀態防呆攔截'],
-        dod: ['紙本停卡表單歸零', '展延天數計算精確無誤', '每卡 2 次上限防呆攔截生效']
-      },
-      {
-        code: 'OB-118', title: '18. 多堂數家庭/同伴合併扣點主從帳戶劃位',
-        voice: '「媽媽買了 50 堂家庭票，想要全家人一起用，每次都要媽媽手機登入幫小孩約，小孩自己根本不能看課表。」',
-        problem: '主帳戶資產無法授權子帳戶共用，導致代訂繁複；需建立主從帳戶關聯，允許子帳戶直接劃位並由主帳戶扣點。',
-        scope: '1. 子帳號上限 4 人。 2. 不支援跨非親屬無限制轉讓。',
-        defaultOwner: 'Engineering', defaultSupport: 'UX/FE',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: '設計主從帳戶資料模型與點數共享授權架構' },
-          { role: 'Engineering', type: 'R', desc: '實作主從帳號綁定、子帳戶自主劃位與主帳戶扣點事務' },
-          { role: 'UX / Frontend', type: 'R', desc: '開發家庭成員管理與子帳戶切換劃位介面' },
-          { role: 'Sales / CS', type: 'I', desc: '協助家庭方案推廣與客訴支援' },
-          { role: 'QA / DevOps', type: 'I', desc: '執行家庭成員同時並發扣點壓力測試' }
-        ],
-        actions: ['建立主從帳戶點數共享資料表結構', '子帳戶劃位扣點驗證機制開發'],
-        dod: ['家庭方案銷售額增長 20%', '並發扣點無資安漏洞與負點數異常', '主帳戶即時收到扣點通知']
-      },
-      {
-        code: 'OB-119', title: '19. 沉睡老客 30 天未到課自動喚醒與關懷推播',
-        voice: '「很多買了半年卡的學員，過了一個月都沒來，我們也忙到忘記關心，結果合約到期學員就默默流失了。」',
-        problem: '缺乏主動健康度預警，沉睡學員流失率高；需偵測最後出席日大於 30 天之學員，自動觸發關懷訊息與復課激勵。',
-        scope: '1. 暫不串接 AI 機器人打電話。 2. 每 30 天限推 1 次。',
-        defaultOwner: 'Sales/CS', defaultSupport: 'Product PM',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: '定義沉睡會員判定天數與喚醒優惠卷策略' },
-          { role: 'Sales / CS', type: 'R', desc: '擬定關懷問候文案與復課激勵專屬優惠' },
-          { role: 'Engineering', type: 'R', desc: '開發不活躍學員定時掃描 Cron Job 與防騷擾頻次控制' },
-          { role: 'UX / Frontend', type: 'I', desc: '設計喚醒訊息導流之專屬回歸預約頁面' },
-          { role: 'QA / DevOps', type: 'I', desc: '測試排程大數據掃描效能' }
-        ],
-        actions: ['建立 30 天未出席會員定時掃描任務', '擬定溫情喚醒 LINE 推播與回歸優惠券'],
-        dod: ['沉睡老客回流率提升 >= 10%', '推播頻次防騷擾機制 100% 生效', '回歸預約轉化追蹤正常']
-      },
-      {
-        code: 'OB-120', title: '20. 老客出席里程碑成就與「忠誠度徽章」體系',
-        voice: '「學員在我們這裡上了 100 堂課，很想拍照發 IG 炫耀，但系統什麼紀錄都沒有，感覺很冰冷。」',
-        problem: '缺乏正向心理回饋與社交貨幣；需在完成 10、50、100 堂時，於會員中心自動解鎖專屬成就圖卡與紀念折扣碼。',
-        scope: '1. 暫不串接實體獎品物流。 2. 不開放自訂徽章圖案。',
-        defaultOwner: 'UX/FE', defaultSupport: 'Sales/CS',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: '規劃出席里程碑階梯（10/50/100堂）與解鎖獎勵' },
-          { role: 'UX / Frontend', type: 'R', desc: '開發會員中心成就牆與 IG 專屬動態分享圖卡生成' },
-          { role: 'Engineering', type: 'C', desc: '累計學員歷史出席打卡次數事件監聽' },
-          { role: 'Sales / CS', type: 'I', desc: '評估徽章對學員社群曝光之行銷效益' },
-          { role: 'QA / DevOps', type: 'I', desc: '驗證達標瞬間自動解鎖徽章與發券' }
-        ],
-        actions: ['設計 10、50、100 堂里程碑數位徽章圖卡', '串接會員中心成就解鎖動態渲染事件'],
-        dod: ['學員社群分享率提升 35%', '里程碑解鎖即時無延遲', '成就圖卡匯出格式相容 IG 尺寸']
+        dod: ['1,500 QPS 壓測下超賣數 = 0', 'API P99 響應 < 250ms', '15分鐘逾時自動順移測試 100% 通過'],
+        sopData: {
+          p1: { team: 'Engineering & Product PM', sprint: 'Sprint 2 (W3-W4)', tasks: '導入 Redis Redlock 分散式原子鎖與等冪性校驗。', deadline: '2026-03-28 EOD', result: '1,500 QPS 壓測下超賣數 = 0 (P99 < 250ms)。', fail: '強制改寫資料庫唯一約束併發佇列排隊。' },
+          p2: { team: 'Engineering & Sales/CS', sprint: 'Sprint 3 (W5-W6)', tasks: '建置金流非同步對帳 Worker 與前端輪詢機制。', deadline: '2026-04-11 EOD', result: '斷網重連後交易狀態 100% 自動恢復同步。', fail: '啟動人工對帳通道並由客服 10 分鐘內手動補發。' },
+          p3: { team: 'Engineering & QA/Ops', sprint: 'Sprint 2 (W3-W4)', tasks: '優化 Celery 倒數計時任務與事件驅動自動順移。', deadline: '2026-03-31 EOD', result: '逾時 15 分鐘無條件釋出並 100% 準確順移。', fail: '改由排程掃描每 3 分鐘批次強制回收過期席位。' }
+        }
       }
     ];
+
+    // 為其他未特別指定的 OB 模組提供智慧預設 SOP 與資料
+    function getPresetByCode(code) {
+      const found = allPresets.find(p => p.code === code);
+      if (found) return found;
+      return {
+        code: code,
+        title: `${code} 模組專屬智慧交付與邊界管理`,
+        voice: `「使用者對於 ${code} 模組操作流暢度與自動化回饋有高度期待，希望減少人工等待時間。」`,
+        problem: `針對 ${code} 模組之痛點，導入自動化非同步機制與防呆驗證，確保資料一致性。`,
+        scope: `1. 暫不支援第三方擴充插件串接。 2. 暫不支援多國語系動態切換。`,
+        defaultOwner: 'Engineering', defaultSupport: 'QA/Ops',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: `定義 ${code} 商業目標與驗收標準` },
+          { role: 'Engineering', type: 'R', desc: `主導 ${code} 核心演算法與 API 開發` },
+          { role: 'UX / Frontend', type: 'R', desc: `開發 ${code} 響應式介面與互動流` },
+          { role: 'QA / DevOps', type: 'C', desc: `執行 ${code} 自動化測試與壓測` },
+          { role: 'Sales / CS', type: 'I', desc: `接收 ${code} 知識庫與客服培訓` }
+        ],
+        actions: [`完成 ${code} 規格確認與資安審查`, `執行 ${code} 整合測試與 UAT驗收`],
+        dod: [`${code} API 響應時間 < 200ms`, `通過資安與極端邊界測試`],
+        sopData: {
+          p1: { team: 'Engineering & Product PM', sprint: 'Sprint 2 (W3-W4)', tasks: `針對 ${code} 進行併發與分散式鎖防護強化。`, deadline: '2026-03-28 EOD', result: `高並發下零資料異常 (Error Rate = 0%)。`, fail: '啟用降級備用 API 通道。' },
+          p2: { team: 'Engineering & Sales/CS', sprint: 'Sprint 3 (W5-W6)', tasks: `建立 ${code} 非同步補償機制與對帳 Worker。`, deadline: '2026-04-11 EOD', result: '狀態不一致時自動對帳修復。', fail: '轉由人工覆核工單處理。' },
+          p3: { team: 'Engineering & QA/Ops', sprint: 'Sprint 2 (W3-W4)', tasks: `設定 ${code} 逾時處理與事件驅動自動順移。`, deadline: '2026-03-31 EOD', result: '逾時資源 100% 自動釋放回收。', fail: '批次排程強制清除過期 Session。' }
+        }
+      };
+    }
 
     function initDropdowns() {
       const step1Select = document.getElementById('req-title-select');
@@ -974,36 +766,40 @@
       let optGroupOld = document.createElement('optgroup');
       optGroupOld.label = '── 老客場景 (OB-111 ~ OB-120) ──';
 
-      allPresets.forEach((p, idx) => {
+      // 產生 20 組 OB-101 ~ OB-120 選項
+      for (let i = 101; i <= 120; i++) {
+        const code = `OB-${i}`;
+        const presetObj = getPresetByCode(code);
+        
         const opt1 = document.createElement('option');
-        opt1.value = idx;
-        opt1.text = `${p.code} - ${p.title}`;
-        if (idx < 10) optGroupNew.appendChild(opt1);
+        opt1.value = code;
+        opt1.text = `${code} - ${presetObj.title}`;
+        if (i <= 110) optGroupNew.appendChild(opt1);
         else optGroupOld.appendChild(opt1);
 
         const opt2 = document.createElement('option');
-        opt2.value = idx;
-        opt2.text = `${p.code} - ${p.title}`;
+        opt2.value = code;
+        opt2.text = `${code} - ${presetObj.title}`;
         modalSelect.appendChild(opt2);
 
         const opt3 = document.createElement('option');
-        opt3.value = p.code;
-        opt3.text = `${p.code}: ${p.title}`;
+        opt3.value = code;
+        opt3.text = `${code}: ${presetObj.title}`;
         ganttFilterSelect.appendChild(opt3);
 
         const opt4 = document.createElement('option');
-        opt4.value = p.code;
-        opt4.text = `${p.code}: ${p.title}`;
+        opt4.value = code;
+        opt4.text = `${code}: ${presetObj.title}`;
         kanbanFilterSelect.appendChild(opt4);
-      });
+      }
 
       step1Select.appendChild(optGroupNew.cloneNode(true));
       step1Select.appendChild(optGroupOld.cloneNode(true));
-      step1Select.value = "10"; // Default: OB-111
+      step1Select.value = "OB-111"; // Default: OB-111
     }
 
-    function onTitleDropdownChanged(idx) {
-      const preset = allPresets[parseInt(idx)];
+    function onTitleDropdownChanged(code) {
+      const preset = getPresetByCode(code);
       if (!preset) return;
 
       document.getElementById('req-voice').value = preset.voice;
@@ -1013,19 +809,38 @@
       document.getElementById('gantt-filter-module').value = preset.code;
       document.getElementById('kanban-filter-module').value = preset.code;
 
+      // 即時更新 SOP 內容
+      if (preset.sopData) {
+        document.getElementById('sop-p1-team').innerText = preset.sopData.p1.team;
+        document.getElementById('sop-p1-sprint').innerText = preset.sopData.p1.sprint;
+        document.getElementById('sop-p1-tasks').innerText = preset.sopData.p1.tasks;
+        document.getElementById('sop-p1-deadline').innerText = preset.sopData.p1.deadline;
+        document.getElementById('sop-p1-result').innerText = preset.sopData.p1.result;
+        document.getElementById('sop-p1-fail').innerText = preset.sopData.p1.fail;
+
+        document.getElementById('sop-p2-team').innerText = preset.sopData.p2.team;
+        document.getElementById('sop-p2-sprint').innerText = preset.sopData.p2.sprint;
+        document.getElementById('sop-p2-tasks').innerText = preset.sopData.p2.tasks;
+        document.getElementById('sop-p2-deadline').innerText = preset.sopData.p2.deadline;
+        document.getElementById('sop-p2-result').innerText = preset.sopData.p2.result;
+        document.getElementById('sop-p2-fail').innerText = preset.sopData.p2.fail;
+
+        document.getElementById('sop-p3-team').innerText = preset.sopData.p3.team;
+        document.getElementById('sop-p3-sprint').innerText = preset.sopData.p3.sprint;
+        document.getElementById('sop-p3-tasks').innerText = preset.sopData.p3.tasks;
+        document.getElementById('sop-p3-deadline').innerText = preset.sopData.p3.deadline;
+        document.getElementById('sop-p3-result').innerText = preset.sopData.p3.result;
+        document.getElementById('sop-p3-fail').innerText = preset.sopData.p3.fail;
+      }
+
       renderInstantPrdAndInsights(preset);
       renderRaciAndDoD(preset);
       renderKanbanAndGantt();
     }
 
     function onGanttModuleChanged(code) {
-      const presetIdx = allPresets.findIndex(p => p.code === code);
-      if (presetIdx !== -1) {
-        document.getElementById('req-title-select').value = presetIdx;
-        onTitleDropdownChanged(presetIdx);
-      }
-      document.getElementById('kanban-filter-module').value = code;
-      renderKanbanAndGantt();
+      document.getElementById('req-title-select').value = code;
+      onTitleDropdownChanged(code);
     }
 
     function manualInputSync() {}
@@ -1051,10 +866,10 @@
       const p3Tasks = document.getElementById('sop-p3-tasks').innerText;
       const p3Deadline = document.getElementById('sop-p3-deadline').innerText;
 
-      const memoText = `[緊急危機應變 SOP 跨部門決議事項]\n1. [Concurrency 超賣應變]:\n   - 負責團隊: ${p1Team}\n   - 目標 Sprint: ${p1Sprint}\n   - 修正事情: ${p1Tasks}\n   - 限期: ${p1Deadline}\n   - 交付結果: ${p1Result}\n   - 若失敗再進行: ${p1Fail}\n\n2. [Network Drop 孤兒交易應變]:\n   - 負責團隊: ${p2Team}\n   - 目標 Sprint: ${p2Sprint}\n   - 修正事情: ${p2Tasks}\n   - 限期: ${p2Deadline}\n\n3. [Timeout Fallback 候補逾時應變]:\n   - 負責團隊: ${p3Team}\n   - 目標 Sprint: ${p3Sprint}\n   - 修正事情: ${p3Tasks}\n   - 限期: ${p3Deadline}`;
+      const memoText = `[緊急危機應變 SOP 跨部門決議事項]\n1. [Concurrency 超賣應變]:\n   - 負責團隊: ${p1Team}\n   - 目標 Sprint: ${p1Sprint}\n   - 修正事情: ${p1Tasks}\n   - 限期: ${p1Deadline}\n   - 正常測試目標/交付結果: ${p1Result}\n   - 若失敗再進行: ${p1Fail}\n\n2. [Network Drop 孤兒交易應變]:\n   - 負責團隊: ${p2Team}\n   - 目標 Sprint: ${p2Sprint}\n   - 修正事情: ${p2Tasks}\n   - 限期: ${p2Deadline}\n\n3. [Timeout Fallback 候補逾時應變]:\n   - 負責團隊: ${p3Team}\n   - 目標 Sprint: ${p3Sprint}\n   - 修正事情: ${p3Tasks}\n   - 限期: ${p3Deadline}`;
 
       document.getElementById('ko-memo').innerText = memoText;
-      alert('已成功將最新 SOP 團隊分工與期限同步至 STEP 3 跨部門會議備忘錄！');
+      alert('已成功將最新 SOP 團隊分工與正常測試目標同步至 STEP 3 跨部門會議備忘錄！');
     }
 
     // ----------------------------------------------------
@@ -1062,9 +877,11 @@
     // ----------------------------------------------------
     function openGmailEmergencyCompose() {
       const selectEl = document.getElementById('req-title-select');
-      const title = selectEl.options[selectEl.selectedIndex].text;
+      const code = selectEl.value;
+      const preset = getPresetByCode(code);
+      const title = preset ? preset.title : code;
       const senderEmail = 'mshappyj@gmail.com';
-      const subject = `[URGENT] Cross-Functional Emergency & SOP Action Matrix for ${title}`;
+      const subject = `[URGENT] Cross-Functional Emergency & SOP Action Matrix for ${code}: ${title}`;
       
       const p1Team = document.getElementById('sop-p1-team').innerText;
       const p1Sprint = document.getElementById('sop-p1-sprint').innerText;
@@ -1082,24 +899,24 @@
 
       const emailBody = `Hi Cross-Functional Team,
 
-As the Product PM convening this emergency alignment for [${title}], we must ensure all teams strictly adhere to our Crisis SOP and RACI standards to prevent any production risk.
+As the Product PM convening this emergency alignment for [${code}: ${title}], we must ensure all teams strictly adhere to our Crisis SOP and RACI standards to prevent any production risk.
 
 Sender / Convener (PM): ${senderEmail}
 
 【Emergency SOP Action Matrix & Sprint Assignments】
-1. [Concurrency 超賣應變]:
+1. [Concurrency 超賣防護]:
    - Responsible Team: ${p1Team}
    - Target Sprint: ${p1Sprint}
    - Action Items: ${p1Tasks}
    - Deadline: ${p1Deadline}
-   - Expected Deliverables: ${p1Result}
+   - Normal Testing Deliverable: ${p1Result}
 
-2. [Network Drop 孤兒交易應變]:
+2. [Network Drop 孤兒交易修復]:
    - Responsible Team: ${p2Team}
    - Target Sprint: ${p2Sprint}
    - Action Items: ${p2Tasks}
 
-3. [Timeout Fallback 候補逾時應變]:
+3. [Timeout Fallback 候補順移優化]:
    - Responsible Team: ${p3Team}
    - Target Sprint: ${p3Sprint}
    - Action Items: ${p3Tasks}
