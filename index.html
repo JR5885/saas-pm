@@ -374,9 +374,9 @@
             <div><strong class="text-blue-400">Team:</strong> <span contenteditable="true" id="sop-p1-team" class="text-slate-200 bg-slate-900/60 px-1 rounded">Engineering & Product PM</span></div>
             <div><strong class="text-yellow-400">Target Sprint:</strong> <span contenteditable="true" id="sop-p1-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
             <div><strong class="text-slate-300">Required Fix:</strong> <span contenteditable="true" id="sop-p1-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded">Implement Redis Redlock & Idempotency check.</span></div>
-            <div><strong class="text-rose-400">Deadline:</strong> <span contenteditable="true" id="sop-p1-deadline" class="text-slate-200 bg-slate-900/60 px-1 rounded">2026-03-28 EOD</span></div>
-            <div><strong class="text-cyber-green">Deliverable:</strong> <span contenteditable="true" id="sop-p1-result" class="text-slate-200 bg-slate-900/60 px-1 rounded">1,500 QPS load test overbooking = 0.</span></div>
-            <div><strong class="text-amber-400">Fallback Plan:</strong> <span contenteditable="true" id="sop-p1-fail" class="text-slate-200 bg-slate-900/60 px-1 rounded">Database unique constraint enforcement & queue.</span></div>
+            <div><strong class="text-rose-400">Deadline:</strong> <span contenteditable="true" id="sop-p1-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-03-28 EOD</span></div>
+            <div><strong class="text-cyber-green">Deliverable:</strong> <span contenteditable="true" id="sop-p1-result" class="text-slate-300 bg-slate-900/60 px-1 rounded">1,500 QPS load test overbooking = 0.</span></div>
+            <div><strong class="text-amber-400">Fallback Plan:</strong> <span contenteditable="true" id="sop-p1-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded">Database unique constraint enforcement & queue.</span></div>
           </div>
         </div>
 
@@ -388,7 +388,7 @@
             <div><strong class="text-blue-400">Team:</strong> <span contenteditable="true" id="sop-p2-team" class="text-slate-200 bg-slate-900/60 px-1 rounded">Engineering & Sales/CS</span></div>
             <div><strong class="text-yellow-400">Target Sprint:</strong> <span contenteditable="true" id="sop-p2-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 3 (W5-W6)</span></div>
             <div><strong class="text-slate-300">Required Fix:</strong> <span contenteditable="true" id="sop-p2-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded">Build payment reconciliation worker & frontend polling.</span></div>
-            <div><strong class="text-rose-400">Deadline:</strong> <span contenteditable="true" id="sop-p2-deadline" class="text-slate-200 bg-slate-900/60 px-1 rounded">2026-04-11 EOD</span></div>
+            <div><strong class="text-rose-400">Deadline:</strong> <span contenteditable="true" id="sop-p2-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-04-11 EOD</span></div>
             <div><strong class="text-cyber-green">Deliverable:</strong> <span contenteditable="true" id="sop-p2-result" class="text-slate-300 bg-slate-900/60 px-1 rounded">Auto-sync transaction status upon reconnection.</span></div>
             <div><strong class="text-amber-400">Fallback Plan:</strong> <span contenteditable="true" id="sop-p2-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded">Manual CS support channel within 10 minutes.</span></div>
           </div>
@@ -402,7 +402,7 @@
             <div><strong class="text-blue-400">Team:</strong> <span contenteditable="true" id="sop-p3-team" class="text-slate-200 bg-slate-900/60 px-1 rounded">Engineering & QA/Ops</span></div>
             <div><strong class="text-yellow-400">Target Sprint:</strong> <span contenteditable="true" id="sop-p3-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
             <div><strong class="text-slate-300">Required Fix:</strong> <span contenteditable="true" id="sop-p3-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded">Optimize Celery countdown & event-driven auto-rollover.</span></div>
-            <div><strong class="text-rose-400">Deadline:</strong> <span contenteditable="true" id="sop-p3-deadline" class="text-slate-200 bg-slate-900/60 px-1 rounded">2026-03-31 EOD</span></div>
+            <div><strong class="text-rose-400">Deadline:</strong> <span contenteditable="true" id="sop-p3-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-03-31 EOD</span></div>
             <div><strong class="text-cyber-green">Deliverable:</strong> <span contenteditable="true" id="sop-p3-result" class="text-slate-300 bg-slate-900/60 px-1 rounded">15-min timeout release & 100% accurate waitlist shift.</span></div>
             <div><strong class="text-amber-400">Fallback Plan:</strong> <span contenteditable="true" id="sop-p3-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded">Batch cron job sweep every 3 minutes.</span></div>
           </div>
@@ -533,7 +533,6 @@
   </div>
 
   <script>
-    // 完整的 20 組模組資料庫，並支援自動產生物件以防任何模組空白
     const allPresets = [
       {
         code: 'OB-101', title: '01. LINE LIFF Fast Booking',
@@ -625,7 +624,6 @@
       const found = allPresets.find(p => p.code === code);
       if (found) return found;
 
-      // 動態產生 OB-103 到 OB-120 中未寫死的項目，確保 Scope、PRD、RACI、Step 2 都有內容
       return {
         code: code,
         title: `${code} Module Delivery & Boundary Management`,
@@ -871,6 +869,7 @@
       document.getElementById('ticket-modal').classList.add('hidden');
     }
 
+    // 關鍵修復：儲存 Ticket 後立即呼叫 renderKanbanBoard() 重新渲染看板
     function saveTicketFromModal() {
       const id = document.getElementById('modal-ticket-id').value.trim() || 'OB-101';
       const title = document.getElementById('modal-ticket-title').value.trim() || 'New Subtask Ticket';
