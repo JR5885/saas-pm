@@ -63,7 +63,7 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking PM Command Center</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] Modular Scope Control &bull; Full Data Sync &bull; Gmail Dispatch (mshappyj@gmail.com)
+          [ROLE: PRODUCT PM] Modular Scope Control &bull; Verified Gmail Dispatch (mshappyj@gmail.com)
         </p>
       </div>
 
@@ -122,7 +122,7 @@
           <span class="px-2.5 py-0.5 rounded bg-cyber-cyan text-slate-950 font-black text-xs font-mono">STEP 1</span>
           <h2 class="text-sm font-bold text-white tracking-wide">Discovery & Scope Freeze / Custom Ad-hoc Handling</h2>
         </div>
-        <button onclick="openGmailKickoffCompose()" class="px-3 py-1 rounded bg-purple-900/80 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-xs font-bold transition shadow-md">
+        <button onclick="openGmailKickoffCompose()" class="px-3.5 py-1.5 rounded-lg bg-purple-900/80 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-xs font-bold transition shadow-md">
           ✉️ Send Kickoff Email (Gmail)
         </button>
       </div>
@@ -374,7 +374,7 @@
             <div><strong class="text-blue-400">Team:</strong> <span contenteditable="true" id="sop-p1-team" class="text-slate-200 bg-slate-900/60 px-1 rounded">Engineering & Product PM</span></div>
             <div><strong class="text-yellow-400">Target Sprint:</strong> <span contenteditable="true" id="sop-p1-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
             <div><strong class="text-slate-300">Required Fix:</strong> <span contenteditable="true" id="sop-p1-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded">Implement Redis Redlock & Idempotency check.</span></div>
-            <div><strong class="text-rose-400">Deadline:</strong> <span contenteditable="true" id="sop-p1-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-03-28 EOD</span></div>
+            <div><strong class="text-rose-400">Deadline:</strong> <span contenteditable="true" id="sop-p1-deadline" class="text-slate-200 bg-slate-900/60 px-1 rounded">2026-03-28 EOD</span></div>
             <div><strong class="text-cyber-green">Deliverable:</strong> <span contenteditable="true" id="sop-p1-result" class="text-slate-300 bg-slate-900/60 px-1 rounded">1,500 QPS load test overbooking = 0.</span></div>
             <div><strong class="text-amber-400">Fallback Plan:</strong> <span contenteditable="true" id="sop-p1-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded">Database unique constraint enforcement & queue.</span></div>
           </div>
@@ -747,7 +747,8 @@
 
       renderInstantPrdAndInsights(preset);
       renderRaciAndDoD(preset);
-      renderKanbanAndGantt();
+      renderKanbanBoard();
+      renderGanttSchedule();
     }
 
     function onGanttModuleChanged(code) {
@@ -923,6 +924,79 @@
     function deleteCurrentTicket() {
       closeTicketModal();
       renderKanbanBoard();
+    }
+
+    // ----------------------------------------------------
+    // Gmail 連結與模板生成邏輯 (確保正確呼叫 window.open)
+    // ----------------------------------------------------
+    function openGmailKickoffCompose() {
+      const selectEl = document.getElementById('req-title-select');
+      const code = selectEl.value;
+      const preset = getPresetByCode(code);
+      const title = preset ? preset.title : code;
+      const senderEmail = 'mshappyj@gmail.com';
+      const subject = `[KICKOFF & SCOPE FREEZE] Project Execution Plan for ${code}: ${title}`;
+      
+      const emailBody = `Hi Cross-Functional Team,
+
+As Product PM convening this kickoff for [${code}: ${title}], all teams must strictly adhere to our Scope Freeze and RACI matrix.
+
+Sender / PM Convener: ${senderEmail}
+
+【Project Kickoff & Scope Details】
+- Module: ${code} - ${title}
+- Voice of Customer: ${preset.voice}
+- Root Cause & Solution: ${preset.problem}
+- Scope Boundary: ${preset.scope}
+
+Please review the Command Center and confirm your team's readiness by EOD today.
+
+Best regards,
+Product PM: ${senderEmail}
+Omcean Booking Delivery Command Center`;
+
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+      window.open(gmailUrl, '_blank');
+    }
+
+    function openGmailEmergencyCompose() {
+      const selectEl = document.getElementById('req-title-select');
+      const code = selectEl.value;
+      const preset = getPresetByCode(code);
+      const title = preset ? preset.title : code;
+      const senderEmail = 'mshappyj@gmail.com';
+      const subject = `[EMERGENCY CRISIS SOP] Action Matrix for ${code}: ${title}`;
+      
+      const p1Team = document.getElementById('sop-p1-team').innerText;
+      const p1Sprint = document.getElementById('sop-p1-sprint').innerText;
+      const p1Tasks = document.getElementById('sop-p1-tasks').innerText;
+      const p1Deadline = document.getElementById('sop-p1-deadline').innerText;
+      const p1Result = document.getElementById('sop-p1-result').innerText;
+      const p1Fail = document.getElementById('sop-p1-fail').innerText;
+
+      const emailBody = `ATTENTION ALL TEAMS,
+
+An urgent crisis response protocol has been activated for [${code}: ${title}]. Please review your assigned responsibilities below.
+
+Sender / Convener: ${senderEmail}
+
+【Emergency SOP Action Matrix】
+1. [Concurrency Overbooking Protection]:
+   - Responsible Team: ${p1Team}
+   - Target Sprint: ${p1Sprint}
+   - Required Tasks: ${p1Tasks}
+   - Deadline: ${p1Deadline}
+   - Deliverable Target: ${p1Result}
+   - Fallback Plan: ${p1Fail}
+
+Immediate execution and sign-off are required.
+
+Best regards,
+Product PM: ${senderEmail}
+Omcean Booking Command Center`;
+
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+      window.open(gmailUrl, '_blank');
     }
 
     window.onload = () => {
