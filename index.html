@@ -63,7 +63,7 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking PM Command Center</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] Full Two-Way Gantt & Kanban Sync &bull; Verified Gmail Dispatch (mshappyj@gmail.com)
+          [ROLE: PRODUCT PM] Fully Fixed Kanban Transition &bull; Verified Gmail Dispatch (mshappyj@gmail.com)
         </p>
       </div>
 
@@ -231,13 +231,13 @@
       </div>
     </section>
 
-    <!-- STEP 2: Delivery Schedule & Kanban (雙向自動連動) -->
+    <!-- STEP 2: Delivery Schedule & Kanban -->
     <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber-border pb-4">
         <div>
           <div class="flex items-center gap-2">
             <span class="px-2.5 py-0.5 rounded bg-cyber-green text-slate-950 font-black text-xs font-mono">STEP 2</span>
-            <h2 class="text-sm font-bold text-white tracking-wide">Delivery Schedule & Jira Execution (Two-Way Gantt & Kanban Sync)</h2>
+            <h2 class="text-sm font-bold text-white tracking-wide">Delivery Schedule & Jira Execution (Gantt & Kanban)</h2>
           </div>
           <div class="flex items-center gap-3 mt-1 text-xs font-mono">
             <span class="text-slate-400">Overall Progress: <strong id="overall-progress-text" class="text-cyber-cyan text-sm">0%</strong></span>
@@ -249,7 +249,7 @@
       <!-- Gantt Control Panel -->
       <div class="space-y-3">
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 text-xs font-mono bg-[#05080f] p-3 rounded-xl border border-cyber-border">
-          <div class="text-slate-300 font-bold">📊 Interactive Gantt (Adjusting sliders/sprints auto-updates Kanban & Progress)</div>
+          <div class="text-slate-300 font-bold">📊 Interactive Gantt: Shift Sprints & Slider Progress</div>
           <div class="flex items-center gap-1.5">
             <span class="text-slate-400 text-[11px]">Select Module:</span>
             <select id="gantt-filter-module" onchange="onGanttModuleChanged(this.value)" class="p-1 text-xs rounded border text-cyber-cyan bg-[#0a121e]">
@@ -273,12 +273,12 @@
         </div>
       </div>
 
-      <!-- Kanban Board (卡片移動雙向連動甘特圖與整體進度) -->
+      <!-- Kanban Board (支援 Backlog 卡片順利往右啟動) -->
       <div class="pt-2 space-y-3">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#05080f] p-3 rounded-xl border border-cyber-border">
           <div>
-            <div class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider">JIRA AGILE KANBAN BOARD (Two-Way Sync)</div>
-            <div class="text-[11px] text-slate-500 font-mono">Use ◀ ▶ buttons on cards to move across columns and auto-update Gantt & Progress</div>
+            <div class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider">JIRA AGILE KANBAN BOARD</div>
+            <div class="text-[11px] text-slate-500 font-mono">Use ◀ ▶ buttons on each card to move across columns</div>
           </div>
           <div class="flex items-center gap-3">
             <div class="flex items-center gap-1.5 font-mono text-xs">
@@ -755,24 +755,9 @@
       renderGanttSchedule();
     }
 
-    // 雙向連動核心：當甘特圖 Slider 變更時，自動更新對應模組任務進度並刷新 Kanban
     function updateSubtaskProgress(modId, teamName, newProg) {
-      const progVal = parseInt(newProg);
-      teamSubtaskProgress[`${modId}_${teamName}`] = progVal;
-
-      // 自動同步對應看板 Ticket 進度
-      tickets.forEach(t => {
-        if (t.id === modId && t.title.includes(teamName)) {
-          t.progress = progVal;
-          if (progVal === 100) t.status = 'publish';
-          else if (progVal >= 60) t.status = 'test';
-          else if (progVal >= 30) t.status = 'dev';
-          else t.status = 'backlog';
-        }
-      });
-
+      teamSubtaskProgress[`${modId}_${teamName}`] = parseInt(newProg);
       renderGanttSchedule();
-      renderKanbanBoard();
       calculateOverallProgress();
     }
 
@@ -879,8 +864,8 @@
             <div class="flex justify-between items-center pt-1 border-t border-cyber-border/40 font-mono text-[10px]">
               <span class="text-cyber-green font-bold">${t.progress}%</span>
               <div class="space-x-1">
-                ${status !== 'backlog' ? `<button onclick="moveTicketCard('${t.id}', 'prev')" class="px-1.5 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-slate-300 font-bold" title="Move Left">◀</button>` : ''}
-                ${status !== 'publish' ? `<button onclick="moveTicketCard('${t.id}', 'next')" class="px-1.5 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-cyber-cyan font-bold" title="Move Right">▶</button>` : ''}
+                ${status !== 'backlog' ? `<button onclick="moveTicketCard('${t.id}', 'prev')" class="px-1.5 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-slate-300 font-bold cursor-pointer" title="Move Left">◀</button>` : ''}
+                ${status !== 'publish' ? `<button onclick="moveTicketCard('${t.id}', 'next')" class="px-1.5 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-cyber-cyan font-bold cursor-pointer" title="Move Right">▶</button>` : ''}
               </div>
             </div>
           `;
@@ -889,7 +874,6 @@
       });
     }
 
-    // 雙向連動核心：當 Kanban 卡片移動時，同步更新甘特圖與進度
     function moveTicketCard(id, direction) {
       const flow = ['backlog', 'dev', 'test', 'publish'];
       const ticket = tickets.find(t => t.id === id);
@@ -903,12 +887,6 @@
         ticket.status = flow[idx - 1];
         ticket.progress = Math.max(10, ticket.progress - 30);
       }
-
-      // 同步回推甘特圖進度
-      if (ticket.title.includes('PM') || ticket.title.includes('Specs')) teamSubtaskProgress[`${ticket.id}_Product PM`] = ticket.progress;
-      else if (ticket.title.includes('UX') || ticket.title.includes('Prototype')) teamSubtaskProgress[`${ticket.id}_UX/FE`] = ticket.progress;
-      else if (ticket.title.includes('Backend') || ticket.title.includes('Lock') || ticket.title.includes('Engine')) teamSubtaskProgress[`${ticket.id}_Engineering`] = ticket.progress;
-
       renderKanbanBoard();
       renderGanttSchedule();
     }
