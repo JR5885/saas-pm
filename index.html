@@ -63,7 +63,7 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking PM Command Center</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] Movable Kanban Cards &bull; Verified Gmail Dispatch (mshappyj@gmail.com)
+          [ROLE: PRODUCT PM] 20 Modules Fully Loaded &bull; Verified Gmail Dispatch (mshappyj@gmail.com)
         </p>
       </div>
 
@@ -273,12 +273,12 @@
         </div>
       </div>
 
-      <!-- Kanban Board (附帶前後移動按鈕) -->
+      <!-- Kanban Board (附帶清晰可見的 ◀ 與 ▶ 移動按鈕) -->
       <div class="pt-2 space-y-3">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#05080f] p-3 rounded-xl border border-cyber-border">
           <div>
             <div class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider">JIRA AGILE KANBAN BOARD</div>
-            <div class="text-[11px] text-slate-500 font-mono">Use ◀ ▶ buttons on cards to move across columns</div>
+            <div class="text-[11px] text-slate-500 font-mono">Use ◀ ▶ buttons on each card to move across columns</div>
           </div>
           <div class="flex items-center gap-3">
             <div class="flex items-center gap-1.5 font-mono text-xs">
@@ -374,7 +374,7 @@
             <div><strong class="text-blue-400">Team:</strong> <span contenteditable="true" id="sop-p1-team" class="text-slate-200 bg-slate-900/60 px-1 rounded">Engineering & Product PM</span></div>
             <div><strong class="text-yellow-400">Target Sprint:</strong> <span contenteditable="true" id="sop-p1-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
             <div><strong class="text-slate-300">Required Fix:</strong> <span contenteditable="true" id="sop-p1-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded">Implement Redis Redlock & Idempotency check.</span></div>
-            <div><strong class="text-rose-400">Deadline:</strong> <span contenteditable="true" id="sop-p1-deadline" class="text-slate-200 bg-slate-900/60 px-1 rounded">2026-03-28 EOD</span></div>
+            <div><strong class="text-rose-400">Deadline:</strong> <span contenteditable="true" id="sop-p1-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-03-28 EOD</span></div>
             <div><strong class="text-cyber-green">Deliverable:</strong> <span contenteditable="true" id="sop-p1-result" class="text-slate-300 bg-slate-900/60 px-1 rounded">1,500 QPS load test overbooking = 0.</span></div>
             <div><strong class="text-amber-400">Fallback Plan:</strong> <span contenteditable="true" id="sop-p1-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded">Database unique constraint enforcement & queue.</span></div>
           </div>
@@ -388,7 +388,7 @@
             <div><strong class="text-blue-400">Team:</strong> <span contenteditable="true" id="sop-p2-team" class="text-slate-200 bg-slate-900/60 px-1 rounded">Engineering & Sales/CS</span></div>
             <div><strong class="text-yellow-400">Target Sprint:</strong> <span contenteditable="true" id="sop-p2-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 3 (W5-W6)</span></div>
             <div><strong class="text-slate-300">Required Fix:</strong> <span contenteditable="true" id="sop-p2-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded">Build payment reconciliation worker & frontend polling.</span></div>
-            <div><strong class="text-rose-400">Deadline:</strong> <span contenteditable="true" id="sop-p2-deadline" class="text-slate-200 bg-slate-900/60 px-1 rounded">2026-04-11 EOD</span></div>
+            <div><strong class="text-rose-400">Deadline:</strong> <span contenteditable="true" id="sop-p2-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-04-11 EOD</span></div>
             <div><strong class="text-cyber-green">Deliverable:</strong> <span contenteditable="true" id="sop-p2-result" class="text-slate-300 bg-slate-900/60 px-1 rounded">Auto-sync transaction status upon reconnection.</span></div>
             <div><strong class="text-amber-400">Fallback Plan:</strong> <span contenteditable="true" id="sop-p2-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded">Manual CS support channel within 10 minutes.</span></div>
           </div>
@@ -733,6 +733,20 @@
       onTitleDropdownChanged(code);
     }
 
+    function syncSopToStep3() {
+      const p1Team = document.getElementById('sop-p1-team').innerText;
+      const p1Sprint = document.getElementById('sop-p1-sprint').innerText;
+      const p1Tasks = document.getElementById('sop-p1-tasks').innerText;
+      const p1Deadline = document.getElementById('sop-p1-deadline').innerText;
+      const p1Result = document.getElementById('sop-p1-result').innerText;
+      const p1Fail = document.getElementById('sop-p1-fail').innerText;
+
+      const memoText = `[Crisis SOP Cross-Functional Resolutions]\n1. [Concurrency Overbooking]:\n   - Team: ${p1Team}\n   - Sprint: ${p1Sprint}\n   - Tasks: ${p1Tasks}\n   - Deadline: ${p1Deadline}\n   - Deliverable: ${p1Result}\n   - Fallback: ${p1Fail}`;
+
+      document.getElementById('ko-memo').innerText = memoText;
+      alert('Successfully synced SOP items to STEP 3 Meeting Memo!');
+    }
+
     let teamSubtaskSprints = {};
     let teamSubtaskProgress = {};
 
@@ -839,7 +853,6 @@
           const card = document.createElement('div');
           card.className = `p-2.5 bg-[#0a121e] border ${t.risk ? 'border-rose-500/80 shadow-lg' : 'border-cyber-border'} rounded-lg text-xs space-y-2`;
           
-          // 產生左右移動按鈕與點擊事件
           card.innerHTML = `
             <div class="flex justify-between items-center">
               <span class="font-mono text-[10px] text-cyber-cyan font-bold">${t.id} ${t.risk ? '⚠️' : ''}</span>
@@ -849,8 +862,8 @@
             <div class="flex justify-between items-center pt-1 border-t border-cyber-border/40 font-mono text-[10px]">
               <span class="text-cyber-green font-bold">${t.progress}%</span>
               <div class="space-x-1">
-                ${status !== 'backlog' ? `<button onclick="moveTicketCard('${t.id}', 'prev')" class="px-1.5 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-slate-300" title="Move Left">◀</button>` : ''}
-                ${status !== 'publish' ? `<button onclick="moveTicketCard('${t.id}', 'next')" class="px-1.5 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-cyber-cyan" title="Move Right">▶</button>` : ''}
+                ${status !== 'backlog' ? `<button onclick="moveTicketCard('${t.id}', 'prev')" class="px-1.5 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-slate-300 font-bold" title="Move Left">◀</button>` : ''}
+                ${status !== 'publish' ? `<button onclick="moveTicketCard('${t.id}', 'next')" class="px-1.5 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-cyber-cyan font-bold" title="Move Right">▶</button>` : ''}
               </div>
             </div>
           `;
@@ -859,7 +872,6 @@
       });
     }
 
-    // 看板卡片前後移動邏輯
     function moveTicketCard(id, direction) {
       const flow = ['backlog', 'dev', 'test', 'publish'];
       const ticket = tickets.find(t => t.id === id);
@@ -894,7 +906,6 @@
       document.getElementById('ticket-modal').classList.add('hidden');
     }
 
-    // 關鍵修復：儲存 Ticket 後立即呼叫 renderKanbanBoard() 重新渲染看板
     function saveTicketFromModal() {
       const id = document.getElementById('modal-ticket-id').value.trim() || 'OB-101';
       const title = document.getElementById('modal-ticket-title').value.trim() || 'New Subtask Ticket';
