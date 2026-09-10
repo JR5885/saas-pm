@@ -59,7 +59,7 @@
         padding: 0 !important;
         margin: 0 !important;
       }
-      .no-print, header, nav, #step2-section, #raci-section, #sop-section, #edge-cases-section, #step3-section, #okr-section, #step1-inputs, #prd-insights-col {
+      .no-print, header, nav, #step2-section, #raci-section, #edge-checklist-section, #sop-section, #edge-cases-section, #step3-section, #okr-section, #step1-inputs, #prd-insights-col {
         display: none !important;
       }
       #print-prd-container {
@@ -90,7 +90,7 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking 產品交付指揮中心</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] 20大模組・極端異常 SOP 團隊分工與正常測試目標即時連動 (mshappyj@gmail.com)
+          [ROLE: PRODUCT PM] 正常測試目標面板・極端異常 SOP 團隊分工・Gmail 召集信件 (mshappyj@gmail.com)
         </p>
       </div>
 
@@ -160,7 +160,7 @@
           <div>
             <label class="block text-[11px] font-mono text-cyber-cyan mb-1 flex items-center justify-between">
               <span>Feature Requirement Title (20 Presets)</span>
-              <span class="text-[10px] text-slate-500">切換模組即時連動 SOP 與 Edge Cases</span>
+              <span class="text-[10px] text-slate-500">切換模組即時連動</span>
             </label>
             <select id="req-title-select" onchange="onTitleDropdownChanged(this.value)" class="w-full px-3 py-2 text-xs rounded border font-mono text-cyber-cyan focus:border-cyber-cyan">
               <!-- Dynamically populated -->
@@ -432,7 +432,22 @@
       </div>
     </section>
 
-    <!-- NEW SECTION: 極端邊界異常與危機應變標準作業程序 (SOP) - 支援即時連動、正常測試目標與手動編輯 -->
+    <!-- NEW SECTION: PM 正常測試目標（Edge Cases Checklists）- 位於 SOP 上方一格 -->
+    <section id="edge-checklist-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4 no-print">
+      <div class="flex items-center justify-between border-b border-cyber-border pb-3">
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-0.5 rounded bg-cyber-green text-slate-950 font-black text-xs font-mono">UAT</span>
+          <h2 class="text-sm font-bold text-white tracking-wide">PM 正常測試目標（Edge Cases Checklists）- 即時模組連動驗收</h2>
+        </div>
+        <span class="text-[10px] font-mono text-cyber-green bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">Staging 通過標準</span>
+      </div>
+      <p class="text-xs text-slate-400 font-mono">當前選定模組之極端邊界測試正常目標與驗收清單（隨上方案源即時連動）：</p>
+      <div id="edge-checklist-container" class="space-y-2 text-xs font-mono">
+        <!-- Dynamically populated by JS -->
+      </div>
+    </section>
+
+    <!-- NEW SECTION: 極端邊界異常與危機應變標準作業程序 (SOP) - 位於測試目標下方 -->
     <section id="sop-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4 no-print">
       <div class="flex items-center justify-between border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
@@ -656,10 +671,15 @@
         ],
         actions: ['本週五前完成 LINE Login v2.1 授權沙盒驗證', '優化體驗結帳按鈕防連點機制 (Debounce)'],
         dod: ['LINE LIFF 授權成功率 >= 99.5%', '單頁結帳流程耗時 < 30 秒', '通過 iOS/Android 行動端 UAT 驗收'],
+        edgeChecklists: [
+          '【Concurrency】多裝置同時點擊 LINE Login 授權，確認 Token 狀態無衝突。',
+          '【Network Drop】授權導回時切換飛航模式，確認 Webhook 補償機制安全。',
+          '【Timeout Fallback】LIFF 授權逾時 30 秒自動降級為傳統手機驗證碼。'
+        ],
         sopData: {
           p1: { team: 'UX/FE & Engineering', sprint: 'Sprint 1 (W1-W2)', tasks: '優化 LINE LIFF 授權流程與防連點機制。', deadline: '2026-03-25 EOD', result: '30秒內免密登入成功率 >= 99.5%。', fail: '降級為手機號碼簡訊 OTP 快速驗證通道。' },
-          p2: { team: 'Engineering & QA/Ops', sprint: 'Sprint 2 (W3-W4)', tasks: '串接 LINE Pay 單次快捷金流 Webhook 補償。', deadline: '2026-04-05 EOD', result: '支付成功後 1 秒內無縫寫入預約資料庫。' },
-          p3: { team: 'Product PM & Sales/CS', sprint: 'Sprint 1 (W1-W2)', tasks: '定義首購預約逾時保留與提示文案。', deadline: '2026-03-26 EOD', result: '逾時未結帳自動釋放名額並推播提醒。' }
+          p2: { team: 'Engineering & QA/Ops', sprint: 'Sprint 2 (W3-W4)', tasks: '串接 LINE Pay 單次快捷金流 Webhook 補償。', deadline: '2026-04-05 EOD', result: '支付成功後 1 秒內無縫寫入預約資料庫。', fail: '啟動人工對帳與手動入帳機制。' },
+          p3: { team: 'Product PM & Sales/CS', sprint: 'Sprint 1 (W1-W2)', tasks: '定義首購預約逾時保留與提示文案。', deadline: '2026-03-26 EOD', result: '逾時未結帳自動釋放名額並推播提醒。', fail: '延長 10 分鐘緩衝時間。' }
         }
       },
       {
@@ -677,31 +697,15 @@
         ],
         actions: ['CS 團隊於週三前產出教練風格與難易度標準詞彙表', '工程端建立多條件標籤索引'],
         dod: ['課表標籤篩選響應時間 < 100ms', '新客諮詢重複率下降 30%', '全教練風格資料審核無誤'],
+        edgeChecklists: [
+          '【Concurrency】多用戶同時勾選多重標籤過濾，檢驗資料庫索引效率。',
+          '【Network Drop】標籤載入中斷時的 UI 降級與 Cache 讀取驗證。',
+          '【Timeout Fallback】多條件查詢超時自動回傳預設熱門標籤清單。'
+        ],
         sopData: {
-          p1: { team: 'Product PM & CS', sprint: 'Sprint 1 (W1-W2)', tasks: '產出教練風格與難易度標準詞彙表。', deadline: '2026-03-28 EOD', result: '標籤分類體系 100% 覆蓋所有教練。', fail: '暫時由客服人工於後台人工幫忙標註。' },
+          p1: { team: 'Product PM & CS', sprint: 'Sprint 1 (W1-W2)', tasks: '產出教練風格與難易度標準詞彙表。', deadline: '2026-03-28 EOD', result: '標籤分類體系 100% 覆蓋所有教練。', fail: '暫時由客服於後台人工幫忙標註。' },
           p2: { team: 'Engineering & UX', sprint: 'Sprint 2 (W3-W4)', tasks: '建立多條件標籤索引與前端過濾 UI。', deadline: '2026-04-08 EOD', result: '篩選響應時間 < 100ms 無卡頓。', fail: '簡化為單一條件下拉選單篩選。' },
           p3: { team: 'QA / DevOps', sprint: 'Sprint 2 (W3-W4)', tasks: '驗證多條件組合查詢正確性。', deadline: '2026-04-10 EOD', result: '無符合標籤時提供溫馨引導。', fail: '預設顯示全部熱門課程。' }
-        }
-      },
-      {
-        code: 'OB-103', title: '03. 預約完成自動推播 LINE「新手到館圖文指南」',
-        voice: '「新客人常常找不到大門密碼、不知道停哪裡，甚至沒帶瑜珈墊跑來問，櫃台每天開課前都像菜市場。」',
-        problem: '線上預約與線下實體履約之間缺乏自動化交付銜接；需在預約成功後非同步觸發包含交通與密碼的圖文推播。',
-        scope: '1. 暫不支援即時室內藍牙定位導航。 2. 暫不串接第三方智慧門禁硬體 API。',
-        defaultOwner: 'UX/FE', defaultSupport: 'Sales/CS',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: '審定新手到館圖文文案與自動推播觸發時機' },
-          { role: 'UX / Frontend', type: 'R', desc: '製作精美圖文引導卡片與長輩友善排版' },
-          { role: 'Sales / CS', type: 'R', desc: '提供各場館真實大門密碼、交通與停車指引' },
-          { role: 'Engineering', type: 'C', desc: '串接 LINE Messaging API 非同步發送排程' },
-          { role: 'QA / DevOps', type: 'I', desc: '驗證預約成功事件觸發推播之送達率' }
-        ],
-        actions: ['收集全分店實體交通與門禁指引', '測試 LINE 圖片及圖文選單推播排程'],
-        dod: ['預約完成後 10 秒內送達圖文指引', '櫃台重複詢問電話減少 50%', '推播失敗自動重試機制運作正常'],
-        sopData: {
-          p1: { team: 'Sales/CS & UX', sprint: 'Sprint 1 (W1-W2)', tasks: '收集全分店門禁密碼與製作圖文引導卡片。', deadline: '2026-03-27 EOD', result: '文案審定完成率 100%。', fail: '暫用文字簡訊發送門禁資訊。' },
-          p2: { team: 'Engineering', sprint: 'Sprint 2 (W3-W4)', tasks: '串接 LINE Messaging API 非同步發送。', deadline: '2026-04-06 EOD', result: '預約後 10 秒內送達率 >= 99%。', fail: '啟動 3 次自動重試機制。' },
-          p3: { team: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', tasks: '驗證推播失敗自動重試機制。', deadline: '2026-04-09 EOD', result: '櫃台電話諮詢量下降 50%。', fail: '發送 Email 備份通知。' }
         }
       },
       {
@@ -719,6 +723,11 @@
         ],
         actions: ['本週五完成 Redis 分散式鎖單元測試', '架設 1,500 QPS 壓測驗證環境'],
         dod: ['1,500 QPS 壓測下超賣數 = 0', 'API P99 響應 < 250ms', '15分鐘逾時自動順移測試 100% 通過'],
+        edgeChecklists: [
+          '【Concurrency】兩位用戶同時搶最後一席位，Redis 鎖確保零超賣。',
+          '【Network Drop】LINE Pay 扣款成功切換飛航模式，Webhook 安全恢復。',
+          '【Timeout Fallback】候選 #1 超過 15 分鐘自動順移至 #2。'
+        ],
         sopData: {
           p1: { team: 'Engineering & Product PM', sprint: 'Sprint 2 (W3-W4)', tasks: '導入 Redis Redlock 分散式原子鎖與等冪性校驗。', deadline: '2026-03-28 EOD', result: '1,500 QPS 壓測下超賣數 = 0 (P99 < 250ms)。', fail: '強制改寫資料庫唯一約束併發佇列排隊。' },
           p2: { team: 'Engineering & Sales/CS', sprint: 'Sprint 3 (W5-W6)', tasks: '建置金流非同步對帳 Worker 與前端輪詢機制。', deadline: '2026-04-11 EOD', result: '斷網重連後交易狀態 100% 自動恢復同步。', fail: '啟動人工對帳通道並由客服 10 分鐘內手動補發。' },
@@ -727,7 +736,6 @@
       }
     ];
 
-    // 為其他未特別指定的 OB 模組提供智慧預設 SOP 與資料
     function getPresetByCode(code) {
       const found = allPresets.find(p => p.code === code);
       if (found) return found;
@@ -747,6 +755,11 @@
         ],
         actions: [`完成 ${code} 規格確認與資安審查`, `執行 ${code} 整合測試與 UAT驗收`],
         dod: [`${code} API 響應時間 < 200ms`, `通過資安與極端邊界測試`],
+        edgeChecklists: [
+          `【Concurrency】多用戶同時請求 ${code} 核心事務，確保資料原子性。`,
+          `【Network Drop】${code} 請求中斷時的自動重試與狀態回滾。`,
+          `【Timeout Fallback】${code} 逾時無響應時的降級防護提示。`
+        ],
         sopData: {
           p1: { team: 'Engineering & Product PM', sprint: 'Sprint 2 (W3-W4)', tasks: `針對 ${code} 進行併發與分散式鎖防護強化。`, deadline: '2026-03-28 EOD', result: `高並發下零資料異常 (Error Rate = 0%)。`, fail: '啟用降級備用 API 通道。' },
           p2: { team: 'Engineering & Sales/CS', sprint: 'Sprint 3 (W5-W6)', tasks: `建立 ${code} 非同步補償機制與對帳 Worker。`, deadline: '2026-04-11 EOD', result: '狀態不一致時自動對帳修復。', fail: '轉由人工覆核工單處理。' },
@@ -766,7 +779,6 @@
       let optGroupOld = document.createElement('optgroup');
       optGroupOld.label = '── 老客場景 (OB-111 ~ OB-120) ──';
 
-      // 產生 20 組 OB-101 ~ OB-120 選項
       for (let i = 101; i <= 120; i++) {
         const code = `OB-${i}`;
         const presetObj = getPresetByCode(code);
@@ -808,6 +820,21 @@
 
       document.getElementById('gantt-filter-module').value = preset.code;
       document.getElementById('kanban-filter-module').value = preset.code;
+
+      // 渲染動態正常測試目標 (Edge Checklists)
+      const checklistContainer = document.getElementById('edge-checklist-container');
+      checklistContainer.innerHTML = '';
+      if (preset.edgeChecklists) {
+        preset.edgeChecklists.forEach((item, idx) => {
+          const lbl = document.createElement('label');
+          lbl.className = 'flex items-start space-x-2 p-2 bg-[#05080f] border border-cyber-border rounded hover:border-slate-600 cursor-pointer';
+          lbl.innerHTML = `
+            <input type="checkbox" checked class="mt-0.5 rounded text-cyber-green">
+            <span class="text-slate-300"><strong>[UAT 驗收目標 0${idx+1}]</strong> ${item}</span>
+          `;
+          checklistContainer.appendChild(lbl);
+        });
+      }
 
       // 即時更新 SOP 內容
       if (preset.sopData) {
@@ -1288,7 +1315,7 @@ Omcean Booking Delivery Command Center`;
 
     function applyPresetToModal(val) {
       if (val === '') return;
-      const preset = allPresets[parseInt(val)];
+      const preset = getPresetByCode(val);
       if (preset) {
         document.getElementById('modal-ticket-id').value = preset.code;
         document.getElementById('modal-ticket-title').value = `${preset.code}: ${preset.title}`;
@@ -1410,7 +1437,7 @@ Product PM: ${senderEmail}`;
 
     window.onload = () => {
       initDropdowns();
-      onTitleDropdownChanged(10); // Default to OB-111
+      onTitleDropdownChanged("OB-111"); // Default to OB-111
       renderKanbanAndGantt();
       updateChatEval();
     };
