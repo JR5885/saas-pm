@@ -63,13 +63,13 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking PM Command Center</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] 20 Modules &bull; Edge SOP Team Tasks &bull; Gmail Dispatch (mshappyj@gmail.com)
+          [ROLE: PRODUCT PM] 20 Modules &bull; Custom Ad-hoc Handling &bull; Gmail Kickoff Dispatch (mshappyj@gmail.com)
         </p>
       </div>
 
       <div class="flex items-center space-x-3 font-mono text-xs">
-        <button onclick="openGmailEmergencyCompose()" class="px-3.5 py-1.5 rounded-lg bg-purple-900/60 hover:bg-purple-800 text-purple-200 border border-purple-500 font-bold transition shadow-lg">
-          ✉️ Send Emergency Email (Gmail)
+        <button onclick="openGmailKickoffCompose()" class="px-3.5 py-1.5 rounded-lg bg-purple-900/70 hover:bg-purple-800 text-purple-200 border border-purple-500 font-bold transition shadow-lg">
+          ✉️ Send Kickoff Email (Gmail)
         </button>
         <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg border border-cyber-border bg-cyber-card text-slate-300 hover:text-white hover:border-cyber-cyan transition">
           🖨️ PDF Print
@@ -118,21 +118,21 @@
       </div>
     </section>
 
-    <!-- STEP 1: Discovery & Scope Freeze -->
+    <!-- STEP 1: Discovery & Scope Freeze (支援 20 Presets + Custom Ad-hoc 處理機制) -->
     <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
       <div class="flex items-center justify-between border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
           <span class="px-2.5 py-0.5 rounded bg-cyber-cyan text-slate-950 font-black text-xs font-mono">STEP 1</span>
-          <h2 class="text-sm font-bold text-white tracking-wide">Discovery & Scope Freeze</h2>
+          <h2 class="text-sm font-bold text-white tracking-wide">Discovery & Scope Freeze / Custom Ad-hoc Handling</h2>
         </div>
-        <span class="text-[10px] font-mono text-cyber-cyan">Direct Root Cause Extraction &bull; Instant PRD</span>
+        <span class="text-[10px] font-mono text-cyber-cyan">Presets + Custom Workflow Injection</span>
       </div>
 
       <div class="space-y-4">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label class="block text-[11px] font-mono text-cyber-cyan mb-1 flex items-center justify-between">
-              <span>Feature Requirement Title (20 Presets)</span>
+              <span>Feature Requirement Title (20 Presets or Custom)</span>
               <span class="text-[10px] text-slate-500">Auto Syncs Below</span>
             </label>
             <select id="req-title-select" onchange="onTitleDropdownChanged(this.value)" class="w-full px-3 py-2 text-xs rounded border font-mono text-cyber-cyan">
@@ -156,13 +156,24 @@
 
         <div class="p-3 bg-[#05080f] rounded-lg border border-cyber-border flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div class="space-y-1 flex-1">
-            <div class="text-[11px] font-bold text-cyber-gold font-mono uppercase">Scope Boundary: Strictly Out of Scope for Phase 1</div>
+            <div class="text-[11px] font-bold text-cyber-gold font-mono uppercase">Scope Boundary: Strictly Out of Scope for Phase 1 (Custom Policy Enforcement)</div>
             <input type="text" id="req-scope" class="w-full text-xs text-slate-300 font-mono bg-transparent border-none p-0 focus:ring-0">
           </div>
           <span class="text-[10px] font-mono px-2 py-1 rounded bg-amber-950 text-cyber-gold border border-amber-800 shrink-0">
             Scope Churn &lt; 10%
           </span>
         </div>
+      </div>
+
+      <!-- 如果不在 20 Presets 內的標準化處理指引說明 -->
+      <div class="p-3 bg-cyan-950/30 border border-cyber-cyan/40 rounded-lg text-xs font-mono space-y-1">
+        <div class="text-cyber-cyan font-bold">ℹ️ PM Protocol: Handling Requests Outside the 20 Presets (Custom Ad-hoc Workflow)</div>
+        <p class="text-slate-300 font-sans text-[11px] leading-relaxed">
+          If a stakeholder requests a feature <strong>not listed</strong> in OB-101 ~ OB-120: 
+          1. Select <strong>[+ Create Custom Ad-hoc Requirement]</strong> from the dropdown above. 
+          2. Enter the custom title in VoC and Root Cause. 
+          3. The system automatically enforces a <strong>Strict Out of Scope Review</strong>: Unless it blocks core revenue or core SLA (OKR 1), it is automatically postponed to Phase 2 to prevent schedule creep.
+        </p>
       </div>
 
       <div class="pt-4 border-t border-cyber-border space-y-4">
@@ -176,7 +187,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
           <div class="lg:col-span-8 bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs">
             <div class="flex justify-between items-center border-b border-cyber-border/80 pb-2">
-              <span class="text-cyber-cyan font-bold text-sm" id="prd-header-title">[PRD] Waitlist Engine</span>
+              <span class="text-cyber-cyan font-bold text-sm" id="prd-header-title">[PRD] Dynamic Module Spec</span>
               <span class="text-[10px] text-slate-500 font-mono">SPEC & BDD</span>
             </div>
             <div id="prd-content-view" class="space-y-3 text-slate-300 font-sans text-xs leading-relaxed max-h-[360px] overflow-y-auto pr-2">
@@ -187,7 +198,7 @@
           <div class="lg:col-span-4 bg-[#0a121e] border border-cyber-border rounded-xl p-4 space-y-3">
             <div class="flex items-center justify-between border-b border-cyber-border pb-2">
               <span class="text-xs font-bold font-mono text-cyber-gold">PM Strategic Decisions</span>
-              <span class="text-[10px] font-mono text-slate-500">OKR View</span>
+              <span class="text-[10px] text-slate-500">OKR View</span>
             </div>
             <div id="prd-pm-insights" class="space-y-2.5 text-[11px] leading-relaxed text-slate-300">
               <!-- Injected -->
@@ -428,8 +439,8 @@
           <span class="px-2.5 py-0.5 rounded bg-cyber-gold text-slate-950 font-black text-xs font-mono">STEP 3</span>
           <h2 class="text-sm font-bold text-white tracking-wide">Cross-Functional Kickoff Alignment & Sign-off</h2>
         </div>
-        <button onclick="openGmailEmergencyCompose()" class="px-3.5 py-1.5 rounded-lg bg-purple-900 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-xs font-bold transition shadow-lg">
-          ✉️ Send Resolutions via Gmail (mshappyj@gmail.com)
+        <button onclick="openGmailKickoffCompose()" class="px-3.5 py-1.5 rounded-lg bg-purple-900 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-xs font-bold transition shadow-lg">
+          ✉️ Send Kickoff Email (Gmail: mshappyj@gmail.com)
         </button>
       </div>
 
@@ -459,7 +470,7 @@
         </div>
 
         <div>
-          <label class="block text-cyber-cyan mb-1 font-bold">Quick Select OB-101 ~ OB-120</label>
+          <label class="block text-cyber-cyan mb-1 font-bold">Quick Select OB-101 ~ OB-120 (Or Custom)</label>
           <select id="modal-preset-select" onchange="applyPresetToModal(this.value)" class="w-full p-2 rounded border text-cyber-cyan">
             <option value="">-- Select Module --</option>
           </select>
@@ -473,7 +484,7 @@
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-slate-300 mb-1">Primary Owner (A)</label>
-            <select id="modal-ticket-primary" class="w-full p-2 rounded border text-white font-bold" onchange="updateModalRaciPreview()">
+            <select id="modal-ticket-primary" class="w-full p-2 rounded border text-white font-bold">
               <option value="Product PM">Product PM</option>
               <option value="Engineering">Engineering</option>
               <option value="UX/FE">UX/FE</option>
@@ -547,9 +558,10 @@
   </div>
 
   <script>
+    // 包含 20 Presets 與 [Custom Ad-hoc Requirement] 的完整資料庫
     const allPresets = [
       {
-        code: 'OB-101', title: '01. LINE LIFF 30-Sec Fast Booking',
+        code: 'OB-101', title: '01. LINE LIFF Fast Booking',
         voice: '"New users drop off when forced to register accounts and enter SMS codes."',
         problem: 'Traditional signup creates 40% funnel drop-off; need silent UID binding and 1-click checkout.',
         scope: '1. No cross-account merging in Phase 1. 2. No coupon gifting.',
@@ -603,12 +615,40 @@
     ];
 
     function getPresetByCode(code) {
+      if (code === 'CUSTOM-ADHOC') {
+        return {
+          code: 'CUSTOM-ADHOC',
+          title: 'Custom Ad-hoc Requirement (Outside 20 Presets)',
+          voice: '"Stakeholder requested a custom feature outside standard Phase 1 backlog."',
+          problem: 'Requires PM impact assessment, scope boundary check, and strict out-of-scope enforcement.',
+          scope: '1. Strict Phase 1 freeze: Postponed to Phase 2 unless blocking core revenue.',
+          defaultOwner: 'Product PM', defaultSupport: 'Engineering',
+          raci: [
+            { role: 'Product PM', type: 'A', desc: 'Evaluate business ROI and enforce Phase 1 scope boundary.' },
+            { role: 'Engineering', type: 'C', desc: 'Assess architectural impact and technical feasibility.' },
+            { role: 'UX / Frontend', type: 'I', desc: 'Review interface consistency if approved.' }
+          ],
+          actions: ['Perform PM impact assessment', 'Submit to change control board for Phase 2 consideration'],
+          dod: ['ROI justification signed off', 'Explicitly deferred to Phase 2 if non-critical'],
+          edgeChecklists: [
+            '【Concurrency】Verify custom transaction consistency under multi-user access.',
+            '【Network Drop】Verify fallback error handling for custom payloads.',
+            '【Timeout Fallback】Ensure strict timeout limits to prevent resource leakage.'
+          ],
+          sopData: {
+            p1: { team: 'Product PM & Engineering', sprint: 'Sprint 2 (W3-W4)', tasks: 'Conduct impact assessment & define ad-hoc boundary.', deadline: '2026-03-30 EOD', result: 'Clear go/no-go decision for Phase 1.', fail: 'Strictly postpone to Phase 2 backlog.' },
+            p2: { team: 'Engineering', sprint: 'Sprint 3 (W5-W6)', tasks: 'Implement isolated sandbox test if approved.', deadline: '2026-04-15 EOD', result: 'Isolated feature flag deployment.', fail: 'Rollback feature flag instantly.' },
+            p3: { team: 'QA/Ops', sprint: 'Sprint 3 (W5-W6)', tasks: 'Perform ad-hoc security and regression scan.', deadline: '2026-04-18 EOD', result: 'Zero regression on core booking flow.', fail: 'Disable ad-hoc module immediately.' }
+          }
+        };
+      }
+
       const found = allPresets.find(p => p.code === code);
       if (found) return found;
       return {
         code: code,
         title: `${code} Module Delivery & Boundary Management`,
-        voice: `&quot;Users expect smooth operation and instant feedback for ${code}.&quot;`,
+        voice: `"Users expect smooth operation and instant feedback for ${code}."`,
         problem: `Address ${code} friction with automated asynchronous architecture.`,
         scope: '1. No third-party plugins in Phase 1. 2. Single language support.',
         defaultOwner: 'Engineering', defaultSupport: 'QA/Ops',
@@ -640,6 +680,12 @@
       const ganttFilterSelect = document.getElementById('gantt-filter-module');
       const kanbanFilterSelect = document.getElementById('kanban-filter-module');
       
+      // 新增自定義 Ad-hoc 選項
+      const customOpt = document.createElement('option');
+      customOpt.value = 'CUSTOM-ADHOC';
+      customOpt.text = '⭐ [+ Create Custom Ad-hoc Requirement (Outside Presets)]';
+      step1Select.appendChild(customOpt);
+
       let optGroupNew = document.createElement('optgroup');
       optGroupNew.label = '── New User Modules (OB-101 ~ OB-110) ──';
       let optGroupOld = document.createElement('optgroup');
@@ -684,8 +730,10 @@
       document.getElementById('req-problem').value = preset.problem;
       document.getElementById('req-scope').value = preset.scope;
 
-      document.getElementById('gantt-filter-module').value = preset.code;
-      document.getElementById('kanban-filter-module').value = preset.code;
+      if (code !== 'CUSTOM-ADHOC') {
+        document.getElementById('gantt-filter-module').value = preset.code;
+        document.getElementById('kanban-filter-module').value = preset.code;
+      }
 
       const checklistContainer = document.getElementById('edge-checklist-container');
       checklistContainer.innerHTML = '';
@@ -748,13 +796,13 @@
       alert('Successfully synced SOP items to STEP 3 Meeting Memo!');
     }
 
-    function openGmailEmergencyCompose() {
+    function openGmailKickoffCompose() {
       const selectEl = document.getElementById('req-title-select');
       const code = selectEl.value;
       const preset = getPresetByCode(code);
       const title = preset ? preset.title : code;
       const senderEmail = 'mshappyj@gmail.com';
-      const subject = `[URGENT] Emergency SOP Action Matrix for ${code}: ${title}`;
+      const subject = `[KICKOFF & ALIGNMENT] Project Execution Plan for ${code}: ${title}`;
       
       const p1Team = document.getElementById('sop-p1-team').innerText;
       const p1Sprint = document.getElementById('sop-p1-sprint').innerText;
@@ -764,19 +812,19 @@
 
       const emailBody = `Hi Cross-Functional Team,
 
-As Product PM convening this emergency alignment for [${code}: ${title}], all teams must strictly adhere to our Crisis SOP and RACI standards.
+As Product PM convening this kickoff alignment for [${code}: ${title}], all teams must strictly adhere to our Sprint schedule, RACI standards, and Crisis SOP.
 
 Sender / PM Convener: ${senderEmail}
 
-【Emergency SOP Action Matrix】
-1. [Concurrency Overbooking Protection]:
+【Project Kickoff & Emergency SOP Action Matrix】
+1. [Core Execution & Concurrency Protection]:
    - Responsible Team: ${p1Team}
    - Target Sprint: ${p1Sprint}
    - Required Tasks: ${p1Tasks}
    - Deadline: ${p1Deadline}
-   - Deliverable: ${p1Result}
+   - Testing Deliverable: ${p1Result}
 
-Please review the Command Center and confirm readiness by EOD today.
+Please review the Command Center and confirm your team's readiness by EOD today.
 
 Best regards,
 Product PM: ${senderEmail}
