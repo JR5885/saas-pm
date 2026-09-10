@@ -63,7 +63,7 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking PM Command Center</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] Dynamic Sprint Alignment &bull; Verified Gmail Dispatch (mshappyj@gmail.com)
+          [ROLE: PRODUCT PM] Fixed Gantt Bar Shift & Two-Way Sync &bull; Gmail Dispatch (mshappyj@gmail.com)
         </p>
       </div>
 
@@ -874,7 +874,6 @@
       });
     }
 
-    // 雙向連動核心：不管是在 Kanban 移動卡片，或是未來透過 Modal 調整，都會自動連動甘特圖與進度
     function moveTicketCard(id, direction) {
       const flow = ['backlog', 'dev', 'test', 'publish'];
       const ticket = tickets.find(t => t.id === id);
@@ -919,7 +918,7 @@
       }
     }
 
-    // 關鍵修復：編輯 Jira Ticket 時若切換 Sprint，甘特圖中的對應任務也會自動平移到相對的 Sprint
+    // Modal 儲存時自動同步 Sprint 欄位與甘特圖平移
     function saveTicketFromModal() {
       const id = document.getElementById('modal-ticket-id').value.trim() || 'OB-101';
       const title = document.getElementById('modal-ticket-title').value.trim() || 'New Subtask Ticket';
@@ -929,7 +928,6 @@
       const progress = parseInt(document.getElementById('modal-ticket-progress').value);
       const risk = document.getElementById('modal-ticket-risk').checked;
 
-      // 檢查是否已存在該 Ticket，若有則更新，若無則新增
       const existing = tickets.find(t => t.id === id && t.primary === primary);
       if (existing) {
         existing.title = title;
@@ -941,7 +939,7 @@
         tickets.push({ id, title, primary, sprint, status, progress, risk });
       }
 
-      // 雙向自動連動：直接更新甘特圖中該團隊的 Sprint 狀態與進度
+      // 關鍵更新：強制將 Modal 選擇的 Sprint 寫入該模組對應團隊的甘特圖設定，促使進度條平移
       teamSubtaskSprints[`${id}_${primary}`] = sprint;
       teamSubtaskProgress[`${id}_${primary}`] = progress;
 
