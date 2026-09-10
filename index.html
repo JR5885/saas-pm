@@ -63,7 +63,7 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking PM Command Center</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] Fully Fixed Kanban Transition &bull; Verified Gmail Dispatch (mshappyj@gmail.com)
+          [ROLE: PRODUCT PM] Dynamic Sprint Alignment &bull; Verified Gmail Dispatch (mshappyj@gmail.com)
         </p>
       </div>
 
@@ -273,7 +273,7 @@
         </div>
       </div>
 
-      <!-- Kanban Board (支援 Backlog 卡片順利往右啟動) -->
+      <!-- Kanban Board -->
       <div class="pt-2 space-y-3">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#05080f] p-3 rounded-xl border border-cyber-border">
           <div>
@@ -874,6 +874,7 @@
       });
     }
 
+    // 雙向連動核心：不管是在 Kanban 移動卡片，或是未來透過 Modal 調整，都會自動連動甘特圖與進度
     function moveTicketCard(id, direction) {
       const flow = ['backlog', 'dev', 'test', 'publish'];
       const ticket = tickets.find(t => t.id === id);
@@ -909,6 +910,16 @@
       document.getElementById('ticket-modal').classList.add('hidden');
     }
 
+    function applyPresetToModal(val) {
+      if (val === '') return;
+      const preset = getPresetByCode(val);
+      if (preset) {
+        document.getElementById('modal-ticket-id').value = preset.code;
+        document.getElementById('modal-ticket-title').value = `${preset.code}: ${preset.title}`;
+      }
+    }
+
+    // 關鍵修復：編輯 Jira Ticket 時若切換 Sprint，甘特圖中的對應任務也會自動平移到相對的 Sprint
     function saveTicketFromModal() {
       const id = document.getElementById('modal-ticket-id').value.trim() || 'OB-101';
       const title = document.getElementById('modal-ticket-title').value.trim() || 'New Subtask Ticket';
@@ -918,7 +929,22 @@
       const progress = parseInt(document.getElementById('modal-ticket-progress').value);
       const risk = document.getElementById('modal-ticket-risk').checked;
 
-      tickets.push({ id, title, primary, sprint, status, progress, risk });
+      // 檢查是否已存在該 Ticket，若有則更新，若無則新增
+      const existing = tickets.find(t => t.id === id && t.primary === primary);
+      if (existing) {
+        existing.title = title;
+        existing.sprint = sprint;
+        existing.status = status;
+        existing.progress = progress;
+        existing.risk = risk;
+      } else {
+        tickets.push({ id, title, primary, sprint, status, progress, risk });
+      }
+
+      // 雙向自動連動：直接更新甘特圖中該團隊的 Sprint 狀態與進度
+      teamSubtaskSprints[`${id}_${primary}`] = sprint;
+      teamSubtaskProgress[`${id}_${primary}`] = progress;
+
       closeTicketModal();
       renderKanbanBoard();
       renderGanttSchedule();
