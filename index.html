@@ -90,7 +90,7 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking 產品交付指揮中心</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] 甘特圖智慧篩選器・OB-101~120 模組追蹤・RACI 標準化
+          [ROLE: PRODUCT PM] 跨部門多團隊 Sprint 同步拆解・甘特圖動態追蹤・RACI 標準化
         </p>
       </div>
 
@@ -222,7 +222,7 @@
           <div id="prd-insights-col" class="lg:col-span-4 bg-[#0a121e] border border-cyber-border rounded-xl p-4 space-y-3 no-print">
             <div class="flex items-center justify-between border-b border-cyber-border pb-2">
               <span class="text-xs font-bold font-mono text-cyber-gold">PM Strategic Decisions</span>
-              <span class="text-[10px] font-mono text-slate-500">OKR Perspective</span>
+              <span class="text-[10px] text-slate-500">OKR Perspective</span>
             </div>
             <div id="prd-pm-insights" class="space-y-2.5 text-[11px] leading-relaxed text-slate-300">
               <!-- Injected by JS -->
@@ -296,19 +296,19 @@
       </div>
     </section>
 
-    <!-- STEP 2: Delivery Schedule & Jira Execution (含甘特圖篩選器) -->
+    <!-- STEP 2: Delivery Schedule & Jira Execution (更新為：同一個 SPRINT 內各團隊子任務同步拆解) -->
     <section id="step2-section" class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5 no-print">
       
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber-border pb-4">
         <div>
           <div class="flex items-center gap-2">
             <span class="px-2.5 py-0.5 rounded bg-cyber-green text-slate-950 font-black text-xs font-mono">STEP 2</span>
-            <h2 class="text-sm font-bold text-white tracking-wide">Delivery Schedule & Jira Execution (2 Weeks = 1 Sprint)</h2>
+            <h2 class="text-sm font-bold text-white tracking-wide">Delivery Schedule & Jira Execution (Cross-Functional Sprint Breakdown)</h2>
           </div>
           <div class="flex flex-wrap items-center gap-3 mt-1 text-xs font-mono">
             <span class="text-slate-400">全案平均交付進度: <strong id="overall-progress-text" class="text-cyber-cyan text-sm">0%</strong></span>
             <span class="text-slate-500">|</span>
-            <span class="text-slate-400" id="team-roles-badge">主要負責: <strong class="text-white">Engineering</strong> 及 <strong class="text-purple-400">QA/Ops</strong> 團隊</span>
+            <span class="text-slate-400">實務協同原則: <strong class="text-cyber-gold">同一個 SPRINT 內同步包含各團隊子任務進度</strong></span>
           </div>
         </div>
 
@@ -317,45 +317,28 @@
         </div>
       </div>
 
-      <!-- 甘特圖與篩選器列 (新增 OB-101~120 模組篩選與團隊篩選) -->
+      <!-- 甘特圖與篩選器列 (自動拆解 Product PM, UX/FE, Engineering, QA/Ops, Sales/CS) -->
       <div class="space-y-3">
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 text-xs font-mono bg-[#05080f] p-3 rounded-xl border border-cyber-border">
           <div class="text-slate-300 font-bold flex items-center gap-2">
-            <span>📊 動態排程里程碑篩選器 (Gantt Filters)</span>
+            <span>📊 跨部門 Sprint 同步追蹤篩選器 (Select Module to View Teams)</span>
           </div>
           
           <div class="flex flex-wrap items-center gap-3">
-            <!-- 篩選器 1: 依 OB-101 ~ OB-120 任務標題 -->
             <div class="flex items-center gap-1.5">
-              <span class="text-slate-400 text-[11px]">模組/任務:</span>
+              <span class="text-slate-400 text-[11px]">選擇模組 (Module):</span>
               <select id="gantt-filter-module" onchange="renderGanttSchedule()" class="p-1 text-xs rounded border text-cyber-cyan bg-[#0a121e]">
-                <option value="ALL">全部模組 (OB-101 ~ OB-120)</option>
                 <!-- Dynamically Injected -->
-              </select>
-            </div>
-
-            <!-- 篩選器 2: 依團隊角色 -->
-            <div class="flex items-center gap-1.5">
-              <span class="text-slate-400 text-[11px]">負責團隊:</span>
-              <select id="gantt-filter-team" onchange="renderGanttSchedule()" class="p-1 text-xs rounded border text-purple-300 bg-[#0a121e]">
-                <option value="ALL">全部團隊 (All Teams)</option>
-                <option value="Product PM">Product PM</option>
-                <option value="Engineering">Engineering</option>
-                <option value="UX/FE">UX/FE</option>
-                <option value="QA/Ops">QA/Ops</option>
-                <option value="Sales/CS">Sales/CS</option>
-                <option value="AI/Chatbot">AI/Chatbot</option>
               </select>
             </div>
           </div>
         </div>
 
-        <!-- 視覺化甘特畫布 -->
         <div class="overflow-x-auto bg-[#05080f] p-4 rounded-xl border border-cyber-border">
           <div class="min-w-[760px] space-y-3 font-mono text-xs">
             
             <div class="grid grid-cols-12 gap-1 text-[11px] text-slate-500 pb-2 border-b border-cyber-border">
-              <div class="col-span-3 text-slate-300 font-bold">Task / Module, Owner & Sprint</div>
+              <div class="col-span-3 text-slate-300 font-bold">Cross-Functional Team & Subtask</div>
               <div class="col-span-2 text-center bg-slate-900/60 rounded py-0.5 border border-slate-800">
                 <span class="text-blue-400 font-bold">Sprint 1</span> (W1-W2)
               </div>
@@ -370,6 +353,7 @@
               </div>
             </div>
 
+            <!-- 動態渲染該模組下各團隊在 Sprint 中的子任務進度 -->
             <div id="gantt-rows-container" class="space-y-2">
               <!-- Dynamically Rendered -->
             </div>
@@ -383,9 +367,9 @@
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
           <div>
             <div class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-              <span>JIRA AGILE KANBAN BOARD (Sprint 1-4 自由搬運與自訂進度)</span>
+              <span>JIRA AGILE KANBAN BOARD (支援跨團隊子任務與 OB-1 快速識別)</span>
             </div>
-            <div class="text-[11px] text-slate-500 font-mono">點擊任一 Ticket 卡片可自由編輯 Sprint、10-100% 彈性進度及自動回談風險選項</div>
+            <div class="text-[11px] text-slate-500 font-mono">點擊任一 Ticket 卡片可進行編輯或取消/刪除 Ticket</div>
           </div>
 
           <div class="flex items-center gap-2">
@@ -632,16 +616,21 @@
         </div>
       </div>
 
-      <div class="flex justify-end space-x-2 pt-3 border-t border-cyber-border">
-        <button onclick="closeTicketModal()" class="px-3 py-1.5 rounded bg-slate-800 text-slate-400 hover:text-white">取消</button>
-        <button onclick="saveTicketFromModal()" class="px-4 py-1.5 rounded bg-cyber-cyan text-slate-950 font-bold hover:bg-opacity-90">儲存 Ticket</button>
+      <div class="flex items-center justify-between pt-3 border-t border-cyber-border">
+        <button id="delete-ticket-btn" onclick="deleteCurrentTicket()" class="px-3 py-1.5 rounded bg-rose-950 hover:bg-rose-900 text-rose-300 border border-rose-800 font-bold transition">
+          🗑️ 取消 / 刪除 Ticket
+        </button>
+        <div class="flex space-x-2">
+          <button onclick="closeTicketModal()" class="px-3 py-1.5 rounded bg-slate-800 text-slate-400 hover:text-white">取消</button>
+          <button onclick="saveTicketFromModal()" class="px-4 py-1.5 rounded bg-cyber-cyan text-slate-950 font-bold hover:bg-opacity-90">儲存 Ticket</button>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
     // ----------------------------------------------------
-    // 完整 20 組熱門真實需求資料庫 (OB-101 ~ OB-120 對應)
+    // 完整 20 組熱門真實需求資料庫 (OB-101 ~ OB-120)
     // ----------------------------------------------------
     const allPresets = [
       {
@@ -988,7 +977,6 @@
         opt2.text = `${p.code} - ${p.title}`;
         modalSelect.appendChild(opt2);
 
-        // Gantt filter module dropdown
         const opt3 = document.createElement('option');
         opt3.value = p.code;
         opt3.text = `${p.code}: ${p.title}`;
@@ -1014,9 +1002,6 @@
 
     function manualInputSync() {}
 
-    // ----------------------------------------------------
-    // RACI 與 DoD 動態渲染引擎
-    // ----------------------------------------------------
     function renderRaciAndDoD(preset) {
       const raciBody = document.getElementById('raci-table-body');
       raciBody.innerHTML = '';
@@ -1063,9 +1048,6 @@
       }
     }
 
-    // ----------------------------------------------------
-    // PRD & AC 自動直出 (保留 4 大核心章節)
-    // ----------------------------------------------------
     function renderInstantPrdAndInsights(data) {
       document.getElementById('prd-header-title').innerText = `[PRD] ${data.title}`;
 
@@ -1119,9 +1101,10 @@
     }
 
     // ----------------------------------------------------
-    // JIRA 看板與甘特圖引擎 (含 OB-101~120 與團隊篩選器)
+    // JIRA 看板與甘特圖引擎 (更新為：同一個 SPRINT 內各團隊子任務同步拆解)
     // ----------------------------------------------------
     let tickets = [
+      { id: 'OB-1', title: '01. LINE LIFF 30秒免密一鍵預約體驗課', status: 'publish', primary: 'UX/FE', support: 'Engineering', sprint: 'Sprint 1 (W1-W2)', progress: 100, risk: false },
       { id: 'OB-101', title: '01. LINE LIFF 30秒免密一鍵預約體驗課', status: 'publish', primary: 'UX/FE', support: 'Engineering', sprint: 'Sprint 1 (W1-W2)', progress: 100, risk: false },
       { id: 'OB-102', title: '02. 新客專屬防踩雷師資與難易度標籤導引', status: 'test', primary: 'Product PM', support: 'Sales/CS', sprint: 'Sprint 1 (W1-W2)', progress: 85, risk: false },
       { id: 'OB-103', title: '03. 預約完成自動推播 LINE「新手到館圖文指南」', status: 'dev', primary: 'UX/FE', support: 'Sales/CS', sprint: 'Sprint 1 (W1-W2)', progress: 50, risk: false },
@@ -1197,48 +1180,47 @@
       container.innerHTML = '';
 
       const filterModule = document.getElementById('gantt-filter-module').value;
-      const filterTeam = document.getElementById('gantt-filter-team').value;
 
-      // 篩選邏輯
-      const filteredTickets = tickets.filter(t => {
-        const matchModule = (filterModule === 'ALL' || t.id === filterModule);
-        const matchTeam = (filterTeam === 'ALL' || t.primary === filterTeam || t.support === filterTeam);
-        return matchModule && matchTeam;
-      });
-
-      if (filteredTickets.length === 0) {
-        container.innerHTML = `<div class="text-center py-4 text-slate-500 font-mono text-xs">沒有符合條件的任務或模組</div>`;
+      // 找出所選模組的 Ticket
+      const targetTicket = tickets.find(t => t.id === filterModule);
+      if (!targetTicket) {
+        container.innerHTML = `<div class="text-center py-4 text-slate-500 font-mono text-xs">找不到此模組的排程資料</div>`;
         return;
       }
 
-      filteredTickets.forEach(t => {
-        let barColor = 'bg-blue-500';
-        if (t.progress >= 40) barColor = 'bg-purple-500';
-        if (t.progress >= 75) barColor = 'bg-cyber-cyan';
-        if (t.progress === 100) barColor = 'bg-cyber-green';
-        if (t.risk) barColor = 'bg-rose-600 animate-pulse';
+      // 實務原則：同一個 SPRINT 內，每一個 Task / Module 應該要包含每一個團隊的進度
+      // 我們將跨部門拆解為 5 個核心團隊子任務：Product PM, UX/FE, Engineering, QA/Ops, Sales/CS
+      const teamsBreakdown = [
+        { role: 'Product PM (規格與凍結)', owner: 'Product PM', ratio: 1.0, color: 'bg-blue-600' },
+        { role: 'UX / Frontend (介面原型與互動)', owner: 'UX/FE', ratio: 0.9, color: 'bg-purple-600' },
+        { role: 'Engineering (架構/分散式鎖)', owner: 'Engineering', ratio: targetTicket.progress / 100, color: 'bg-emerald-600' },
+        { role: 'QA / DevOps (壓測與灰度網關)', owner: 'QA/Ops', ratio: 0.7, color: 'bg-amber-600' },
+        { role: 'Sales / CS (業務對齊與培訓)', owner: 'Sales/CS', ratio: 0.5, color: 'bg-teal-600' }
+      ];
 
-        let startCol = 4;
-        let colSpan = 2;
-        if (t.sprint.includes('Sprint 1')) { startCol = 4; colSpan = 2; }
-        else if (t.sprint.includes('Sprint 2')) { startCol = 6; colSpan = 2; }
-        else if (t.sprint.includes('Sprint 3')) { startCol = 8; colSpan = 2; }
-        else if (t.sprint.includes('Sprint 4')) { startCol = 10; colSpan = 3; }
+      let startCol = 4;
+      let colSpan = 2;
+      if (targetTicket.sprint.includes('Sprint 1')) { startCol = 4; colSpan = 2; }
+      else if (targetTicket.sprint.includes('Sprint 2')) { startCol = 6; colSpan = 2; }
+      else if (targetTicket.sprint.includes('Sprint 3')) { startCol = 8; colSpan = 2; }
+      else if (targetTicket.sprint.includes('Sprint 4')) { startCol = 10; colSpan = 3; }
 
+      teamsBreakdown.forEach((tb, i) => {
+        const subProgress = Math.round(Math.min(100, targetTicket.progress * tb.ratio));
         const row = document.createElement('div');
         row.className = 'grid grid-cols-12 gap-1 items-center py-1.5 hover:bg-slate-900/40 rounded px-1 transition';
 
         row.innerHTML = `
           <div class="col-span-3 truncate text-slate-300 font-sans text-xs flex items-center justify-between pr-2">
-            <span class="truncate" title="${t.title}">${t.id}: ${t.title}</span>
-            <span class="text-[10px] ${t.risk ? 'text-rose-400 font-bold' : 'text-slate-500'} font-mono shrink-0">${t.progress}%</span>
+            <span class="truncate text-purple-300 font-bold" title="${tb.role}">${targetTicket.id} ▪ ${tb.role}</span>
+            <span class="text-[10px] text-slate-400 font-mono shrink-0">${subProgress}%</span>
           </div>
           <div class="col-span-${colSpan} col-start-${startCol} relative">
             <div class="w-full bg-slate-900 h-6 rounded border border-cyber-border overflow-hidden flex items-center relative">
-              <div class="h-full ${barColor} transition-all duration-500 opacity-90" style="width: ${t.progress}%;"></div>
+              <div class="h-full ${tb.color} transition-all duration-500 opacity-90" style="width: ${subProgress}%;"></div>
               <span class="absolute inset-0 flex items-center justify-between px-2 text-[10px] text-white font-mono font-bold z-10 pointer-events-none truncate">
-                <span>${t.primary} (${t.sprint.split(' ')[0]} ${t.sprint.split(' ')[1]})</span>
-                <span>${t.progress}%</span>
+                <span>${tb.owner} (${targetTicket.sprint.split(' ')[0]} ${targetTicket.sprint.split(' ')[1]})</span>
+                <span>${subProgress}%</span>
               </span>
             </div>
           </div>
@@ -1254,10 +1236,6 @@
       const overallPercent = Math.round(totalProg / tickets.length);
 
       document.getElementById('overall-progress-text').innerText = `${overallPercent}%`;
-
-      const primaryOwners = [...new Set(tickets.map(t => t.primary))].slice(0, 2).join(' & ');
-      const supportOwners = [...new Set(tickets.map(t => t.support).filter(s => s !== 'None'))].slice(0, 2).join(' & ');
-      document.getElementById('team-roles-badge').innerHTML = `主要負責: <strong class="text-white">${primaryOwners || 'Engineering'}</strong> 及 <strong class="text-purple-300">${supportOwners || 'QA/Ops'}</strong> 團隊`;
 
       const banner = document.getElementById('alert-status-banner');
       const riskyTickets = tickets.filter(t => t.risk);
@@ -1304,6 +1282,7 @@
       document.getElementById('modal-ticket-progress').value = 20;
       document.getElementById('progress-val-label').innerText = '20%';
       document.getElementById('modal-ticket-risk').checked = false;
+      document.getElementById('delete-ticket-btn').style.display = 'none';
       updateModalRaciPreview();
       document.getElementById('ticket-modal').classList.remove('hidden');
     }
@@ -1323,12 +1302,22 @@
       document.getElementById('modal-ticket-progress').value = ticket.progress;
       document.getElementById('progress-val-label').innerText = ticket.progress + '%';
       document.getElementById('modal-ticket-risk').checked = ticket.risk;
+      document.getElementById('delete-ticket-btn').style.display = 'inline-block';
       updateModalRaciPreview();
       document.getElementById('ticket-modal').classList.remove('hidden');
     }
 
     function closeTicketModal() {
       document.getElementById('ticket-modal').classList.add('hidden');
+    }
+
+    function deleteCurrentTicket() {
+      if (!editingTicketId) return;
+      if (confirm(`確定要取消/刪除 Ticket [${editingTicketId}] 嗎？`)) {
+        tickets = tickets.filter(t => t.id !== editingTicketId);
+        closeTicketModal();
+        renderKanbanAndGantt();
+      }
     }
 
     function applyPresetToModal(val) {
@@ -1453,7 +1442,7 @@ Product PM: ${senderEmail}`;
 
     window.onload = () => {
       initDropdowns();
-      onTitleDropdownChanged(10); // Default to OB-111
+      onTitleDropdownChanged(0); // Default to OB-101
       renderKanbanAndGantt();
       updateChatEval();
     };
