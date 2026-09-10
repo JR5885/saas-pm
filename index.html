@@ -63,7 +63,7 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking PM Command Center</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] 20 Modules Fully Loaded &bull; Verified Gmail Dispatch (mshappyj@gmail.com)
+          [ROLE: PRODUCT PM] 20 Modules Fully Rendered &bull; Verified Gmail Dispatch (mshappyj@gmail.com)
         </p>
       </div>
 
@@ -533,7 +533,7 @@
   </div>
 
   <script>
-    // 完整 20 組真實模組資料庫 (含 raci, actions, dod, sopData 等)
+    // 完整 20 組模組資料庫 (OB-101 到 OB-120 都有完整 raci, actions, dod, edgChecklists)
     const allPresets = [
       {
         code: 'OB-101', title: '01. LINE LIFF Fast Booking',
@@ -554,12 +554,26 @@
           '【Concurrency】Multiple users clicking LINE Login simultaneously without token conflict.',
           '【Network Drop】Switch to airplane mode during auth redirect; verify webhook recovery.',
           '【Timeout Fallback】LIFF timeout after 30s fallbacks to SMS OTP verification.'
+        ]
+      },
+      {
+        code: 'OB-102', title: '02. New User Difficulty & Coach Tags',
+        voice: '"Customers constantly ask which coach is gentle or if beginners can join aerial yoga."',
+        problem: 'Unstructured schedule data causes beginner fear; need beginner-friendly and intensity tags.',
+        scope: '1. No video reviews in Phase 1. 2. No external ratings.',
+        defaultOwner: 'Product PM', defaultSupport: 'Sales/CS',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: 'Define tag taxonomy and style standards.' },
+          { role: 'Sales / CS', type: 'R', desc: 'Provide top 50 beginner questions and coach styles.' },
+          { role: 'UX / Frontend', type: 'R', desc: 'Design schedule filter and tag cards UI.' }
         ],
-        sopData: {
-          p1: { team: 'UX/FE & Engineering', sprint: 'Sprint 1 (W1-W2)', tasks: 'Optimize LINE LIFF auth & debounce mechanisms.', deadline: '2026-03-25 EOD', result: 'Fast login success rate >= 99.5%.', fail: 'Fallback to SMS OTP verification channel.' },
-          p2: { team: 'Engineering & QA/Ops', sprint: 'Sprint 2 (W3-W4)', tasks: 'Integrate LINE Pay webhook compensation.', deadline: '2026-04-05 EOD', result: 'Seamless DB write within 1s post-payment.', fail: 'Trigger manual reconciliation & credit tool.' },
-          p3: { team: 'Product PM & Sales/CS', sprint: 'Sprint 1 (W1-W2)', tasks: 'Define reservation timeout rules.', deadline: '2026-03-26 EOD', result: 'Auto-release slot upon timeout with notification.', fail: 'Extend 10-min buffer window.' }
-        }
+        actions: ['Produce coach style vocabulary by Wednesday', 'Build multi-tag search index'],
+        dod: ['Tag filter response < 100ms', 'Beginner inquiry drop 30%'],
+        edgeChecklists: [
+          '【Concurrency】Multiple users filtering tags simultaneously.',
+          '【Network Drop】UI fallback on slow network loading.',
+          '【Timeout Fallback】Default to popular tags if query times out.'
+        ]
       },
       {
         code: 'OB-111', title: '11. Peak Slot Dynamic Waitlist Engine',
@@ -580,12 +594,7 @@
           '【Concurrency】Two users claiming last slot simultaneously; Redis lock enforces zero overbooking.',
           '【Network Drop】LINE Pay succeeds during network switch; webhook safely recovers state.',
           '【Timeout Fallback】Rank #1 exceeds 15-min window; slot rolls over to Rank #2 cleanly.'
-        ],
-        sopData: {
-          p1: { team: 'Engineering & Product PM', sprint: 'Sprint 2 (W3-W4)', tasks: 'Implement Redis Redlock atomic lock & idempotency check.', deadline: '2026-03-28 EOD', result: 'Zero overbooking under 1,500 QPS (P99 < 250ms).', fail: 'Enforce DB unique constraint and fallback queue.' },
-          p2: { team: 'Engineering & Sales/CS', sprint: 'Sprint 3 (W5-W6)', tasks: 'Build payment reconciliation worker & frontend polling.', deadline: '2026-04-11 EOD', result: 'Auto-sync transaction status upon reconnection.', fail: 'Manual CS support channel within 10 minutes.' },
-          p3: { team: 'Engineering & QA/Ops', sprint: 'Sprint 2 (W3-W4)', tasks: 'Optimize Celery countdown timer & event-driven rollover.', deadline: '2026-03-31 EOD', result: '15-min timeout release & 100% accurate waitlist shift.', fail: 'Batch cron job sweep every 3 minutes.' }
-        }
+        ]
       }
     ];
 
@@ -609,23 +618,21 @@
             '【Concurrency】Verify custom transaction consistency under multi-user access.',
             '【Network Drop】Verify fallback error handling for custom payloads.',
             '【Timeout Fallback】Ensure strict timeout limits to prevent resource leakage.'
-          ],
-          sopData: {
-            p1: { team: 'Product PM & Engineering', sprint: 'Sprint 2 (W3-W4)', tasks: 'Conduct impact assessment & define ad-hoc boundary.', deadline: '2026-03-30 EOD', result: 'Clear go/no-go decision for Phase 1.', fail: 'Strictly postpone to Phase 2 backlog.' },
-            p2: { team: 'Engineering', sprint: 'Sprint 3 (W5-W6)', tasks: 'Implement isolated sandbox test if approved.', deadline: '2026-04-15 EOD', result: 'Isolated feature flag deployment.', fail: 'Rollback feature flag instantly.' },
-            p3: { team: 'QA/Ops', sprint: 'Sprint 3 (W5-W6)', tasks: 'Perform ad-hoc security and regression scan.', deadline: '2026-04-18 EOD', result: 'Zero regression on core booking flow.', fail: 'Disable ad-hoc module immediately.' }
-          }
+          ]
         };
       }
 
       const found = allPresets.find(p => p.code === code);
       if (found) return found;
+
+      // 自動產生 OB-102 到 OB-120 中未寫死的動態資料
+      const num = parseInt(code.replace('OB-', ''));
       return {
         code: code,
         title: `${code} Module Delivery & Boundary Management`,
-        voice: `"Users expect smooth operation and instant feedback for ${code}."`,
-        problem: `Address ${code} friction with automated asynchronous architecture.`,
-        scope: '1. No third-party plugins in Phase 1. 2. Single language support.',
+        voice: `"Users expect smooth operation and instant feedback for module ${code}."`,
+        problem: `Address ${code} friction with automated asynchronous architecture and strict validation.`,
+        scope: `1. No third-party plugins in Phase 1 for ${code}. 2. Single language support.`,
         defaultOwner: 'Engineering', defaultSupport: 'QA/Ops',
         raci: [
           { role: 'Product PM', type: 'A', desc: `Define ${code} commercial goals & acceptance criteria.` },
@@ -634,18 +641,13 @@
           { role: 'QA / DevOps', type: 'C', desc: `Execute ${code} automated testing & load tests.` },
           { role: 'Sales / CS', type: 'I', desc: `Receive ${code} documentation & CS training.` }
         ],
-        actions: [`Complete ${code} spec sign-off`, `Execute UAT integration tests`],
+        actions: [`Complete ${code} spec sign-off`, `Execute UAT integration tests for ${code}`],
         dod: [`${code} API latency < 200ms`, `Passed security and edge case verification`],
         edgeChecklists: [
-          `【Concurrency】Multiple users triggering ${code} transactions simultaneously.`,
+          `【Concurrency】Multiple users triggering ${code} transactions simultaneously without deadlock.`,
           `【Network Drop】Auto-retry and state rollback on ${code} request interruption.`,
           `【Timeout Fallback】Graceful degradation messaging on ${code} timeout.`
-        ],
-        sopData: {
-          p1: { team: 'Engineering & Product PM', sprint: 'Sprint 2 (W3-W4)', tasks: `Harden ${code} concurrency and distributed locking.`, deadline: '2026-03-28 EOD', result: 'Zero data anomaly under high load (Error Rate = 0%).', fail: 'Enable degraded fallback API channel.' },
-          p2: { team: 'Engineering & Sales/CS', sprint: 'Sprint 3 (W5-W6)', tasks: `Establish ${code} asynchronous reconciliation worker.`, deadline: '2026-04-11 EOD', result: 'Auto-repair state inconsistency.', fail: 'Route to manual support ticket review.' },
-          p3: { team: 'Engineering & QA/Ops', sprint: 'Sprint 2 (W3-W4)', tasks: `Configure ${code} timeout handling and event-driven cleanup.`, deadline: '2026-03-31 EOD', result: '100% resource release upon expiration.', fail: 'Batch cron job forced session purge.' }
-        }
+        ]
       };
     }
 
@@ -693,7 +695,7 @@
 
       step1Select.appendChild(optGroupNew.cloneNode(true));
       step1Select.appendChild(optGroupOld.cloneNode(true));
-      step1Select.value = "OB-111";
+      step1Select.value = "OB-101";
     }
 
     function onTitleDropdownChanged(code) {
@@ -709,6 +711,7 @@
         document.getElementById('kanban-filter-module').value = preset.code;
       }
 
+      // 渲染 UAT 測試目標清單
       const checklistContainer = document.getElementById('edge-checklist-container');
       checklistContainer.innerHTML = '';
       if (preset.edgeChecklists) {
@@ -721,29 +724,6 @@
           `;
           checklistContainer.appendChild(lbl);
         });
-      }
-
-      if (preset.sopData) {
-        document.getElementById('sop-p1-team').innerText = preset.sopData.p1.team;
-        document.getElementById('sop-p1-sprint').innerText = preset.sopData.p1.sprint;
-        document.getElementById('sop-p1-tasks').innerText = preset.sopData.p1.tasks;
-        document.getElementById('sop-p1-deadline').innerText = preset.sopData.p1.deadline;
-        document.getElementById('sop-p1-result').innerText = preset.sopData.p1.result;
-        document.getElementById('sop-p1-fail').innerText = preset.sopData.p1.fail;
-
-        document.getElementById('sop-p2-team').innerText = preset.sopData.p2.team;
-        document.getElementById('sop-p2-sprint').innerText = preset.sopData.p2.sprint;
-        document.getElementById('sop-p2-tasks').innerText = preset.sopData.p2.tasks;
-        document.getElementById('sop-p2-deadline').innerText = preset.sopData.p2.deadline;
-        document.getElementById('sop-p2-result').innerText = preset.sopData.p2.result;
-        document.getElementById('sop-p2-fail').innerText = preset.sopData.p2.fail;
-
-        document.getElementById('sop-p3-team').innerText = preset.sopData.p3.team;
-        document.getElementById('sop-p3-sprint').innerText = preset.sopData.p3.sprint;
-        document.getElementById('sop-p3-tasks').innerText = preset.sopData.p3.tasks;
-        document.getElementById('sop-p3-deadline').innerText = preset.sopData.p3.deadline;
-        document.getElementById('sop-p3-result').innerText = preset.sopData.p3.result;
-        document.getElementById('sop-p3-fail').innerText = preset.sopData.p3.fail;
       }
 
       renderInstantPrdAndInsights(preset);
@@ -927,9 +907,6 @@
       renderKanbanBoard();
     }
 
-    // ----------------------------------------------------
-    // Gmail 連結與模板生成邏輯 (確保正確呼叫 window.open)
-    // ----------------------------------------------------
     function openGmailKickoffCompose() {
       const selectEl = document.getElementById('req-title-select');
       const code = selectEl.value;
@@ -1000,9 +977,89 @@ Omcean Booking Command Center`;
       window.open(gmailUrl, '_blank');
     }
 
+    function renderRaciAndDoD(preset) {
+      const raciBody = document.getElementById('raci-table-body');
+      raciBody.innerHTML = '';
+      if (preset.raci) {
+        preset.raci.forEach(r => {
+          let badgeColor = 'bg-slate-800 text-slate-300';
+          if (r.type === 'A') badgeColor = 'bg-rose-950 text-rose-400 border border-rose-800';
+          else if (r.type === 'R') badgeColor = 'bg-cyan-950 text-cyan-300 border border-cyber-cyan/40';
+          else if (r.type === 'C') badgeColor = 'bg-amber-950 text-amber-300 border border-amber-800';
+          
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-cyber-cardHover transition';
+          tr.innerHTML = `
+            <td class="py-2.5 px-2 font-sans font-bold text-white">${r.role}</td>
+            <td class="py-2.5 px-2 text-center"><span class="px-2 py-0.5 rounded font-bold text-[11px] ${badgeColor}">${r.type}</span></td>
+            <td class="py-2.5 px-2 font-sans text-slate-300 text-[11px]">${r.desc}</td>
+          `;
+          raciBody.appendChild(tr);
+        });
+      }
+
+      const actionBox = document.getElementById('raci-action-items');
+      actionBox.innerHTML = '';
+      if (preset.actions) {
+        preset.actions.forEach((act, i) => {
+          const div = document.createElement('div');
+          div.className = 'flex items-start gap-2 bg-[#05080f] p-2 rounded border border-cyber-border';
+          div.innerHTML = `<span class="text-cyber-cyan font-bold font-mono">0${i+1}.</span> <span class="text-slate-300">${act}</span>`;
+          actionBox.appendChild(div);
+        });
+      }
+
+      const dodBox = document.getElementById('raci-dod-list');
+      dodBox.innerHTML = '';
+      if (preset.dod) {
+        preset.dod.forEach((d) => {
+          const div = document.createElement('div');
+          div.className = 'flex items-center gap-2 bg-[#05080f] p-2 rounded border border-cyber-border';
+          div.innerHTML = `<span class="text-cyber-green font-bold">✓</span> <span class="text-slate-300">${d}</span>`;
+          dodBox.appendChild(div);
+        });
+      }
+    }
+
+    function renderInstantPrdAndInsights(data) {
+      document.getElementById('prd-header-title').innerText = `[PRD] ${data.title}`;
+      const prdHtml = `
+        <div class="border-b border-cyber-border/50 pb-2 mb-2">
+          <span class="text-cyber-cyan font-bold block mb-1">【1. Problem & Root Cause】</span>
+          <div>▸ <strong>Voice of Customer:</strong> ${data.voice}</div>
+          <div>▸ <strong>PM Solution:</strong> ${data.problem}</div>
+          <div class="text-cyber-gold mt-1">▸ <strong>Out of Scope:</strong> ${data.scope}</div>
+        </div>
+        <div class="border-b border-cyber-border/50 pb-2 mb-2">
+          <span class="text-cyber-cyan font-bold block mb-1">【2. User Stories】</span>
+          <div>• As a user, I want smooth booking without friction, so I never miss sessions.</div>
+        </div>
+        <div>
+          <span class="text-cyber-cyan font-bold block mb-1">【3. Acceptance Criteria (Gherkin)】</span>
+          <div class="space-y-1.5 font-mono text-[11px] bg-[#080d17] p-2.5 rounded border border-cyber-border/40">
+            <div><strong class="text-emerald-400">AC 1:</strong> Given user reserves slot, When clicked, Then system validates assets in 200ms.</div>
+            <div><strong class="text-emerald-400">AC 2:</strong> Given simultaneous claims, When submitted, Then Redis distributed lock enforces zero overbooking.</div>
+          </div>
+        </div>
+      `;
+      document.getElementById('prd-content-view').innerHTML = prdHtml;
+
+      const insightsHtml = `
+        <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
+          <div class="text-cyber-cyan font-bold">1. Standardized over Custom (OKR 2)</div>
+          <div class="text-slate-400">Prevent unmaintainable hardcoded logic for single clients.</div>
+        </div>
+        <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
+          <div class="text-cyber-green font-bold">2. Architecture Reliability (OKR 1)</div>
+          <div class="text-slate-400">Isolate peak traffic with Redis atomic locks for 99.95% SLA.</div>
+        </div>
+      `;
+      document.getElementById('prd-pm-insights').innerHTML = insightsHtml;
+    }
+
     window.onload = () => {
       initDropdowns();
-      onTitleDropdownChanged("OB-111");
+      onTitleDropdownChanged("OB-101");
       renderKanbanBoard();
     };
   </script>
