@@ -63,7 +63,7 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking PM Command Center</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] Feature 01 ~ Feature 20 Fully Loaded &bull; Verified Gmail Dispatch (mshappyj@gmail.com)
+          [ROLE: PRODUCT PM] Feature 01 ~ Feature 20 Fully Rendered &bull; Verified Gmail Dispatch (mshappyj@gmail.com)
         </p>
       </div>
 
@@ -181,7 +181,7 @@
           <div class="lg:col-span-4 bg-[#0a121e] border border-cyber-border rounded-xl p-4 space-y-3">
             <div class="flex items-center justify-between border-b border-cyber-border pb-2">
               <span class="text-xs font-bold font-mono text-cyber-gold">PM Strategic Decisions</span>
-              <span class="text-[10px] font-mono text-slate-500">OKR View</span>
+              <span class="text-[10px] text-slate-500">OKR View</span>
             </div>
             <div id="prd-pm-insights" class="space-y-2.5 text-[11px] leading-relaxed text-slate-300"></div>
           </div>
@@ -440,7 +440,7 @@
 
       <div class="space-y-3">
         <div>
-          <label class="block text-slate-400 mb-1">Feature ID (對應 Feature 01 ~ 20)</label>
+          <label class="block text-slate-400 mb-1">Feature ID (Feature 01 ~ 20)</label>
           <input type="text" id="modal-ticket-id" class="w-full p-2 rounded border text-slate-200 bg-[#05080f] font-mono">
         </div>
 
@@ -533,47 +533,38 @@
   </div>
 
   <script>
-    // 完整對應 Feature 01 到 Feature 20 的資料庫
+    // 完整 20 個 Feature 核心資料庫
     const featuresData = {
       'Feature 01': {
         title: 'Feature 01: 24/7 Online Booking Widget (24小時線上預約小工具)',
         voice: '"Customers want to book anytime anywhere via mobile without calling the front desk."',
         problem: 'Traditional phone booking causes high drop-off and front-desk overload; need 24/7 self-service widget.',
-        scope: '1. No third-party phone PBX integration in Phase 1. 2. No custom avatar creation.',
+        scope: '1. No third-party phone PBX integration in Phase 1.',
         raci: [
           { role: 'Product PM', type: 'A', desc: 'Define 24/7 booking UX flow and widget boundaries.' },
           { role: 'UX / Frontend', type: 'R', desc: 'Build responsive web widget and mobile UI.' },
           { role: 'Engineering', type: 'C', desc: 'Expose secure public REST APIs for booking requests.' }
         ],
         actions: ['Complete widget responsive design review', 'Establish secure rate-limiting API endpoints'],
-        dod: ['Widget loads in < 1.5s', 'Mobile responsive across iOS/Android browsers'],
-        edgeChecklists: [
-          '【Concurrency】Multiple users accessing widget at midnight peak hours.',
-          '【Network Drop】Retry queue on unstable mobile network.',
-          '【Timeout Fallback】Show graceful maintenance banner if API gateway times out.'
-        ]
+        dod: ['Widget loads in < 1.5s', 'Mobile responsive across browsers'],
+        edgeChecklists: ['【Concurrency】Multiple users accessing widget at midnight peak hours.', '【Network Drop】Retry queue on unstable mobile network.']
       },
       'Feature 02': {
         title: 'Feature 02: Business Type & Multi-Location Selector (業務類型與分店選擇器)',
-        voice: '"We run multiple branches and different services (beauty, massage, badminton courts); we need seamless switching."',
+        voice: '"We run multiple branches and different services; we need seamless switching."',
         problem: 'Single-location architecture fails multi-branch scaling; need unified multi-tenant location selector.',
         scope: '1. No cross-branch loyalty point sharing in Phase 1.',
         raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define location taxonomy and multi-branch data isolation.' },
-          { role: 'Engineering', type: 'R', desc: 'Implement multi-tenant database schema and selector logic.' },
-          { role: 'Sales / CS', type: 'C', desc: 'Verify branch address and business hours data.' }
+          { role: 'Product PM', type: 'A', desc: 'Define location taxonomy and multi-branch isolation.' },
+          { role: 'Engineering', type: 'R', desc: 'Implement multi-tenant database schema.' }
         ],
         actions: ['Populate branch metadata table', 'Test location switcher state persistence'],
         dod: ['Branch switching latency < 100ms', '100% data isolation verified'],
-        edgeChecklists: [
-          '【Concurrency】Simultaneous branch switching across high-traffic regions.',
-          '【Network Drop】Fallback to default headquarters branch on network failure.',
-          '【Timeout Fallback】Cache branch list in LocalStorage.'
-        ]
+        edgeChecklists: ['【Concurrency】Simultaneous branch switching.', '【Network Drop】Fallback to default headquarters branch.']
       },
       'Feature 03': {
         title: 'Feature 03: Service Menu & Pricing Display (服務項目與價格清單展示)',
-        voice: '"We need a clear menu showing haircuts, massages, or 1-hour court rentals with transparent pricing."',
+        voice: '"We need a clear menu showing haircuts, massages, or court rentals with transparent pricing."',
         problem: 'Unstructured pricing leads to customer confusion and billing disputes.',
         scope: '1. No dynamic surge pricing in Phase 1.',
         raci: [
@@ -582,15 +573,11 @@
         ],
         actions: ['Standardize pricing currency formatting', 'Validate service item categories'],
         dod: ['Menu renders without layout shift', 'Pricing accurate to 100%'],
-        edgeChecklists: [
-          '【Concurrency】Bulk price fetching during peak catalog browsing.',
-          '【Network Drop】Offline cache of cached service items.',
-          '【Timeout Fallback】Placeholder skeleton loader during fetch delay.'
-        ]
+        edgeChecklists: ['【Concurrency】Bulk price fetching.', '【Network Drop】Offline cache of service items.']
       },
       'Feature 04': {
         title: 'Feature 04: Staff & Resource Scheduling Calendar (員工與場地排班行事曆)',
-        voice: '"We need to see which stylist, coach, or badminton court is available at any given time."',
+        voice: '"We need to see which staff or court is available at any given time."',
         problem: 'Manual calendar tracking causes double-booking and resource conflicts.',
         scope: '1. No AI auto-rostering in Phase 1.',
         raci: [
@@ -599,11 +586,7 @@
         ],
         actions: ['Build weekly/daily calendar matrix UI', 'Run slot collision test'],
         dod: ['Calendar renders 500+ slots in < 200ms', 'Zero resource collisions'],
-        edgeChecklists: [
-          '【Concurrency】Multiple admins viewing and editing staff shifts simultaneously.',
-          '【Network Drop】Optimistic UI locking with rollback on sync failure.',
-          '【Timeout Fallback】Polling sync every 30 seconds.'
-        ]
+        edgeChecklists: ['【Concurrency】Multiple admins editing staff shifts.', '【Network Drop】Optimistic UI locking.']
       },
       'Feature 05': {
         title: 'Feature 05: Customer Self-Service Portal (會員自助查詢與改期系統)',
@@ -614,34 +597,26 @@
           { role: 'Product PM', type: 'A', desc: 'Define cancellation time window policies.' },
           { role: 'UX / Frontend', type: 'R', desc: 'Build member dashboard and reschedule modal.' }
         ],
-        actions: ['Implement time-window validation logic', 'Design mobile-friendly booking history cards'],
+        actions: ['Implement time-window validation logic', 'Design mobile booking history cards'],
         dod: ['Reschedule completed in < 3 clicks', 'Policy enforcement 100% accurate'],
-        edgeChecklists: [
-          '【Concurrency】Last-minute mass rescheduling before deadline.',
-          '【Network Drop】Token refresh retry on expiration.',
-          '【Timeout Fallback】Lock UI during cancellation transaction.'
-        ]
+        edgeChecklists: ['【Concurrency】Last-minute mass rescheduling.', '【Network Drop】Token refresh retry.']
       },
       'Feature 06': {
         title: 'Feature 06: Automated SMS & Push Reminders (自動化簡訊與推播提醒)',
         voice: '"Automatically send reminders before appointments to reduce our no-show rate."',
-        problem: 'Manual reminders are time-consuming, resulting in an 18% no-show rate.',
-        scope: '1. No WhatsApp/WeChat integration in Phase 1.',
+        problem: 'Manual reminders are time-consuming, resulting in high no-show rates.',
+        scope: '1. No WhatsApp integration in Phase 1.',
         raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define reminder schedule (24h & 2h before).' },
+          { role: 'Product PM', type: 'A', desc: 'Define reminder schedule.' },
           { role: 'Engineering', type: 'R', desc: 'Implement Celery worker for scheduled SMS triggers.' }
         ],
-        actions: ['Integrate Twilio/SMS gateway API', 'Setup cron jobs for reminder dispatches'],
+        actions: ['Integrate SMS gateway API', 'Setup cron jobs for reminder dispatches'],
         dod: ['SMS delivery rate >= 98%', 'No-show rate reduced by 30%'],
-        edgeChecklists: [
-          '【Concurrency】Bulk reminder dispatch at top of hour.',
-          '【Network Drop】SMS gateway failover retry.',
-          '【Timeout Fallback】Log undelivered messages for CS review.'
-        ]
+        edgeChecklists: ['【Concurrency】Bulk reminder dispatch.', '【Network Drop】SMS gateway failover retry.']
       },
       'Feature 07': {
         title: 'Feature 07: Staff Shift & Leave Management (員工班表與請假管理)',
-        voice: '"When coaches or therapists take leave, block their time slots automatically so customers cannot book them."',
+        voice: '"When staff take leave, block their time slots automatically so customers cannot book them."',
         problem: 'Unsynchronized staff leave causes double-booking and customer complaints.',
         scope: '1. No substitute staff auto-assignment in Phase 1.',
         raci: [
@@ -649,29 +624,21 @@
           { role: 'Engineering', type: 'R', desc: 'Auto-block calendar slots upon leave approval.' }
         ],
         actions: ['Build staff leave request form', 'Test auto-blocking slot constraint'],
-        dod: ['Approved leave instantly blocks future bookings', 'Zero booking conflicts on leave days'],
-        edgeChecklists: [
-          '【Concurrency】Staff requesting leave during peak booking hours.',
-          '【Network Drop】Save draft leave request locally.',
-          '【Timeout Fallback】Notify admin on approval timeout.'
-        ]
+        dod: ['Approved leave instantly blocks future bookings', 'Zero booking conflicts'],
+        edgeChecklists: ['【Concurrency】Staff requesting leave during peak hours.', '【Network Drop】Save draft locally.']
       },
       'Feature 08': {
         title: 'Feature 08: Package & Course Credit Pass Tracking (課程券與計次卡追蹤)',
-        voice: '"For gyms or yoga studios, track remaining credits in a 10-class pass and deduct automatically upon attendance."',
+        voice: '"Track remaining credits in a 10-class pass and deduct automatically upon attendance."',
         problem: 'Manual paper punch cards are error-prone and untrackable.',
         scope: '1. No credit transfer between members in Phase 1.',
         raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define credit pass ledger rules and expiration policies.' },
+          { role: 'Product PM', type: 'A', desc: 'Define credit pass ledger rules.' },
           { role: 'Engineering', type: 'R', desc: 'Build atomic transaction ledger for credit deduction.' }
         ],
         actions: ['Implement credit pass ledger DB table', 'Test atomic deduction on check-in'],
         dod: ['Credit ledger balance 100% accurate', 'Instant deduction on attendance confirmation'],
-        edgeChecklists: [
-          '【Concurrency】Simultaneous credit deduction and purchase.',
-          '【Network Drop】Idempotency check against double deduction.',
-          '【Timeout Fallback】Lock pass during transaction.'
-        ]
+        edgeChecklists: ['【Concurrency】Simultaneous credit deduction and purchase.', '【Network Drop】Idempotency check.']
       },
       'Feature 09': {
         title: 'Feature 09: Check-in & Front Desk Reception Flow (櫃檯快速報到與分流機制)',
@@ -682,32 +649,22 @@
           { role: 'Product PM', type: 'A', desc: 'Define front-desk reception UX workflow.' },
           { role: 'UX / Frontend', type: 'R', desc: 'Build 1-tap check-in tablet interface.' }
         ],
-        actions: ['Optimize touch target sizes for tablet', 'Test check-in speed'],
+        actions: ['Optimize touch targets sizes for tablet', 'Test check-in speed'],
         dod: ['Check-in action processed in < 300ms', 'Lobby wait time reduced'],
-        edgeChecklists: [
-          '【Concurrency】Rush hour check-in queue.',
-          '【Network Drop】Offline queue sync on reconnection.',
-          '【Timeout Fallback】Manual override button for front desk.'
-        ]
+        edgeChecklists: ['【Concurrency】Rush hour check-in queue.', '【Network Drop】Offline queue sync.']
       },
       'Feature 10': {
         title: 'Feature 10: Waiting List & Slot Backfill System (候補名單與空檔遞補機制)',
-        voice: '"If a slot is full, customers can join the waitlist; if someone cancels, notify the next person automatically."',
+        voice: '"If a slot is full, customers join the waitlist; if someone cancels, notify the next person automatically."',
         problem: 'Empty seats from cancellations result in lost revenue.',
         scope: '1. No auto-payment for waitlist promotion in Phase 1.',
-        defaultOwner: 'Engineering', defaultSupport: 'QA/Ops',
         raci: [
           { role: 'Product PM', type: 'A', desc: 'Define waitlist FIFO and 15-min lock rules.' },
-          { role: 'Engineering', type: 'R', desc: 'Implement Redis atomic lock & FIFO queue.' },
-          { role: 'UX / Frontend', type: 'R', desc: 'Develop waitlist position and countdown UI.' }
+          { role: 'Engineering', type: 'R', desc: 'Implement Redis atomic lock & FIFO queue.' }
         ],
         actions: ['Implement FIFO Redis queue', 'Test 15-minute expiration countdown'],
         dod: ['Zero overbooking', '15-min timeout auto-rollover 100% accurate'],
-        edgeChecklists: [
-          '【Concurrency】Multiple users claiming released slot simultaneously.',
-          '【Network Drop】Webhook recovery on notification delivery.',
-          '【Timeout Fallback】Auto-promote next waitlist candidate.'
-        ]
+        edgeChecklists: ['【Concurrency】Multiple users claiming released slot.', '【Network Drop】Webhook recovery.']
       },
       'Feature 11': {
         title: 'Feature 11: Online Payment & Deposit Gateway (線上付款與訂金金流整合)',
@@ -720,11 +677,7 @@
         ],
         actions: ['Setup secure payment gateway sandbox', 'Test webhook event handling'],
         dod: ['Payment success rate >= 99%', 'Webhook reconciliation verified'],
-        edgeChecklists: [
-          '【Concurrency】Flash sale payment spikes.',
-          '【Network Drop】Orphaned transaction reconciliation worker.',
-          '【Timeout Fallback】Auto-release slot if payment times out.'
-        ]
+        edgeChecklists: ['【Concurrency】Flash sale payment spikes.', '【Network Drop】Orphaned transaction reconciliation.']
       },
       'Feature 12': {
         title: 'Feature 12: Business Revenue & Performance Dashboard (營業額與業績戰情室報表)',
@@ -735,81 +688,61 @@
           { role: 'Product PM', type: 'A', desc: 'Define key revenue metrics and dashboard layout.' },
           { role: 'UX / Frontend', type: 'R', desc: 'Build interactive charts and exportable reports.' }
         ],
-        actions: ['Integrate lightweight charting library', 'Test data aggregation queries'],
+        actions: ['Integrate charting library', 'Test data aggregation queries'],
         dod: ['Dashboard loads in < 1s', 'Export CSV functional'],
-        edgeChecklists: [
-          '【Concurrency】Multiple owners viewing reports simultaneously.',
-          '【Network Drop】Cache last calculated aggregation.',
-          '【Timeout Fallback】Paginate heavy data sets.'
-        ]
+        edgeChecklists: ['【Concurrency】Multiple owners viewing reports.', '【Network Drop】Cache last calculated aggregation.']
       },
       'Feature 13': {
         title: 'Feature 13: Customer Relationship Management (CRM) Notes (客戶偏好與歷史備忘錄)',
-        voice: '"Remember client preferences (e.g., oil allergies, pressure preference) so staff can view records instantly."',
+        voice: '"Remember client preferences so staff can view records instantly."',
         problem: 'Inconsistent customer records lead to poor personalized service.',
         scope: '1. No automated sentiment AI analysis in Phase 1.',
         raci: [
           { role: 'Product PM', type: 'A', desc: 'Define CRM tag schema and privacy compliance.' },
-          { role: 'Sales / CS', type: 'R', desc: 'Establish standard note-taking templates.' }
+          { role: 'Sales / CS', type: 'R', desc: 'Establish standard note templates.' }
         ],
         actions: ['Build secure CRM notes database table', 'Enforce GDPR/privacy masking'],
         dod: ['Notes display instantly on booking profile', 'Encryption verified'],
-        edgeChecklists: [
-          '【Concurrency】Simultaneous note updates by multiple staff.',
-          '【Network Drop】Local autosave draft.',
-          '【Timeout Fallback】Read-only fallback.'
-        ]
+        edgeChecklists: ['【Concurrency】Simultaneous note updates.', '【Network Drop】Local autosave draft.']
       },
       'Feature 14': {
         title: 'Feature 14: Automated Review & Feedback Collector (自動化滿意度回饋收集)',
-        voice: '"Automatically send feedback request emails/messages after service completion to gather public reviews."',
+        voice: '"Automatically send feedback requests after service completion to gather public reviews."',
         problem: 'Manual review collection yields very low response rates.',
         scope: '1. No auto-publishing to Google Maps API in Phase 1.',
         raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define feedback trigger timing (2 hours post-service).' },
+          { role: 'Product PM', type: 'A', desc: 'Define feedback trigger timing.' },
           { role: 'Engineering', type: 'R', desc: 'Build automated feedback collection worker.' }
         ],
         actions: ['Design rating star UI template', 'Test post-service trigger cron'],
         dod: ['Review collection rate increased by 40%', 'Feedback stored securely'],
-        edgeChecklists: [
-          '【Concurrency】Bulk post-service dispatch.',
-          '【Network Drop】Retry dispatch queue.',
-          '【Timeout Fallback】Email backup.'
-        ]
+        edgeChecklists: ['【Concurrency】Bulk post-service dispatch.', '【Network Drop】Retry dispatch queue.']
       },
       'Feature 15': {
         title: 'Feature 15: Promotional Discount & Coupon Code Engine (優惠券與折扣碼引擎)',
-        voice: '"Enable merchants to issue new user discounts ($100 off) or holiday promo codes."',
+        voice: '"Enable merchants to issue new user discounts or holiday promo codes."',
         problem: 'Lack of promotional tooling limits marketing campaign flexibility.',
         scope: '1. No tiered loyalty stamp cards in Phase 1.',
         raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define coupon rules (percentage, fixed amount, expiration).' },
+          { role: 'Product PM', type: 'A', desc: 'Define coupon rules.' },
           { role: 'Engineering', type: 'R', desc: 'Implement coupon validation and checkout deduction logic.' }
         ],
         actions: ['Build coupon management admin panel', 'Test discount calculation at checkout'],
         dod: ['Coupon validation latency < 50ms', 'Zero calculation errors'],
-        edgeChecklists: [
-          '【Concurrency】High redemption volume during campaigns.',
-          '【Network Drop】Rollback unapplied coupon state.',
-          '【Timeout Fallback】Lock coupon validity during checkout.'
-        ]
+        edgeChecklists: ['【Concurrency】High redemption volume.', '【Network Drop】Rollback unapplied coupon.']
       },
       'Feature 16': {
         title: 'Feature 16: AI Smart Scheduling Assistant (AI 智慧排程與最佳化建議)',
-        voice: '"Use AI to analyze traffic peaks and automatically suggest when merchants should schedule extra staff."',
+        voice: '"Use AI to analyze traffic peaks and automatically suggest when to schedule extra staff."',
         problem: 'Understaffing during peak hours and overstaffing during lulls waste labor costs.',
         scope: '1. No automatic payroll integration in Phase 1.',
         raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define AI recommendation metrics and threshold rules.' },
+          { role: 'Product PM', type: 'A', desc: 'Define AI recommendation metrics.' },
           { role: 'AI/Chatbot', type: 'R', desc: 'Build historical traffic prediction model.' }
         ],
         actions: ['Analyze historical booking density', 'Design admin recommendation banner'],
         dod: ['AI insights generated weekly', 'Staffing efficiency improved by 15%'],
-        edgeChecklists: [
-          '【Concurrency】Background model training isolation.',
-          '【Network Drop】Fallback to static heuristic rules.',
-          '【Timeout Fallback】Display cached recommendations.'
-        ]
+        edgeChecklists: ['【Concurrency】Background model training isolation.', '【Network Drop】Fallback to static heuristic.']
       },
       'Feature 17': {
         title: 'Feature 17: AI-Powered Chatbot Booking Agent (AI 智能聊天機器人預約助理)',
@@ -820,30 +753,22 @@
           { role: 'Product PM', type: 'A', desc: 'Define AI bot conversation flows and guardrails.' },
           { role: 'AI/Chatbot', type: 'R', desc: 'Integrate LLM intent parser with booking backend.' }
         ],
-        actions: ['Establish LLM system prompt guardrails', 'Test webhook integration with LINE Messaging API'],
-        dod: ['Bot booking completion rate >= 70%', 'Zero hallucinated booking confirmations'],
-        edgeChecklists: [
-          '【Concurrency】High volume chat requests.',
-          '【Network Drop】Webhook retry mechanism.',
-          '【Timeout Fallback】Human handoff on complex queries.'
-        ]
+        actions: ['Establish LLM system prompt guardrails', 'Test webhook integration with LINE'],
+        dod: ['Bot booking completion rate >= 70%', 'Zero hallucinated confirmations'],
+        edgeChecklists: ['【Concurrency】High volume chat requests.', '【Network Drop】Webhook retry mechanism.']
       },
       'Feature 18': {
         title: 'Feature 18: Command Hub Release & Sprint Tracker (Command Hub 版本與開發進度追蹤)',
-        voice: '"Our own operational control center: track whether features 1-17 are In Progress, QA, or Released."',
+        voice: '"Track whether features 1-17 are In Progress, QA, or Released in our operational control center."',
         problem: 'Scattered task management leads to delayed product releases.',
         scope: '1. No external Jira bi-directional sync in Phase 1.',
         raci: [
-          { role: 'Product PM', type: 'A', desc: 'Maintain Command Center sprint milestones and OKR alignment.' },
+          { role: 'Product PM', type: 'A', desc: 'Maintain Command Center sprint milestones.' },
           { role: 'Engineering', type: 'R', desc: 'Update subtask ticket statuses and progress.' }
         ],
         actions: ['Configure Gantt and Kanban boards', 'Verify OKR guardrail metrics'],
         dod: ['100% feature visibility on dashboard', 'Zero stale tickets'],
-        edgeChecklists: [
-          '【Concurrency】Multi-PM board updates.',
-          '【Network Drop】LocalStorage autosave.',
-          '【Timeout Fallback】State recovery.'
-        ]
+        edgeChecklists: ['【Concurrency】Multi-PM board updates.', '【Network Drop】LocalStorage autosave.']
       },
       'Feature 19': {
         title: 'Feature 19: Cross-Module Feedback & Bug Triage (跨模組回報與 Bug 快速分流)',
@@ -856,29 +781,20 @@
         ],
         actions: ['Build bug reporting form', 'Establish high-priority escalation alert'],
         dod: ['Bug triage time < 30 mins', 'Resolution tracking verified'],
-        edgeChecklists: [
-          '【Concurrency】Surge in bug reports during release.',
-          '【Network Drop】Offline bug report queue.',
-          '【Timeout Fallback】Email notification backup.'
-        ]
+        edgeChecklists: ['【Concurrency】Surge in bug reports.', '【Network Drop】Offline bug report queue.']
       },
       'Feature 20': {
         title: 'Feature 20: Unified API & Third-Party Integration Hub (跨平台 API 與第三方工具整合中心)',
-        voice: '"Integrate Omcean with external tools like Google Calendar, LINE Official Account, and accounting software."',
+        voice: '"Integrate Omcean with external tools like Google Calendar and LINE Official Account."',
         problem: 'Siloed software stacks create double-entry data entry errors.',
         scope: '1. No custom webhook builder for merchants in Phase 1.',
-        defaultOwner: 'Engineering', defaultSupport: 'QA/Ops',
         raci: [
           { role: 'Product PM', type: 'A', desc: 'Define integration priorities and API rate limits.' },
           { role: 'Engineering', type: 'R', desc: 'Build OAuth integration hub for Google Calendar & LINE.' }
         ],
         actions: ['Implement Google Calendar OAuth sync', 'Test bi-directional event sync'],
         dod: ['Google Calendar sync latency < 2s', 'OAuth token security verified'],
-        edgeChecklists: [
-          '【Concurrency】Token refresh concurrency handling.',
-          '【Network Drop】API retry backoff policy.',
-          '【Timeout Fallback】Graceful disconnection alert.'
-        ]
+        edgeChecklists: ['【Concurrency】Token refresh concurrency.', '【Network Drop】API retry backoff policy.']
       }
     };
 
@@ -914,10 +830,7 @@
         ],
         actions: [`Complete spec review for ${code}`, `Execute integration tests`],
         dod: ['Passed all automated test suites', 'UAT sign-off secured'],
-        edgeChecklists: [
-          '【Concurrency】High load verification.',
-          '【Network Drop】Graceful error handling.'
-        ]
+        edgeChecklists: ['【Concurrency】High load verification.', '【Network Drop】Graceful error handling.']
       };
     }
 
@@ -927,6 +840,11 @@
       const ganttFilterSelect = document.getElementById('gantt-filter-module');
       const kanbanFilterSelect = document.getElementById('kanban-filter-module');
       
+      step1Select.innerHTML = '';
+      modalSelect.innerHTML = '<option value="">-- Select Feature --</option>';
+      ganttFilterSelect.innerHTML = '';
+      kanbanFilterSelect.innerHTML = '<option value="ALL">All Features</option>';
+
       const customOpt = document.createElement('option');
       customOpt.value = 'CUSTOM-ADHOC';
       customOpt.text = '⭐ [+ Create Custom Ad-hoc Requirement (Outside Presets)]';
