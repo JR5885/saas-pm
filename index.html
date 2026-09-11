@@ -63,12 +63,12 @@
           <h1 id="txt-main-title" class="text-2xl font-bold text-white tracking-tight">Omcean Booking PM 指揮中心</h1>
         </div>
         <p id="txt-sub-title" class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] Feature 01 ~ Feature 20 完整動態渲染 &bull; 支援中英文切換 &bull; Gmail 快速發信
+          [ROLE: PRODUCT PM] Feature 01 ~ Feature 20 獨立 PRD 渲染 &bull; 支援中英文切換 &bull; Gmail 快速發信
         </p>
       </div>
 
       <div class="flex items-center space-x-3 font-mono text-xs">
-        <!-- 語言切換按鈕 -->
+        <!-- 語言切換按鈕組 -->
         <div class="bg-[#05080f] border border-cyber-border rounded-lg p-0.5 flex items-center">
           <button id="btn-lang-zh" onclick="setLanguage('zh')" class="px-2.5 py-1 rounded bg-cyber-cyan text-slate-950 font-bold transition">繁體中文</button>
           <button id="btn-lang-en" onclick="setLanguage('en')" class="px-2.5 py-1 rounded text-slate-400 hover:text-white transition">English</button>
@@ -146,14 +146,14 @@
 
           <div>
             <div class="flex justify-between items-center mb-1">
-              <label class="block text-[11px] font-mono text-slate-400">客戶心聲 (VoC)</label>
+              <label id="txt-voc-label" class="block text-[11px] font-mono text-slate-400">客戶心聲 (VoC)</label>
               <span class="text-[10px] font-mono text-cyber-green">✓ 已同步</span>
             </div>
             <textarea id="req-voice" rows="2" class="w-full px-3 py-1.5 text-xs rounded border leading-relaxed"></textarea>
           </div>
 
           <div>
-            <label class="block text-[11px] font-mono text-cyber-cyan mb-1">PM 分析之根本原因 (Root Cause)</label>
+            <label id="txt-rc-label" class="block text-[11px] font-mono text-cyber-cyan mb-1">PM 分析之根本原因 (Root Cause)</label>
             <textarea id="req-problem" rows="2" class="w-full px-3 py-1.5 text-xs rounded border leading-relaxed text-cyber-cyan"></textarea>
           </div>
         </div>
@@ -213,15 +213,15 @@
           </div>
           <div>
             <label class="text-[10px] text-slate-400 block mb-1">RACI 權責描述：</label>
-            <div contenteditable="true" id="raci-pm-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">定義核心功能需求、User Stories、Gherkin AC，並嚴格把關第一階段範圍邊界。</div>
+            <div contenteditable="true" id="raci-pm-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">Define core feature requirements, user stories, Gherkin AC, and strict Phase 1 scope boundaries.</div>
           </div>
           <div>
             <label class="text-[10px] text-cyber-gold block mb-1">行動清單 (Action Items)：</label>
-            <div contenteditable="true" id="raci-pm-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• 完成 PRD 與 AC 定案簽署<br>• 主持跨部門專案啟動會議</div>
+            <div contenteditable="true" id="raci-pm-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• Finalize PRD & AC sign-off<br>• Conduct cross-functional kickoff</div>
           </div>
           <div>
             <label class="text-[10px] text-cyber-green block mb-1">交付完成標準 (DoD)：</label>
-            <div contenteditable="true" id="raci-pm-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ PRD 通過技術主管審查<br>✓ 範圍凍結完成 (&lt;10% 異動)</div>
+            <div contenteditable="true" id="raci-pm-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ PRD approved by tech lead<br>✓ Scope freeze locked (&lt;10% churn)</div>
           </div>
         </div>
 
@@ -233,15 +233,15 @@
           </div>
           <div>
             <label class="text-[10px] text-slate-400 block mb-1">RACI 權責描述：</label>
-            <div contenteditable="true" id="raci-rd-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">執行前後端系統架構、Redis 分散式鎖定機制，並確保高併發 REST API 穩定落地。</div>
+            <div contenteditable="true" id="raci-rd-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">Execute backend/frontend architecture, Redis distributed locking, and robust REST API implementation.</div>
           </div>
           <div>
             <label class="text-[10px] text-cyber-gold block mb-1">行動清單 (Action Items)：</label>
-            <div contenteditable="true" id="raci-rd-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• 實作高效資料庫結構<br>• 單元測試涵蓋率 &gt;= 85%</div>
+            <div contenteditable="true" id="raci-rd-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• Implement scalable DB schema<br>• Unit test coverage &gt;= 85%</div>
           </div>
           <div>
             <label class="text-[10px] text-cyber-green block mb-1">交付完成標準 (DoD)：</label>
-            <div contenteditable="true" id="raci-rd-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ 程式碼成功合併至 Staging 分支<br>✓ API P99 回應時間 &lt; 200ms</div>
+            <div contenteditable="true" id="raci-rd-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ Code merged to staging<br>✓ API response P99 &lt; 200ms</div>
           </div>
         </div>
 
@@ -253,15 +253,15 @@
           </div>
           <div>
             <label class="text-[10px] text-slate-400 block mb-1">RACI 權責描述：</label>
-            <div contenteditable="true" id="raci-qa-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">執行邊界條件驗證（併發衝突、網路斷線、超時回退）與 UAT 驗收測試。</div>
+            <div contenteditable="true" id="raci-qa-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">Execute edge case verification (concurrency, network drops, timeout fallbacks) and UAT testing.</div>
           </div>
           <div>
             <label class="text-[10px] text-cyber-gold block mb-1">行動清單 (Action Items)：</label>
-            <div contenteditable="true" id="raci-qa-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• 執行 1,500 QPS 壓力測試<br>• 驗證 Gherkin 驗收案例</div>
+            <div contenteditable="true" id="raci-qa-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• Run 1,500 QPS load tests<br>• Verify Gherkin acceptance criteria</div>
           </div>
           <div>
             <label class="text-[10px] text-cyber-green block mb-1">交付完成標準 (DoD)：</label>
-            <div contenteditable="true" id="raci-qa-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ Staging 環境零重大錯誤<br>✓ 壓力測試通過且零超額預約</div>
+            <div contenteditable="true" id="raci-qa-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ Zero critical bugs on staging<br>✓ Stress test passed with 0 overbooking</div>
           </div>
         </div>
 
@@ -273,15 +273,15 @@
           </div>
           <div>
             <label class="text-[10px] text-slate-400 block mb-1">RACI 權責描述：</label>
-            <div contenteditable="true" id="raci-bd-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">收集客戶心聲 (VoC)，對齊第一階段旗艦店試用客戶，並準備營運說明文件。</div>
+            <div contenteditable="true" id="raci-bd-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">Gather Voice of Customer (VoC), align pilot clients for Phase 1 rollout, and prepare support documentation.</div>
           </div>
           <div>
             <label class="text-[10px] text-cyber-gold block mb-1">行動清單 (Action Items)：</label>
-            <div contenteditable="true" id="raci-bd-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• 確認第四週旗艦店試用名單<br>• 發布幫助中心常見問題說明</div>
+            <div contenteditable="true" id="raci-bd-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• Confirm Week 4 flagship pilot client<br>• Publish Help Center FAQ docs</div>
           </div>
           <div>
             <label class="text-[10px] text-cyber-green block mb-1">交付完成標準 (DoD)：</label>
-            <div contenteditable="true" id="raci-bd-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ 客戶教育訓練順利完成<br>✓ 客服升級應變管道建立</div>
+            <div contenteditable="true" id="raci-bd-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ Client onboarding training completed<br>✓ CS escalation channel established</div>
           </div>
         </div>
       </div>
@@ -601,11 +601,11 @@
         scope: `1. 第一階段嚴格範圍凍結：不包含任何第三方外掛插件或客製化 API。`,
         userStories: `• As a user, I want reliable and instant processing for ${code} so I can manage bookings without frustration.`,
         gherkinAC: `Given the system is operational, When the user triggers ${code}, Then the system validates state and completes execution within 200ms.`,
-        pmInsights: `1. 標準化模組優於一次性客製，確保長期維護性 (OKR 2)。\n2. 高併發架構隔離流量，確保 99.95% 系統穩定度 (OKR 1)。`,
+        pmInsights: `1. 標準化模組優於一次性客製，確保長期維護性 (OKR 2).\n2. 高併發架構隔離流量，確保 99.95% 系統穩定度 (OKR 1).`,
         raci: {
           pm: { desc: `定義 ${code} 的功能規格、User Stories 與 Gherkin BDD 驗收標準。`, actions: ['定案 PRD 規格書', '主持跨部門共識會'], dod: ['PRD 獲得技術主管簽署'] },
-          rd: { desc: `執行前後端架構設計、資料庫實作與高併發 API 開發。`, actions: ['編寫核心商業邏輯', '單元測試涵蓋率 &gt;= 85%'], dod: ['程式碼合併至 Staging'] },
-          qa: { desc: `執行邊界測試（併發、斷線、逾期）與壓力驗收。`, actions: ['撰寫自動化測試腳本', '執行 1,500 QPS 壓力測試'], dod: ['零重大弱點與錯誤'] },
+          rd: { desc: `執行前後端架構設計、資料庫實作與高併發 API 開發。`, actions: ['編寫核心商業邏輯', '單元測試涵蓋率 >= 85%'], dod: ['程式碼合併至 Staging'] },
+          qa: { desc: `執行邊界測試（併發、斷線、逾期）與壓力驗收。`, actions: ['撰寫自動化測試腳本', '執行 1,500 QPS 壓力測試'], dod: ['零重大錯誤'] },
           bd: { desc: `收集前線客戶心聲 (VoC) 並對齊旗艦店試用。`, actions: ['客戶訪談與培訓', '發布使用指南'], dod: ['試用客戶驗收通過'] }
         },
         edgeChecklists: [
@@ -619,7 +619,7 @@
     const i18n = {
       zh: {
         mainTitle: "Omcean Booking PM 指揮中心",
-        subTitle: "[ROLE: PRODUCT PM] Feature 01 ~ Feature 20 完整動態渲染 • 支援中英文切換 • Gmail 快速發信",
+        subTitle: "[ROLE: PRODUCT PM] Feature 01 ~ Feature 20 獨立 PRD 渲染 • 支援中英文切換 • Gmail 快速發信",
         okrHeader: "5 大專案 OKR 核心護欄 (點擊數值可直接編輯)",
         step1Title: "需求探索與範圍凍結 / 自定義需求處理",
         featureLabel: "功能需求標題 (Feature 01 ~ 20)",
@@ -671,7 +671,6 @@
       currentLang = lang;
       document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
 
-      // 按鈕樣式切換
       if (lang === 'zh') {
         document.getElementById('btn-lang-zh').className = "px-2.5 py-1 rounded bg-cyber-cyan text-slate-950 font-bold transition";
         document.getElementById('btn-lang-en').className = "px-2.5 py-1 rounded text-slate-400 hover:text-white transition";
@@ -680,7 +679,6 @@
         document.getElementById('btn-lang-zh').className = "px-2.5 py-1 rounded text-slate-400 hover:text-white transition";
       }
 
-      // 替換靜態文字
       document.getElementById('txt-main-title').innerText = i18n[lang].mainTitle;
       document.getElementById('txt-sub-title').innerText = i18n[lang].subTitle;
       document.getElementById('txt-okr-header').innerText = i18n[lang].okrHeader;
@@ -708,7 +706,7 @@
       if (code === 'CUSTOM-ADHOC') {
         return {
           code: 'CUSTOM-ADHOC',
-          title: currentLang === 'zh' ? '自定義需求 (不在 20 個預設內)' : 'Custom Ad-hoc Requirement (Outside Presets)',
+          title: currentLang === 'zh' ? '⭐ [+ 建立自定義需求]' : '⭐ [+ Create Custom Ad-hoc Requirement]',
           voice: '"Stakeholder requested a custom feature outside standard Phase 1 backlog."',
           problem: 'Requires PM impact assessment, scope boundary check, and strict out-of-scope enforcement.',
           scope: '1. Strict Phase 1 freeze: Postponed to Phase 2 unless blocking core revenue.',
@@ -740,7 +738,7 @@
 
       const customOpt = document.createElement('option');
       customOpt.value = 'CUSTOM-ADHOC';
-      customOpt.text = '⭐ [+ Create Custom Ad-hoc Requirement]';
+      customOpt.text = '⭐ [+ Create Custom Ad-hoc Requirement (Outside Presets)]';
       step1Select.appendChild(customOpt);
 
       let optGroup = document.createElement('optgroup');
@@ -788,7 +786,6 @@
         document.getElementById('kanban-filter-module').value = code;
       }
 
-      // 填入各團隊 RACI 資訊
       document.getElementById('raci-pm-desc').innerText = f.raci.pm.desc;
       document.getElementById('raci-pm-actions').innerHTML = f.raci.pm.actions.map(a => `• ${a}`).join('<br>');
       document.getElementById('raci-pm-dod').innerHTML = f.raci.pm.dod.map(d => `✓ ${d}`).join('<br>');
@@ -1150,6 +1147,7 @@ Omcean Booking Command Center`;
     }
 
     // 初始化 20 個獨立 Feature 專屬數據庫
+    const featuresData = {};
     for (let i = 1; i <= 20; i++) {
       const code = `Feature ${i < 10 ? '0' + i : i}`;
       let v = "", p = "", s = "", us = "", ac = "", pi = "";
@@ -1164,7 +1162,7 @@ Omcean Booking Command Center`;
       } else if (i === 2) {
         v = '"We run multiple branches and different services; we need seamless switching."';
         p = 'Single-location architecture fails multi-branch scaling; need multi-tenant selector.';
-        s = '1. No cross-branch loyalty point sharing in Phase 1. 2. No multi-currency billing.';
+        s = '1. No cross-branch loyalty point sharing in Phase 1. 2. No multi-currency billing per branch.';
         us = '• As a customer, I want to select my preferred branch and service type so I view accurate schedules.';
         ac = 'Given user is on homepage, When switching location to Branch B, Then schedule inventory instantly loads Branch B data.';
         pi = '1. Multi-tenant scalability (OKR 1).\n2. Zero data leakage across tenants (OKR 2).';
@@ -1296,12 +1294,26 @@ Omcean Booking Command Center`;
         pi = '1. Unified integration hub eliminates data silos (OKR 2).';
       }
 
-      featuresData[code].voice = v;
-      featuresData[code].problem = p;
-      featuresData[code].scope = s;
-      featuresData[code].userStories = us;
-      featuresData[code].gherkinAC = ac;
-      featuresData[code].pmInsights = pi;
+      featuresData[code] = {
+        code: code,
+        title: `${code}: Omcean Core Operational Module`,
+        voice: v,
+        problem: p,
+        scope: s,
+        userStories: us,
+        gherkinAC: ac,
+        pmInsights: pi,
+        raci: {
+          pm: { desc: `Define ${code} functional specs and user stories.`, actions: ['Finalize acceptance criteria', 'Sync with stakeholders'], dod: ['PRD signed off'] },
+          rd: { desc: `Implement backend APIs and frontend UI for ${code}.`, actions: ['Code development', 'Unit testing'], dod: ['Passing CI/CD pipeline'] },
+          qa: { desc: `Validate edge cases and stress testing for ${code}.`, actions: ['Execute UAT test cases', 'Load testing'], dod: ['Zero critical bugs'] },
+          bd: { desc: `Gather user feedback and support pilot rollout for ${code}.`, actions: ['Client alignment', 'Training session'], dod: ['Pilot ready'] }
+        },
+        edgeChecklists: [
+          `【Concurrency】Multiple users accessing ${code} simultaneously.`,
+          `【Network Drop】Graceful recovery and error messaging for ${code}.`
+        ]
+      };
     }
 
     window.onload = () => {
