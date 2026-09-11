@@ -430,7 +430,7 @@
             <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" id="sop-p1-team" class="text-slate-200 bg-slate-900/60 px-1 rounded">工程研發與產品經理</span></div>
             <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" id="sop-p1-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
             <div><strong class="text-slate-300">修正動作:</strong> <span contenteditable="true" id="sop-p1-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded">導入 Redis Redlock 分散式鎖定機制。</span></div>
-            <div><strong class="text-rose-400">完成期限:</strong> <span contenteditable="true" id="sop-p1-deadline" class="text-slate-200 bg-slate-900/60 px-1 rounded">2026-03-28 EOD</span></div>
+            <div><strong class="text-rose-400">完成期限:</strong> <span contenteditable="true" id="sop-p1-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-03-28 EOD</span></div>
             <div><strong class="text-cyber-green">交付目標:</strong> <span contenteditable="true" id="sop-p1-result" class="text-slate-300 bg-slate-900/60 px-1 rounded">1,500 QPS 壓力測試超額率 = 0%。</span></div>
             <div><strong class="text-amber-400">備用方案:</strong> <span contenteditable="true" id="sop-p1-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded">資料庫唯一限制條件強制約束。</span></div>
           </div>
@@ -456,7 +456,7 @@
           <p class="text-[11px] text-slate-400 font-sans leading-relaxed">15分鐘保留時間逾期未付款。</p>
           <div class="space-y-1.5 text-[11px] pt-2 border-t border-cyber-border/60">
             <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" id="sop-p3-team" class="text-slate-200 bg-slate-900/60 px-1 rounded">工程研發與品質保證</span></div>
-            <div><strong class="text-yellow-400">Target Sprint:</strong> <span contenteditable="true" id="sop-p3-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
+            <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" id="sop-p3-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
             <div><strong class="text-slate-300">Required Fix:</strong> <span contenteditable="true" id="sop-p3-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded">Optimize Celery countdown & event-driven auto-rollover.</span></div>
             <div><strong class="text-rose-400">Deadline:</strong> <span contenteditable="true" id="sop-p3-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-03-31 EOD</span></div>
             <div><strong class="text-cyber-green">Deliverable:</strong> <span contenteditable="true" id="sop-p3-result" class="text-slate-300 bg-slate-900/60 px-1 rounded">15-min timeout release & 100% accurate waitlist shift.</span></div>
@@ -1446,183 +1446,6 @@ Omcean Booking Command Center`;
       `;
       document.getElementById('prd-pm-insights').innerHTML = insightsHtml;
     }
-
-    // 15年資深產品經理規格：為 Feature 01 ~ Feature 20 打造高專業度、具體且一目了然的深度 PRD 資料庫
-    const featuresData = {};
-    for (let i = 1; i <= 20; i++) {
-      const code = `Feature ${i < 10 ? '0' + i : i}`;
-      let v = "", p = "", s = "", us = "", ac = "", pi = "";
-
-      if (i === 1) {
-        v = '"Customers want to book anytime anywhere via mobile without calling the front desk during off-hours."';
-        p = 'Traditional phone booking creates severe off-hour friction and 40% drop-off; need a responsive 24/7 web/mobile booking widget.';
-        s = '1. No third-party phone PBX telephony integration in Phase 1. 2. No custom avatar creation.';
-        us = '• As a customer, I want to book a slot 24/7 on my mobile phone so I never have to wait for store opening hours.';
-        ac = 'Given the customer opens the mobile booking widget, When they select an available time slot and click Reserve, Then the system instantly locks the slot for 15 minutes and opens the checkout flow.';
-        pi = '1. Standardized mobile widget over bespoke apps minimizes maintenance overhead (OKR 2).\n2. High availability target of 99.95% SLA ensures zero lost bookings during midnight spikes (OKR 1).';
-      } else if (i === 2) {
-        v = '"We run multiple branches and different services (beauty, massage, badminton courts); we need seamless switching."';
-        p = 'Single-location architecture fails multi-branch scaling; need a unified multi-tenant branch and service type selector.';
-        s = '1. No cross-branch loyalty point sharing in Phase 1. 2. No multi-currency billing per branch.';
-        us = '• As a customer, I want to select my preferred branch and business type so I view accurate live schedules.';
-        ac = 'Given the customer is on the homepage, When they switch location from Branch A to Branch B, Then the schedule inventory instantly reloads Branch B data within 100ms.';
-        pi = '1. Multi-tenant database architecture ensures clean branch data isolation (OKR 1).\n2. Scalable for future franchise expansion without schema redesign.';
-      } else if (i === 3) {
-        v = '"We need a clear menu showing haircuts, massages, or court rentals with transparent pricing."';
-        p = 'Unstructured pricing and hidden fees lead to customer confusion and front-desk billing disputes.';
-        s = '1. No dynamic surge pricing in Phase 1. 2. No staff-specific variable pricing.';
-        us = '• As a customer, I want to view transparent pricing and service durations before selecting a slot.';
-        ac = 'Given the service menu is loaded, When selecting a specific service item, Then detailed duration, inclusions, and transparent pricing display clearly.';
-        pi = '1. Transparent pricing eliminates front-desk disputes and reduces booking friction (OKR 2).';
-      } else if (i === 4) {
-        v = '"後台要能看到哪個師傅、哪個教練、或者是哪一個羽球場地在什麼時間是空的。"';
-        p = 'Manual calendar tracking causes severe double-booking and resource scheduling conflicts.';
-        s = '1. No AI auto-rostering in Phase 1. 2. No external Outlook/Google two-way auto-sync.';
-        us = '• As a store manager, I want to view staff and court availability in real-time to prevent resource collisions.';
-        ac = 'Given two admins view the same time slot, When Admin A locks it for editing, Then Admin B sees it as occupied instantly via WebSocket.';
-        pi = '1. Redis Redlock distributed locking guarantees absolute slot consistency (OKR 1).';
-      } else if (i === 5) {
-        v = '"讓客人可以自己登入查看歷史預約，甚至在規定時間內自己改期或取消。"';
-        p = 'High customer support overhead for simple rescheduling requests taking up phone and chat bandwidth.';
-        s = '1. No cancellation fee auto-charging in Phase 1. 2. No live chat support inside portal.';
-        us = '• As a member, I want to reschedule my booking 24 hours prior without calling support.';
-        ac = 'Given the booking is 30 hours away, When the user clicks Reschedule, Then the portal opens the calendar to select a new valid slot.';
-        pi = '1. Self-service portal reduces customer support ticket volume by 50% (OKR 4).';
-      } else if (i === 6) {
-        v = '"快到預約時間前，系統自動發簡訊或通知給客人，減少爽約率。"';
-        p = 'Manual reminders are time-consuming and unreliable, resulting in an 18% no-show rate.';
-        s = '1. No WhatsApp/WeChat integration in Phase 1.';
-        us = '• As a customer, I want a reminder SMS 2 hours before my appointment so I do not forget.';
-        ac = 'Given an appointment is set for 14:00, When system clock hits 12:00, Then a 2-hour reminder SMS is successfully dispatched.';
-        pi = '1. Automated reminders drop customer no-show rate below 5% (OKR 1).';
-      } else if (i === 7) {
-        v = '"教練或治療師請假時，系統自動擋掉該時段，避免客人預約了卻撲空。"';
-        p = 'Unsynchronized staff leave causes painful double-booking and angry customer complaints.';
-        s = '1. No substitute staff auto-assignment in Phase 1.';
-        us = '• As a staff member, I want to submit leave requests so the system prevents bookings during my absence.';
-        ac = 'Given staff leave is approved, When a customer browses that date, Then that staff member is instantly hidden from available schedules.';
-        pi = '1. Automated slot blocking protects customer experience and trust (OKR 1).';
-      } else if (i === 8) {
-        v = '"針對健身房或瑜珈教室，幫學員記錄買了10堂課還剩幾堂，上完自動扣打。"';
-        p = 'Manual paper punch cards are error-prone, easily lost, and untrackable.';
-        s = '1. No credit transfer between members in Phase 1.';
-        us = '• As a student, I want remaining course credits to deduct automatically upon attendance check-in.';
-        ac = 'Given member has 3 credits left, When attendance is confirmed, Then credit balance updates to 2 atomically.';
-        pi = '1. Atomic ledger prevents financial discrepancies and credit disputes (OKR 2).';
-      } else if (i === 9) {
-        v = '"客人到現場後，櫃檯能一鍵掃描或點擊已報到，加速現場人流。"';
-        p = 'Slow front-desk check-in causes severe lobby congestion during peak hours.';
-        s = '1. No hardware barcode scanner integration in Phase 1.';
-        us = '• As a receptionist, I want to check-in arriving guests with 1 tap to prevent lobby bottlenecks.';
-        ac = 'Given a guest arrives at the desk, When the receptionist taps Check-in, Then their status updates to Arrived in < 300ms.';
-        pi = '1. Optimized tablet UI accelerates reception operations and cuts wait times (OKR 2).';
-      } else if (i === 10) {
-        v = '"如果熱門時段滿了，客人可以排候補；一旦有人取消，系統自動通知下一位。"';
-        p = '18% last-minute no-show rate with no automated backfill queue leading to wasted capacity.';
-        s = '1. No multi-currency clearing in Phase 1. 2. No manual VIP queue overriding.';
-        us = '• As a customer, I want to join the waitlist for a booked-out class so I get notified if a seat opens up.';
-        ac = 'Given Rank #1 cancels, When the slot opens, Then the system assigns a 15-minute countdown lock to the next waitlist candidate.';
-        pi = '1. Redis Redlock ensures bulletproof zero overbooking during waitlist shifts (OKR 1).';
-      } else if (i === 11) {
-        v = '"預約時直接刷卡付全額或訂金，進一步降低爽約風險。"';
-        p = 'Zero-payment bookings lead to high cancellation rates and unrecovered merchant revenue.';
-        s = '1. No cryptocurrency payments in Phase 1.';
-        us = '• As a customer, I want to pay a deposit online securely so my booking is guaranteed.';
-        ac = 'Given payment succeeds, When webhook returns 200 OK, Then booking status changes from Pending to Confirmed.';
-        pi = '1. Secure payment gateway eliminates default risk (OKR 1).';
-      } else if (i === 12) {
-        v = '"讓老闆一眼看出這個月賺多少錢、哪個服務項目最熱門、哪個員工接最多客。"';
-        p = 'Lack of real-time financial visibility hinders business decisions.';
-        s = '1. No custom SQL report builder in Phase 1.';
-        us = '• As a store owner, I want a financial dashboard to track monthly revenue and staff performance.';
-        ac = 'Given owner selects current month, When dashboard loads, Then total revenue and top services display accurately.';
-        pi = '1. Real-time data visualization drives store revenue (OKR 2).';
-      } else if (i === 13) {
-        v = '"記住客人的特殊習慣（例如：對精油過敏、喜歡力道大一點），下次來直接看紀錄。"';
-        p = 'Inconsistent customer records lead to poor personalized service.';
-        s = '1. No automated sentiment AI analysis in Phase 1.';
-        us = '• As a service provider, I want to read customer notes so I can deliver a personalized experience.';
-        ac = 'Given staff opens client profile, When viewing CRM notes, Then allergies and preferences appear securely.';
-        pi = '1. Secure CRM notes elevate customer retention (OKR 2).';
-      } else if (i === 14) {
-        v = '"消費完後自動發信請客人打分數，累積好口碑。"';
-        p = 'Manual review collection yields very low response rates.';
-        s = '1. No auto-publishing to Google Maps API in Phase 1.';
-        us = '• As a customer, I want to submit a quick rating after my service to share my experience.';
-        ac = 'Given service is completed, When 2 hours elapse, Then automated review collection link is emailed.';
-        pi = '1. Automated feedback loops boost merchant reputation (OKR 2).';
-      } else if (i === 15) {
-        v = '"店家可以發放新客折 100 元或節慶促銷折扣碼。"';
-        p = 'Lack of promotional tooling limits marketing campaign flexibility.';
-        s = '1. No tiered loyalty stamp cards in Phase 1.';
-        us = '• As a customer, I want to apply a promo code at checkout to receive a discount.';
-        ac = 'Given valid coupon code is entered, When applied, Then checkout total deducts discount instantly.';
-        pi = '1. Promotional engine drives customer acquisition and conversion (OKR 2).';
-      } else if (i === 16) {
-        v = '"透過 AI 幫忙分析客流量高峰，自動建議店家什麼時候該多排人手。"';
-        p = 'Understaffing during peak hours and overstaffing during lulls waste labor costs.';
-        s = '1. No automatic payroll integration in Phase 1.';
-        us = '• As a manager, I want AI staffing recommendations so I optimize labor schedules during peak hours.';
-        ac = 'Given historical booking density, When AI runs analysis, Then recommended staffing levels display on dashboard.';
-        pi = '1. AI-driven labor optimization saves operational costs (OKR 2).';
-      } else if (i === 17) {
-        v = '"讓客人直接在 Line 或 Messenger 跟 AI 對話就能完成預約，不用點網頁。"';
-        p = 'Customers abandon web forms if they cannot get instant conversational answers.';
-        s = '1. No voice call AI agent in Phase 1.';
-        us = '• As a customer, I want to book via LINE chat with AI so I can complete reservations conversationally.';
-        ac = 'Given user texts LINE bot for haircut tomorrow 3pm, When confirmed, Then booking is written to system.';
-        pi = '1. Conversational AI agent reduces booking friction (OKR 3).';
-      } else if (i === 18) {
-        v = '"你自己的管理中樞功能：追蹤上面 1-17 項功能目前是正在寫扣、測試中還是已發布。"';
-        p = 'Scattered task management leads to delayed product releases.';
-        s = '1. No external Jira bi-directional sync in Phase 1.';
-        us = '• As a Product PM, I want a Command Hub to track sprint progress and feature readiness in real-time.';
-        ac = 'Given ticket moves to Published, When updated, Then overall project progress calculates correctly.';
-        pi = '1. Unified command center ensures on-time delivery (OKR 3).';
-      } else if (i === 19) {
-        v = '"當店家回報預約系統有問題時，直接在 Command Hub 內建立 Ticket 進行修復。"';
-        p = 'Customer bug reports get lost in emails and Slack chats.';
-        s = '1. No auto-patch deployment in Phase 1.';
-        us = '• As support staff, I want to log bug tickets in Command Hub so engineering resolves them fast.';
-        ac = 'Given bug is reported, When assigned high priority, Then alert triggers in engineering kanban.';
-        pi = '1. Rapid bug triage guarantees 99.95% SLA stability (OKR 1).';
-      } else if (i === 20) {
-        v = '"把 Omcean 串接外部的 Google 日曆、LINE 官方帳號、或是會計軟體。"';
-        p = 'Siloed software stacks create double-entry data entry errors.';
-        s = '1. No custom webhook builder for merchants in Phase 1.';
-        us = '• As a merchant, I want to sync Omcean bookings with Google Calendar so my schedule is unified.';
-        ac = 'Given Google Calendar is connected, When booking is made, Then it appears in Google Calendar within 2 seconds.';
-        pi = '1. Unified integration hub eliminates data silos (OKR 2).';
-      }
-
-      featuresData[code] = {
-        code: code,
-        title: `${code}: 核心預約與管理模組`,
-        voice: v,
-        problem: p,
-        scope: s,
-        userStories: us,
-        gherkinAC: ac,
-        pmInsights: pi,
-        raci: {
-          pm: { desc: `Define ${code} functional specs and user stories.`, actions: ['Finalize acceptance criteria', 'Sync with stakeholders'], dod: ['PRD signed off'] },
-          rd: { desc: `Implement backend APIs and frontend UI for ${code}.`, actions: ['Code development', 'Unit testing'], dod: ['Passing CI/CD pipeline'] },
-          qa: { desc: `Validate edge cases and stress testing for ${code}.`, actions: ['Execute UAT test cases', 'Load testing'], dod: ['Zero critical bugs'] },
-          bd: { desc: `Gather user feedback and support pilot rollout for ${code}.`, actions: ['Client alignment', 'Training session'], dod: ['Pilot ready'] }
-        },
-        edgeChecklists: [
-          `【Concurrency】Multiple users accessing ${code} simultaneously.`,
-          `【Network Drop】Graceful recovery and error messaging for ${code}.`
-        ]
-      };
-    }
-
-    window.onload = () => {
-      initDropdowns();
-      onTitleDropdownChanged("Feature 01");
-      renderKanbanBoard();
-      renderGanttSchedule();
-    };
   </script>
 </body>
 </html>
