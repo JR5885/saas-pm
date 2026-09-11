@@ -63,7 +63,7 @@
           <h1 id="txt-main-title" class="text-2xl font-bold text-white tracking-tight">Omcean Booking PM 指揮中心</h1>
         </div>
         <p id="txt-sub-title" class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: 15-Yr Senior PM] Feature 01 ~ Feature 20 完整深度專業級 PRD 與協作面板 &bull; 雙向即時切換
+          [ROLE: 15-Yr Senior PM] Feature 01 ~ Feature 20 完整 8 項深度專業級 PRD 規格 &bull; 雙向即時切換
         </p>
       </div>
 
@@ -194,6 +194,99 @@
       </div>
     </section>
 
+    <!-- Cross-Functional RACI Matrix & Definition of Done (DoD) -->
+    <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5">
+      <div class="flex items-center justify-between border-b border-cyber-border pb-3">
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-0.5 rounded bg-purple-600 text-white font-black text-xs font-mono">RACI</span>
+          <h2 id="txt-raci-title" class="text-sm font-bold text-white tracking-wide">跨部門權責矩陣與交付標準 (RACI & DoD) - 各團隊獨立檢視</h2>
+        </div>
+        <span id="txt-edit-tip" class="text-[10px] font-mono text-cyber-cyan">✏️ 點擊任意區塊即可直接手動編輯內容</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- PM Team -->
+        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs">
+          <div class="flex justify-between items-center border-b border-cyber-border pb-2">
+            <span class="font-bold text-blue-400">👤 PM (產品經理)</span>
+            <span class="px-1.5 py-0.5 rounded bg-rose-950 text-rose-300 text-[10px] font-bold">當責者 (A)</span>
+          </div>
+          <div>
+            <label class="text-[10px] text-slate-400 block mb-1">RACI 權責描述：</label>
+            <div contenteditable="true" id="raci-pm-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">Define core feature requirements, user stories, Gherkin AC, and strict Phase 1 scope boundaries.</div>
+          </div>
+          <div>
+            <label class="text-[10px] text-cyber-gold block mb-1">行動清單 (Action Items)：</label>
+            <div contenteditable="true" id="raci-pm-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• Finalize PRD & AC sign-off<br>• Conduct cross-functional kickoff</div>
+          </div>
+          <div>
+            <label class="text-[10px] text-cyber-green block mb-1">交付完成標準 (DoD)：</label>
+            <div contenteditable="true" id="raci-pm-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ PRD approved by tech lead<br>✓ Scope freeze locked (&lt;10% churn)</div>
+          </div>
+        </div>
+
+        <!-- RD Team -->
+        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs">
+          <div class="flex justify-between items-center border-b border-cyber-border pb-2">
+            <span class="font-bold text-emerald-400">💻 RD (工程研發)</span>
+            <span class="px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 text-[10px] font-bold">負責者 (R)</span>
+          </div>
+          <div>
+            <label class="text-[10px] text-slate-400 block mb-1">RACI 權責描述：</label>
+            <div contenteditable="true" id="raci-rd-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">Execute backend/frontend architecture, Redis distributed locking, and robust REST API implementation.</div>
+          </div>
+          <div>
+            <label class="text-[10px] text-cyber-gold block mb-1">行動清單 (Action Items)：</label>
+            <div contenteditable="true" id="raci-rd-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• Implement scalable DB schema<br>• Unit test coverage &gt;= 85%</div>
+          </div>
+          <div>
+            <label class="text-[10px] text-cyber-green block mb-1">交付完成標準 (DoD)：</label>
+            <div contenteditable="true" id="raci-rd-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ Code merged to staging<br>✓ API response P99 &lt; 200ms</div>
+          </div>
+        </div>
+
+        <!-- QA Team -->
+        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs">
+          <div class="flex justify-between items-center border-b border-cyber-border pb-2">
+            <span class="font-bold text-cyber-gold">🧪 QA (品質保證)</span>
+            <span class="px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 text-[10px] font-bold">負責者 (R)</span>
+          </div>
+          <div>
+            <label class="text-[10px] text-slate-400 block mb-1">RACI 權責描述：</label>
+            <div contenteditable="true" id="raci-qa-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">Execute edge case verification (concurrency, network drops, timeout fallbacks) and UAT testing.</div>
+          </div>
+          <div>
+            <label class="text-[10px] text-cyber-gold block mb-1">行動清單 (Action Items)：</label>
+            <div contenteditable="true" id="raci-qa-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• Run 1,500 QPS load tests<br>• Verify Gherkin acceptance criteria</div>
+          </div>
+          <div>
+            <label class="text-[10px] text-cyber-green block mb-1">交付完成標準 (DoD)：</label>
+            <div contenteditable="true" id="raci-qa-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ Zero critical bugs on staging<br>✓ Stress test passed with 0 overbooking</div>
+          </div>
+        </div>
+
+        <!-- BD/CS Team -->
+        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs">
+          <div class="flex justify-between items-center border-b border-cyber-border pb-2">
+            <span class="font-bold text-purple-400">🤝 BD / CS (業務與客服)</span>
+            <span class="px-1.5 py-0.5 rounded bg-amber-950 text-amber-300 text-[10px] font-bold">諮詢者 (C)</span>
+          </div>
+          <div>
+            <label class="text-[10px] text-slate-400 block mb-1">RACI 權責描述：</label>
+            <div contenteditable="true" id="raci-bd-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">Gather Voice of Customer (VoC), align pilot clients for Phase 1 rollout, and prepare support documentation.</div>
+          </div>
+          <div>
+            <label class="text-[10px] text-cyber-gold block mb-1">行動清單 (Action Items)：</label>
+            <div contenteditable="true" id="raci-bd-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• Confirm Week 4 flagship pilot client<br>• Publish Help Center FAQ docs</div>
+          </div>
+          <div>
+            <label class="text-[10px] text-cyber-green block mb-1">交付完成標準 (DoD)：</label>
+            <div contenteditable="true" id="raci-bd-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ Client onboarding training completed<br>✓ CS escalation channel established</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- STEP 2: Delivery Schedule & Kanban -->
     <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber-border pb-4">
@@ -247,11 +340,11 @@
             <div class="flex items-center gap-1.5 font-mono text-xs">
               <span class="text-slate-400 text-[11px]">🔍 篩選:</span>
               <select id="kanban-filter-module" onchange="renderKanbanBoard()" class="p-1 text-xs rounded border text-cyber-cyan bg-[#0a121e] font-mono">
-                <option value="ALL">所有功能模組</option>
+                <option value="ALL">All Features</option>
               </select>
             </div>
             <button onclick="openAddTicketModal()" class="px-3 py-1.5 rounded-lg bg-cyber-cyan text-slate-950 font-bold text-xs font-mono hover:bg-opacity-90 transition">
-              + 新增任務卡片
+              + Add Subtask Ticket
             </button>
           </div>
         </div>
@@ -260,7 +353,7 @@
           <div class="bg-[#05080f] border border-cyber-border rounded-xl p-3 flex flex-col justify-between">
             <div>
               <div class="flex justify-between items-center pb-2 text-xs font-mono text-slate-400 border-b border-cyber-border">
-                <span class="font-bold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-slate-500"></span> 待辦清單 (BACKLOG)</span>
+                <span class="font-bold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-slate-500"></span> BACKLOG</span>
                 <span id="count-backlog" class="px-1.5 py-0.5 rounded bg-slate-900 text-[10px]">0</span>
               </div>
               <div class="space-y-2 mt-3" id="col-backlog"></div>
@@ -269,7 +362,7 @@
           <div class="bg-[#05080f] border border-cyber-border rounded-xl p-3 flex flex-col justify-between">
             <div>
               <div class="flex justify-between items-center pb-2 text-xs font-mono text-blue-400 border-b border-cyber-border">
-                <span class="font-bold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-blue-400"></span> 開發中 (IN DEV)</span>
+                <span class="font-bold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-blue-400"></span> IN DEV</span>
                 <span id="count-dev" class="px-1.5 py-0.5 rounded bg-blue-950 text-[10px] text-blue-300">0</span>
               </div>
               <div class="space-y-2 mt-3" id="col-dev"></div>
@@ -278,7 +371,7 @@
           <div class="bg-[#05080f] border border-cyber-border rounded-xl p-3 flex flex-col justify-between">
             <div>
               <div class="flex justify-between items-center pb-2 text-xs font-mono text-cyber-gold border-b border-cyber-border">
-                <span class="font-bold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-cyber-gold"></span> 測試中 (QA / TEST)</span>
+                <span class="font-bold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-cyber-gold"></span> QA / TEST</span>
                 <span id="count-test" class="px-1.5 py-0.5 rounded bg-amber-950 text-[10px] text-cyber-gold">0</span>
               </div>
               <div class="space-y-2 mt-3" id="col-test"></div>
@@ -287,7 +380,7 @@
           <div class="bg-[#05080f] border border-cyber-border rounded-xl p-3 flex flex-col justify-between">
             <div>
               <div class="flex justify-between items-center pb-2 text-xs font-mono text-cyber-green border-b border-cyber-border">
-                <span class="font-bold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-cyber-green"></span> 已發布 (PUBLISHED)</span>
+                <span class="font-bold flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-cyber-green"></span> PUBLISHED</span>
                 <span id="count-publish" class="px-1.5 py-0.5 rounded bg-emerald-950 text-[10px] text-cyber-green">0</span>
               </div>
               <div class="space-y-2 mt-3" id="col-publish"></div>
@@ -310,7 +403,7 @@
       <div id="edge-checklist-container" class="space-y-2 text-xs font-mono"></div>
     </section>
 
-    <!-- STEP 3: Kickoff Alignment & Regular Syncs (完整修復並包含 Kickoff Meeting RACI 與 Regular Syncs SAMR 決策台) -->
+    <!-- STEP 3: Cross-Functional Kickoff Alignment & Regular Syncs -->
     <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-6">
       <div class="flex items-center justify-between border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
@@ -476,60 +569,6 @@
       </div>
     </section>
 
-    <!-- SOP 危機應變標準作業程序 -->
-    <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
-      <div class="flex items-center justify-between border-b border-cyber-border pb-3">
-        <div class="flex items-center gap-2">
-          <span class="px-2.5 py-0.5 rounded bg-rose-600 text-white font-black text-xs font-mono">SOP</span>
-          <h2 id="txt-sop-title" class="text-sm font-bold text-white tracking-wide">危機應變標準作業程序 (SOP - 可直接編輯)</h2>
-        </div>
-        <div class="flex items-center gap-2">
-          <button onclick="openGmailEmergencyCompose()" class="px-3 py-1 rounded bg-rose-900/80 hover:bg-rose-800 text-rose-200 border border-rose-500 font-mono text-xs font-bold transition shadow-md">
-            🚨 發送緊急應變信 (Gmail)
-          </button>
-        </div>
-      </div>
-      <p id="txt-sop-tip" class="text-xs text-slate-400 font-mono">點擊下方文字框即可直接修改任務、期限與交付標準：</p>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
-        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-2.5">
-          <div class="text-cyber-gold font-bold">🚨 狀況一：[併發衝突] 超額預約</div>
-          <p class="text-[11px] text-slate-400 font-sans leading-relaxed">高流量同時搶位導致資料庫寫入衝突。</p>
-          <div class="space-y-1.5 text-[11px] pt-2 border-t border-cyber-border/60">
-            <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" class="text-slate-200 bg-slate-900/60 px-1 rounded">工程研發與產品經理</span></div>
-            <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
-            <div><strong class="text-slate-300">修正動作:</strong> <span contenteditable="true" class="text-slate-300 bg-slate-900/60 px-1 rounded">導入 Redis Redlock 分散式鎖定機制。</span></div>
-            <div><strong class="text-rose-400">完成期限:</strong> <span contenteditable="true" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-03-28 EOD</span></div>
-            <div><strong class="text-cyber-green">交付目標:</strong> <span contenteditable="true" class="text-slate-300 bg-slate-900/60 px-1 rounded">1,500 QPS 壓力測試超額率 = 0%。</span></div>
-          </div>
-        </div>
-
-        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-2.5">
-          <div class="text-cyber-gold font-bold">⚡ 狀況二：[網路中斷] 交易孤兒</div>
-          <p class="text-[11px] text-slate-400 font-sans leading-relaxed">付款成功但 Webhook 未送達導致狀態未同步。</p>
-          <div class="space-y-1.5 text-[11px] pt-2 border-t border-cyber-border/60">
-            <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" class="text-slate-200 bg-slate-900/60 px-1 rounded">工程研發與業務客服</span></div>
-            <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 3 (W5-W6)</span></div>
-            <div><strong class="text-slate-300">修正動作:</strong> <span contenteditable="true" class="text-slate-300 bg-slate-900/60 px-1 rounded">建立付款對帳背景執行緒與前端輪詢。</span></div>
-            <div><strong class="text-rose-400">完成期限:</strong> <span contenteditable="true" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-04-11 EOD</span></div>
-            <div><strong class="text-cyber-green">交付目標:</strong> <span contenteditable="true" class="text-slate-300 bg-slate-900/60 px-1 rounded">網路恢復後自動對帳並更新狀態。</span></div>
-          </div>
-        </div>
-
-        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-2.5">
-          <div class="text-cyber-gold font-bold">⏳ 狀況三：[超時釋放] 候位遞補</div>
-          <p class="text-[11px] text-slate-400 font-sans leading-relaxed">15分鐘保留時間逾期未付款。</p>
-          <div class="space-y-1.5 text-[11px] pt-2 border-t border-cyber-border/60">
-            <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" class="text-slate-200 bg-slate-900/60 px-1 rounded">工程研發與品質保證</span></div>
-            <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
-            <div><strong class="text-slate-300">修正動作:</strong> <span contenteditable="true" class="text-slate-300 bg-slate-900/60 px-1 rounded">最佳化 Celery 倒數計時與事件驅動遞補。</span></div>
-            <div><strong class="text-rose-400">完成期限:</strong> <span contenteditable="true" class="text-slate-400 bg-slate-900/60 px-1 rounded">2026-03-31 EOD</span></div>
-            <div><strong class="text-cyber-green">交付目標:</strong> <span contenteditable="true" class="text-slate-400 bg-slate-900/60 px-1 rounded">15分鐘逾期自動釋放與候位位移。</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
   </div>
 
   <!-- Modal: Edit / Add Jira Ticket -->
@@ -635,7 +674,7 @@
   </div>
 
   <script>
-    // 完整定義 20 個 Feature 的專業資料庫（包含各自對應的名稱與 8 大維度規格）
+    // 完整定義 20 個 Feature 的專業資料庫（包含各自對應的中文標題與 8 大維度規格）
     const featuresData = {
       'Feature 01': {
         title: 'Feature 01: 24/7 Online Booking Widget (24小時線上預約小工具)',
@@ -686,23 +725,23 @@
       const code = `Feature ${i < 10 ? '0' + i : i}`;
       featuresData[code] = {
         title: featureNames[i - 2],
-        voice: `"商家與資深用戶強烈要求針對 ${code} 提供高穩定度與流暢的企業級體驗。"`,
-        problem: `傳統手動或非整合流程在處理 ${code} 時容易產生資訊斷層與延遲，需導入自動化架構。`,
-        scope: `1. 第一階段嚴格範圍凍結：不包含任何非核心擴充套件。`,
-        sol: `針對 ${code} 導入高可用性微服務 API 與前端響應式元件，確保資料即時同步與零錯誤。`,
-        userStories: `• As a system stakeholder, I want robust execution for ${code} so that operational efficiency is maximized.`,
-        gherkinAC: `Given 系統正常運行中且處於 ${code} 作業環境\nWhen 用戶觸發對應的操作請求\nThen 系統應正確驗證並在 200ms 內完成資料寫入與回應。`,
-        wireframe: `+---------------------------------------------------+\n| [${code}] 企業級操作中樞面板                      |\n| ------------------------------------------------- |\n| 狀態: [ 運作中 ]  同步: [ 即時連線 ]              |\n| [ 執行核心動作 ]                                  |\n+---------------------------------------------------+`,
-        seqDiag: `User          Frontend             API Gateway      Database\n  │               │                     │           │\n  │── 觸發動作 ──▶│                     │           │\n  │               │── REST API Call ───▶│           │\n  │               │                     │── 寫入 ──▶│`,
-        kpi: `模組核心執行成功率 $\ge 99.9\%$，使用者操作延遲 $< 200$ms。`,
-        pmInsights: `1. 採用標準化架構設計，確保未來擴充時不需重構底層 (OKR 2).`,
+        voice: `"Merchants and end-users demand high availability for ${code}."`,
+        problem: `Traditional manual workflows for ${code} cause bottlenecks; need automated scaling.`,
+        scope: `1. Strict Phase 1 scope freeze for ${code}.`,
+        sol: `針對 ${code} 導入高效非同步 API 與模組化架構，確保高承載。`,
+        userStories: `• As a user, I want reliable processing for ${code} so I can manage operations smoothly.`,
+        gherkinAC: `Given system is operational for ${code}\nWhen user invokes action\nThen system validates state successfully.`,
+        wireframe: `+---------------------------------------------------+\n| [${code}] 核心操作介面                              |\n| 狀態: [ 正常運作 ]  [ 執行操作 ]                  |\n+---------------------------------------------------+`,
+        seqDiag: `User          Frontend             API Gateway      Database\n  │               │                     │           │\n  │── 觸發動作 ──▶│                     │           │\n  │               │── API Request ─────▶│           │`,
+        kpi: `模組核心執行成功率 $\ge 99.5\%$。`,
+        pmInsights: `1. 標準化模組優於一次性客製，確保長期可維護性 (OKR 2).`,
         raci: {
-          pm: { desc: `Define ${code} requirements and BDD criteria.`, actions: ['Finalize specs'], dod: ['Signed off'] },
-          rd: { desc: `Develop backend and frontend logic for ${code}.`, actions: ['Coding & Unit Test'], dod: ['Merged to Staging'] },
-          qa: { desc: `Execute boundary and load testing for ${code}.`, actions: ['UAT execution'], dod: ['Zero critical bugs'] },
-          bd: { desc: `Align merchant expectations and rollout.`, actions: ['Briefing'], dod: ['Ready'] }
+          pm: { desc: `Define ${code} specs.`, actions: ['Finalize specs'], dod: ['Signed off'] },
+          rd: { desc: `Implement APIs for ${code}.`, actions: ['Coding'], dod: ['Merged'] },
+          qa: { desc: `Validate ${code}.`, actions: ['Testing'], dod: ['Passed'] },
+          bd: { desc: `Support rollout for ${code}.`, actions: ['Alignment'], dod: ['Ready'] }
         },
-        edgeChecklists: [`【Concurrency】多用戶同時存取 ${code} 的資料一致性驗證。`, `【Network Drop】網路斷線時的自動重試與狀態回滾。`]
+        edgeChecklists: [`【Concurrency】Accessing ${code} simultaneously.`, `【Network Drop】Recovery for ${code}.`]
       };
     }
 
@@ -726,8 +765,6 @@
         kanbanTip: "點擊卡片上的 ◀ ▶ 按鈕即可跨欄位移動，並自動位移甘特圖進度",
         uatTitle: "PM 標準測試目標與邊界異常檢核表 (Edge Cases)",
         uatDesc: "針對目前所選功能的邊界異常測試檢核清單：",
-        sopTitle: "危機應變標準作業程序 (SOP - 可直接編輯)",
-        sopTip: "點擊下方文字框即可直接修改任務、期限與交付標準：",
         step3Title: "跨部門啟動共識與例會協作 (Kickoff Alignment & Regular Syncs)"
       },
       en: {
@@ -749,8 +786,6 @@
         kanbanTip: "Use ◀ ▶ buttons on each card to move across columns",
         uatTitle: "PM Normal Testing Targets (Edge Cases Checklists)",
         uatDesc: "Testing targets and verification checklists for the selected feature:",
-        sopTitle: "Crisis Response Standard Operating Procedures (Editable & Synced)",
-        sopTip: "Click any text box below to edit tasks, deadlines, or deliverables directly:",
         step3Title: "Cross-Functional Kickoff Alignment & Regular Syncs"
       }
     };
