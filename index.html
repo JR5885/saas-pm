@@ -63,7 +63,7 @@
           <h1 id="txt-main-title" class="text-2xl font-bold text-white tracking-tight">Omcean Booking PM 指揮中心</h1>
         </div>
         <p id="txt-sub-title" class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] Feature 01 ~ Feature 20 獨立 PRD 渲染 &bull; 支援中英文切換 &bull; Gmail 快速發信
+          [ROLE: PRODUCT PM] Feature 01 ~ Feature 20 獨立 PRD 渲染 &bull; 支援中英文雙向即時切換 &bull; Gmail 快速發信
         </p>
       </div>
 
@@ -589,7 +589,7 @@
   </div>
 
   <script>
-    // 完整 20 個 Feature 獨立資料庫（具備高專業度 PRD、解決方案與 BDD 驗收條件）
+    // 完整 20 個 Feature 獨立資料庫
     const featuresData = {};
     for (let i = 1; i <= 20; i++) {
       const code = `Feature ${i < 10 ? '0' + i : i}`;
@@ -615,11 +615,10 @@
       };
     }
 
-    // 繁體中文與英文對應字典
     const i18n = {
       zh: {
         mainTitle: "Omcean Booking PM 指揮中心",
-        subTitle: "[ROLE: PRODUCT PM] Feature 01 ~ Feature 20 獨立 PRD 渲染 • 支援中英文切換 • Gmail 快速發信",
+        subTitle: "[ROLE: PRODUCT PM] Feature 01 ~ Feature 20 獨立 PRD 渲染 • 支援中英文雙向即時切換 • Gmail 快速發信",
         okrHeader: "5 大專案 OKR 核心護欄 (點擊數值可直接編輯)",
         step1Title: "需求探索與範圍凍結 / 自定義需求處理",
         featureLabel: "功能需求標題 (Feature 01 ~ 20)",
@@ -700,6 +699,12 @@
       document.getElementById('txt-sop-title').innerText = i18n[lang].sopTitle;
       document.getElementById('txt-sop-tip').innerText = i18n[lang].sopTip;
       document.getElementById('txt-step3-title').innerText = i18n[lang].step3Title;
+
+      // 重新渲染當前選中的 Feature 內容與下拉選單
+      const currentSelected = document.getElementById('req-title-select').value || 'Feature 01';
+      initDropdowns();
+      document.getElementById('req-title-select').value = currentSelected;
+      onTitleDropdownChanged(currentSelected);
     }
 
     function getFeatureData(code) {
@@ -738,11 +743,11 @@
 
       const customOpt = document.createElement('option');
       customOpt.value = 'CUSTOM-ADHOC';
-      customOpt.text = '⭐ [+ Create Custom Ad-hoc Requirement (Outside Presets)]';
+      customOpt.text = currentLang === 'zh' ? '⭐ [+ 建立自定義需求 (不在 20 個預設內)]' : '⭐ [+ Create Custom Ad-hoc Requirement (Outside Presets)]';
       step1Select.appendChild(customOpt);
 
       let optGroup = document.createElement('optgroup');
-      optGroup.label = '── Feature 01 ~ Feature 20 (Omcean Core) ──';
+      optGroup.label = currentLang === 'zh' ? '── Feature 01 ~ Feature 20 (Omcean 核心模組) ──' : '── Feature 01 ~ Feature 20 (Omcean Core) ──';
 
       for (let i = 1; i <= 20; i++) {
         const key = `Feature ${i < 10 ? '0' + i : i}`;
@@ -770,7 +775,6 @@
       }
 
       step1Select.appendChild(optGroup);
-      step1Select.value = "Feature 01";
     }
 
     function onTitleDropdownChanged(code) {
@@ -1296,7 +1300,7 @@ Omcean Booking Command Center`;
 
       featuresData[code] = {
         code: code,
-        title: `${code}: Omcean Core Operational Module`,
+        title: `${code}: 核心預約與管理模組`,
         voice: v,
         problem: p,
         scope: s,
