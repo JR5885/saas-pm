@@ -63,7 +63,7 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking PM Command Center</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] Feature 01 ~ Feature 20 Fully Rendered &bull; Verified Gmail Dispatch (mshappyj@gmail.com)
+          [ROLE: PRODUCT PM] Feature 01 ~ Feature 20 Fully Dynamic &bull; Editable Team RACI &bull; Gmail Dispatch (mshappyj@gmail.com)
         </p>
       </div>
 
@@ -189,43 +189,94 @@
       </div>
     </section>
 
-    <!-- RACI Matrix -->
+    <!-- Cross-Functional RACI Matrix & Definition of Done (DoD) [分團隊呈現且支援手動編輯] -->
     <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5">
       <div class="flex items-center justify-between border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
           <span class="px-2.5 py-0.5 rounded bg-purple-600 text-white font-black text-xs font-mono">RACI</span>
-          <h2 class="text-sm font-bold text-white tracking-wide">Cross-Functional RACI Matrix & Definition of Done (DoD)</h2>
+          <h2 class="text-sm font-bold text-white tracking-wide">Cross-Functional RACI Matrix & Definition of Done (DoD) - By Team</h2>
         </div>
+        <span class="text-[10px] text-mono text-cyber-cyan">✏️ Click any section to edit text</span>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        <div class="lg:col-span-7 bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3">
-          <div class="text-xs font-mono font-bold text-slate-300 uppercase tracking-wider border-b border-cyber-border pb-2 flex justify-between">
-            <span>RACI Assignment Matrix</span>
-            <span class="text-[10px] text-cyber-cyan">R:Resp | A:Accountable | C:Consulted | I:Informed</span>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- PM Team -->
+        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs">
+          <div class="flex justify-between items-center border-b border-cyber-border pb-2">
+            <span class="font-bold text-blue-400">👤 PM (Product Manager)</span>
+            <span class="px-1.5 py-0.5 rounded bg-rose-950 text-rose-300 text-[10px] font-bold">Accountable (A)</span>
           </div>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs font-mono">
-              <thead>
-                <tr class="text-slate-400 border-b border-cyber-border/80 text-[11px]">
-                  <th class="py-2 px-2">Team / Role</th>
-                  <th class="py-2 px-2 text-center text-cyber-cyan">RACI</th>
-                  <th class="py-2 px-2">Standardized Responsibility</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-cyber-border/50 text-slate-300" id="raci-table-body"></tbody>
-            </table>
+          <div>
+            <label class="text-[10px] text-slate-400 block mb-1">RACI Responsibility:</label>
+            <div contenteditable="true" id="raci-pm-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">Define core feature requirements, user stories, Gherkin AC, and strict Phase 1 scope boundaries.</div>
+          </div>
+          <div>
+            <label class="text-[10px] text-cyber-gold block mb-1">Action Items:</label>
+            <div contenteditable="true" id="raci-pm-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• Finalize PRD & AC sign-off<br>• Conduct cross-functional kickoff</div>
+          </div>
+          <div>
+            <label class="text-[10px] text-cyber-green block mb-1">Definition of Done (DoD):</label>
+            <div contenteditable="true" id="raci-pm-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ PRD approved by tech lead<br>✓ Scope freeze locked (<10% churn)</div>
           </div>
         </div>
 
-        <div class="lg:col-span-4 bg-[#0a121e] border border-cyber-border rounded-xl p-4 space-y-4">
-          <div class="space-y-2">
-            <div class="text-xs font-mono font-bold text-cyber-gold uppercase tracking-wider border-b border-cyber-border pb-2">Action Items</div>
-            <div id="raci-action-items" class="space-y-1.5 text-xs text-slate-200 font-sans"></div>
+        <!-- RD Team -->
+        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs">
+          <div class="flex justify-between items-center border-b border-cyber-border pb-2">
+            <span class="font-bold text-emerald-400">💻 RD (Engineering)</span>
+            <span class="px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 text-[10px] font-bold">Responsible (R)</span>
           </div>
-          <div class="space-y-2 pt-2 border-t border-cyber-border/80">
-            <div class="text-xs font-mono font-bold text-cyber-green uppercase tracking-wider border-b border-cyber-border pb-2">Definition of Done (DoD)</div>
-            <div id="raci-dod-list" class="space-y-1.5 text-xs text-slate-300 font-mono"></div>
+          <div>
+            <label class="text-[10px] text-slate-400 block mb-1">RACI Responsibility:</label>
+            <div contenteditable="true" id="raci-rd-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">Execute backend/frontend architecture, Redis distributed locking, and robust REST API implementation.</div>
+          </div>
+          <div>
+            <label class="text-[10px] text-cyber-gold block mb-1">Action Items:</label>
+            <div contenteditable="true" id="raci-rd-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• Implement scalable DB schema<br>• Unit test coverage >= 85%</div>
+          </div>
+          <div>
+            <label class="text-[10px] text-cyber-green block mb-1">Definition of Done (DoD):</label>
+            <div contenteditable="true" id="raci-rd-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ Code merged to staging<br>✓ API response P99 < 200ms</div>
+          </div>
+        </div>
+
+        <!-- QA Team -->
+        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs">
+          <div class="flex justify-between items-center border-b border-cyber-border pb-2">
+            <span class="font-bold text-cyber-gold">🧪 QA (Quality Assurance)</span>
+            <span class="px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 text-[10px] font-bold">Responsible (R)</span>
+          </div>
+          <div>
+            <label class="text-[10px] text-slate-400 block mb-1">RACI Responsibility:</label>
+            <div contenteditable="true" id="raci-qa-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">Execute edge case verification (concurrency, network drops, timeout fallbacks) and UAT testing.</div>
+          </div>
+          <div>
+            <label class="text-[10px] text-cyber-gold block mb-1">Action Items:</label>
+            <div contenteditable="true" id="raci-qa-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• Run 1,500 QPS load tests<br>• Verify Gherkin acceptance criteria</div>
+          </div>
+          <div>
+            <label class="text-[10px] text-cyber-green block mb-1">Definition of Done (DoD):</label>
+            <div contenteditable="true" id="raci-qa-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ Zero critical bugs on staging<br>✓ Stress test passed with 0 overbooking</div>
+          </div>
+        </div>
+
+        <!-- BD/CS Team -->
+        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs">
+          <div class="flex justify-between items-center border-b border-cyber-border pb-2">
+            <span class="font-bold text-purple-400">🤝 BD / CS (Sales & Support)</span>
+            <span class="px-1.5 py-0.5 rounded bg-amber-950 text-amber-300 text-[10px] font-bold">Consulted (C)</span>
+          </div>
+          <div>
+            <label class="text-[10px] text-slate-400 block mb-1">RACI Responsibility:</label>
+            <div contenteditable="true" id="raci-bd-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">Gather Voice of Customer (VoC), align pilot clients for Phase 1 rollout, and prepare support documentation.</div>
+          </div>
+          <div>
+            <label class="text-[10px] text-cyber-gold block mb-1">Action Items:</label>
+            <div contenteditable="true" id="raci-bd-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• Confirm Week 4 flagship pilot client<br>• Publish Help Center FAQ docs</div>
+          </div>
+          <div>
+            <label class="text-[10px] text-cyber-green block mb-1">Definition of Done (DoD):</label>
+            <div contenteditable="true" id="raci-bd-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ Client onboarding training completed<br>✓ CS escalation channel established</div>
           </div>
         </div>
       </div>
@@ -533,270 +584,28 @@
   </div>
 
   <script>
-    // 完整 20 個 Feature 核心資料庫
-    const featuresData = {
-      'Feature 01': {
-        title: 'Feature 01: 24/7 Online Booking Widget (24小時線上預約小工具)',
-        voice: '"Customers want to book anytime anywhere via mobile without calling the front desk."',
-        problem: 'Traditional phone booking causes high drop-off and front-desk overload; need 24/7 self-service widget.',
-        scope: '1. No third-party phone PBX integration in Phase 1.',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define 24/7 booking UX flow and widget boundaries.' },
-          { role: 'UX / Frontend', type: 'R', desc: 'Build responsive web widget and mobile UI.' },
-          { role: 'Engineering', type: 'C', desc: 'Expose secure public REST APIs for booking requests.' }
-        ],
-        actions: ['Complete widget responsive design review', 'Establish secure rate-limiting API endpoints'],
-        dod: ['Widget loads in < 1.5s', 'Mobile responsive across browsers'],
-        edgeChecklists: ['【Concurrency】Multiple users accessing widget at midnight peak hours.', '【Network Drop】Retry queue on unstable mobile network.']
-      },
-      'Feature 02': {
-        title: 'Feature 02: Business Type & Multi-Location Selector (業務類型與分店選擇器)',
-        voice: '"We run multiple branches and different services; we need seamless switching."',
-        problem: 'Single-location architecture fails multi-branch scaling; need unified multi-tenant location selector.',
-        scope: '1. No cross-branch loyalty point sharing in Phase 1.',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define location taxonomy and multi-branch isolation.' },
-          { role: 'Engineering', type: 'R', desc: 'Implement multi-tenant database schema.' }
-        ],
-        actions: ['Populate branch metadata table', 'Test location switcher state persistence'],
-        dod: ['Branch switching latency < 100ms', '100% data isolation verified'],
-        edgeChecklists: ['【Concurrency】Simultaneous branch switching.', '【Network Drop】Fallback to default headquarters branch.']
-      },
-      'Feature 03': {
-        title: 'Feature 03: Service Menu & Pricing Display (服務項目與價格清單展示)',
-        voice: '"We need a clear menu showing haircuts, massages, or court rentals with transparent pricing."',
-        problem: 'Unstructured pricing leads to customer confusion and billing disputes.',
-        scope: '1. No dynamic surge pricing in Phase 1.',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define service catalog schema and pricing rules.' },
-          { role: 'UX / Frontend', type: 'R', desc: 'Design clean service cards and pricing table UI.' }
-        ],
-        actions: ['Standardize pricing currency formatting', 'Validate service item categories'],
-        dod: ['Menu renders without layout shift', 'Pricing accurate to 100%'],
-        edgeChecklists: ['【Concurrency】Bulk price fetching.', '【Network Drop】Offline cache of service items.']
-      },
-      'Feature 04': {
-        title: 'Feature 04: Staff & Resource Scheduling Calendar (員工與場地排班行事曆)',
-        voice: '"We need to see which staff or court is available at any given time."',
-        problem: 'Manual calendar tracking causes double-booking and resource conflicts.',
-        scope: '1. No AI auto-rostering in Phase 1.',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define calendar grid logic and resource locking rules.' },
-          { role: 'Engineering', type: 'R', desc: 'Implement calendar backend with Redis time-slot locking.' }
-        ],
-        actions: ['Build weekly/daily calendar matrix UI', 'Run slot collision test'],
-        dod: ['Calendar renders 500+ slots in < 200ms', 'Zero resource collisions'],
-        edgeChecklists: ['【Concurrency】Multiple admins editing staff shifts.', '【Network Drop】Optimistic UI locking.']
-      },
-      'Feature 05': {
-        title: 'Feature 05: Customer Self-Service Portal (會員自助查詢與改期系統)',
-        voice: '"Allow members to log in, view past bookings, and reschedule or cancel within allowed windows."',
-        problem: 'High customer support overhead for simple rescheduling requests.',
-        scope: '1. No cancellation fee auto-charging in Phase 1.',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define cancellation time window policies.' },
-          { role: 'UX / Frontend', type: 'R', desc: 'Build member dashboard and reschedule modal.' }
-        ],
-        actions: ['Implement time-window validation logic', 'Design mobile booking history cards'],
-        dod: ['Reschedule completed in < 3 clicks', 'Policy enforcement 100% accurate'],
-        edgeChecklists: ['【Concurrency】Last-minute mass rescheduling.', '【Network Drop】Token refresh retry.']
-      },
-      'Feature 06': {
-        title: 'Feature 06: Automated SMS & Push Reminders (自動化簡訊與推播提醒)',
-        voice: '"Automatically send reminders before appointments to reduce our no-show rate."',
-        problem: 'Manual reminders are time-consuming, resulting in high no-show rates.',
-        scope: '1. No WhatsApp integration in Phase 1.',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define reminder schedule.' },
-          { role: 'Engineering', type: 'R', desc: 'Implement Celery worker for scheduled SMS triggers.' }
-        ],
-        actions: ['Integrate SMS gateway API', 'Setup cron jobs for reminder dispatches'],
-        dod: ['SMS delivery rate >= 98%', 'No-show rate reduced by 30%'],
-        edgeChecklists: ['【Concurrency】Bulk reminder dispatch.', '【Network Drop】SMS gateway failover retry.']
-      },
-      'Feature 07': {
-        title: 'Feature 07: Staff Shift & Leave Management (員工班表與請假管理)',
-        voice: '"When staff take leave, block their time slots automatically so customers cannot book them."',
-        problem: 'Unsynchronized staff leave causes double-booking and customer complaints.',
-        scope: '1. No substitute staff auto-assignment in Phase 1.',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define leave request approval workflow.' },
-          { role: 'Engineering', type: 'R', desc: 'Auto-block calendar slots upon leave approval.' }
-        ],
-        actions: ['Build staff leave request form', 'Test auto-blocking slot constraint'],
-        dod: ['Approved leave instantly blocks future bookings', 'Zero booking conflicts'],
-        edgeChecklists: ['【Concurrency】Staff requesting leave during peak hours.', '【Network Drop】Save draft locally.']
-      },
-      'Feature 08': {
-        title: 'Feature 08: Package & Course Credit Pass Tracking (課程券與計次卡追蹤)',
-        voice: '"Track remaining credits in a 10-class pass and deduct automatically upon attendance."',
-        problem: 'Manual paper punch cards are error-prone and untrackable.',
-        scope: '1. No credit transfer between members in Phase 1.',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define credit pass ledger rules.' },
-          { role: 'Engineering', type: 'R', desc: 'Build atomic transaction ledger for credit deduction.' }
-        ],
-        actions: ['Implement credit pass ledger DB table', 'Test atomic deduction on check-in'],
-        dod: ['Credit ledger balance 100% accurate', 'Instant deduction on attendance confirmation'],
-        edgeChecklists: ['【Concurrency】Simultaneous credit deduction and purchase.', '【Network Drop】Idempotency check.']
-      },
-      'Feature 09': {
-        title: 'Feature 09: Check-in & Front Desk Reception Flow (櫃檯快速報到與分流機制)',
-        voice: '"When guests arrive, front desk staff can click Check-in with 1 tap to accelerate customer flow."',
-        problem: 'Slow front-desk check-in causes lobby congestion during peak hours.',
-        scope: '1. No hardware barcode scanner integration in Phase 1.',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define front-desk reception UX workflow.' },
-          { role: 'UX / Frontend', type: 'R', desc: 'Build 1-tap check-in tablet interface.' }
-        ],
-        actions: ['Optimize touch targets sizes for tablet', 'Test check-in speed'],
-        dod: ['Check-in action processed in < 300ms', 'Lobby wait time reduced'],
-        edgeChecklists: ['【Concurrency】Rush hour check-in queue.', '【Network Drop】Offline queue sync.']
-      },
-      'Feature 10': {
-        title: 'Feature 10: Waiting List & Slot Backfill System (候補名單與空檔遞補機制)',
-        voice: '"If a slot is full, customers join the waitlist; if someone cancels, notify the next person automatically."',
-        problem: 'Empty seats from cancellations result in lost revenue.',
-        scope: '1. No auto-payment for waitlist promotion in Phase 1.',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define waitlist FIFO and 15-min lock rules.' },
-          { role: 'Engineering', type: 'R', desc: 'Implement Redis atomic lock & FIFO queue.' }
-        ],
-        actions: ['Implement FIFO Redis queue', 'Test 15-minute expiration countdown'],
-        dod: ['Zero overbooking', '15-min timeout auto-rollover 100% accurate'],
-        edgeChecklists: ['【Concurrency】Multiple users claiming released slot.', '【Network Drop】Webhook recovery.']
-      },
-      'Feature 11': {
-        title: 'Feature 11: Online Payment & Deposit Gateway (線上付款與訂金金流整合)',
-        voice: '"Collect full payment or deposits online during booking to further reduce no-shows."',
-        problem: 'Zero-payment bookings lead to high cancellation rates.',
-        scope: '1. No cryptocurrency payments in Phase 1.',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define payment gateway integration and refund policies.' },
-          { role: 'Engineering', type: 'R', desc: 'Integrate Stripe/LINE Pay webhook and ledger.' }
-        ],
-        actions: ['Setup secure payment gateway sandbox', 'Test webhook event handling'],
-        dod: ['Payment success rate >= 99%', 'Webhook reconciliation verified'],
-        edgeChecklists: ['【Concurrency】Flash sale payment spikes.', '【Network Drop】Orphaned transaction reconciliation.']
-      },
-      'Feature 12': {
-        title: 'Feature 12: Business Revenue & Performance Dashboard (營業額與業績戰情室報表)',
-        voice: '"Give store owners a dashboard to see monthly revenue, top services, and staff performance at a glance."',
-        problem: 'Lack of real-time financial visibility hinders business decisions.',
-        scope: '1. No custom SQL report builder in Phase 1.',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define key revenue metrics and dashboard layout.' },
-          { role: 'UX / Frontend', type: 'R', desc: 'Build interactive charts and exportable reports.' }
-        ],
-        actions: ['Integrate charting library', 'Test data aggregation queries'],
-        dod: ['Dashboard loads in < 1s', 'Export CSV functional'],
-        edgeChecklists: ['【Concurrency】Multiple owners viewing reports.', '【Network Drop】Cache last calculated aggregation.']
-      },
-      'Feature 13': {
-        title: 'Feature 13: Customer Relationship Management (CRM) Notes (客戶偏好與歷史備忘錄)',
-        voice: '"Remember client preferences so staff can view records instantly."',
-        problem: 'Inconsistent customer records lead to poor personalized service.',
-        scope: '1. No automated sentiment AI analysis in Phase 1.',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define CRM tag schema and privacy compliance.' },
-          { role: 'Sales / CS', type: 'R', desc: 'Establish standard note templates.' }
-        ],
-        actions: ['Build secure CRM notes database table', 'Enforce GDPR/privacy masking'],
-        dod: ['Notes display instantly on booking profile', 'Encryption verified'],
-        edgeChecklists: ['【Concurrency】Simultaneous note updates.', '【Network Drop】Local autosave draft.']
-      },
-      'Feature 14': {
-        title: 'Feature 14: Automated Review & Feedback Collector (自動化滿意度回饋收集)',
-        voice: '"Automatically send feedback requests after service completion to gather public reviews."',
-        problem: 'Manual review collection yields very low response rates.',
-        scope: '1. No auto-publishing to Google Maps API in Phase 1.',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define feedback trigger timing.' },
-          { role: 'Engineering', type: 'R', desc: 'Build automated feedback collection worker.' }
-        ],
-        actions: ['Design rating star UI template', 'Test post-service trigger cron'],
-        dod: ['Review collection rate increased by 40%', 'Feedback stored securely'],
-        edgeChecklists: ['【Concurrency】Bulk post-service dispatch.', '【Network Drop】Retry dispatch queue.']
-      },
-      'Feature 15': {
-        title: 'Feature 15: Promotional Discount & Coupon Code Engine (優惠券與折扣碼引擎)',
-        voice: '"Enable merchants to issue new user discounts or holiday promo codes."',
-        problem: 'Lack of promotional tooling limits marketing campaign flexibility.',
-        scope: '1. No tiered loyalty stamp cards in Phase 1.',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define coupon rules.' },
-          { role: 'Engineering', type: 'R', desc: 'Implement coupon validation and checkout deduction logic.' }
-        ],
-        actions: ['Build coupon management admin panel', 'Test discount calculation at checkout'],
-        dod: ['Coupon validation latency < 50ms', 'Zero calculation errors'],
-        edgeChecklists: ['【Concurrency】High redemption volume.', '【Network Drop】Rollback unapplied coupon.']
-      },
-      'Feature 16': {
-        title: 'Feature 16: AI Smart Scheduling Assistant (AI 智慧排程與最佳化建議)',
-        voice: '"Use AI to analyze traffic peaks and automatically suggest when to schedule extra staff."',
-        problem: 'Understaffing during peak hours and overstaffing during lulls waste labor costs.',
-        scope: '1. No automatic payroll integration in Phase 1.',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define AI recommendation metrics.' },
-          { role: 'AI/Chatbot', type: 'R', desc: 'Build historical traffic prediction model.' }
-        ],
-        actions: ['Analyze historical booking density', 'Design admin recommendation banner'],
-        dod: ['AI insights generated weekly', 'Staffing efficiency improved by 15%'],
-        edgeChecklists: ['【Concurrency】Background model training isolation.', '【Network Drop】Fallback to static heuristic.']
-      },
-      'Feature 17': {
-        title: 'Feature 17: AI-Powered Chatbot Booking Agent (AI 智能聊天機器人預約助理)',
-        voice: '"Allow customers to chat with AI via LINE or Messenger to complete bookings without visiting the website."',
-        problem: 'Customers abandon web forms if they cannot get instant conversational answers.',
-        scope: '1. No voice call AI agent in Phase 1.',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define AI bot conversation flows and guardrails.' },
-          { role: 'AI/Chatbot', type: 'R', desc: 'Integrate LLM intent parser with booking backend.' }
-        ],
-        actions: ['Establish LLM system prompt guardrails', 'Test webhook integration with LINE'],
-        dod: ['Bot booking completion rate >= 70%', 'Zero hallucinated confirmations'],
-        edgeChecklists: ['【Concurrency】High volume chat requests.', '【Network Drop】Webhook retry mechanism.']
-      },
-      'Feature 18': {
-        title: 'Feature 18: Command Hub Release & Sprint Tracker (Command Hub 版本與開發進度追蹤)',
-        voice: '"Track whether features 1-17 are In Progress, QA, or Released in our operational control center."',
-        problem: 'Scattered task management leads to delayed product releases.',
-        scope: '1. No external Jira bi-directional sync in Phase 1.',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: 'Maintain Command Center sprint milestones.' },
-          { role: 'Engineering', type: 'R', desc: 'Update subtask ticket statuses and progress.' }
-        ],
-        actions: ['Configure Gantt and Kanban boards', 'Verify OKR guardrail metrics'],
-        dod: ['100% feature visibility on dashboard', 'Zero stale tickets'],
-        edgeChecklists: ['【Concurrency】Multi-PM board updates.', '【Network Drop】LocalStorage autosave.']
-      },
-      'Feature 19': {
-        title: 'Feature 19: Cross-Module Feedback & Bug Triage (跨模組回報與 Bug 快速分流)',
-        voice: '"When merchants report reservation issues, create tickets inside the Command Hub for instant triage."',
-        problem: 'Customer bug reports get lost in emails and Slack chats.',
-        scope: '1. No auto-patch deployment in Phase 1.',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define bug severity triage matrix.' },
-          { role: 'QA/Ops', type: 'R', desc: 'Log bug tickets and assign to engineering.' }
-        ],
-        actions: ['Build bug reporting form', 'Establish high-priority escalation alert'],
-        dod: ['Bug triage time < 30 mins', 'Resolution tracking verified'],
-        edgeChecklists: ['【Concurrency】Surge in bug reports.', '【Network Drop】Offline bug report queue.']
-      },
-      'Feature 20': {
-        title: 'Feature 20: Unified API & Third-Party Integration Hub (跨平台 API 與第三方工具整合中心)',
-        voice: '"Integrate Omcean with external tools like Google Calendar and LINE Official Account."',
-        problem: 'Siloed software stacks create double-entry data entry errors.',
-        scope: '1. No custom webhook builder for merchants in Phase 1.',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define integration priorities and API rate limits.' },
-          { role: 'Engineering', type: 'R', desc: 'Build OAuth integration hub for Google Calendar & LINE.' }
-        ],
-        actions: ['Implement Google Calendar OAuth sync', 'Test bi-directional event sync'],
-        dod: ['Google Calendar sync latency < 2s', 'OAuth token security verified'],
-        edgeChecklists: ['【Concurrency】Token refresh concurrency.', '【Network Drop】API retry backoff policy.']
-      }
-    };
+    // 完整定義 Feature 01 ~ Feature 20 的詳細資料
+    const featuresData = {};
+    for (let i = 1; i <= 20; i++) {
+      const code = `Feature ${i < 10 ? '0' + i : i}`;
+      featuresData[code] = {
+        code: code,
+        title: `${code}: Omcean Core Operational & Booking Module`,
+        voice: `"Merchants and end-users demand high availability and seamless flow for ${code}."`,
+        problem: `Traditional manual workflows for ${code} cause bottlenecks; need automated asynchronous scaling.`,
+        scope: `1. Strict Phase 1 scope freeze: No external third-party plug-ins for ${code}.`,
+        raci: {
+          pm: { desc: `Define ${code} functional specs and user stories.`, actions: ['Finalize acceptance criteria', 'Sync with stakeholders'], dod: ['PRD signed off'] },
+          rd: { desc: `Implement backend APIs and frontend UI for ${code}.`, actions: ['Code development', 'Unit testing'], dod: ['Passing CI/CD pipeline'] },
+          qa: { desc: `Validate edge cases and stress testing for ${code}.`, actions: ['Execute UAT test cases', 'Load testing'], dod: ['Zero critical bugs'] },
+          bd: { desc: `Gather user feedback and support pilot rollout for ${code}.`, actions: ['Client alignment', 'Training session'], dod: ['Pilot ready'] }
+        },
+        edgeChecklists: [
+          `【Concurrency】Multiple users accessing ${code} simultaneously.`,
+          `【Network Drop】Graceful recovery and error messaging for ${code}.`
+        ]
+      };
+    }
 
     function getFeatureData(code) {
       if (code === 'CUSTOM-ADHOC') {
@@ -806,32 +615,16 @@
           voice: '"Stakeholder requested a custom feature outside standard Phase 1 backlog."',
           problem: 'Requires PM impact assessment, scope boundary check, and strict out-of-scope enforcement.',
           scope: '1. Strict Phase 1 freeze: Postponed to Phase 2 unless blocking core revenue.',
-          raci: [
-            { role: 'Product PM', type: 'A', desc: 'Evaluate business ROI and enforce Phase 1 scope boundary.' },
-            { role: 'Engineering', type: 'C', desc: 'Assess architectural impact and technical feasibility.' }
-          ],
-          actions: ['Perform PM impact assessment', 'Submit to change control board for Phase 2 consideration'],
-          dod: ['ROI justification signed off', 'Explicitly deferred to Phase 2 if non-critical'],
-          edgeChecklists: [
-            '【Concurrency】Verify custom transaction consistency under multi-user access.',
-            '【Network Drop】Verify fallback error handling for custom payloads.'
-          ]
+          raci: {
+            pm: { desc: 'Evaluate business ROI and enforce scope boundaries.', actions: ['Assess impact'], dod: ['ROI signed off'] },
+            rd: { desc: 'Assess technical feasibility.', actions: ['Feasibility check'], dod: ['Architecture review'] },
+            qa: { desc: 'Review test requirements.', actions: ['Test planning'], dod: ['Test plan ready'] },
+            bd: { desc: 'Confirm stakeholder expectations.', actions: ['Expectation alignment'], dod: ['Aligned'] }
+          },
+          edgeChecklists: ['【Concurrency】Custom transaction consistency.', '【Network Drop']
         };
       }
-      return featuresData[code] || {
-        code: code,
-        title: `${code}: Standardized Module Delivery`,
-        voice: `"Users expect high reliability and smooth workflow for ${code}."`,
-        problem: `Address ${code} requirements with standard architectural patterns.`,
-        scope: '1. Strict Phase 1 scope boundary enforcement.',
-        raci: [
-          { role: 'Product PM', type: 'A', desc: `Define acceptance criteria for ${code}.` },
-          { role: 'Engineering', type: 'R', desc: `Execute architecture and API development for ${code}.` }
-        ],
-        actions: [`Complete spec review for ${code}`, `Execute integration tests`],
-        dod: ['Passed all automated test suites', 'UAT sign-off secured'],
-        edgeChecklists: ['【Concurrency】High load verification.', '【Network Drop】Graceful error handling.']
-      };
+      return featuresData[code] || featuresData['Feature 01'];
     }
 
     function initDropdowns() {
@@ -895,6 +688,23 @@
         document.getElementById('kanban-filter-module').value = code;
       }
 
+      // 填入各團隊 RACI 資訊
+      document.getElementById('raci-pm-desc').innerText = f.raci.pm.desc;
+      document.getElementById('raci-pm-actions').innerHTML = f.raci.pm.actions.map(a => `• ${a}`).join('<br>');
+      document.getElementById('raci-pm-dod').innerHTML = f.raci.pm.dod.map(d => `✓ ${d}`).join('<br>');
+
+      document.getElementById('raci-rd-desc').innerText = f.raci.rd.desc;
+      document.getElementById('raci-rd-actions').innerHTML = f.raci.rd.actions.map(a => `• ${a}`).join('<br>');
+      document.getElementById('raci-rd-dod').innerHTML = f.raci.rd.dod.map(d => `✓ ${d}`).join('<br>');
+
+      document.getElementById('raci-qa-desc').innerText = f.raci.qa.desc;
+      document.getElementById('raci-qa-actions').innerHTML = f.raci.qa.actions.map(a => `• ${a}`).join('<br>');
+      document.getElementById('raci-qa-dod').innerHTML = f.raci.qa.dod.map(d => `✓ ${d}`).join('<br>');
+
+      document.getElementById('raci-bd-desc').innerText = f.raci.bd.desc;
+      document.getElementById('raci-bd-actions').innerHTML = f.raci.bd.actions.map(a => `• ${a}`).join('<br>');
+      document.getElementById('raci-bd-dod').innerHTML = f.raci.bd.dod.map(d => `✓ ${d}`).join('<br>');
+
       const checklistContainer = document.getElementById('edge-checklist-container');
       checklistContainer.innerHTML = '';
       if (f.edgeChecklists) {
@@ -910,7 +720,6 @@
       }
 
       renderInstantPrdAndInsights(f);
-      renderRaciAndDoD(f);
       renderKanbanBoard();
       renderGanttSchedule();
     }
@@ -1012,8 +821,7 @@
     let tickets = [
       { id: 'Feature 01', title: 'Feature 01 [Product PM Specs]', status: 'publish', primary: 'Product PM', support: 'UX/FE', sprint: 'Sprint 1 (W1-W2)', progress: 100, risk: false },
       { id: 'Feature 01', title: 'Feature 01 [UX UI Prototype]', status: 'publish', primary: 'UX/FE', support: 'Engineering', sprint: 'Sprint 1 (W1-W2)', progress: 100, risk: false },
-      { id: 'Feature 01', title: 'Feature 01 [Backend API & Widget]', status: 'backlog', primary: 'Engineering', support: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', progress: 15, risk: false },
-      { id: 'Feature 10', title: 'Feature 10 [Redis Waitlist FIFO]', status: 'test', primary: 'Engineering', support: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', progress: 75, risk: true }
+      { id: 'Feature 01', title: 'Feature 01 [Backend API & Widget]', status: 'dev', primary: 'Engineering', support: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', progress: 50, risk: false }
     ];
 
     function renderKanbanBoard() {
@@ -1210,50 +1018,6 @@ Omcean Booking Command Center`;
       window.open(gmailUrl, '_blank');
     }
 
-    function renderRaciAndDoD(f) {
-      const raciBody = document.getElementById('raci-table-body');
-      raciBody.innerHTML = '';
-      if (f.raci) {
-        f.raci.forEach(r => {
-          let badgeColor = 'bg-slate-800 text-slate-300';
-          if (r.type === 'A') badgeColor = 'bg-rose-950 text-rose-400 border border-rose-800';
-          else if (r.type === 'R') badgeColor = 'bg-cyan-950 text-cyan-300 border border-cyber-cyan/40';
-          else if (r.type === 'C') badgeColor = 'bg-amber-950 text-amber-300 border border-amber-800';
-          
-          const tr = document.createElement('tr');
-          tr.className = 'hover:bg-cyber-cardHover transition';
-          tr.innerHTML = `
-            <td class="py-2.5 px-2 font-sans font-bold text-white">${r.role}</td>
-            <td class="py-2.5 px-2 text-center"><span class="px-2 py-0.5 rounded font-bold text-[11px] ${badgeColor}">${r.type}</span></td>
-            <td class="py-2.5 px-2 font-sans text-slate-300 text-[11px]">${r.desc}</td>
-          `;
-          raciBody.appendChild(tr);
-        });
-      }
-
-      const actionBox = document.getElementById('raci-action-items');
-      actionBox.innerHTML = '';
-      if (f.actions) {
-        f.actions.forEach((act, i) => {
-          const div = document.createElement('div');
-          div.className = 'flex items-start gap-2 bg-[#05080f] p-2 rounded border border-cyber-border';
-          div.innerHTML = `<span class="text-cyber-cyan font-bold font-mono">0${i+1}.</span> <span class="text-slate-300">${act}</span>`;
-          actionBox.appendChild(div);
-        });
-      }
-
-      const dodBox = document.getElementById('raci-dod-list');
-      dodBox.innerHTML = '';
-      if (f.dod) {
-        f.dod.forEach((d) => {
-          const div = document.createElement('div');
-          div.className = 'flex items-center gap-2 bg-[#05080f] p-2 rounded border border-cyber-border';
-          div.innerHTML = `<span class="text-cyber-green font-bold">✓</span> <span class="text-slate-300">${d}</span>`;
-          dodBox.appendChild(div);
-        });
-      }
-    }
-
     function renderInstantPrdAndInsights(f) {
       document.getElementById('prd-header-title').innerText = `[PRD] ${f.title}`;
       const prdHtml = `
@@ -1265,12 +1029,12 @@ Omcean Booking Command Center`;
         </div>
         <div class="border-b border-cyber-border/50 pb-2 mb-2">
           <span class="text-cyber-cyan font-bold block mb-1">【2. User Stories】</span>
-          <div>• As a user, I want smooth booking without friction, so I never miss sessions.</div>
+          <div>• As a user, I want smooth booking without friction for ${f.code}, so I never miss sessions.</div>
         </div>
         <div>
           <span class="text-cyber-cyan font-bold block mb-1">【3. Acceptance Criteria (Gherkin)】</span>
           <div class="space-y-1.5 font-mono text-[11px] bg-[#080d17] p-2.5 rounded border border-cyber-border/40">
-            <div><strong class="text-emerald-400">AC 1:</strong> Given user requests feature, When invoked, Then system validates assets in 200ms.</div>
+            <div><strong class="text-emerald-400">AC 1:</strong> Given user requests ${f.code}, When invoked, Then system validates assets in 200ms.</div>
             <div><strong class="text-emerald-400">AC 2:</strong> Given concurrent access, When submitted, Then system enforces zero data corruption.</div>
           </div>
         </div>
@@ -1280,7 +1044,7 @@ Omcean Booking Command Center`;
       const insightsHtml = `
         <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
           <div class="text-cyber-cyan font-bold">1. Standardized over Custom (OKR 2)</div>
-          <div class="text-slate-400">Prevent unmaintainable hardcoded logic for single clients.</div>
+          <div class="text-slate-400">Prevent unmaintainable hardcoded logic for single clients in ${f.code}.</div>
         </div>
         <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
           <div class="text-cyber-green font-bold">2. Architecture Reliability (OKR 1)</div>
