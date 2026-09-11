@@ -63,7 +63,7 @@
           <h1 id="txt-main-title" class="text-2xl font-bold text-white tracking-tight">Omcean Booking PM 指揮中心</h1>
         </div>
         <p id="txt-sub-title" class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] Feature 01 ~ Feature 20 獨立 PRD 渲染 &bull; 支援中英文雙向即時切換 &bull; Gmail 快速發信
+          [ROLE: 15-Yr Senior PM] Feature 01 ~ Feature 20 深度專業級 PRD 與 BDD 規格 &bull; 雙向即時切換
         </p>
       </div>
 
@@ -172,15 +172,15 @@
       <div class="pt-4 border-t border-cyber-border space-y-4">
         <div class="flex items-center gap-2">
           <span class="w-2.5 h-2.5 rounded-full bg-cyber-green animate-pulse"></span>
-          <span id="txt-prd-header" class="text-xs font-bold font-mono text-cyber-green">即時 PRD 與驗收條件規格面板 (Instant PRD & AC)</span>
+          <span id="txt-prd-header" class="text-xs font-bold font-mono text-cyber-green">資深 PM 級深度 PRD 與 BDD 規格面板</span>
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
           <div class="lg:col-span-8 bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs">
             <div class="flex justify-between items-center border-b border-cyber-border/80 pb-2">
-              <span class="text-cyber-cyan font-bold text-sm" id="prd-header-title">[PRD] 動態模組規格書</span>
-              <span class="text-[10px] text-slate-500 font-mono">SPEC & BDD</span>
+              <span class="text-cyber-cyan font-bold text-sm" id="prd-header-title">[PRD] 功能完整規格書</span>
+              <span class="text-[10px] text-slate-500 font-mono">SENIOR PM SPEC</span>
             </div>
-            <div id="prd-content-view" class="space-y-3 text-slate-300 font-sans text-xs leading-relaxed max-h-[360px] overflow-y-auto pr-2"></div>
+            <div id="prd-content-view" class="space-y-3 text-slate-300 font-sans text-xs leading-relaxed max-h-[420px] overflow-y-auto pr-2"></div>
           </div>
 
           <div class="lg:col-span-4 bg-[#0a121e] border border-cyber-border rounded-xl p-4 space-y-3">
@@ -194,7 +194,7 @@
       </div>
     </section>
 
-    <!-- Cross-Functional RACI Matrix & Definition of Done (DoD) [分團隊呈現且支援手動編輯] -->
+    <!-- Cross-Functional RACI Matrix & Definition of Done (DoD) -->
     <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5">
       <div class="flex items-center justify-between border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
@@ -456,11 +456,11 @@
           <p class="text-[11px] text-slate-400 font-sans leading-relaxed">15分鐘保留時間逾期未付款。</p>
           <div class="space-y-1.5 text-[11px] pt-2 border-t border-cyber-border/60">
             <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" id="sop-p3-team" class="text-slate-200 bg-slate-900/60 px-1 rounded">工程研發與品質保證</span></div>
-            <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" id="sop-p3-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
-            <div><strong class="text-slate-300">修正動作:</strong> <span contenteditable="true" id="sop-p3-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded">最佳化 Celery 倒數計時與事件驅動遞補。</span></div>
-            <div><strong class="text-rose-400">完成期限:</strong> <span contenteditable="true" id="sop-p3-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-03-31 EOD</span></div>
-            <div><strong class="text-cyber-green">交付目標:</strong> <span contenteditable="true" id="sop-p3-result" class="text-slate-300 bg-slate-900/60 px-1 rounded">15分鐘逾期自動釋放與候位位移 100% 準確。</span></div>
-            <div><strong class="text-amber-400">備用方案:</strong> <span contenteditable="true" id="sop-p3-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded">每 3 分鐘批次 Cron Job 強制掃描。</span></div>
+            <div><strong class="text-yellow-400">Target Sprint:</strong> <span contenteditable="true" id="sop-p3-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
+            <div><strong class="text-slate-300">Required Fix:</strong> <span contenteditable="true" id="sop-p3-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded">Optimize Celery countdown & event-driven auto-rollover.</span></div>
+            <div><strong class="text-rose-400">Deadline:</strong> <span contenteditable="true" id="sop-p3-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-03-31 EOD</span></div>
+            <div><strong class="text-cyber-green">Deliverable:</strong> <span contenteditable="true" id="sop-p3-result" class="text-slate-300 bg-slate-900/60 px-1 rounded">15-min timeout release & 100% accurate waitlist shift.</span></div>
+            <div><strong class="text-amber-400">Fallback Plan:</strong> <span contenteditable="true" id="sop-p3-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded">Batch cron job sweep every 3 minutes.</span></div>
           </div>
         </div>
       </div>
@@ -589,112 +589,112 @@
   </div>
 
   <script>
-    // 完整 20 個 Feature 獨立資料庫（直接在最前方宣告，確保立即載入）
+    // 15年資深產品經理規格：為 Feature 01 ~ Feature 20 打造高專業度、具體且一目了然的深度 PRD 資料庫
     const featuresData = {
       'Feature 01': {
         title: 'Feature 01: 24/7 Online Booking Widget (24小時線上預約小工具)',
-        voice: '"Customers want to book anytime anywhere via mobile without calling the front desk."',
-        problem: 'Traditional phone booking causes high drop-off and front-desk overload; need 24/7 self-service widget.',
-        scope: '1. No third-party phone PBX integration in Phase 1. 2. No custom avatar creation.',
-        userStories: '• As a customer, I want to book a slot 24/7 on my phone so I never have to wait for store opening hours.',
-        gherkinAC: 'Given user opens mobile booking widget, When selecting time slot and clicking reserve, Then system instantly holds slot for 15 minutes.',
-        pmInsights: '1. Standardized mobile widget over custom apps (OKR 2).\n2. High availability 99.95% SLA (OKR 1).',
+        voice: '"Customers want to book anytime anywhere via mobile without calling the front desk during off-hours."',
+        problem: 'Traditional phone booking creates severe off-hour friction and 40% drop-off; need a responsive 24/7 web/mobile booking widget.',
+        scope: '1. No third-party phone PBX telephony integration in Phase 1. 2. No custom avatar creation.',
+        userStories: '• As a customer, I want to book a slot 24/7 on my mobile phone so I never have to wait for store opening hours.',
+        gherkinAC: 'Given the customer opens the mobile booking widget, When they select an available time slot and click Reserve, Then the system instantly locks the slot for 15 minutes and opens the checkout flow.',
+        pmInsights: '1. Standardized mobile widget over bespoke apps minimizes maintenance overhead (OKR 2).\n2. High availability target of 99.95% SLA ensures zero lost bookings during midnight spikes (OKR 1).',
         raci: {
-          pm: { desc: 'Define 24/7 booking UX flow and widget boundaries.', actions: ['Finalize UX wireframes', 'Approve specs'], dod: ['PRD signed off'] },
-          rd: { desc: 'Build responsive web widget and REST API endpoints.', actions: ['Develop REST API', 'Frontend integration'], dod: ['API latency < 200ms'] },
-          qa: { desc: 'Verify cross-browser and mobile responsiveness.', actions: ['Run mobile UAT', 'Stress test widget'], dod: ['Zero layout shift'] },
-          bd: { desc: 'Coordinate merchant pilot onboarding.', actions: ['Merchant briefing'], dod: ['Pilot ready'] }
+          pm: { desc: 'Define 24/7 booking UX flow, widget responsiveness, and conversion targets.', actions: ['Finalize UX wireframes', 'Approve specs'], dod: ['PRD signed off'] },
+          rd: { desc: 'Build responsive web widget and secure public REST API endpoints.', actions: ['Develop REST API', 'Frontend integration'], dod: ['API latency < 200ms'] },
+          qa: { desc: 'Verify cross-browser and mobile device compatibility.', actions: ['Run mobile UAT', 'Stress test widget'], dod: ['Zero layout shift'] },
+          bd: { desc: 'Coordinate merchant pilot onboarding and widget embedding.', actions: ['Merchant briefing'], dod: ['Pilot ready'] }
         },
-        edgeChecklists: ['【Concurrency】Midnight booking spike traffic.', '【Network Drop】Retry queue on mobile loss.']
+        edgeChecklists: ['【Concurrency】Midnight booking spike traffic handling.', '【Network Drop】Automatic retry queue on unstable mobile network.']
       },
       'Feature 02': {
         title: 'Feature 02: Business Type & Multi-Location Selector (業務類型與分店選擇器)',
         voice: '"We run multiple branches and different services (beauty, massage, badminton courts); we need seamless switching."',
-        problem: 'Single-location architecture fails multi-branch scaling; need unified multi-tenant location selector.',
+        problem: 'Single-location architecture fails multi-branch scaling; need a unified multi-tenant branch and service type selector.',
         scope: '1. No cross-branch loyalty point sharing in Phase 1. 2. No multi-currency billing per branch.',
-        userStories: '• As a customer, I want to select my preferred branch and service type so I view accurate schedules.',
-        gherkinAC: 'Given user is on homepage, When switching location to Branch B, Then schedule inventory instantly loads Branch B data.',
-        pmInsights: '1. Multi-tenant scalability (OKR 1).\n2. Zero data leakage across tenants (OKR 2).',
+        userStories: '• As a customer, I want to select my preferred branch and business type so I view accurate live schedules.',
+        gherkinAC: 'Given the customer is on the homepage, When they switch location from Branch A to Branch B, Then the schedule inventory instantly reloads Branch B data within 100ms.',
+        pmInsights: '1. Multi-tenant database architecture ensures clean branch data isolation (OKR 1).\n2. Scalable for future franchise expansion without schema redesign.',
         raci: {
-          pm: { desc: 'Define location taxonomy and multi-branch isolation rules.', actions: ['Map branch hierarchy'], dod: ['Scope frozen'] },
+          pm: { desc: 'Define location taxonomy and multi-branch data isolation rules.', actions: ['Map branch hierarchy'], dod: ['Scope frozen'] },
           rd: { desc: 'Implement multi-tenant database schema and selector logic.', actions: ['DB multi-tenant sharding'], dod: ['100% data isolation'] },
           qa: { desc: 'Verify cross-branch data leaking prevention.', actions: ['Data isolation test'], dod: ['Zero data leak'] },
           bd: { desc: 'Audit branch metadata and operational hours.', actions: ['Branch audit'], dod: ['Metadata verified'] }
         },
-        edgeChecklists: ['【Concurrency】Simultaneous branch switching.', '【Network Drop】Fallback to default HQ.']
+        edgeChecklists: ['【Concurrency】Simultaneous branch switching across high-traffic regions.', '【Network Drop】Fallback to default headquarters branch.']
       },
       'Feature 03': {
         title: 'Feature 03: Service Menu & Pricing Display (服務項目與價格清單展示)',
         voice: '"We need a clear menu showing haircuts, massages, or court rentals with transparent pricing."',
-        problem: 'Unstructured pricing leads to customer confusion and billing disputes.',
-        scope: '1. No dynamic surge pricing in Phase 1. 2. No tipping module.',
-        userStories: '• As a customer, I want to view transparent pricing and service durations before booking.',
-        gherkinAC: 'Given service menu is loaded, When selecting a service item, Then detailed duration and transparent pricing display.',
-        pmInsights: '1. Transparent pricing reduces customer booking friction (OKR 2).',
+        problem: 'Unstructured pricing and hidden fees lead to customer confusion and front-desk billing disputes.',
+        scope: '1. No dynamic surge pricing in Phase 1. 2. No staff-specific variable pricing.',
+        userStories: '• As a customer, I want to view transparent pricing and service durations before selecting a slot.',
+        gherkinAC: 'Given the service menu is loaded, When selecting a specific service item, Then detailed duration, inclusions, and transparent pricing display clearly.',
+        pmInsights: '1. Transparent pricing eliminates front-desk disputes and reduces booking friction (OKR 2).',
         raci: {
-          pm: { desc: 'Define service catalog schema and pricing rules.', actions: ['Catalog mapping'], dod: ['Catalog approved'] },
-          rd: { desc: 'Develop service catalog rendering API and caching layer.', actions: ['Redis caching layer'], dod: ['Catalog load < 100ms'] },
-          qa: { desc: 'Verify pricing calculation accuracy.', actions: ['Audit pricing rules'], dod: ['100% pricing accuracy'] },
-          bd: { desc: 'Collect accurate service catalog from merchants.', actions: ['Content audit'], dod: ['Content ready'] }
+          pm: { desc: 'Define service catalog schema and transparent pricing rules.', actions: ['Catalog mapping'], dod: ['Catalog approved'] },
+          rd: { desc: 'Develop service catalog rendering API and Redis caching layer.', actions: ['Redis caching layer'], dod: ['Catalog load < 100ms'] },
+          qa: { desc: 'Verify pricing calculation accuracy across categories.', actions: ['Audit pricing rules'], dod: ['100% pricing accuracy'] },
+          bd: { desc: 'Collect accurate service catalog and pricing from merchants.', actions: ['Content audit'], dod: ['Content ready'] }
         },
-        edgeChecklists: ['【Concurrency】Peak catalog browsing.', '【Network Drop】Offline service cache.']
+        edgeChecklists: ['【Concurrency】Peak catalog browsing load.', '【Network Drop】Offline service cache availability.']
       },
       'Feature 04': {
         title: 'Feature 04: Staff & Resource Scheduling Calendar (員工與場地排班行事曆)',
         voice: '"後台要能看到哪個師傅、哪個教練、或者是哪一個羽球場地在什麼時間是空的。"',
-        problem: 'Manual calendar tracking causes double-booking and resource conflicts.',
-        scope: '1. No AI auto-rostering in Phase 1. 2. No external calendar auto-sync.',
-        userStories: '• As a store manager, I want to view staff and court availability in real-time to avoid double booking.',
-        gherkinAC: 'Given two admins view the same slot, When Admin A locks it, Then Admin B sees it as occupied instantly via WebSocket.',
-        pmInsights: '1. Redis Redlock for absolute slot consistency (OKR 1).',
+        problem: 'Manual calendar tracking causes severe double-booking and resource scheduling conflicts.',
+        scope: '1. No AI auto-rostering in Phase 1. 2. No external Outlook/Google two-way auto-sync.',
+        userStories: '• As a store manager, I want to view staff and court availability in real-time to prevent resource collisions.',
+        gherkinAC: 'Given two admins view the same time slot, When Admin A locks it for editing, Then Admin B sees it as occupied instantly via WebSocket.',
+        pmInsights: '1. Redis Redlock distributed locking guarantees absolute slot consistency (OKR 1).',
         raci: {
           pm: { desc: 'Define calendar grid logic and resource locking rules.', actions: ['Define matrix rules'], dod: ['Rules frozen'] },
           rd: { desc: 'Implement calendar backend with Redis time-slot locking.', actions: ['Redis time-lock engine'], dod: ['Zero collisions'] },
           qa: { desc: 'Execute stress test for slot collisions.', actions: ['Simulate 500 concurrent admins'], dod: ['Zero double-booking'] },
           bd: { desc: 'Train store managers on calendar operations.', actions: ['Manager training'], dod: ['Staff trained'] }
         },
-        edgeChecklists: ['【Concurrency】Simultaneous admin scheduling.', '【Network Drop】WebSocket reconnection.']
+        edgeChecklists: ['【Concurrency】Simultaneous admin scheduling.', '【Network Drop】WebSocket reconnection recovery.']
       },
       'Feature 05': {
         title: 'Feature 05: Customer Self-Service Portal (會員自助查詢與改期系統)',
         voice: '"讓客人可以自己登入查看歷史預約，甚至在規定時間內自己改期或取消。"',
-        problem: 'High customer support overhead for simple rescheduling requests.',
-        scope: '1. No cancellation fee auto-charging in Phase 1. 2. No chat support inside portal.',
+        problem: 'High customer support overhead for simple rescheduling requests taking up phone and chat bandwidth.',
+        scope: '1. No cancellation fee auto-charging in Phase 1. 2. No live chat support inside portal.',
         userStories: '• As a member, I want to reschedule my booking 24 hours prior without calling support.',
-        gherkinAC: 'Given booking is 30 hours away, When user clicks reschedule, Then calendar opens to select a new valid slot.',
-        pmInsights: '1. Self-service portal reduces CS workload by 50% (OKR 4).',
+        gherkinAC: 'Given the booking is 30 hours away, When the user clicks Reschedule, Then the portal opens the calendar to select a new valid slot.',
+        pmInsights: '1. Self-service portal reduces customer support ticket volume by 50% (OKR 4).',
         raci: {
           pm: { desc: 'Define cancellation time window policies.', actions: ['Policy definition'], dod: ['Policy signed off'] },
-          rd: { desc: 'Build member dashboard and reschedule modal.', actions: ['Portal backend'], dod: ['Reschedule in 3 clicks'] },
+          rd: { desc: 'Build member dashboard and reschedule modal API.', actions: ['Portal backend'], dod: ['Reschedule in 3 clicks'] },
           qa: { desc: 'Test time-window restriction edge cases.', actions: ['Boundary testing'], dod: ['Time constraints enforced'] },
           bd: { desc: 'Communicate cancellation policy to customers.', actions: ['FAQ update'], dod: ['FAQ published'] }
         },
-        edgeChecklists: ['【Concurrency】Last-minute portal traffic surge.', '【Network Drop】Draft preservation.']
+        edgeChecklists: ['【Concurrency】Last-minute portal traffic surge.', '【Network Drop】Draft state preservation.']
       },
       'Feature 06': {
         title: 'Feature 06: Automated SMS & Push Reminders (自動化簡訊與推播提醒)',
         voice: '"快到預約時間前，系統自動發簡訊或通知給客人，減少爽約率。"',
-        problem: 'Manual reminders are time-consuming, resulting in an 18% no-show rate.',
+        problem: 'Manual reminders are time-consuming and unreliable, resulting in an 18% no-show rate.',
         scope: '1. No WhatsApp/WeChat integration in Phase 1.',
         userStories: '• As a customer, I want a reminder SMS 2 hours before my appointment so I do not forget.',
-        gherkinAC: 'Given appointment is set for 14:00, When clock hits 12:00, Then 2-hour reminder SMS is dispatched.',
-        pmInsights: '1. Automated reminders drop no-show rate below 5% (OKR 1).',
+        gherkinAC: 'Given an appointment is set for 14:00, When system clock hits 12:00, Then a 2-hour reminder SMS is successfully dispatched.',
+        pmInsights: '1. Automated reminders drop customer no-show rate below 5% (OKR 1).',
         raci: {
           pm: { desc: 'Define reminder schedule (24h and 2h before).', actions: ['Timing strategy'], dod: ['Timing locked'] },
           rd: { desc: 'Implement Celery worker for scheduled SMS triggers.', actions: ['Celery cron worker'], dod: ['98% delivery rate'] },
           qa: { desc: 'Verify reminder delivery timing accuracy.', actions: ['Time trigger verification'], dod: ['Trigger accurate'] },
           bd: { desc: 'Review SMS template tone with merchants.', actions: ['Template audit'], dod: ['Templates approved'] }
         },
-        edgeChecklists: ['【Concurrency】Top-of-hour bulk SMS dispatch.', '【Network Drop】SMS gateway fallback.']
+        edgeChecklists: ['【Concurrency】Top-of-hour bulk SMS dispatch.', '【Network Drop】SMS gateway failover retry.']
       },
       'Feature 07': {
         title: 'Feature 07: Staff Shift & Leave Management (員工班表與請假管理)',
         voice: '"教練或治療師請假時，系統自動擋掉該時段，避免客人預約了卻撲空。"',
-        problem: 'Unsynchronized staff leave causes double-booking and customer complaints.',
+        problem: 'Unsynchronized staff leave causes painful double-booking and angry customer complaints.',
         scope: '1. No substitute staff auto-assignment in Phase 1.',
         userStories: '• As a staff member, I want to submit leave requests so the system prevents bookings during my absence.',
-        gherkinAC: 'Given staff leave is approved, When customer browses that date, Then that staff member is not shown as available.',
-        pmInsights: '1. Automated slot blocking protects customer experience (OKR 1).',
+        gherkinAC: 'Given staff leave is approved, When a customer browses that date, Then that staff member is instantly hidden from available schedules.',
+        pmInsights: '1. Automated slot blocking protects customer experience and trust (OKR 1).',
         raci: {
           pm: { desc: 'Define leave request approval workflow.', actions: ['Workflow design'], dod: ['Workflow frozen'] },
           rd: { desc: 'Auto-block calendar slots upon leave approval.', actions: ['Leave calendar sync'], dod: ['Instant slot blocking'] },
@@ -706,55 +706,55 @@
       'Feature 08': {
         title: 'Feature 08: Package & Course Credit Pass Tracking (課程券與計次卡追蹤)',
         voice: '"針對健身房或瑜珈教室，幫學員記錄買了10堂課還剩幾堂，上完自動扣打。"',
-        problem: 'Manual paper punch cards are error-prone and untrackable.',
+        problem: 'Manual paper punch cards are error-prone, easily lost, and untrackable.',
         scope: '1. No credit transfer between members in Phase 1.',
-        userStories: '• As a student, I want remaining course credits to deduct automatically upon check-in.',
-        gherkinAC: 'Given member has 3 credits left, When attendance is confirmed, Then credit balance updates to 2.',
-        pmInsights: '1. Atomic ledger prevents financial discrepancies (OKR 2).',
+        userStories: '• As a student, I want remaining course credits to deduct automatically upon attendance check-in.',
+        gherkinAC: 'Given member has 3 credits left, When attendance is confirmed, Then credit balance updates to 2 atomically.',
+        pmInsights: '1. Atomic ledger prevents financial discrepancies and credit disputes (OKR 2).',
         raci: {
           pm: { desc: 'Define credit pass ledger rules and expiration policies.', actions: ['Ledger rules definition'], dod: ['Rules approved'] },
           rd: { desc: 'Build atomic transaction ledger for credit deduction.', actions: ['Atomic ledger DB'], dod: ['100% ledger accuracy'] },
           qa: { desc: 'Test atomic credit deduction against race conditions.', actions: ['Race condition testing'], dod: ['Zero ledger mismatch'] },
           bd: { desc: 'Define course pass pricing packages.', actions: ['Package setup'], dod: ['Packages ready'] }
         },
-        edgeChecklists: ['【Concurrency】Simultaneous credit deduction.', '【Network Drop】Ledger rollback.']
+        edgeChecklists: ['【Concurrency】Simultaneous credit deduction and purchase.', '【Network Drop】Ledger rollback.']
       },
       'Feature 09': {
         title: 'Feature 09: Check-in & Front Desk Reception Flow (櫃檯快速報到與分流機制)',
         voice: '"客人到現場後，櫃檯能一鍵掃描或點擊已報到，加速現場人流。"',
-        problem: 'Slow front-desk check-in causes lobby congestion during peak hours.',
+        problem: 'Slow front-desk check-in causes severe lobby congestion during peak hours.',
         scope: '1. No hardware barcode scanner integration in Phase 1.',
         userStories: '• As a receptionist, I want to check-in arriving guests with 1 tap to prevent lobby bottlenecks.',
-        gherkinAC: 'Given guest arrives, When receptionist taps Check-in, Then their status updates to Arrived instantly.',
-        pmInsights: '1. Optimized tablet UI accelerates reception operations (OKR 2).',
+        gherkinAC: 'Given a guest arrives at the desk, When the receptionist taps Check-in, Then their status updates to Arrived in < 300ms.',
+        pmInsights: '1. Optimized tablet UI accelerates reception operations and cuts wait times (OKR 2).',
         raci: {
           pm: { desc: 'Define front-desk reception UX workflow.', actions: ['Reception UX mapping'], dod: ['UX frozen'] },
           rd: { desc: 'Build 1-tap check-in tablet interface.', actions: ['Tablet web app'], dod: ['Check-in < 300ms'] },
           qa: { desc: 'Verify high-speed check-in performance.', actions: ['Lobby simulation test'], dod: ['No lobby queue lag'] },
           bd: { desc: 'Train front desk staff on reception flow.', actions: ['Staff training session'], dod: ['Staff proficient'] }
         },
-        edgeChecklists: ['【Concurrency】Rush hour check-in surge.', '【Network Drop】Offline queue sync.']
+        edgeChecklists: ['【Concurrency】Rush hour check-in queue.', '【Network Drop】Offline queue sync.']
       },
       'Feature 10': {
         title: 'Feature 10: Waiting List & Slot Backfill System (候補名單與空檔遞補機制)',
         voice: '"如果熱門時段滿了，客人可以排候補；一旦有人取消，系統自動通知下一位。"',
-        problem: '18% last-minute no-show rate with no automated backfill queue.',
+        problem: '18% last-minute no-show rate with no automated backfill queue leading to wasted capacity.',
         scope: '1. No multi-currency clearing in Phase 1. 2. No manual VIP queue overriding.',
-        userStories: '• As a customer, I want to join waitlist for booked-out class so I get notified if a seat opens.',
-        gherkinAC: 'Given Rank #1 cancels, When slot opens, Then system assigns 15-min countdown lock to next waitlist candidate.',
-        pmInsights: '1. Redis Redlock ensures bulletproof zero overbooking (OKR 1).',
+        userStories: '• As a customer, I want to join the waitlist for a booked-out class so I get notified if a seat opens up.',
+        gherkinAC: 'Given Rank #1 cancels, When the slot opens, Then the system assigns a 15-minute countdown lock to the next waitlist candidate.',
+        pmInsights: '1. Redis Redlock ensures bulletproof zero overbooking during waitlist shifts (OKR 1).',
         raci: {
           pm: { desc: 'Freeze waitlist FIFO and 15-min lock PRD specs.', actions: ['Waitlist rule freeze'], dod: ['PRD approved'] },
           rd: { desc: 'Implement Redis Redlock & FIFO waitlist queue.', actions: ['Redis FIFO queue'], dod: ['P99 < 250ms'] },
           qa: { desc: 'Execute 1,500 QPS stress test for zero overbooking.', actions: ['1,500 QPS load test'], dod: ['Zero overbooking'] },
           bd: { desc: 'Educate users on fair waitlist rules.', actions: ['Help center FAQ'], dod: ['FAQ updated'] }
         },
-        edgeChecklists: ['【Concurrency】Two users claiming last slot.', '【Network Drop】Webhook recovery.']
+        edgeChecklists: ['【Concurrency】Two users claiming last slot simultaneously.', '【Network Drop】Webhook recovery.']
       },
       'Feature 11': {
         title: 'Feature 11: Online Payment & Deposit Gateway (線上付款與訂金金流整合)',
         voice: '"預約時直接刷卡付全額或訂金，進一步降低爽約風險。"',
-        problem: 'Zero-payment bookings lead to high cancellation rates.',
+        problem: 'Zero-payment bookings lead to high cancellation rates and unrecovered merchant revenue.',
         scope: '1. No cryptocurrency payments in Phase 1.',
         userStories: '• As a customer, I want to pay a deposit online securely so my booking is guaranteed.',
         gherkinAC: 'Given payment succeeds, When webhook returns 200 OK, Then booking status changes from Pending to Confirmed.',
@@ -916,12 +916,12 @@
     const i18n = {
       zh: {
         mainTitle: "Omcean Booking PM 指揮中心",
-        subTitle: "[ROLE: PRODUCT PM] Feature 01 ~ Feature 20 獨立 PRD 渲染 • 支援中英文雙向即時切換 • Gmail 快速發信",
+        subTitle: "[ROLE: 15-Yr Senior PM] Feature 01 ~ Feature 20 深度專業級 PRD 與 BDD 規格 • 支援中英文雙向即時切換",
         okrHeader: "5 大專案 OKR 核心護欄 (點擊數值可直接編輯)",
         step1Title: "需求探索與範圍凍結 / 自定義需求處理",
         featureLabel: "功能需求標題 (Feature 01 ~ 20)",
         scopeHeader: "範圍邊界：第一階段絕對不予納入 (Out of Scope)",
-        prdHeader: "即時 PRD 與驗收條件規格面板 (Instant PRD & AC)",
+        prdHeader: "資深 PM 級深度 PRD 與 BDD 規格面板",
         pmDecisions: "PM 戰情室決策",
         raciTitle: "跨部門權責矩陣與交付標準 (RACI & DoD) - 各團隊獨立檢視",
         editTip: "✏️ 點擊任意區塊即可直接手動編輯內容",
@@ -939,12 +939,12 @@
       },
       en: {
         mainTitle: "Omcean Booking PM Command Center",
-        subTitle: "[ROLE: PRODUCT PM] Feature 01 ~ Feature 20 Fully Dynamic • Bilingual Toggle • Verified Gmail Dispatch",
+        subTitle: "[ROLE: 15-Yr Senior PM] Feature 01 ~ Feature 20 Senior PRD & BDD Specs • Bilingual Toggle",
         okrHeader: "5 Project OKR Guardrails (Click values to edit)",
         step1Title: "Discovery & Scope Freeze / Custom Ad-hoc Handling",
         featureLabel: "Feature Requirement Title (Feature 01 ~ 20)",
         scopeHeader: "Scope Boundary: Strictly Out of Scope for Phase 1",
-        prdHeader: "Instant PRD & AC Specification Board",
+        prdHeader: "Senior PM PRD & BDD Specification Board",
         pmDecisions: "PM Strategic Decisions",
         raciTitle: "Cross-Functional RACI Matrix & Definition of Done (DoD) - By Team",
         editTip: "✏️ Click any section to edit text",
@@ -1420,17 +1420,17 @@ Omcean Booking Command Center`;
       document.getElementById('prd-header-title').innerText = `[PRD] ${f.title}`;
       const prdHtml = `
         <div class="border-b border-cyber-border/50 pb-2 mb-2">
-          <span class="text-cyber-cyan font-bold block mb-1">【1. 問題背景與根本原因 (Problem & Root Cause)】</span>
+          <span class="text-cyber-cyan font-bold block mb-1">【1. 架構與解決方案 (Architecture & Solution)】</span>
           <div>▸ <strong>客戶心聲 (VoC):</strong> ${f.voice}</div>
-          <div>▸ <strong>PM 解決方案:</strong> ${f.problem}</div>
-          <div class="text-cyber-gold mt-1">▸ <strong>範圍限制:</strong> ${f.scope}</div>
+          <div>▸ <strong>PM 核心解法:</strong> ${f.problem}</div>
+          <div class="text-cyber-gold mt-1">▸ <strong>第一階段範圍限制:</strong> ${f.scope}</div>
         </div>
         <div class="border-b border-cyber-border/50 pb-2 mb-2">
           <span class="text-cyber-cyan font-bold block mb-1">【2. 核心使用者故事 (User Stories)】</span>
           <div>${f.userStories}</div>
         </div>
         <div>
-          <span class="text-cyber-cyan font-bold block mb-1">【3. Gherkin 驗收條件 (Acceptance Criteria)】</span>
+          <span class="text-cyber-cyan font-bold block mb-1">【3. Gherkin 驗收條件 (Acceptance Criteria - BDD)】</span>
           <div class="space-y-1.5 font-mono text-[11px] bg-[#080d17] p-2.5 rounded border border-cyber-border/40">
             <div><strong class="text-emerald-400">Scenario:</strong> ${f.gherkinAC}</div>
           </div>
@@ -1445,6 +1445,176 @@ Omcean Booking Command Center`;
         </div>
       `;
       document.getElementById('prd-pm-insights').innerHTML = insightsHtml;
+    }
+
+    // 15年資深產品經理規格：為 Feature 01 ~ Feature 20 打造高專業度、具體且一目了然的深度 PRD 資料庫
+    const featuresData = {};
+    for (let i = 1; i <= 20; i++) {
+      const code = `Feature ${i < 10 ? '0' + i : i}`;
+      let v = "", p = "", s = "", us = "", ac = "", pi = "";
+
+      if (i === 1) {
+        v = '"Customers want to book anytime anywhere via mobile without calling the front desk during off-hours."';
+        p = 'Traditional phone booking creates severe off-hour friction and 40% drop-off; need a responsive 24/7 web/mobile booking widget.';
+        s = '1. No third-party phone PBX telephony integration in Phase 1. 2. No custom avatar creation.';
+        us = '• As a customer, I want to book a slot 24/7 on my mobile phone so I never have to wait for store opening hours.';
+        ac = 'Given the customer opens the mobile booking widget, When they select an available time slot and click Reserve, Then the system instantly locks the slot for 15 minutes and opens the checkout flow.';
+        pi = '1. Standardized mobile widget over bespoke apps minimizes maintenance overhead (OKR 2).\n2. High availability target of 99.95% SLA ensures zero lost bookings during midnight spikes (OKR 1).';
+      } else if (i === 2) {
+        v = '"We run multiple branches and different services (beauty, massage, badminton courts); we need seamless switching."';
+        p = 'Single-location architecture fails multi-branch scaling; need a unified multi-tenant branch and service type selector.';
+        s = '1. No cross-branch loyalty point sharing in Phase 1. 2. No multi-currency billing per branch.';
+        us = '• As a customer, I want to select my preferred branch and business type so I view accurate live schedules.';
+        ac = 'Given the customer is on the homepage, When they switch location from Branch A to Branch B, Then the schedule inventory instantly reloads Branch B data within 100ms.';
+        pi = '1. Multi-tenant database architecture ensures clean branch data isolation (OKR 1).\n2. Scalable for future franchise expansion without schema redesign.';
+      } else if (i === 3) {
+        v = '"We need a clear menu showing haircuts, massages, or court rentals with transparent pricing."';
+        p = 'Unstructured pricing and hidden fees lead to customer confusion and front-desk billing disputes.';
+        s = '1. No dynamic surge pricing in Phase 1. 2. No staff-specific variable pricing.';
+        us = '• As a customer, I want to view transparent pricing and service durations before selecting a slot.';
+        ac = 'Given the service menu is loaded, When selecting a specific service item, Then detailed duration, inclusions, and transparent pricing display clearly.';
+        pi = '1. Transparent pricing eliminates front-desk disputes and reduces booking friction (OKR 2).';
+      } else if (i === 4) {
+        v = '"後台要能看到哪個師傅、哪個教練、或者是哪一個羽球場地在什麼時間是空的。"';
+        p = 'Manual calendar tracking causes severe double-booking and resource scheduling conflicts.';
+        s = '1. No AI auto-rostering in Phase 1. 2. No external Outlook/Google two-way auto-sync.';
+        us = '• As a store manager, I want to view staff and court availability in real-time to prevent resource collisions.';
+        ac = 'Given two admins view the same time slot, When Admin A locks it for editing, Then Admin B sees it as occupied instantly via WebSocket.';
+        pi = '1. Redis Redlock distributed locking guarantees absolute slot consistency (OKR 1).';
+      } else if (i === 5) {
+        v = '"讓客人可以自己登入查看歷史預約，甚至在規定時間內自己改期或取消。"';
+        p = 'High customer support overhead for simple rescheduling requests taking up phone and chat bandwidth.';
+        s = '1. No cancellation fee auto-charging in Phase 1. 2. No live chat support inside portal.';
+        us = '• As a member, I want to reschedule my booking 24 hours prior without calling support.';
+        ac = 'Given the booking is 30 hours away, When the user clicks Reschedule, Then the portal opens the calendar to select a new valid slot.';
+        pi = '1. Self-service portal reduces customer support ticket volume by 50% (OKR 4).';
+      } else if (i === 6) {
+        v = '"快到預約時間前，系統自動發簡訊或通知給客人，減少爽約率。"';
+        p = 'Manual reminders are time-consuming and unreliable, resulting in an 18% no-show rate.';
+        s = '1. No WhatsApp/WeChat integration in Phase 1.';
+        us = '• As a customer, I want a reminder SMS 2 hours before my appointment so I do not forget.';
+        ac = 'Given an appointment is set for 14:00, When system clock hits 12:00, Then a 2-hour reminder SMS is successfully dispatched.';
+        pi = '1. Automated reminders drop customer no-show rate below 5% (OKR 1).';
+      } else if (i === 7) {
+        v = '"教練或治療師請假時，系統自動擋掉該時段，避免客人預約了卻撲空。"';
+        p = 'Unsynchronized staff leave causes painful double-booking and angry customer complaints.';
+        s = '1. No substitute staff auto-assignment in Phase 1.';
+        us = '• As a staff member, I want to submit leave requests so the system prevents bookings during my absence.';
+        ac = 'Given staff leave is approved, When a customer browses that date, Then that staff member is instantly hidden from available schedules.';
+        pi = '1. Automated slot blocking protects customer experience and trust (OKR 1).';
+      } else if (i === 8) {
+        v = '"針對健身房或瑜珈教室，幫學員記錄買了10堂課還剩幾堂，上完自動扣打。"';
+        p = 'Manual paper punch cards are error-prone, easily lost, and untrackable.';
+        s = '1. No credit transfer between members in Phase 1.';
+        us = '• As a student, I want remaining course credits to deduct automatically upon attendance check-in.';
+        ac = 'Given member has 3 credits left, When attendance is confirmed, Then credit balance updates to 2 atomically.';
+        pi = '1. Atomic ledger prevents financial discrepancies and credit disputes (OKR 2).';
+      } else if (i === 9) {
+        v = '"客人到現場後，櫃檯能一鍵掃描或點擊已報到，加速現場人流。"';
+        p = 'Slow front-desk check-in causes severe lobby congestion during peak hours.';
+        s = '1. No hardware barcode scanner integration in Phase 1.';
+        us = '• As a receptionist, I want to check-in arriving guests with 1 tap to prevent lobby bottlenecks.';
+        ac = 'Given a guest arrives at the desk, When the receptionist taps Check-in, Then their status updates to Arrived in < 300ms.';
+        pi = '1. Optimized tablet UI accelerates reception operations and cuts wait times (OKR 2).';
+      } else if (i === 10) {
+        v = '"如果熱門時段滿了，客人可以排候補；一旦有人取消，系統自動通知下一位。"';
+        p = '18% last-minute no-show rate with no automated backfill queue leading to wasted capacity.';
+        s = '1. No multi-currency clearing in Phase 1. 2. No manual VIP queue overriding.';
+        us = '• As a customer, I want to join the waitlist for a booked-out class so I get notified if a seat opens up.';
+        ac = 'Given Rank #1 cancels, When the slot opens, Then the system assigns a 15-minute countdown lock to the next waitlist candidate.';
+        pi = '1. Redis Redlock ensures bulletproof zero overbooking during waitlist shifts (OKR 1).';
+      } else if (i === 11) {
+        v = '"預約時直接刷卡付全額或訂金，進一步降低爽約風險。"';
+        p = 'Zero-payment bookings lead to high cancellation rates and unrecovered merchant revenue.';
+        s = '1. No cryptocurrency payments in Phase 1.';
+        us = '• As a customer, I want to pay a deposit online securely so my booking is guaranteed.';
+        ac = 'Given payment succeeds, When webhook returns 200 OK, Then booking status changes from Pending to Confirmed.';
+        pi = '1. Secure payment gateway eliminates default risk (OKR 1).';
+      } else if (i === 12) {
+        v = '"讓老闆一眼看出這個月賺多少錢、哪個服務項目最熱門、哪個員工接最多客。"';
+        p = 'Lack of real-time financial visibility hinders business decisions.';
+        s = '1. No custom SQL report builder in Phase 1.';
+        us = '• As a store owner, I want a financial dashboard to track monthly revenue and staff performance.';
+        ac = 'Given owner selects current month, When dashboard loads, Then total revenue and top services display accurately.';
+        pi = '1. Real-time data visualization drives store revenue (OKR 2).';
+      } else if (i === 13) {
+        v = '"記住客人的特殊習慣（例如：對精油過敏、喜歡力道大一點），下次來直接看紀錄。"';
+        p = 'Inconsistent customer records lead to poor personalized service.';
+        s = '1. No automated sentiment AI analysis in Phase 1.';
+        us = '• As a service provider, I want to read customer notes so I can deliver a personalized experience.';
+        ac = 'Given staff opens client profile, When viewing CRM notes, Then allergies and preferences appear securely.';
+        pi = '1. Secure CRM notes elevate customer retention (OKR 2).';
+      } else if (i === 14) {
+        v = '"消費完後自動發信請客人打分數，累積好口碑。"';
+        p = 'Manual review collection yields very low response rates.';
+        s = '1. No auto-publishing to Google Maps API in Phase 1.';
+        us = '• As a customer, I want to submit a quick rating after my service to share my experience.';
+        ac = 'Given service is completed, When 2 hours elapse, Then automated review collection link is emailed.';
+        pi = '1. Automated feedback loops boost merchant reputation (OKR 2).';
+      } else if (i === 15) {
+        v = '"店家可以發放新客折 100 元或節慶促銷折扣碼。"';
+        p = 'Lack of promotional tooling limits marketing campaign flexibility.';
+        s = '1. No tiered loyalty stamp cards in Phase 1.';
+        us = '• As a customer, I want to apply a promo code at checkout to receive a discount.';
+        ac = 'Given valid coupon code is entered, When applied, Then checkout total deducts discount instantly.';
+        pi = '1. Promotional engine drives customer acquisition and conversion (OKR 2).';
+      } else if (i === 16) {
+        v = '"透過 AI 幫忙分析客流量高峰，自動建議店家什麼時候該多排人手。"';
+        p = 'Understaffing during peak hours and overstaffing during lulls waste labor costs.';
+        s = '1. No automatic payroll integration in Phase 1.';
+        us = '• As a manager, I want AI staffing recommendations so I optimize labor schedules during peak hours.';
+        ac = 'Given historical booking density, When AI runs analysis, Then recommended staffing levels display on dashboard.';
+        pi = '1. AI-driven labor optimization saves operational costs (OKR 2).';
+      } else if (i === 17) {
+        v = '"讓客人直接在 Line 或 Messenger 跟 AI 對話就能完成預約，不用點網頁。"';
+        p = 'Customers abandon web forms if they cannot get instant conversational answers.';
+        s = '1. No voice call AI agent in Phase 1.';
+        us = '• As a customer, I want to book via LINE chat with AI so I can complete reservations conversationally.';
+        ac = 'Given user texts LINE bot for haircut tomorrow 3pm, When confirmed, Then booking is written to system.';
+        pi = '1. Conversational AI agent reduces booking friction (OKR 3).';
+      } else if (i === 18) {
+        v = '"你自己的管理中樞功能：追蹤上面 1-17 項功能目前是正在寫扣、測試中還是已發布。"';
+        p = 'Scattered task management leads to delayed product releases.';
+        s = '1. No external Jira bi-directional sync in Phase 1.';
+        us = '• As a Product PM, I want a Command Hub to track sprint progress and feature readiness in real-time.';
+        ac = 'Given ticket moves to Published, When updated, Then overall project progress calculates correctly.';
+        pi = '1. Unified command center ensures on-time delivery (OKR 3).';
+      } else if (i === 19) {
+        v = '"當店家回報預約系統有問題時，直接在 Command Hub 內建立 Ticket 進行修復。"';
+        p = 'Customer bug reports get lost in emails and Slack chats.';
+        s = '1. No auto-patch deployment in Phase 1.';
+        us = '• As support staff, I want to log bug tickets in Command Hub so engineering resolves them fast.';
+        ac = 'Given bug is reported, When assigned high priority, Then alert triggers in engineering kanban.';
+        pi = '1. Rapid bug triage guarantees 99.95% SLA stability (OKR 1).';
+      } else if (i === 20) {
+        v = '"把 Omcean 串接外部的 Google 日曆、LINE 官方帳號、或是會計軟體。"';
+        p = 'Siloed software stacks create double-entry data entry errors.';
+        s = '1. No custom webhook builder for merchants in Phase 1.';
+        us = '• As a merchant, I want to sync Omcean bookings with Google Calendar so my schedule is unified.';
+        ac = 'Given Google Calendar is connected, When booking is made, Then it appears in Google Calendar within 2 seconds.';
+        pi = '1. Unified integration hub eliminates data silos (OKR 2).';
+      }
+
+      featuresData[code] = {
+        code: code,
+        title: `${code}: 核心預約與管理模組`,
+        voice: v,
+        problem: p,
+        scope: s,
+        userStories: us,
+        gherkinAC: ac,
+        pmInsights: pi,
+        raci: {
+          pm: { desc: `Define ${code} functional specs and user stories.`, actions: ['Finalize acceptance criteria', 'Sync with stakeholders'], dod: ['PRD signed off'] },
+          rd: { desc: `Implement backend APIs and frontend UI for ${code}.`, actions: ['Code development', 'Unit testing'], dod: ['Passing CI/CD pipeline'] },
+          qa: { desc: `Validate edge cases and stress testing for ${code}.`, actions: ['Execute UAT test cases', 'Load testing'], dod: ['Zero critical bugs'] },
+          bd: { desc: `Gather user feedback and support pilot rollout for ${code}.`, actions: ['Client alignment', 'Training session'], dod: ['Pilot ready'] }
+        },
+        edgeChecklists: [
+          `【Concurrency】Multiple users accessing ${code} simultaneously.`,
+          `【Network Drop】Graceful recovery and error messaging for ${code}.`
+        ]
+      };
     }
 
     window.onload = () => {
