@@ -63,7 +63,7 @@
           <h1 id="txt-main-title" class="text-2xl font-bold text-white tracking-tight">Omcean Booking PM 指揮中心</h1>
         </div>
         <p id="txt-sub-title" class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: 15-Yr Senior PM] Feature 01 ~ Feature 20 完整 8 項深度專業級 PRD 規格 &bull; 雙向即時切換
+          [ROLE: 15-Yr Senior PM] Feature 01 ~ Feature 20 深度專業級 PRD 規格 &bull; 雙向即時切換
         </p>
       </div>
 
@@ -194,99 +194,6 @@
       </div>
     </section>
 
-    <!-- Cross-Functional RACI Matrix & Definition of Done (DoD) -->
-    <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5">
-      <div class="flex items-center justify-between border-b border-cyber-border pb-3">
-        <div class="flex items-center gap-2">
-          <span class="px-2.5 py-0.5 rounded bg-purple-600 text-white font-black text-xs font-mono">RACI</span>
-          <h2 id="txt-raci-title" class="text-sm font-bold text-white tracking-wide">跨部門權責矩陣與交付標準 (RACI & DoD) - 各團隊獨立檢視</h2>
-        </div>
-        <span id="txt-edit-tip" class="text-[10px] font-mono text-cyber-cyan">✏️ 點擊任意區塊即可直接手動編輯內容</span>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- PM Team -->
-        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs">
-          <div class="flex justify-between items-center border-b border-cyber-border pb-2">
-            <span class="font-bold text-blue-400">👤 PM (產品經理)</span>
-            <span class="px-1.5 py-0.5 rounded bg-rose-950 text-rose-300 text-[10px] font-bold">當責者 (A)</span>
-          </div>
-          <div>
-            <label class="text-[10px] text-slate-400 block mb-1">RACI 權責描述：</label>
-            <div contenteditable="true" id="raci-pm-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">Define core feature requirements, user stories, Gherkin AC, and strict Phase 1 scope boundaries.</div>
-          </div>
-          <div>
-            <label class="text-[10px] text-cyber-gold block mb-1">行動清單 (Action Items)：</label>
-            <div contenteditable="true" id="raci-pm-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• Finalize PRD & AC sign-off<br>• Conduct cross-functional kickoff</div>
-          </div>
-          <div>
-            <label class="text-[10px] text-cyber-green block mb-1">交付完成標準 (DoD)：</label>
-            <div contenteditable="true" id="raci-pm-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ PRD approved by tech lead<br>✓ Scope freeze locked (&lt;10% churn)</div>
-          </div>
-        </div>
-
-        <!-- RD Team -->
-        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs">
-          <div class="flex justify-between items-center border-b border-cyber-border pb-2">
-            <span class="font-bold text-emerald-400">💻 RD (工程研發)</span>
-            <span class="px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 text-[10px] font-bold">負責者 (R)</span>
-          </div>
-          <div>
-            <label class="text-[10px] text-slate-400 block mb-1">RACI 權責描述：</label>
-            <div contenteditable="true" id="raci-rd-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">Execute backend/frontend architecture, Redis distributed locking, and robust REST API implementation.</div>
-          </div>
-          <div>
-            <label class="text-[10px] text-cyber-gold block mb-1">行動清單 (Action Items)：</label>
-            <div contenteditable="true" id="raci-rd-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• Implement scalable DB schema<br>• Unit test coverage &gt;= 85%</div>
-          </div>
-          <div>
-            <label class="text-[10px] text-cyber-green block mb-1">交付完成標準 (DoD)：</label>
-            <div contenteditable="true" id="raci-rd-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ Code merged to staging<br>✓ API response P99 &lt; 200ms</div>
-          </div>
-        </div>
-
-        <!-- QA Team -->
-        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs">
-          <div class="flex justify-between items-center border-b border-cyber-border pb-2">
-            <span class="font-bold text-cyber-gold">🧪 QA (品質保證)</span>
-            <span class="px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 text-[10px] font-bold">負責者 (R)</span>
-          </div>
-          <div>
-            <label class="text-[10px] text-slate-400 block mb-1">RACI 權責描述：</label>
-            <div contenteditable="true" id="raci-qa-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">Execute edge case verification (concurrency, network drops, timeout fallbacks) and UAT testing.</div>
-          </div>
-          <div>
-            <label class="text-[10px] text-cyber-gold block mb-1">行動清單 (Action Items)：</label>
-            <div contenteditable="true" id="raci-qa-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• Run 1,500 QPS load tests<br>• Verify Gherkin acceptance criteria</div>
-          </div>
-          <div>
-            <label class="text-[10px] text-cyber-green block mb-1">交付完成標準 (DoD)：</label>
-            <div contenteditable="true" id="raci-qa-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ Zero critical bugs on staging<br>✓ Stress test passed with 0 overbooking</div>
-          </div>
-        </div>
-
-        <!-- BD/CS Team -->
-        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs">
-          <div class="flex justify-between items-center border-b border-cyber-border pb-2">
-            <span class="font-bold text-purple-400">🤝 BD / CS (業務與客服)</span>
-            <span class="px-1.5 py-0.5 rounded bg-amber-950 text-amber-300 text-[10px] font-bold">諮詢者 (C)</span>
-          </div>
-          <div>
-            <label class="text-[10px] text-slate-400 block mb-1">RACI 權責描述：</label>
-            <div contenteditable="true" id="raci-bd-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">Gather Voice of Customer (VoC), align pilot clients for Phase 1 rollout, and prepare support documentation.</div>
-          </div>
-          <div>
-            <label class="text-[10px] text-cyber-gold block mb-1">行動清單 (Action Items)：</label>
-            <div contenteditable="true" id="raci-bd-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• Confirm Week 4 flagship pilot client<br>• Publish Help Center FAQ docs</div>
-          </div>
-          <div>
-            <label class="text-[10px] text-cyber-green block mb-1">交付完成標準 (DoD)：</label>
-            <div contenteditable="true" id="raci-bd-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ Client onboarding training completed<br>✓ CS escalation channel established</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- STEP 2: Delivery Schedule & Kanban -->
     <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber-border pb-4">
@@ -403,84 +310,169 @@
       <div id="edge-checklist-container" class="space-y-2 text-xs font-mono"></div>
     </section>
 
-    <!-- SOP Section -->
-    <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
-      <div class="flex items-center justify-between border-b border-cyber-border pb-3">
-        <div class="flex items-center gap-2">
-          <span class="px-2.5 py-0.5 rounded bg-rose-600 text-white font-black text-xs font-mono">SOP</span>
-          <h2 id="txt-sop-title" class="text-sm font-bold text-white tracking-wide">危機應變標準作業程序 (SOP - 可直接編輯)</h2>
-        </div>
-        <div class="flex items-center gap-2">
-          <button onclick="openGmailEmergencyCompose()" class="px-3 py-1 rounded bg-rose-900/80 hover:bg-rose-800 text-rose-200 border border-rose-500 font-mono text-xs font-bold transition shadow-md">
-            🚨 發送緊急應變信 (Gmail)
-          </button>
-          <button onclick="syncSopToStep3()" class="px-3 py-1 rounded bg-purple-900/70 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-xs font-bold transition">
-            🔄 同步 SOP 至 STEP 3
-          </button>
-        </div>
-      </div>
-      <p id="txt-sop-tip" class="text-xs text-slate-400 font-mono">點擊下方文字框即可直接修改任務、期限與交付標準：</p>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
-        <!-- SOP 1 -->
-        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-2.5">
-          <div class="text-cyber-gold font-bold">🚨 狀況一：[併發衝突] 超額預約</div>
-          <p class="text-[11px] text-slate-400 font-sans leading-relaxed">高流量同時搶位導致資料庫寫入衝突。</p>
-          <div class="space-y-1.5 text-[11px] pt-2 border-t border-cyber-border/60">
-            <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" id="sop-p1-team" class="text-slate-200 bg-slate-900/60 px-1 rounded">工程研發與產品經理</span></div>
-            <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" id="sop-p1-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
-            <div><strong class="text-slate-300">修正動作:</strong> <span contenteditable="true" id="sop-p1-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded">導入 Redis Redlock 分散式鎖定機制。</span></div>
-            <div><strong class="text-rose-400">完成期限:</strong> <span contenteditable="true" id="sop-p1-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-03-28 EOD</span></div>
-            <div><strong class="text-cyber-green">交付目標:</strong> <span contenteditable="true" id="sop-p1-result" class="text-slate-300 bg-slate-900/60 px-1 rounded">1,500 QPS 壓力測試超額率 = 0%。</span></div>
-            <div><strong class="text-amber-400">備用方案:</strong> <span contenteditable="true" id="sop-p1-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded">資料庫唯一限制條件強制約束。</span></div>
-          </div>
-        </div>
-
-        <!-- SOP 2 -->
-        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-2.5">
-          <div class="text-cyber-gold font-bold">⚡ 狀況二：[網路中斷] 交易孤兒</div>
-          <p class="text-[11px] text-slate-400 font-sans leading-relaxed">付款成功但 Webhook 未送達導致狀態未同步。</p>
-          <div class="space-y-1.5 text-[11px] pt-2 border-t border-cyber-border/60">
-            <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" id="sop-p2-team" class="text-slate-200 bg-slate-900/60 px-1 rounded">工程研發與業務客服</span></div>
-            <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" id="sop-p2-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 3 (W5-W6)</span></div>
-            <div><strong class="text-slate-300">修正動作:</strong> <span contenteditable="true" id="sop-p2-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded">建立付款對帳背景執行緒與前端輪詢。</span></div>
-            <div><strong class="text-rose-400">完成期限:</strong> <span contenteditable="true" id="sop-p2-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-04-11 EOD</span></div>
-            <div><strong class="text-cyber-green">交付目標:</strong> <span contenteditable="true" id="sop-p2-result" class="text-slate-300 bg-slate-900/60 px-1 rounded">網路恢復後自動對帳並更新狀態。</span></div>
-            <div><strong class="text-amber-400">備用方案:</strong> <span contenteditable="true" id="sop-p2-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded">客服手動補登與退款處理通道。</span></div>
-          </div>
-        </div>
-
-        <!-- SOP 3 -->
-        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-2.5">
-          <div class="text-cyber-gold font-bold">⏳ 狀況三：[超時釋放] 候位遞補</div>
-          <p class="text-[11px] text-slate-400 font-sans leading-relaxed">15分鐘保留時間逾期未付款。</p>
-          <div class="space-y-1.5 text-[11px] pt-2 border-t border-cyber-border/60">
-            <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" id="sop-p3-team" class="text-slate-200 bg-slate-900/60 px-1 rounded">工程研發與品質保證</span></div>
-            <div><strong class="text-yellow-400">Target Sprint:</strong> <span contenteditable="true" id="sop-p3-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
-            <div><strong class="text-slate-300">Required Fix:</strong> <span contenteditable="true" id="sop-p3-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded">Optimize Celery countdown & event-driven auto-rollover.</span></div>
-            <div><strong class="text-rose-400">Deadline:</strong> <span contenteditable="true" id="sop-p3-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-03-31 EOD</span></div>
-            <div><strong class="text-cyber-green">Deliverable:</strong> <span contenteditable="true" id="sop-p3-result" class="text-slate-300 bg-slate-900/60 px-1 rounded">15-min timeout release & 100% accurate waitlist shift.</span></div>
-            <div><strong class="text-amber-400">Fallback Plan:</strong> <span contenteditable="true" id="sop-p3-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded">Batch cron job sweep every 3 minutes.</span></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- STEP 3: Kickoff Alignment & Sign-off -->
-    <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
+    <!-- STEP 3: Cross-Functional Kickoff Alignment & Regular Syncs (包含 Kickoff Meeting RACI 與 Regular Syncs SAMR 框架) -->
+    <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-6">
       <div class="flex items-center justify-between border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
           <span class="px-2.5 py-0.5 rounded bg-cyber-gold text-slate-950 font-black text-xs font-mono">STEP 3</span>
-          <h2 id="txt-step3-title" class="text-sm font-bold text-white tracking-wide">跨部門啟動共識與簽署 (Kickoff Alignment)</h2>
+          <h2 id="txt-step3-title" class="text-sm font-bold text-white tracking-wide">跨部門啟動共識與例會協作 (Kickoff Alignment & Regular Syncs)</h2>
+        </div>
+        <span class="text-[10px] font-mono text-cyber-cyan">✏️ 支援各欄位手動編輯與協作對齊</span>
+      </div>
+
+      <!-- 區塊 A: Kickoff Meeting (含 RACI 權責與 DoD) -->
+      <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-4">
+        <div class="flex items-center justify-between border-b border-cyber-border/80 pb-2">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-cyber-cyan"></span>
+            <h3 class="text-xs font-bold font-mono text-cyber-cyan uppercase">1. Kickoff Meeting (跨部門啟動會議與 RACI 矩陣)</h3>
+          </div>
+          <button onclick="openGmailKickoffCompose()" class="px-3 py-1 bg-purple-900/80 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-[11px] font-bold rounded transition">
+            ✉️ 發送 Kickoff 會議通知
+          </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 font-mono text-xs">
+          <!-- PM Team -->
+          <div class="bg-[#0a121e] border border-cyber-border rounded-lg p-3 space-y-2">
+            <div class="flex justify-between items-center border-b border-cyber-border pb-1.5">
+              <span class="font-bold text-blue-400">👤 PM (產品經理)</span>
+              <span class="px-1.5 py-0.5 rounded bg-rose-950 text-rose-300 text-[9px] font-bold">Accountable (A)</span>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-400 block mb-0.5">RACI 權責：</span>
+              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">定義核心功能規格、User Stories、Gherkin AC 與範圍邊界。</div>
+            </div>
+            <div>
+              <span class="text-[10px] text-cyber-gold block mb-0.5">行動清單：</span>
+              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">• PRD 最終簽署定案<br>• 主持跨部門 Kickoff</div>
+            </div>
+            <div>
+              <span class="text-[10px] text-cyber-green block mb-0.5">交付標準 (DoD)：</span>
+              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">✓ PRD 獲技術主管與業務簽核</div>
+            </div>
+          </div>
+
+          <!-- RD Team -->
+          <div class="bg-[#0a121e] border border-cyber-border rounded-lg p-3 space-y-2">
+            <div class="flex justify-between items-center border-b border-cyber-border pb-1.5">
+              <span class="font-bold text-emerald-400">💻 RD (工程研發)</span>
+              <span class="px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 text-[9px] font-bold">Responsible (R)</span>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-400 block mb-0.5">RACI 權責：</span>
+              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">執行前後端架構、Redis 鎖定與 REST API 實作。</div>
+            </div>
+            <div>
+              <span class="text-[10px] text-cyber-gold block mb-0.5">行動清單：</span>
+              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">• 資料庫 Schema 設計<br>• 單元測試涵蓋率 &gt;= 85%</div>
+            </div>
+            <div>
+              <span class="text-[10px] text-cyber-green block mb-0.5">交付標準 (DoD)：</span>
+              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">✓ 程式碼合併 Staging & P99 &lt; 200ms</div>
+            </div>
+          </div>
+
+          <!-- QA Team -->
+          <div class="bg-[#0a121e] border border-cyber-border rounded-lg p-3 space-y-2">
+            <div class="flex justify-between items-center border-b border-cyber-border pb-2">
+              <span class="font-bold text-cyber-gold">🧪 QA (品質保證)</span>
+              <span class="px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 text-[9px] font-bold">Responsible (R)</span>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-400 block mb-0.5">RACI 權責：</span>
+              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">執行邊界條件驗證（併發、斷線）與 UAT 測試。</div>
+            </div>
+            <div>
+              <span class="text-[10px] text-cyber-gold block mb-0.5">行動清單：</span>
+              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">• 執行 1,500 QPS 壓力測試<br>• Gherkin 驗收測試</div>
+            </div>
+            <div>
+              <span class="text-[10px] text-cyber-green block mb-0.5">交付標準 (DoD)：</span>
+              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">✓ Staging 環境零重大 Bug</div>
+            </div>
+          </div>
+
+          <!-- BD/CS Team -->
+          <div class="bg-[#0a121e] border border-cyber-border rounded-lg p-3 space-y-2">
+            <div class="flex justify-between items-center border-b border-cyber-border pb-2">
+              <span class="font-bold text-purple-400">🤝 BD / CS (業務客服)</span>
+              <span class="px-1.5 py-0.5 rounded bg-amber-950 text-amber-300 text-[9px] font-bold">Consulted (C)</span>
+            </div>
+            <div>
+              <span class="text-[10px] text-slate-400 block mb-0.5">RACI 權責：</span>
+              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">收集客戶心聲 (VoC)，對齊試用客戶與準備說明文檔。</div>
+            </div>
+            <div>
+              <span class="text-[10px] text-cyber-gold block mb-0.5">行動清單：</span>
+              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">• 確認 W4 試用旗艦店<br>• 發布幫助中心 FAQ</div>
+            </div>
+            <div>
+              <span class="text-[10px] text-cyber-green block mb-0.5">交付完成標準 (DoD)：</span>
+              <div contenteditable="true" id="raci-bd-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ 客戶教育訓練與客服管道建立</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div id="ko-memo" contenteditable="true" class="w-full bg-[#05080f] border border-cyber-border rounded-lg p-4 text-xs font-mono leading-relaxed text-slate-200 focus:outline-none min-h-[160px]">
-1. 業務與客服：已確認與核心客戶採用兩階段上線（第四週旗艦店試用）。
-2. 技術主管與研發：採用 Redis 分散式鎖定確保 99.95% 系統穩定度。
-3. 範圍控管：嚴格執行範圍凍結，非核心需求一律延後至第二階段。
-4. AI 智能助理：強制設定退款與折價防護護欄，避免越權授權。
-5. [危機 SOP 連結]: 點擊「同步 SOP 至 STEP 3」可將上方應變措施帶入此處。
+      <!-- 區塊 B: Regular Cross-Team Syncs (含 SAMR 決策台與會議共識) -->
+      <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-4">
+        <div class="flex items-center justify-between border-b border-cyber-border/80 pb-2">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
+            <h3 class="text-xs font-bold font-mono text-purple-300 uppercase">2. Regular Cross-Team Syncs (例會同步與 SAMR 溝通決策台)</h3>
+          </div>
+          <span class="text-[10px] font-mono text-slate-400">每週三跨部門同步例會 (Sync-up)</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 font-mono text-xs">
+          <!-- SAMR 溝通決策台 (連動任務) -->
+          <div class="bg-[#0a121e] border border-cyber-border rounded-lg p-3.5 space-y-3">
+            <div class="text-cyber-cyan font-bold text-[11px] uppercase border-b border-cyber-border pb-1.5 flex justify-between">
+              <span>跨部門溝通決策台 (SAMR 框架)</span>
+              <span class="text-[9px] text-cyber-green">● 連動當前選定模組</span>
+            </div>
+            <div class="space-y-2 text-[11px]">
+              <div>
+                <span class="text-slate-400 block text-[10px]">S (Substitution / 替代方案)：</span>
+                <input type="text" id="samr-s" value="以標準化 Web Widget 取代客製化 App 開發" class="w-full p-1.5 rounded text-[11px]">
+              </div>
+              <div>
+                <span class="text-slate-400 block text-[10px]">A (Augmentation / 效能增強)：</span>
+                <input type="text" id="samr-a" value="導入 Redis Redlock 讓併發處理速度提升 5 倍" class="w-full p-1.5 rounded text-[11px]">
+              </div>
+              <div>
+                <span class="text-slate-400 block text-[10px]">M (Modification / 流程修改)：</span>
+                <input type="text" id="samr-m" value="重構結帳與時段鎖定邏輯，實現零超額預約" class="w-full p-1.5 rounded text-[11px]">
+              </div>
+              <div>
+                <span class="text-slate-400 block text-[10px]">R (Redefinition / 重新定義價值)：</span>
+                <input type="text" id="samr-r" value="實現 24/7 全自動預約閉環，徹底解放櫃檯人力" class="w-full p-1.5 rounded text-[11px]">
+              </div>
+            </div>
+          </div>
+
+          <!-- 會議共識與行動指針 -->
+          <div class="bg-[#0a121e] border border-cyber-border rounded-lg p-3.5 space-y-3 font-mono text-xs">
+            <div class="text-cyber-gold font-bold text-[11px] uppercase border-b border-cyber-border pb-1.5">
+              <span>會議共識 (Summary) 與成效指針</span>
+            </div>
+            <div class="space-y-2.5">
+              <div>
+                <label class="text-[10px] text-slate-400 block mb-0.5">開會跨部門對口 (Cross-Team Owners)：</label>
+                <input type="text" id="sync-owners" value="PM (Hung-Ru), Tech Lead (RD), QA Lead, CS Manager" class="w-full p-1.5 rounded text-[11px]">
+              </div>
+              <div>
+                <label class="text-[10px] text-cyber-green block mb-0.5">會議共識 (Summary)：</label>
+                <textarea id="sync-summary" rows="2" class="w-full p-1.5 rounded text-[11px]">各部門一致同意嚴格執行第一階段範圍凍結；後端 Redis 分散式鎖定進入 Staging 測試。</textarea>
+              </div>
+              <div>
+                <label class="text-[10px] text-cyber-gold block mb-0.5">行動指針與可衡量結果 (Action Items & Result)：</label>
+                <textarea id="sync-actions" rows="2" class="w-full p-1.5 rounded text-[11px]">• RD 於本週五前完成 1,500 QPS 壓測。目標：零超額預約 (OKR 1)。</textarea>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -589,406 +581,54 @@
   </div>
 
   <script>
-    // 完整的 20 個 Feature 獨立資料庫（含完整標題與 8 大維度規格）
-    const featuresData = {
-      'Feature 01': {
-        title: 'Feature 01: 24/7 Online Booking Widget (24小時線上預約小工具)',
-        voice: '"Customers want to book anytime anywhere via mobile without calling the front desk during off-hours."',
-        problem: 'Traditional phone booking creates severe off-hour friction and 40% drop-off; need a responsive 24/7 web/mobile booking widget.',
-        scope: '1. No third-party phone PBX telephony integration in Phase 1. 2. No custom avatar creation.',
-        sol: '前端採用 Web Component / Embedded iframe 掛載於外部官網，後端透過 REST API 與 Availability Engine 進行時段即時鎖定，防止超賣（Race Condition）。',
-        userStories: '• As a customer, I want to book a slot 24/7 on my mobile phone so I never have to wait for store opening hours.',
-        gherkinAC: 'Given 用戶在 24/7 預約頁面選擇了服務項目與特定設計師\nWhen 選擇一個尚有名額的時段並填寫聯絡資料送出預約\nThen 系統應成功建立預約記錄，並在畫面顯示預約成功畫面，同時發送確認通知。',
-        wireframe: '+---------------------------------------------------+\n| [步驟 1: 選擇服務] -> [步驟 2: 選時間] -> [填寫資料] |\n|---------------------------------------------------|\n|  請選擇預約日期: [ 2026-09-12 v ]                   |\n|  可用時段:                                         |\n|   [ 10:00 ]   [ 11:30 (已滿) ]   [ 14:00 ]        |\n|   [ 15:30 ]   [ 17:00        ]   [ 18:30 ]        |\n|                                                   |\n|  姓名: [ _________ ]  電話: [ ____________ ]      |\n|                  [ 確認送出預約 ]                  |\n+---------------------------------------------------+',
-        seqDiag: 'User          Frontend (Widget)     Backend (API)     Database\n  │                   │                   │               │\n  │─── 選擇時段 ─────▶│                   │               │\n  │                   │─── POST /lock ───▶│               │\n  │                   │                   │── 檢查並鎖定 ─▶│\n  │                   │                   │◀── 鎖定成功 ───│\n  │                   │◀── 200 OK (10分) ─│               │\n  │─── 填寫資料送出 ─▶│                   │               │\n  │                   │─── POST /book ───▶│               │\n  │                   │                   │── 寫入預約 ───▶│\n  │                   │◀── 預約成功 ──────│               │\n  │◀── 顯示成功畫面 ──│                   │               │',
-        kpi: '線上預約轉換率 $\ge 25\%$；深夜時段預約佔總預約數 $\ge 30\%$。',
-        pmInsights: '1. 採用「先鎖定後付款/確認」機制，減少併發預約時的衝突 (OKR 1).\n2. 前端必須支援響應式設計（RWD） (OKR 2).',
-        raci: {
-          pm: { desc: 'Define 24/7 booking UX flow, widget responsiveness, and conversion targets.', actions: ['Finalize UX wireframes', 'Approve specs'], dod: ['PRD signed off'] },
-          rd: { desc: 'Build responsive web widget and secure public REST API endpoints.', actions: ['Develop REST API', 'Frontend integration'], dod: ['API latency < 200ms'] },
-          qa: { desc: 'Verify cross-browser and mobile device compatibility.', actions: ['Run mobile UAT', 'Stress test widget'], dod: ['Zero layout shift'] },
-          bd: { desc: 'Coordinate merchant pilot onboarding and widget embedding.', actions: ['Merchant briefing'], dod: ['Pilot ready'] }
-        },
-        edgeChecklists: ['【Concurrency】兩位用戶在同一毫秒搶最後名額時的資料庫交易鎖處理。', '【Network Drop】結帳到一半斷線時，時段保留 10 分鐘後自動釋放。']
-      },
-      'Feature 02': {
-        title: 'Feature 02: Business Type & Multi-Location Selector (業務類型與分店選擇器)',
-        voice: '"We run multiple branches and different services; we need seamless switching."',
-        problem: 'Single-location architecture fails multi-branch scaling; need unified multi-tenant selector.',
-        scope: '1. No cross-branch loyalty point sharing in Phase 1.',
-        sol: '採用多租戶（Multi-tenancy）與階層式資料結構，透過動態路由載入對應分店資料。',
-        userStories: '• As a customer, I want to select my preferred branch and business type so I view accurate schedules.',
-        gherkinAC: 'Given 用戶進入品牌總預約入口\nWhen 選擇「台北旗艦店」與「按摩服務」\nThen 系統應僅顯示台北旗艦店有提供的按摩師傅與對應時段。',
-        wireframe: '+---------------------------------------------------+\n| 選擇您的城市/分店: [ 台北旗艦店 v ]                 |\n| 選擇業務類型: (o) 健康養生  ( ) 健身              |\n+---------------------------------------------------+',
-        seqDiag: 'User          Frontend             API Gateway      DB\n  │               │                     │           │\n  │── 切換分店 ──▶│                     │           │\n  │               │── GET /loc?id=1 ───▶│           │\n  │               │                     │── 查詢 ──▶│',
-        kpi: '跨分店選錯服務導致的客訴率降至 $0\%$。',
-        pmInsights: '1. 資料庫架構必須在一開始就設計好分店 ID 過濾 (OKR 1).',
-        raci: {
-          pm: { desc: 'Define location taxonomy.', actions: ['Map hierarchy'], dod: ['Scope frozen'] },
-          rd: { desc: 'Implement multi-tenant schema.', actions: ['DB sharding'], dod: ['100% isolation'] },
-          qa: { desc: 'Verify data isolation.', actions: ['Penetration test'], dod: ['Zero leak'] },
-          bd: { desc: 'Audit branch metadata.', actions: ['Audit'], dod: ['Verified'] }
-        },
-        edgeChecklists: ['【Concurrency】Simultaneous branch switching.', '【Network Drop】Fallback to HQ.']
-      },
-      'Feature 03': {
-        title: 'Feature 03: Service Menu & Pricing Display (服務項目與價格清單展示)',
-        voice: '"我們需要清楚列出剪髮、按摩或場地租借的服務項目與透明定價。"',
-        problem: 'Unstructured pricing and hidden fees lead to customer confusion and front-desk billing disputes.',
-        scope: '1. No dynamic surge pricing in Phase 1.',
-        sol: '後台建立商品/服務目錄管理介面，前端透過 API 讀取並動態渲染服務名稱、介紹與價格。',
-        userStories: '• As a store owner, I want to manage service items and pricing so customers see up-to-date menus.',
-        gherkinAC: 'Given 管理員在後台更新某項按摩療程的價格從 1200 元改為 1500 元\nWhen 用戶重新整理前台預約頁面\nThen 該服務的顯示價格應立即更新為 1500 元。',
-        wireframe: '+---------------------------------------------------+\n| [後台管理] 服務項目列表                             |\n| 項目名稱       | 時長  | 價格   | 操作             |\n| 深層精油按摩   | 60分  | NT$1500| [編輯]           |\n+---------------------------------------------------+',
-        seqDiag: 'Admin         Admin UI             Backend          Database\n  │               │                   │                 │\n  │── 修改價格 ──▶│                   │                 │\n  │               │── PUT /services ─▶│                 │',
-        kpi: '店家上架新服務的平均耗時 $< 3$ 分鐘。',
-        pmInsights: '1. 支援多幣別與特價欄位預留，因應未來跨境需求 (OKR 2).',
-        raci: {
-          pm: { desc: 'Define service catalog schema.', actions: ['Mapping'], dod: ['Approved'] },
-          rd: { desc: 'Develop service catalog API.', actions: ['API dev'], dod: ['Cached'] },
-          qa: { desc: 'Verify pricing calculation.', actions: ['Audit'], dod: ['Verified'] },
-          bd: { desc: 'Collect catalog content.', actions: ['Content audit'], dod: ['Ready'] }
-        },
-        edgeChecklists: ['【Concurrency】Peak catalog browsing load.', '【Network Drop】Offline cache.']
-      },
-      'Feature 04': {
-        title: 'Feature 04: Staff & Resource Scheduling Calendar (員工與場地排班行事曆)',
-        voice: '"後台要能看到哪個師傅、哪個教練、或者是哪一個羽球場地在什麼時間是空的。"',
-        problem: 'Manual calendar tracking causes severe double-booking and resource conflicts.',
-        scope: '1. No AI auto-rostering in Phase 1.',
-        sol: '結合日曆元件，後端透過關聯資料庫進行矩陣運算，將人員與硬體資源時間軸視覺化。',
-        userStories: '• As a store manager, I want to view staff and court availability in real-time matrix.',
-        gherkinAC: 'Given 管理員進入後台排班行事曆\nWhen 切換至「日檢視」模式並選擇羽球場 A\nThen 系統應以時間軸清楚標示該場地已被預約或空閒的時段。',
-        wireframe: '+---------------------------------------------------+\n| 時間  | 師傅 A (按摩) | 羽球場 A (場地)            |\n| 10:00 | [ 已預約:王小明 ] | [ 空閒 ]               |\n+---------------------------------------------------+',
-        seqDiag: 'Manager       Calendar UI          API Gateway      DB\n  │               │                     │                 │\n  │── 檢視排班 ──▶│                     │                 │',
-        kpi: '排班衝突率降低至 $0\%$。',
-        pmInsights: '1. 必須同時支援以人為中心與以場地為中心的檢視切換 (OKR 1).',
-        raci: {
-          pm: { desc: 'Define calendar logic.', actions: ['Rules'], dod: ['Frozen'] },
-          rd: { desc: 'Implement time-slot locking.', actions: ['Locking engine'], dod: ['No collisions'] },
-          qa: { desc: 'Execute stress test.', actions: ['Simulation'], dod: ['Passed'] },
-          bd: { desc: 'Train store managers.', actions: ['Training'], dod: ['Trained'] }
-        },
-        edgeChecklists: ['【Concurrency】Simultaneous admin scheduling.', '【Network Drop】Reconnection.']
-      },
-      'Feature 05': {
-        title: 'Feature 05: Customer Self-Service Portal (會員自助查詢與改期系統)',
-        voice: '"讓客人可以自己登入查看歷史預約，甚至在規定時間內自己改期或取消。"',
-        problem: 'High customer support overhead for simple rescheduling requests.',
-        scope: '1. No cancellation fee auto-charging in Phase 1.',
-        sol: '採用 OTP 簡訊免密碼登入，後端發放 JWT Token 授權會員存取個人歷史與預約。',
-        userStories: '• As a member, I want to login via OTP to view and reschedule bookings independently.',
-        gherkinAC: 'Given 會員在自助專區輸入手機並完成 OTP 驗證\nWhen 點擊某筆未來的預約並選擇「修改時間」\nThen 系統應允許其挑選新的可用時段並更新預約狀態。',
-        wireframe: '+---------------------------------------------------+\n| 請輸入手機號碼: [ 0912345678 ] [ 發送驗證碼 ]     |\n| 您的未來預約: 9/15 14:00 [更改時間] [取消預約]      |\n+---------------------------------------------------+',
-        seqDiag: 'User          Portal UI            Auth/SMS API     Database\n  │               │                     │               │\n  │── 輸入手機 ──▶│                     │               │',
-        kpi: '櫃檯電話預約諮詢量減少 $\ge 40\%$。',
-        pmInsights: '1. 設定最晚改期期限，超過期限自動鎖定按鈕 (OKR 4).',
-        raci: {
-          pm: { desc: 'Define cancellation window.', actions: ['Policy'], dod: ['Signed off'] },
-          rd: { desc: 'Build dashboard API.', actions: ['Backend'], dod: ['Ready'] },
-          qa: { desc: 'Test time-window restrictions.', actions: ['Testing'], dod: ['Enforced'] },
-          bd: { desc: 'Communicate policy.', actions: ['FAQ'], dod: ['Published'] }
-        },
-        edgeChecklists: ['【Concurrency】Traffic surge.', '【Network Drop】Draft preservation.']
-      },
-      'Feature 06': {
-        title: 'Feature 06: Automated SMS & Push Reminders (自動化簡訊與推播提醒)',
-        voice: '"快到預約時間前，系統自動發簡訊或通知給客人，減少爽約率。"',
-        problem: 'Manual reminders are time-consuming and unreliable, resulting in an 18% no-show rate.',
-        scope: '1. No WhatsApp/WeChat integration in Phase 1.',
-        sol: '採用 Cron Job 定時掃描即將到期的預約，透過第三方簡訊 API 自動派發提醒。',
-        userStories: '• As a merchant, I want automated reminders sent to clients so no-show rates drop significantly.',
-        gherkinAC: 'Given 系統中有一筆距離現在剛好 24 小時的有效預約\nWhen 觸發每小時的定時任務檢查\nThen 系統應自動向該客戶發送預約提醒簡訊。',
-        wireframe: '+---------------------------------------------------+\n| [x] 啟用預約前 24 小時自動發送提醒簡訊            |\n| 簡訊範本: 「[店名]提醒您，您於 {date} 有一筆預約...」|\n+---------------------------------------------------+',
-        seqDiag: 'Cron Job      Backend Worker       SMS Gateway      User Phone\n  │                 │                   │               │\n  │── 每小時觸發 ──▶│                   │               │',
-        kpi: '客戶爽約率下降幅度 $\ge 25\%$。',
-        pmInsights: '1. 簡訊成本包含在店家標準方案內，提升 SaaS 訂閱價值 (OKR 1).',
-        raci: {
-          pm: { desc: 'Define reminder schedule.', actions: ['Timing'], dod: ['Locked'] },
-          rd: { desc: 'Implement Celery worker.', actions: ['Cron worker'], dod: ['98% delivery'] },
-          qa: { desc: 'Verify reminder timing.', actions: ['Verification'], dod: ['Accurate'] },
-          bd: { desc: 'Review SMS template.', actions: ['Audit'], dod: ['Approved'] }
-        },
-        edgeChecklists: ['【Concurrency】Bulk SMS dispatch.', '【Network Drop】Failover retry.']
-      },
-      'Feature 07': {
-        title: 'Feature 07: Staff Shift & Leave Management (員工班表與請假管理)',
-        voice: '"教練或治療師請假時，系統自動擋掉該時段，避免客人預約了卻撲空。"',
-        problem: 'Unsynchronized staff leave causes painful double-booking and angry complaints.',
-        scope: '1. No substitute staff auto-assignment in Phase 1.',
-        userStories: '• As a staff member, I want to submit leave requests so the system prevents bookings during my absence.',
-        gherkinAC: 'Given 員工 A 提交週五下午的請假單並獲主管批准\nWhen 消費者嘗試在前台預約週五下午該員工的時段\nThen 該時段應顯示為「不可預約/休假中」。',
-        wireframe: '+---------------------------------------------------+\n| 請假起日: [ 2026-09-18 13:00 ]                    |\n| 請假迄日: [ 2026-09-18 18:00 ] [ 提交主管審核 ]     |\n+---------------------------------------------------+',
-        seqDiag: 'Staff         Portal UI            Backend          Database\n  │               │                   │                 │\n  │── 提交請假 ──▶│                   │                 │',
-        kpi: '因排班疏忽導致的客訴為 $0$。',
-        pmInsights: '1. 若請假時段已有既有預約，系統必須強制主管先處理既有預約才能批准 (OKR 1).',
-        raci: {
-          pm: { desc: 'Define leave workflow.', actions: ['Design'], dod: ['Frozen'] },
-          rd: { desc: 'Auto-block calendar slots.', actions: ['Sync'], dod: ['Blocked'] },
-          qa: { desc: 'Verify leave blocks bookings.', actions: ['Test'], dod: ['Zero conflict'] },
-          bd: { desc: 'Establish leave guidelines.', actions: ['Guidelines'], dod: ['Active'] }
-        },
-        edgeChecklists: ['【Concurrency】Leave requests during peak.', '【Network Drop】Save draft.']
-      },
-      'Feature 08': {
-        title: 'Feature 08: Package & Course Credit Pass Tracking (課程券與計次卡追蹤)',
-        voice: '"針對健身房或瑜珈教室，幫學員記錄買了10堂課還剩幾堂，上完自動扣打。"',
-        problem: 'Manual paper punch cards are error-prone, easily lost, and untrackable.',
-        scope: '1. No credit transfer between members in Phase 1.',
-        userStories: '• As a student, I want remaining course credits to deduct automatically upon attendance check-in.',
-        gherkinAC: 'Given 學員帳戶內尚有 3 堂課程額度\nWhen 成功完成一堂課程預約\nThen 學員的剩餘堂數應自動扣減為 2 堂，並留下交易紀錄。',
-        wireframe: '+---------------------------------------------------+\n| 【皮拉提斯 10堂套票】 剩餘堂數: [ 2 / 10 ]          |\n| 歷史異動紀錄: 9/10 預約扣款 -1 堂 (剩 2)            |\n+---------------------------------------------------+',
-        seqDiag: 'User          Booking API          Ledger Service   Database\n  │               │                     │              │\n  │── 確認預約 ──▶│                     │              │',
-        kpi: '計次卡對帳誤差率為 $0$。',
-        pmInsights: '1. 當堂數歸零時，前端引導用戶線上續費，形成商業閉環 (OKR 2).',
-        raci: {
-          pm: { desc: 'Define credit rules.', actions: ['Rules'], dod: ['Approved'] },
-          rd: { desc: 'Build atomic ledger.', actions: ['Ledger DB'], dod: ['100% accuracy'] },
-          qa: { desc: 'Test race conditions.', actions: ['Testing'], dod: ['No mismatch'] },
-          bd: { desc: 'Define pricing packages.', actions: ['Setup'], dod: ['Ready'] }
-        },
-        edgeChecklists: ['【Concurrency】Simultaneous deduction.', '【Network Drop】Rollback.']
-      },
-      'Feature 09': {
-        title: 'Feature 09: Check-in & Front Desk Reception Flow (櫃檯快速報到與分流機制)',
-        voice: '"客人到現場後，櫃檯能一鍵掃描或點擊已報到，加速現場人流。"',
-        problem: 'Slow front-desk check-in causes severe lobby congestion during peak hours.',
-        scope: '1. No hardware barcode scanner integration in Phase 1.',
-        userStories: '• As a receptionist, I want to check-in arriving guests with 1 tap to prevent lobby bottlenecks.',
-        gherkinAC: 'Given 客人預約下午 2:00 的療程並抵達現場\nWhen 櫃檯人員在看板輸入其手機末三碼並點擊「報到」\nThen 系統狀態應從「已預約」更新為「已報到」。',
-        wireframe: '+---------------------------------------------------+\n| 搜尋手機末三碼: [ 5 6 7 8 ]                       |\n| 時間  | 姓名   | 項目   | 狀態     | 操作             |\n| 14:00 | 王小明 | 針灸   | [已預約] | [ 一鍵報到 ]     |\n+---------------------------------------------------+',
-        seqDiag: 'Receptionist  Front Desk UI        API Gateway      Staff App\n  │               │                     │               │\n  │── 點擊報到 ──▶│                     │               │',
-        kpi: '櫃檯報到處理時間從平均 45 秒縮短至 10 秒內。',
-        pmInsights: '1. 介面必須極簡、按鈕夠大，適應平板或觸控螢幕操作 (OKR 2).',
-        raci: {
-          pm: { desc: 'Define reception workflow.', actions: ['Mapping'], dod: ['Frozen'] },
-          rd: { desc: 'Build check-in tablet app.', actions: ['Web app'], dod: ['< 300ms'] },
-          qa: { desc: 'Verify high-speed performance.', actions: ['Simulation'], dod: ['No lag'] },
-          bd: { desc: 'Train front desk staff.', actions: ['Training'], dod: ['Proficient'] }
-        },
-        edgeChecklists: ['【Concurrency】Rush hour check-in queue.', '【Network Drop】Offline queue sync.']
-      },
-      'Feature 10': {
-        title: 'Feature 10: Waiting List & Slot Backfill System (候補名單與空檔遞補機制)',
-        voice: '"如果熱門時段滿了，客人可以排候補；一旦有人取消，系統自動通知下一位。"',
-        problem: '18% last-minute no-show rate with no automated backfill queue leading to wasted capacity.',
-        scope: '1. No multi-currency clearing in Phase 1.',
-        sol: '滿時段提供候補登記，有人取消時依加入先後順序自動發送通知給第一順位。',
-        userStories: '• As a customer, I want to join the waitlist for a booked-out class so I get notified if a seat opens up.',
-        gherkinAC: 'Given 熱門時段已滿，用戶甲成功登記候補\nWhen 某預約用戶取消了該時段，釋出一個名額\nThen 系統應自動發送通知給用戶甲，並保留該名額 15 分鐘。',
-        wireframe: '+---------------------------------------------------+\n| 抱歉，此時段已額滿！                              |\n| [ 按此登記候補 (目前前方排隊: 3 人) ]             |\n+---------------------------------------------------+',
-        seqDiag: 'User (Cancel) Backend                Queue Service    Next Waiter\n  │               │                       │                │\n  │── 取消預約 ──▶│                       │                │',
-        kpi: '熱門時段空置率減少 $\ge 20\%$。',
-        pmInsights: '1. Redis Redlock ensures bulletproof zero overbooking during waitlist shifts (OKR 1).',
-        raci: {
-          pm: { desc: 'Freeze waitlist FIFO specs.', actions: ['Rule freeze'], dod: ['Approved'] },
-          rd: { desc: 'Implement Redis Redlock queue.', actions: ['Queue dev'], dod: ['P99 < 250ms'] },
-          qa: { desc: 'Execute stress test.', actions: ['Load test'], dod: ['Zero overbooking'] },
-          bd: { desc: 'Educate users on fair rules.', actions: ['FAQ'], dod: ['Updated'] }
-        },
-        edgeChecklists: ['【Concurrency】Two users claiming last slot.', '【Network Drop】Webhook recovery.']
-      },
-      'Feature 11': {
-        title: 'Feature 11: Online Payment & Deposit Gateway (線上付款與訂金金流整合)',
-        voice: '"預約時直接刷卡付全額或訂金，進一步降低爽約風險。"',
-        problem: 'Zero-payment bookings lead to high cancellation rates and unrecovered revenue.',
-        scope: '1. No cryptocurrency payments in Phase 1.',
-        sol: '整合第三方金流，透過 Webhook 接收付款成功回調，自動將預約轉為已確認。',
-        userStories: '• As a customer, I want to pay a deposit online securely so my booking is guaranteed.',
-        gherkinAC: 'Given payment succeeds, When webhook returns 200 OK, Then booking status changes to Confirmed.',
-        wireframe: '+---------------------------------------------------+\n| 結帳與支付訂金  應付訂金: NT$ 500                   |\n| 支付方式: (o) 信用卡  [ 前往安全結帳 ]            |\n+---------------------------------------------------+',
-        seqDiag: 'User          Frontend             Payment Gateway  Backend\n  │               │                       │           │\n  │── 點擊付款 ──▶│                       │           │',
-        kpi: '線上金流交易成功率 $\ge 98\%$。',
-        pmInsights: '1. 提供手動對帳機制以防 Webhook 延遲漏單 (OKR 1).',
-        raci: {
-          pm: { desc: 'Define payment policies.', actions: ['Mapping'], dod: ['Signed off'] },
-          rd: { desc: 'Integrate Stripe/LINE Pay.', actions: ['Webhook API'], dod: ['99% success'] },
-          qa: { desc: 'Verify webhook error handling.', actions: ['Sandbox test'], dod: ['Verified'] },
-          bd: { desc: 'Establish payout agreements.', actions: ['Contracts'], dod: ['Signed'] }
-        },
-        edgeChecklists: ['【Concurrency】Flash sale transaction spikes.', '【Network Drop】Reconciliation.']
-      },
-      'Feature 12': {
-        title: 'Feature 12: Business Revenue & Performance Dashboard (營業額與業績戰情室報表)',
-        voice: '"讓老闆一眼看出這個月賺多少錢、哪個服務項目最熱門、哪個員工接最多客。"',
-        problem: 'Lack of real-time financial visibility hinders business decisions.',
-        scope: '1. No custom SQL report builder in Phase 1.',
-        sol: '後端透過即時聚合查詢計算指定區間總營收、預約次數與員工績效。',
-        userStories: '• As a store owner, I want a financial dashboard to track monthly revenue and staff performance.',
-        gherkinAC: 'Given owner selects current month, When dashboard loads, Then total revenue and top services display accurately.',
-        wireframe: '+---------------------------------------------------+\n| 總營收: NT$ 128,500 (+12% MoM)                    |\n| 熱門排行: 1. 深層按摩 (45%)  [ 匯出 Excel ]       |\n+---------------------------------------------------+',
-        seqDiag: 'Owner         Dashboard UI         API Gateway      DB\n  │               │                     │           │\n  │── 選擇區間 ──▶│                     │           │',
-        kpi: '老闆查看營運報表耗時 $< 2$ 秒。',
-        pmInsights: '1. 支援 CSV / Excel 匯出功能供會計報稅使用 (OKR 2).',
-        raci: {
-          pm: { desc: 'Define key revenue metrics.', actions: ['Metrics'], dod: ['Ready'] },
-          rd: { desc: 'Build aggregation engine.', actions: ['Engine'], dod: ['Load < 1s'] },
-          qa: { desc: 'Verify data aggregation.', actions: ['Audit'], dod: ['100% match'] },
-          bd: { desc: 'Validate with store owners.', actions: ['Feedback'], dod: ['Approved'] }
-        },
-        edgeChecklists: ['【Concurrency】Multi-owner dashboard loading.', '【Network Drop】Cache last aggregation.']
-      },
-      'Feature 13': {
-        title: 'Feature 13: Customer Relationship Management (CRM) Notes (客戶偏好與歷史備忘錄)',
-        voice: '"記住客人的特殊習慣（例如：對精油過敏、喜歡力道大一點），下次來直接看紀錄。"',
-        problem: 'Inconsistent customer records lead to poor personalized service.',
-        scope: '1. No automated sentiment AI analysis in Phase 1.',
-        sol: '建立客戶標籤與備忘錄資料表，與預約單及會員檔案綁定，僅限授權員工檢視。',
-        userStories: '• As a service provider, I want to read customer notes so I can deliver a personalized experience.',
-        gherkinAC: 'Given staff opens client profile, When viewing CRM notes, Then allergies and preferences appear securely.',
-        wireframe: '+---------------------------------------------------+\n| 客戶檔案: 王小明 (VIP)                            |\n| 客戶偏好備忘: [ 力道重，對薰衣草精油過敏 ]        |\n+---------------------------------------------------+',
-        seqDiag: 'Staff         Client Profile UI    API Gateway      Database\n  │               │                     │               │\n  │── 新增備忘 ──▶│                     │               │',
-        kpi: '服務人員滿意度評分提升。',
-        pmInsights: '1. 涉及敏感健康個資，必須嚴格遵守 RBAC 權限控管 (OKR 2).',
-        raci: {
-          pm: { desc: 'Define CRM tag schema.', actions: ['Schema'], dod: ['Verified'] },
-          rd: { desc: 'Build encrypted DB table.', actions: ['Encryption'], dod: ['Encrypted'] },
-          qa: { desc: 'Verify RBAC access control.', actions: ['Testing'], dod: ['Secure'] },
-          bd: { desc: 'Establish note etiquette.', actions: ['Training'], dod: ['Aligned'] }
-        },
-        edgeChecklists: ['【Concurrency】Simultaneous note updates.', '【Network Drop】Autosave.']
-      },
-      'Feature 14': {
-        title: 'Feature 14: Automated Review & Feedback Collector (自動化滿意度回饋收集)',
-        voice: '"消費完後自動發信請客人打分數，累積好口碑。"',
-        problem: 'Manual review collection yields very low response rates.',
-        scope: '1. No auto-publishing to Google Maps API in Phase 1.',
-        sol: '預約結束後觸發定時任務，在指定時間自動發送滿意度評分問卷連結。',
-        userStories: '• As a store owner, I want automated feedback collection after service so I can improve quality.',
-        gherkinAC: 'Given service is completed, When 2 hours elapse, Then automated review collection link is emailed.',
-        wireframe: '+---------------------------------------------------+\n| 請問您對今天的按摩滿意嗎？ ★ ★ ★ ★ ★             |\n| 回饋: [ 師傅按得很到位！ ] [ 送出評價 ]           |\n+---------------------------------------------------+',
-        seqDiag: 'Worker        Scheduler            SMS/Email API    Client\n  │               │                     │             │\n  │── 偵測消費完成 ─▶│                     │             │',
-        kpi: '問卷填寫回覆率 $\ge 15\%$。',
-        pmInsights: '1. 低於 3 星負評自動通知店長進行客訴追蹤 (OKR 2).',
-        raci: {
-          pm: { desc: 'Define trigger timing.', actions: ['Timing'], dod: ['Locked'] },
-          rd: { desc: 'Build feedback worker.', actions: ['Cron worker'], dod: ['40% increase'] },
-          qa: { desc: 'Verify dispatch accuracy.', actions: ['Test'], dod: ['Verified'] },
-          bd: { desc: 'Design review copy.', actions: ['Copywriting'], dod: ['Approved'] }
-        },
-        edgeChecklists: ['【Concurrency】Bulk post-service dispatch.', '【Network Drop】Retry queue.']
-      },
-      'Feature 15': {
-        title: 'Feature 15: Promotional Discount & Coupon Code Engine (優惠券與折扣碼引擎)',
-        voice: '"店家可以發放新客折 100 元或節慶促銷折扣碼。"',
-        problem: 'Lack of promotional tooling limits marketing campaign flexibility.',
-        scope: '1. No tiered loyalty stamp cards in Phase 1.',
-        sol: '設計促銷模組，支援％數折扣或固定金額折抵，可設定期限與次數上限。',
-        userStories: '• As a customer, I want to apply a promo code at checkout to receive a discount.',
-        gherkinAC: 'Given valid coupon code is entered, When applied, Then checkout total deducts discount instantly.',
-        wireframe: '+---------------------------------------------------+\n| 結帳金額: NT$ 1500  輸入折扣碼: [ WELCOME100 ]      |\n| 已折抵: - NT$ 100   最終應付: NT$ 1400            |\n+---------------------------------------------------+',
-        seqDiag: 'User          Checkout UI          API Gateway      Database\n  │               │                     │               │\n  │── 輸入折扣碼 ─▶│                     │               │',
-        kpi: '行銷活動帶動的預約轉換率提升 $\ge 15\%$。',
-        pmInsights: '1. 折扣碼需能限制每人限用一次或特定服務 (OKR 2).',
-        raci: {
-          pm: { desc: 'Define coupon rules.', actions: ['Mapping'], dod: ['Approved'] },
-          rd: { desc: 'Implement validation logic.', actions: ['API dev'], dod: ['< 50ms'] },
-          qa: { desc: 'Test discount stacking.', actions: ['Testing'], dod: ['Zero error'] },
-          bd: { desc: 'Plan campaign.', actions: ['Planning'], dod: ['Ready'] }
-        },
-        edgeChecklists: ['【Concurrency】High redemption spikes.', '【Network Drop】Rollback.']
-      },
-      'Feature 16': {
-        title: 'Feature 16: AI Smart Scheduling Assistant (AI 智慧排程與最佳化建議)',
-        voice: '"透過 AI 幫忙分析客流量高峰，自動建議店家什麼時候該多排人手。"',
-        problem: 'Understaffing during peak hours and overstaffing during lulls waste labor costs.',
-        scope: '1. No automatic payroll integration in Phase 1.',
-        sol: '利用模型分析歷史客流量與預約分佈，產出尖峰預測與人力配置建議。',
-        userStories: '• As a manager, I want AI staffing recommendations so I optimize labor schedules.',
-        gherkinAC: 'Given historical booking density, When AI runs analysis, Then recommended staffing levels display on dashboard.',
-        wireframe: '+---------------------------------------------------+\n| 🤖 AI 智慧排程顧問                                |\n| 分析結果: 下週五下午預期流量暴增 40% 建議增派人手   |\n+---------------------------------------------------+',
-        seqDiag: 'Manager       Dashboard UI         AI Engine        Database\n  │               │                     │              │\n  │── 點擊分析 ──▶│                     │              │',
-        kpi: '尖峰時段漏單率下降 $\ge 20\%$。',
-        pmInsights: '1. 作為 Pro / Enterprise 高階加值方案的強大賣點 (OKR 2).',
-        raci: {
-          pm: { desc: 'Define AI metrics.', actions: ['Metrics'], dod: ['Signed off'] },
-          rd: { desc: 'Build prediction model.', actions: ['Model dev'], dod: ['Generated'] },
-          qa: { desc: 'Verify model stability.', actions: ['Testing'], dod: ['Stable'] },
-          bd: { desc: 'Present to partners.', actions: ['Demo'], dod: ['Validated'] }
-        },
-        edgeChecklists: ['【Concurrency】Background isolation.', '【Network Drop】Static rules fallback.']
-      },
-      'Feature 17': {
-        title: 'Feature 17: AI-Powered Chatbot Booking Agent (AI 智能聊天機器人預約助理)',
-        voice: '"讓客人直接在 Line 或 Messenger 跟 AI 對話就能完成預約，不用點網頁。"',
-        problem: 'Customers abandon web forms if they cannot get instant conversational answers.',
-        scope: '1. No voice call AI agent in Phase 1.',
-        sol: '串接 LINE Messaging API，結合 LLM 與 Function Calling，讓消費者在通訊軟體完成預約。',
-        userStories: '• As a customer, I want to book via LINE chat with AI so I can complete reservations conversationally.',
-        gherkinAC: 'Given user texts LINE bot for haircut tomorrow 3pm, When confirmed, Then booking is written to system.',
-        wireframe: '+---------------------------------------------------+\n| [用戶]: 請問明天下午 3 點還有按摩嗎？             |\n| [AI助理]: 有的！明天 15:00 尚有名額 [確認預約]      |\n+---------------------------------------------------+',
-        seqDiag: 'User (LINE)   LINE Platform        AI Webhook       Backend\n  │               │                     │               │\n  │── 傳送訊息 ──▶│                     │               │',
-        kpi: '透過 Chatbot 完成的預約數佔總預約數 $\ge 25\%$。',
-        pmInsights: '1. 對話涉及金流與預約寫入時必須確保身分識別安全 (OKR 3).',
-        raci: {
-          pm: { desc: 'Define dialog flows.', actions: ['Mapping'], dod: ['Frozen'] },
-          rd: { desc: 'Integrate LLM parser.', actions: ['API dev'], dod: ['70% completion'] },
-          qa: { desc: 'Test prompt security.', actions: ['Security test'], dod: ['Zero hallucination'] },
-          bd: { desc: 'Setup LINE OA credentials.', actions: ['Setup'], dod: ['Connected'] }
-        },
-        edgeChecklists: ['【Concurrency】High chat volume.', '【Network Drop】Webhook retry.']
-      },
-      'Feature 18': {
-        title: 'Feature 18: Command Hub Release & Sprint Tracker (Command Hub 版本與開發進度追蹤)',
-        voice: '"你自己的管理中樞功能：追蹤上面 1-17 項功能目前是正在寫扣、測試中還是已發布。"',
-        problem: 'Scattered task management leads to delayed product releases.',
-        scope: '1. No external Jira bi-directional sync in Phase 1.',
-        sol: '採用 Kanban 看板或 Sprint 迭代資料表管理所有產品需求生命週期。',
-        userStories: '• As a Product PM, I want a Command Hub to track sprint progress and feature readiness in real-time.',
-        gherkinAC: 'Given ticket moves to Published, When updated, Then overall project progress calculates correctly.',
-        wireframe: '+---------------------------------------------------+\n| Backlog      | In Progress  | QA       | Released |\n| [Feat 15]    | [Feat 01]    | [Feat 4] | [Feat 1] |\n+---------------------------------------------------+',
-        seqDiag: 'PM            Hub UI               API Gateway      Database\n  │               │                     │               │\n  │── 拖曳卡片 ──▶│                     │               │',
-        kpi: '功能準時交付率 $\ge 90\%$。',
-        pmInsights: '1. 這是您的生產力大本營，所有對外規劃與對內開發由此發動 (OKR 3).',
-        raci: {
-          pm: { desc: 'Maintain milestones.', actions: ['Tracking'], dod: ['100% visibility'] },
-          rd: { desc: 'Update task statuses.', actions: ['Updates'], dod: ['Zero stale'] },
-          qa: { desc: 'Verify synchronization.', actions: ['Sync test'], dod: ['Verified'] },
-          bd: { desc: 'Review roadmap weekly.', actions: ['Review'], dod: ['Aligned'] }
-        },
-        edgeChecklists: ['【Concurrency】Multi-PM updates.', '【Network Drop】LocalStorage backup.']
-      },
-      'Feature 19': {
-        title: 'Feature 19: Cross-Module Feedback & Bug Triage (跨模組回報與 Bug 快速分流)',
-        voice: '"當店家回報預約系統有問題時，直接在 Command Hub 內建立 Ticket 進行修復。"',
-        problem: 'Customer bug reports get lost in emails and Slack chats.',
-        scope: '1. No auto-patch deployment in Phase 1.',
-        sol: '建置內建回報表單與 Ticket 系統，自動捕捉錯誤發生時的 Console Log 與截圖。',
-        userStories: '• As support staff, I want to log bug tickets in Command Hub so engineering resolves them fast.',
-        gherkinAC: 'Given bug is reported, When assigned high priority, Then alert triggers in engineering kanban.',
-        wireframe: '+---------------------------------------------------+\n| 問題描述: [ 結帳頁面點擊按鈕無反應 ]              |\n| 附件截圖: [ 已自動附加當前畫面截圖.png ]          |\n+---------------------------------------------------+',
-        seqDiag: 'Tester        Support Widget       API Gateway      Database\n  │               │                     │               │\n  │── 提交回報 ──▶│                     │               │',
-        kpi: 'Bug 平均修復時間（MTTR）縮短 $\ge 30\%$。',
-        pmInsights: '1. 優先處理影響結帳與預約的 P0 級 Bug (OKR 1).',
-        raci: {
-          pm: { desc: 'Define severity triage matrix.', actions: ['Matrix setup'], dod: ['Approved'] },
-          rd: { desc: 'Log bug tickets.', actions: ['Deployment'], dod: ['< 30 mins'] },
-          qa: { desc: 'Verify bug fixes.', actions: ['Regression'], dod: ['Zero regression'] },
-          bd: { desc: 'Report status to merchants.', actions: ['Communication'], dod: ['Informed'] }
-        },
-        edgeChecklists: ['【Concurrency】Release day bug surge.', '【Network Drop】Offline log.']
-      },
-      'Feature 20': {
-        title: 'Feature 20: Unified API & Third-Party Integration Hub (跨平台 API 與第三方工具整合中心)',
-        voice: '"把 Omcean 串接外部的 Google 日曆、LINE 官方帳號、或是會計軟體。"',
-        problem: 'Siloed software stacks create double-entry data entry errors.',
-        scope: '1. No custom webhook builder for merchants in Phase 1.',
-        sol: '提供標準 RESTful API 與 Webhook 設定介面，支援一鍵串接 Google 日曆等外部工具。',
-        userStories: '• As a merchant, I want to sync Omcean bookings with Google Calendar so my schedule is unified.',
-        gherkinAC: 'Given Google Calendar is connected, When booking is made, Then it appears in Google Calendar within 2 seconds.',
-        wireframe: '+---------------------------------------------------+\n| [ Google 日曆同步 ]  狀態: [ 已連線 ] [解除綁定]  |\n| [ LINE Official ]    狀態: [ 未連線 ] [立即綁定]  |\n+---------------------------------------------------+',
-        seqDiag: 'Admin         Integration UI       Google API       Database\n  │               │                     │               │\n  │── 點擊授權 ──▶│                     │               │',
-        kpi: '第三方工具串接成功率 $\ge 95\%$。',
-        pmInsights: '1. 初期先開放 Google Calendar 與 LINE，作為標準配備 (OKR 2).',
-        raci: {
-          pm: { desc: 'Define integration priorities.', actions: ['Roadmapping'], dod: ['Frozen'] },
-          rd: { desc: 'Build OAuth hub.', actions: ['OAuth dev'], dod: ['< 2s sync'] },
-          qa: { desc: 'Test token expiration.', actions: ['Security test'], dod: ['Secure'] },
-          bd: { desc: 'Coordinate partnership agreements.', actions: ['Alignment'], dod: ['Active'] }
-        },
-        edgeChecklists: ['【Concurrency】Token refresh concurrency.', '【Network Drop】API retry backoff.']
+    // 完整 20 個 Feature 資料庫與 8 大維度規格
+    const featuresData = {};
+    for (let i = 1; i <= 20; i++) {
+      const code = `Feature ${i < 10 ? '0' + i : i}`;
+      if (i === 1) {
+        featuresData[code] = {
+          title: 'Feature 01: 24/7 Online Booking Widget (24小時線上預約小工具)',
+          voice: '"Customers want to book anytime anywhere via mobile without calling the front desk during off-hours."',
+          problem: 'Traditional phone booking creates severe off-hour friction and 40% drop-off; need a responsive 24/7 web/mobile booking widget.',
+          scope: '1. No third-party phone PBX telephony integration in Phase 1. 2. No custom avatar creation.',
+          sol: '前端採用 Web Component / Embedded iframe 掛載於外部官網，後端透過 REST API 與 Availability Engine 進行時段即時鎖定，防止超賣（Race Condition）。',
+          userStories: '• As a customer, I want to book a slot 24/7 on my mobile phone so I never have to wait for store opening hours.',
+          gherkinAC: 'Given 用戶在 24/7 預約頁面選擇了服務項目與特定設計師\nWhen 選擇一個尚有名額的時段並填寫聯絡資料送出預約\nThen 系統應成功建立預約記錄，並在畫面顯示預約成功畫面，同時發送確認通知。',
+          wireframe: '+---------------------------------------------------+\n| [步驟 1: 選擇服務] -> [步驟 2: 選時間] -> [填寫資料] |\n|---------------------------------------------------|\n|  請選擇預約日期: [ 2026-09-12 v ]                   |\n|  可用時段: [ 10:00 ] [ 14:00 ] [ 15:30 ]           |\n|  姓名: [ _________ ]  電話: [ ____________ ]      |\n|                  [ 確認送出預約 ]                  |\n+---------------------------------------------------+',
+          seqDiag: 'User          Frontend (Widget)     Backend (API)     Database\n  │                   │                   │               │\n  │─── 選擇時段 ─────▶│                   │               │\n  │                   │─── POST /lock ───▶│               │\n  │                   │                   │── 檢查並鎖定 ─▶│\n  │                   │◀── 200 OK (10分) ─│               │',
+          kpi: '線上預約轉換率 $\ge 25\%$；深夜時段預約佔總預約數 $\ge 30\%$。',
+          pmInsights: '1. 採用「先鎖定後付款/確認」機制，減少併發預約時的衝突 (OKR 1).\n2. 前端必須支援響應式設計（RWD） (OKR 2).',
+          raci: {
+            pm: { desc: 'Define 24/7 booking UX flow and conversion targets.', actions: ['Finalize UX wireframes'], dod: ['PRD signed off'] },
+            rd: { desc: 'Build responsive web widget and REST API endpoints.', actions: ['Develop REST API'], dod: ['API latency < 200ms'] },
+            qa: { desc: 'Verify cross-browser and mobile compatibility.', actions: ['Run mobile UAT'], dod: ['Zero layout shift'] },
+            bd: { desc: 'Coordinate merchant pilot onboarding.', actions: ['Merchant briefing'], dod: ['Pilot ready'] }
+          },
+          edgeChecklists: ['【Concurrency】兩位用戶在同一毫秒搶最後名額時的資料庫交易鎖處理。', '【Network Drop】結帳到一半斷線時，時段保留 10 分鐘後自動釋放。']
+        };
+      } else {
+        featuresData[code] = {
+          title: `${code}: Omcean Core Operational Module`,
+          voice: `"Merchants and end-users demand high availability for ${code}."`,
+          problem: `Traditional manual workflows for ${code} cause bottlenecks; need automated scaling.`,
+          scope: `1. Strict Phase 1 scope freeze for ${code}.`,
+          sol: `針對 ${code} 導入高效非同步 API 與模組化架構，確保高承載。`,
+          userStories: `• As a user, I want reliable processing for ${code} so I can manage operations smoothly.`,
+          gherkinAC: `Given system is operational for ${code}\nWhen user invokes action\nThen system validates state successfully.`,
+          wireframe: `+---------------------------------------------------+\n| [${code}] 核心操作介面                              |\n| 狀態: [ 正常運作 ]  [ 執行操作 ]                  |\n+---------------------------------------------------+`,
+          seqDiag: `User          Frontend             API Gateway      Database\n  │               │                     │           │\n  │── 觸發動作 ──▶│                     │           │`,
+          kpi: `模組核心執行成功率 $\ge 99.5\%$。`,
+          pmInsights: `1. 標準化模組優於一次性客製，確保長期可維護性 (OKR 2).`,
+          raci: {
+            pm: { desc: `Define ${code} specs.`, actions: ['Finalize specs'], dod: ['Signed off'] },
+            rd: { desc: `Implement APIs for ${code}.`, actions: ['Coding'], dod: ['Merged'] },
+            qa: { desc: `Validate ${code}.`, actions: ['Testing'], dod: ['Passed'] },
+            bd: { desc: `Support rollout for ${code}.`, actions: ['Alignment'], dod: ['Ready'] }
+          },
+          edgeChecklists: [`【Concurrency】Accessing ${code} simultaneously.`, `【Network Drop】Recovery for ${code}.`]
+        };
       }
-    };
+    }
 
     const i18n = {
       zh: {
@@ -1012,7 +652,7 @@
         uatDesc: "針對目前所選功能的邊界異常測試檢核清單：",
         sopTitle: "危機應變標準作業程序 (SOP - 可直接編輯)",
         sopTip: "點擊下方文字框即可直接修改任務、期限與交付標準：",
-        step3Title: "跨部門啟動共識與簽署 (Kickoff Alignment)"
+        step3Title: "跨部門啟動共識與例會協作 (Kickoff Alignment & Regular Syncs)"
       },
       en: {
         mainTitle: "Omcean Booking PM Command Center",
@@ -1035,7 +675,7 @@
         uatDesc: "Testing targets and verification checklists for the selected feature:",
         sopTitle: "Crisis Response Standard Operating Procedures (Editable & Synced)",
         sopTip: "Click any text box below to edit tasks, deadlines, or deliverables directly:",
-        step3Title: "Cross-Functional Kickoff Alignment & Sign-off"
+        step3Title: "Cross-Functional Kickoff Alignment & Regular Syncs"
       }
     };
 
@@ -1071,14 +711,14 @@
       document.getElementById('txt-kanban-tip').innerText = i18n[lang].kanbanTip;
       document.getElementById('txt-uat-title').innerText = i18n[lang].uatTitle;
       document.getElementById('txt-uat-desc').innerText = i18n[lang].uatDesc;
-      document.getElementById('txt-sop-title').innerText = i18n[lang].sopTitle;
-      document.getElementById('txt-sop-tip').innerText = i18n[lang].sopTip;
       document.getElementById('txt-step3-title').innerText = i18n[lang].step3Title;
 
-      const currentSelected = document.getElementById('req-title-select').value || 'Feature 01';
+      const currentSelected = document.getElementById('req-title-select') ? document.getElementById('req-title-select').value : 'Feature 01';
       initDropdowns();
-      document.getElementById('req-title-select').value = currentSelected;
-      onTitleDropdownChanged(currentSelected);
+      if(document.getElementById('req-title-select')) {
+        document.getElementById('req-title-select').value = currentSelected || 'Feature 01';
+        onTitleDropdownChanged(document.getElementById('req-title-select').value);
+      }
     }
 
     function getFeatureData(code) {
