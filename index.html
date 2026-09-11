@@ -430,7 +430,7 @@
             <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" id="sop-p1-team" class="text-slate-200 bg-slate-900/60 px-1 rounded">工程研發與產品經理</span></div>
             <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" id="sop-p1-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
             <div><strong class="text-slate-300">修正動作:</strong> <span contenteditable="true" id="sop-p1-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded">導入 Redis Redlock 分散式鎖定機制。</span></div>
-            <div><strong class="text-rose-400">完成期限:</strong> <span contenteditable="true" id="sop-p1-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-03-28 EOD</span></div>
+            <div><strong class="text-rose-400">完成期限:</strong> <span contenteditable="true" id="sop-p1-deadline" class="text-slate-200 bg-slate-900/60 px-1 rounded">2026-03-28 EOD</span></div>
             <div><strong class="text-cyber-green">交付目標:</strong> <span contenteditable="true" id="sop-p1-result" class="text-slate-300 bg-slate-900/60 px-1 rounded">1,500 QPS 壓力測試超額率 = 0%。</span></div>
             <div><strong class="text-amber-400">備用方案:</strong> <span contenteditable="true" id="sop-p1-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded">資料庫唯一限制條件強制約束。</span></div>
           </div>
@@ -444,7 +444,7 @@
             <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" id="sop-p2-team" class="text-slate-200 bg-slate-900/60 px-1 rounded">工程研發與業務客服</span></div>
             <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" id="sop-p2-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 3 (W5-W6)</span></div>
             <div><strong class="text-slate-300">修正動作:</strong> <span contenteditable="true" id="sop-p2-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded">建立付款對帳背景執行緒與前端輪詢。</span></div>
-            <div><strong class="text-rose-400">完成期限:</strong> <span contenteditable="true" id="sop-p2-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-04-11 EOD</span></div>
+            <div><strong class="text-rose-400">完成期限:</strong> <span contenteditable="true" id="sop-p2-deadline" class="text-slate-200 bg-slate-900/60 px-1 rounded">2026-04-11 EOD</span></div>
             <div><strong class="text-cyber-green">交付目標:</strong> <span contenteditable="true" id="sop-p2-result" class="text-slate-300 bg-slate-900/60 px-1 rounded">網路恢復後自動對帳並更新狀態。</span></div>
             <div><strong class="text-amber-400">備用方案:</strong> <span contenteditable="true" id="sop-p2-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded">客服手動補登與退款處理通道。</span></div>
           </div>
@@ -456,7 +456,7 @@
           <p class="text-[11px] text-slate-400 font-sans leading-relaxed">15分鐘保留時間逾期未付款。</p>
           <div class="space-y-1.5 text-[11px] pt-2 border-t border-cyber-border/60">
             <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" id="sop-p3-team" class="text-slate-200 bg-slate-900/60 px-1 rounded">工程研發與品質保證</span></div>
-            <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" id="sop-p3-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
+            <div><strong class="text-yellow-400">Target Sprint:</strong> <span contenteditable="true" id="sop-p3-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
             <div><strong class="text-slate-300">Required Fix:</strong> <span contenteditable="true" id="sop-p3-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded">Optimize Celery countdown & event-driven auto-rollover.</span></div>
             <div><strong class="text-rose-400">Deadline:</strong> <span contenteditable="true" id="sop-p3-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-03-31 EOD</span></div>
             <div><strong class="text-cyber-green">Deliverable:</strong> <span contenteditable="true" id="sop-p3-result" class="text-slate-300 bg-slate-900/60 px-1 rounded">15-min timeout release & 100% accurate waitlist shift.</span></div>
@@ -1158,6 +1158,7 @@
 
     function renderGanttSchedule() {
       const container = document.getElementById('gantt-rows-container');
+      if (!container) return;
       container.innerHTML = '';
       const filterModule = document.getElementById('gantt-filter-module').value;
 
@@ -1230,9 +1231,10 @@
 
       ['backlog', 'dev', 'test', 'publish'].forEach(status => {
         const container = document.getElementById(`col-${status}`);
+        if (!container) return;
         const count = document.getElementById(`count-${status}`);
         container.innerHTML = '';
-        count.innerText = cols[status].length;
+        if (count) count.innerText = cols[status].length;
 
         cols[status].forEach(t => {
           const card = document.createElement('div');
@@ -1350,7 +1352,7 @@
 
     function openGmailKickoffCompose() {
       const selectEl = document.getElementById('req-title-select');
-      const code = selectEl.value;
+      const code = selectEl ? selectEl.value : 'Feature 01';
       const f = getFeatureData(code);
       const senderEmail = 'mshappyj@gmail.com';
       const subject = `[KICKOFF & SCOPE FREEZE] Project Execution Plan for ${code}`;
@@ -1379,7 +1381,7 @@ Omcean Booking Delivery Command Center`;
 
     function openGmailEmergencyCompose() {
       const selectEl = document.getElementById('req-title-select');
-      const code = selectEl.value;
+      const code = selectEl ? selectEl.value : 'Feature 01';
       const f = getFeatureData(code);
       const senderEmail = 'mshappyj@gmail.com';
       const subject = `[EMERGENCY CRISIS SOP] Action Matrix for ${code}`;
@@ -1417,35 +1419,52 @@ Omcean Booking Command Center`;
     }
 
     function renderInstantPrdAndInsights(f) {
-      document.getElementById('prd-header-title').innerText = `[PRD] ${f.title}`;
-      const prdHtml = `
-        <div class="border-b border-cyber-border/50 pb-2 mb-2">
-          <span class="text-cyber-cyan font-bold block mb-1">【1. 架構與解決方案 (Architecture & Solution)】</span>
-          <div>▸ <strong>客戶心聲 (VoC):</strong> ${f.voice}</div>
-          <div>▸ <strong>PM 核心解法:</strong> ${f.problem}</div>
-          <div class="text-cyber-gold mt-1">▸ <strong>第一階段範圍限制:</strong> ${f.scope}</div>
-        </div>
-        <div class="border-b border-cyber-border/50 pb-2 mb-2">
-          <span class="text-cyber-cyan font-bold block mb-1">【2. 核心使用者故事 (User Stories)】</span>
-          <div>${f.userStories}</div>
-        </div>
-        <div>
-          <span class="text-cyber-cyan font-bold block mb-1">【3. Gherkin 驗收條件 (Acceptance Criteria - BDD)】</span>
-          <div class="space-y-1.5 font-mono text-[11px] bg-[#080d17] p-2.5 rounded border border-cyber-border/40">
-            <div><strong class="text-emerald-400">Scenario:</strong> ${f.gherkinAC}</div>
-          </div>
-        </div>
-      `;
-      document.getElementById('prd-content-view').innerHTML = prdHtml;
+      const prdTitleEl = document.getElementById('prd-header-title');
+      if (prdTitleEl) prdTitleEl.innerText = `[PRD] ${f.title}`;
 
-      const insightsHtml = `
-        <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
-          <div class="text-cyber-cyan font-bold">PM 戰情室決策 (Strategic Decisions)</div>
-          <div class="text-slate-300 text-[11px] leading-relaxed whitespace-pre-line">${f.pmInsights}</div>
-        </div>
-      `;
-      document.getElementById('prd-pm-insights').innerHTML = insightsHtml;
+      const prdViewEl = document.getElementById('prd-content-view');
+      if (prdViewEl) {
+        prdViewEl.innerHTML = `
+          <div class="border-b border-cyber-border/50 pb-2 mb-2">
+            <span class="text-cyber-cyan font-bold block mb-1">【1. 架構與解決方案 (Architecture & Solution)】</span>
+            <div>▸ <strong>客戶心聲 (VoC):</strong> ${f.voice}</div>
+            <div>▸ <strong>PM 核心解法:</strong> ${f.problem}</div>
+            <div class="text-cyber-gold mt-1">▸ <strong>第一階段範圍限制:</strong> ${f.scope}</div>
+          </div>
+          <div class="border-b border-cyber-border/50 pb-2 mb-2">
+            <span class="text-cyber-cyan font-bold block mb-1">【2. 核心使用者故事 (User Stories)】</span>
+            <div>${f.userStories}</div>
+          </div>
+          <div>
+            <span class="text-cyber-cyan font-bold block mb-1">【3. Gherkin 驗收條件 (Acceptance Criteria - BDD)】</span>
+            <div class="space-y-1.5 font-mono text-[11px] bg-[#080d17] p-2.5 rounded border border-cyber-border/40">
+              <div><strong class="text-emerald-400">Scenario:</strong> ${f.gherkinAC}</div>
+            </div>
+          </div>
+        `;
+      }
+
+      const insightsEl = document.getElementById('prd-pm-insights');
+      if (insightsEl) {
+        insightsEl.innerHTML = `
+          <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
+            <div class="text-cyber-cyan font-bold">PM 戰情室決策 (Strategic Decisions)</div>
+            <div class="text-slate-300 text-[11px] leading-relaxed whitespace-pre-line">${f.pmInsights}</div>
+          </div>
+        `;
+      }
     }
+
+    window.onload = function() {
+      initDropdowns();
+      const selectEl = document.getElementById('req-title-select');
+      if (selectEl) {
+        selectEl.value = "Feature 01";
+        onTitleDropdownChanged("Feature 01");
+      }
+      renderKanbanBoard();
+      renderGanttSchedule();
+    };
   </script>
 </body>
 </html>
