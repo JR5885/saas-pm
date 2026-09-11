@@ -63,7 +63,7 @@
           <h1 class="text-2xl font-bold text-white tracking-tight">Omcean Booking PM Command Center</h1>
         </div>
         <p class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: PRODUCT PM] Fixed Gantt Bar Shift & Two-Way Sync &bull; Gmail Dispatch (mshappyj@gmail.com)
+          [ROLE: PRODUCT PM] Feature 01 ~ Feature 20 Fully Loaded &bull; Verified Gmail Dispatch (mshappyj@gmail.com)
         </p>
       </div>
 
@@ -131,7 +131,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label class="block text-[11px] font-mono text-cyber-cyan mb-1 flex items-center justify-between">
-              <span>Feature Requirement Title (20 Presets or Custom)</span>
+              <span>Feature Requirement Title (Feature 01 ~ 20)</span>
               <span class="text-[10px] text-slate-500">Auto Syncs Below</span>
             </label>
             <select id="req-title-select" onchange="onTitleDropdownChanged(this.value)" class="w-full px-3 py-2 text-xs rounded border font-mono text-cyber-cyan">
@@ -181,7 +181,7 @@
           <div class="lg:col-span-4 bg-[#0a121e] border border-cyber-border rounded-xl p-4 space-y-3">
             <div class="flex items-center justify-between border-b border-cyber-border pb-2">
               <span class="text-xs font-bold font-mono text-cyber-gold">PM Strategic Decisions</span>
-              <span class="text-[10px] text-slate-500">OKR View</span>
+              <span class="text-[10px] font-mono text-slate-500">OKR View</span>
             </div>
             <div id="prd-pm-insights" class="space-y-2.5 text-[11px] leading-relaxed text-slate-300"></div>
           </div>
@@ -251,7 +251,7 @@
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 text-xs font-mono bg-[#05080f] p-3 rounded-xl border border-cyber-border">
           <div class="text-slate-300 font-bold">📊 Interactive Gantt: Shift Sprints & Slider Progress</div>
           <div class="flex items-center gap-1.5">
-            <span class="text-slate-400 text-[11px]">Select Module:</span>
+            <span class="text-slate-400 text-[11px]">Select Feature:</span>
             <select id="gantt-filter-module" onchange="onGanttModuleChanged(this.value)" class="p-1 text-xs rounded border text-cyber-cyan bg-[#0a121e]">
               <!-- Injected -->
             </select>
@@ -284,7 +284,7 @@
             <div class="flex items-center gap-1.5 font-mono text-xs">
               <span class="text-slate-400 text-[11px]">🔍 Filter:</span>
               <select id="kanban-filter-module" onchange="renderKanbanBoard()" class="p-1 text-xs rounded border text-cyber-cyan bg-[#0a121e] font-mono">
-                <option value="ALL">All Modules</option>
+                <option value="ALL">All Features</option>
               </select>
             </div>
             <button onclick="openAddTicketModal()" class="px-3 py-1.5 rounded-lg bg-cyber-cyan text-slate-950 font-bold text-xs font-mono hover:bg-opacity-90 transition">
@@ -343,7 +343,7 @@
         </div>
         <span class="text-[10px] font-mono text-cyber-green bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">Staging Standard</span>
       </div>
-      <p class="text-xs text-slate-400 font-mono">Testing targets and verification checklists for the selected module:</p>
+      <p class="text-xs text-slate-400 font-mono">Testing targets and verification checklists for the selected feature:</p>
       <div id="edge-checklist-container" class="space-y-2 text-xs font-mono"></div>
     </section>
 
@@ -440,14 +440,14 @@
 
       <div class="space-y-3">
         <div>
-          <label class="block text-slate-400 mb-1">Ticket ID</label>
+          <label class="block text-slate-400 mb-1">Feature ID (對應 Feature 01 ~ 20)</label>
           <input type="text" id="modal-ticket-id" class="w-full p-2 rounded border text-slate-200 bg-[#05080f] font-mono">
         </div>
 
         <div>
-          <label class="block text-cyber-cyan mb-1 font-bold">Quick Select OB-101 ~ OB-120 (Or Custom)</label>
+          <label class="block text-cyber-cyan mb-1 font-bold">Quick Select Feature 01 ~ 20 (Or Custom)</label>
           <select id="modal-preset-select" onchange="applyPresetToModal(this.value)" class="w-full p-2 rounded border text-cyber-cyan">
-            <option value="">-- Select Module --</option>
+            <option value="">-- Select Feature --</option>
           </select>
         </div>
 
@@ -533,71 +533,356 @@
   </div>
 
   <script>
-    const allPresets = [
-      {
-        code: 'OB-101', title: '01. LINE LIFF Fast Booking',
-        voice: '"New users drop off when forced to register accounts and enter SMS codes."',
-        problem: 'Traditional signup creates 40% funnel drop-off; need silent UID binding and 1-click checkout.',
-        scope: '1. No cross-account merging in Phase 1. 2. No coupon gifting.',
-        defaultOwner: 'UX/FE', defaultSupport: 'Engineering',
+    // 完整對應 Feature 01 到 Feature 20 的資料庫
+    const featuresData = {
+      'Feature 01': {
+        title: 'Feature 01: 24/7 Online Booking Widget (24小時線上預約小工具)',
+        voice: '"Customers want to book anytime anywhere via mobile without calling the front desk."',
+        problem: 'Traditional phone booking causes high drop-off and front-desk overload; need 24/7 self-service widget.',
+        scope: '1. No third-party phone PBX integration in Phase 1. 2. No custom avatar creation.',
         raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define LINE LIFF authorization boundaries & conversion target.' },
-          { role: 'UX / Frontend', type: 'R', desc: 'Lead 30-sec fast checkout UI/UX flow.' },
-          { role: 'Engineering', type: 'C', desc: 'Assist LINE Webhook & payment API integration.' },
-          { role: 'QA / DevOps', type: 'I', desc: 'Verify mobile cross-browser compatibility.' },
-          { role: 'Sales / CS', type: 'I', desc: 'Track acquisition volume & support drop.' }
+          { role: 'Product PM', type: 'A', desc: 'Define 24/7 booking UX flow and widget boundaries.' },
+          { role: 'UX / Frontend', type: 'R', desc: 'Build responsive web widget and mobile UI.' },
+          { role: 'Engineering', type: 'C', desc: 'Expose secure public REST APIs for booking requests.' }
         ],
-        actions: ['Complete LINE Login v2.1 sandbox test by Friday', 'Optimize checkout debounce button'],
-        dod: ['LINE LIFF auth success rate >= 99.5%', 'Checkout duration < 30s', 'iOS/Android UAT passed'],
+        actions: ['Complete widget responsive design review', 'Establish secure rate-limiting API endpoints'],
+        dod: ['Widget loads in < 1.5s', 'Mobile responsive across iOS/Android browsers'],
         edgeChecklists: [
-          '【Concurrency】Multiple users clicking LINE Login simultaneously without token conflict.',
-          '【Network Drop】Switch to airplane mode during auth redirect; verify webhook recovery.',
-          '【Timeout Fallback】LIFF timeout after 30s fallbacks to SMS OTP verification.'
+          '【Concurrency】Multiple users accessing widget at midnight peak hours.',
+          '【Network Drop】Retry queue on unstable mobile network.',
+          '【Timeout Fallback】Show graceful maintenance banner if API gateway times out.'
         ]
       },
-      {
-        code: 'OB-102', title: '02. New User Difficulty & Coach Tags',
-        voice: '"Customers constantly ask which coach is gentle or if beginners can join aerial yoga."',
-        problem: 'Unstructured schedule data causes beginner fear; need beginner-friendly and intensity tags.',
-        scope: '1. No video reviews in Phase 1. 2. No external ratings.',
-        defaultOwner: 'Product PM', defaultSupport: 'Sales/CS',
+      'Feature 02': {
+        title: 'Feature 02: Business Type & Multi-Location Selector (業務類型與分店選擇器)',
+        voice: '"We run multiple branches and different services (beauty, massage, badminton courts); we need seamless switching."',
+        problem: 'Single-location architecture fails multi-branch scaling; need unified multi-tenant location selector.',
+        scope: '1. No cross-branch loyalty point sharing in Phase 1.',
         raci: [
-          { role: 'Product PM', type: 'A', desc: 'Define tag taxonomy and style standards.' },
-          { role: 'Sales / CS', type: 'R', desc: 'Provide top 50 beginner questions and coach styles.' },
-          { role: 'UX / Frontend', type: 'R', desc: 'Design schedule filter and tag cards UI.' }
+          { role: 'Product PM', type: 'A', desc: 'Define location taxonomy and multi-branch data isolation.' },
+          { role: 'Engineering', type: 'R', desc: 'Implement multi-tenant database schema and selector logic.' },
+          { role: 'Sales / CS', type: 'C', desc: 'Verify branch address and business hours data.' }
         ],
-        actions: ['Produce coach style vocabulary by Wednesday', 'Build multi-tag search index'],
-        dod: ['Tag filter response < 100ms', 'Beginner inquiry drop 30%'],
+        actions: ['Populate branch metadata table', 'Test location switcher state persistence'],
+        dod: ['Branch switching latency < 100ms', '100% data isolation verified'],
         edgeChecklists: [
-          '【Concurrency】Multiple users filtering tags simultaneously.',
-          '【Network Drop】UI fallback on slow network loading.',
-          '【Timeout Fallback】Default to popular tags if query times out.'
+          '【Concurrency】Simultaneous branch switching across high-traffic regions.',
+          '【Network Drop】Fallback to default headquarters branch on network failure.',
+          '【Timeout Fallback】Cache branch list in LocalStorage.'
         ]
       },
-      {
-        code: 'OB-111', title: '11. Peak Slot Dynamic Waitlist Engine',
-        voice: '"Hot classes sell out instantly, but last-minute cancellations leave seats empty!"',
-        problem: '18% last-minute no-show rate with no automated backfill queue.',
-        scope: '1. No multi-currency clearing in Phase 1. 2. No manual VIP queue overriding.',
+      'Feature 03': {
+        title: 'Feature 03: Service Menu & Pricing Display (服務項目與價格清單展示)',
+        voice: '"We need a clear menu showing haircuts, massages, or 1-hour court rentals with transparent pricing."',
+        problem: 'Unstructured pricing leads to customer confusion and billing disputes.',
+        scope: '1. No dynamic surge pricing in Phase 1.',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: 'Define service catalog schema and pricing rules.' },
+          { role: 'UX / Frontend', type: 'R', desc: 'Design clean service cards and pricing table UI.' }
+        ],
+        actions: ['Standardize pricing currency formatting', 'Validate service item categories'],
+        dod: ['Menu renders without layout shift', 'Pricing accurate to 100%'],
+        edgeChecklists: [
+          '【Concurrency】Bulk price fetching during peak catalog browsing.',
+          '【Network Drop】Offline cache of cached service items.',
+          '【Timeout Fallback】Placeholder skeleton loader during fetch delay.'
+        ]
+      },
+      'Feature 04': {
+        title: 'Feature 04: Staff & Resource Scheduling Calendar (員工與場地排班行事曆)',
+        voice: '"We need to see which stylist, coach, or badminton court is available at any given time."',
+        problem: 'Manual calendar tracking causes double-booking and resource conflicts.',
+        scope: '1. No AI auto-rostering in Phase 1.',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: 'Define calendar grid logic and resource locking rules.' },
+          { role: 'Engineering', type: 'R', desc: 'Implement calendar backend with Redis time-slot locking.' }
+        ],
+        actions: ['Build weekly/daily calendar matrix UI', 'Run slot collision test'],
+        dod: ['Calendar renders 500+ slots in < 200ms', 'Zero resource collisions'],
+        edgeChecklists: [
+          '【Concurrency】Multiple admins viewing and editing staff shifts simultaneously.',
+          '【Network Drop】Optimistic UI locking with rollback on sync failure.',
+          '【Timeout Fallback】Polling sync every 30 seconds.'
+        ]
+      },
+      'Feature 05': {
+        title: 'Feature 05: Customer Self-Service Portal (會員自助查詢與改期系統)',
+        voice: '"Allow members to log in, view past bookings, and reschedule or cancel within allowed windows."',
+        problem: 'High customer support overhead for simple rescheduling requests.',
+        scope: '1. No cancellation fee auto-charging in Phase 1.',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: 'Define cancellation time window policies.' },
+          { role: 'UX / Frontend', type: 'R', desc: 'Build member dashboard and reschedule modal.' }
+        ],
+        actions: ['Implement time-window validation logic', 'Design mobile-friendly booking history cards'],
+        dod: ['Reschedule completed in < 3 clicks', 'Policy enforcement 100% accurate'],
+        edgeChecklists: [
+          '【Concurrency】Last-minute mass rescheduling before deadline.',
+          '【Network Drop】Token refresh retry on expiration.',
+          '【Timeout Fallback】Lock UI during cancellation transaction.'
+        ]
+      },
+      'Feature 06': {
+        title: 'Feature 06: Automated SMS & Push Reminders (自動化簡訊與推播提醒)',
+        voice: '"Automatically send reminders before appointments to reduce our no-show rate."',
+        problem: 'Manual reminders are time-consuming, resulting in an 18% no-show rate.',
+        scope: '1. No WhatsApp/WeChat integration in Phase 1.',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: 'Define reminder schedule (24h & 2h before).' },
+          { role: 'Engineering', type: 'R', desc: 'Implement Celery worker for scheduled SMS triggers.' }
+        ],
+        actions: ['Integrate Twilio/SMS gateway API', 'Setup cron jobs for reminder dispatches'],
+        dod: ['SMS delivery rate >= 98%', 'No-show rate reduced by 30%'],
+        edgeChecklists: [
+          '【Concurrency】Bulk reminder dispatch at top of hour.',
+          '【Network Drop】SMS gateway failover retry.',
+          '【Timeout Fallback】Log undelivered messages for CS review.'
+        ]
+      },
+      'Feature 07': {
+        title: 'Feature 07: Staff Shift & Leave Management (員工班表與請假管理)',
+        voice: '"When coaches or therapists take leave, block their time slots automatically so customers cannot book them."',
+        problem: 'Unsynchronized staff leave causes double-booking and customer complaints.',
+        scope: '1. No substitute staff auto-assignment in Phase 1.',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: 'Define leave request approval workflow.' },
+          { role: 'Engineering', type: 'R', desc: 'Auto-block calendar slots upon leave approval.' }
+        ],
+        actions: ['Build staff leave request form', 'Test auto-blocking slot constraint'],
+        dod: ['Approved leave instantly blocks future bookings', 'Zero booking conflicts on leave days'],
+        edgeChecklists: [
+          '【Concurrency】Staff requesting leave during peak booking hours.',
+          '【Network Drop】Save draft leave request locally.',
+          '【Timeout Fallback】Notify admin on approval timeout.'
+        ]
+      },
+      'Feature 08': {
+        title: 'Feature 08: Package & Course Credit Pass Tracking (課程券與計次卡追蹤)',
+        voice: '"For gyms or yoga studios, track remaining credits in a 10-class pass and deduct automatically upon attendance."',
+        problem: 'Manual paper punch cards are error-prone and untrackable.',
+        scope: '1. No credit transfer between members in Phase 1.',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: 'Define credit pass ledger rules and expiration policies.' },
+          { role: 'Engineering', type: 'R', desc: 'Build atomic transaction ledger for credit deduction.' }
+        ],
+        actions: ['Implement credit pass ledger DB table', 'Test atomic deduction on check-in'],
+        dod: ['Credit ledger balance 100% accurate', 'Instant deduction on attendance confirmation'],
+        edgeChecklists: [
+          '【Concurrency】Simultaneous credit deduction and purchase.',
+          '【Network Drop】Idempotency check against double deduction.',
+          '【Timeout Fallback】Lock pass during transaction.'
+        ]
+      },
+      'Feature 09': {
+        title: 'Feature 09: Check-in & Front Desk Reception Flow (櫃檯快速報到與分流機制)',
+        voice: '"When guests arrive, front desk staff can click Check-in with 1 tap to accelerate customer flow."',
+        problem: 'Slow front-desk check-in causes lobby congestion during peak hours.',
+        scope: '1. No hardware barcode scanner integration in Phase 1.',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: 'Define front-desk reception UX workflow.' },
+          { role: 'UX / Frontend', type: 'R', desc: 'Build 1-tap check-in tablet interface.' }
+        ],
+        actions: ['Optimize touch target sizes for tablet', 'Test check-in speed'],
+        dod: ['Check-in action processed in < 300ms', 'Lobby wait time reduced'],
+        edgeChecklists: [
+          '【Concurrency】Rush hour check-in queue.',
+          '【Network Drop】Offline queue sync on reconnection.',
+          '【Timeout Fallback】Manual override button for front desk.'
+        ]
+      },
+      'Feature 10': {
+        title: 'Feature 10: Waiting List & Slot Backfill System (候補名單與空檔遞補機制)',
+        voice: '"If a slot is full, customers can join the waitlist; if someone cancels, notify the next person automatically."',
+        problem: 'Empty seats from cancellations result in lost revenue.',
+        scope: '1. No auto-payment for waitlist promotion in Phase 1.',
         defaultOwner: 'Engineering', defaultSupport: 'QA/Ops',
         raci: [
-          { role: 'Product PM', type: 'A', desc: 'Freeze waitlist FIFO and 15-min lock PRD specs.' },
-          { role: 'Engineering', type: 'R', desc: 'Implement Redis Redlock & FIFO waitlist queue.' },
-          { role: 'UX / Frontend', type: 'R', desc: 'Develop waitlist rank display & 15-min countdown UI.' },
-          { role: 'QA / DevOps', type: 'R', desc: 'Execute 1,500 QPS stress test for zero overbooking.' },
-          { role: 'Sales / CS', type: 'I', desc: 'Update Help Center regarding fair waitlist rules.' }
+          { role: 'Product PM', type: 'A', desc: 'Define waitlist FIFO and 15-min lock rules.' },
+          { role: 'Engineering', type: 'R', desc: 'Implement Redis atomic lock & FIFO queue.' },
+          { role: 'UX / Frontend', type: 'R', desc: 'Develop waitlist position and countdown UI.' }
         ],
-        actions: ['Complete Redis distributed lock unit tests', 'Setup 1,500 QPS stress test environment'],
-        dod: ['Zero overbooking under 1,500 QPS', 'API P99 response < 250ms', '15-min timeout auto-shift passed 100%'],
+        actions: ['Implement FIFO Redis queue', 'Test 15-minute expiration countdown'],
+        dod: ['Zero overbooking', '15-min timeout auto-rollover 100% accurate'],
         edgeChecklists: [
-          '【Concurrency】Two users claiming last slot simultaneously; Redis lock enforces zero overbooking.',
-          '【Network Drop】LINE Pay succeeds during network switch; webhook safely recovers state.',
-          '【Timeout Fallback】Rank #1 exceeds 15-min window; slot rolls over to Rank #2 cleanly.'
+          '【Concurrency】Multiple users claiming released slot simultaneously.',
+          '【Network Drop】Webhook recovery on notification delivery.',
+          '【Timeout Fallback】Auto-promote next waitlist candidate.'
+        ]
+      },
+      'Feature 11': {
+        title: 'Feature 11: Online Payment & Deposit Gateway (線上付款與訂金金流整合)',
+        voice: '"Collect full payment or deposits online during booking to further reduce no-shows."',
+        problem: 'Zero-payment bookings lead to high cancellation rates.',
+        scope: '1. No cryptocurrency payments in Phase 1.',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: 'Define payment gateway integration and refund policies.' },
+          { role: 'Engineering', type: 'R', desc: 'Integrate Stripe/LINE Pay webhook and ledger.' }
+        ],
+        actions: ['Setup secure payment gateway sandbox', 'Test webhook event handling'],
+        dod: ['Payment success rate >= 99%', 'Webhook reconciliation verified'],
+        edgeChecklists: [
+          '【Concurrency】Flash sale payment spikes.',
+          '【Network Drop】Orphaned transaction reconciliation worker.',
+          '【Timeout Fallback】Auto-release slot if payment times out.'
+        ]
+      },
+      'Feature 12': {
+        title: 'Feature 12: Business Revenue & Performance Dashboard (營業額與業績戰情室報表)',
+        voice: '"Give store owners a dashboard to see monthly revenue, top services, and staff performance at a glance."',
+        problem: 'Lack of real-time financial visibility hinders business decisions.',
+        scope: '1. No custom SQL report builder in Phase 1.',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: 'Define key revenue metrics and dashboard layout.' },
+          { role: 'UX / Frontend', type: 'R', desc: 'Build interactive charts and exportable reports.' }
+        ],
+        actions: ['Integrate lightweight charting library', 'Test data aggregation queries'],
+        dod: ['Dashboard loads in < 1s', 'Export CSV functional'],
+        edgeChecklists: [
+          '【Concurrency】Multiple owners viewing reports simultaneously.',
+          '【Network Drop】Cache last calculated aggregation.',
+          '【Timeout Fallback】Paginate heavy data sets.'
+        ]
+      },
+      'Feature 13': {
+        title: 'Feature 13: Customer Relationship Management (CRM) Notes (客戶偏好與歷史備忘錄)',
+        voice: '"Remember client preferences (e.g., oil allergies, pressure preference) so staff can view records instantly."',
+        problem: 'Inconsistent customer records lead to poor personalized service.',
+        scope: '1. No automated sentiment AI analysis in Phase 1.',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: 'Define CRM tag schema and privacy compliance.' },
+          { role: 'Sales / CS', type: 'R', desc: 'Establish standard note-taking templates.' }
+        ],
+        actions: ['Build secure CRM notes database table', 'Enforce GDPR/privacy masking'],
+        dod: ['Notes display instantly on booking profile', 'Encryption verified'],
+        edgeChecklists: [
+          '【Concurrency】Simultaneous note updates by multiple staff.',
+          '【Network Drop】Local autosave draft.',
+          '【Timeout Fallback】Read-only fallback.'
+        ]
+      },
+      'Feature 14': {
+        title: 'Feature 14: Automated Review & Feedback Collector (自動化滿意度回饋收集)',
+        voice: '"Automatically send feedback request emails/messages after service completion to gather public reviews."',
+        problem: 'Manual review collection yields very low response rates.',
+        scope: '1. No auto-publishing to Google Maps API in Phase 1.',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: 'Define feedback trigger timing (2 hours post-service).' },
+          { role: 'Engineering', type: 'R', desc: 'Build automated feedback collection worker.' }
+        ],
+        actions: ['Design rating star UI template', 'Test post-service trigger cron'],
+        dod: ['Review collection rate increased by 40%', 'Feedback stored securely'],
+        edgeChecklists: [
+          '【Concurrency】Bulk post-service dispatch.',
+          '【Network Drop】Retry dispatch queue.',
+          '【Timeout Fallback】Email backup.'
+        ]
+      },
+      'Feature 15': {
+        title: 'Feature 15: Promotional Discount & Coupon Code Engine (優惠券與折扣碼引擎)',
+        voice: '"Enable merchants to issue new user discounts ($100 off) or holiday promo codes."',
+        problem: 'Lack of promotional tooling limits marketing campaign flexibility.',
+        scope: '1. No tiered loyalty stamp cards in Phase 1.',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: 'Define coupon rules (percentage, fixed amount, expiration).' },
+          { role: 'Engineering', type: 'R', desc: 'Implement coupon validation and checkout deduction logic.' }
+        ],
+        actions: ['Build coupon management admin panel', 'Test discount calculation at checkout'],
+        dod: ['Coupon validation latency < 50ms', 'Zero calculation errors'],
+        edgeChecklists: [
+          '【Concurrency】High redemption volume during campaigns.',
+          '【Network Drop】Rollback unapplied coupon state.',
+          '【Timeout Fallback】Lock coupon validity during checkout.'
+        ]
+      },
+      'Feature 16': {
+        title: 'Feature 16: AI Smart Scheduling Assistant (AI 智慧排程與最佳化建議)',
+        voice: '"Use AI to analyze traffic peaks and automatically suggest when merchants should schedule extra staff."',
+        problem: 'Understaffing during peak hours and overstaffing during lulls waste labor costs.',
+        scope: '1. No automatic payroll integration in Phase 1.',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: 'Define AI recommendation metrics and threshold rules.' },
+          { role: 'AI/Chatbot', type: 'R', desc: 'Build historical traffic prediction model.' }
+        ],
+        actions: ['Analyze historical booking density', 'Design admin recommendation banner'],
+        dod: ['AI insights generated weekly', 'Staffing efficiency improved by 15%'],
+        edgeChecklists: [
+          '【Concurrency】Background model training isolation.',
+          '【Network Drop】Fallback to static heuristic rules.',
+          '【Timeout Fallback】Display cached recommendations.'
+        ]
+      },
+      'Feature 17': {
+        title: 'Feature 17: AI-Powered Chatbot Booking Agent (AI 智能聊天機器人預約助理)',
+        voice: '"Allow customers to chat with AI via LINE or Messenger to complete bookings without visiting the website."',
+        problem: 'Customers abandon web forms if they cannot get instant conversational answers.',
+        scope: '1. No voice call AI agent in Phase 1.',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: 'Define AI bot conversation flows and guardrails.' },
+          { role: 'AI/Chatbot', type: 'R', desc: 'Integrate LLM intent parser with booking backend.' }
+        ],
+        actions: ['Establish LLM system prompt guardrails', 'Test webhook integration with LINE Messaging API'],
+        dod: ['Bot booking completion rate >= 70%', 'Zero hallucinated booking confirmations'],
+        edgeChecklists: [
+          '【Concurrency】High volume chat requests.',
+          '【Network Drop】Webhook retry mechanism.',
+          '【Timeout Fallback】Human handoff on complex queries.'
+        ]
+      },
+      'Feature 18': {
+        title: 'Feature 18: Command Hub Release & Sprint Tracker (Command Hub 版本與開發進度追蹤)',
+        voice: '"Our own operational control center: track whether features 1-17 are In Progress, QA, or Released."',
+        problem: 'Scattered task management leads to delayed product releases.',
+        scope: '1. No external Jira bi-directional sync in Phase 1.',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: 'Maintain Command Center sprint milestones and OKR alignment.' },
+          { role: 'Engineering', type: 'R', desc: 'Update subtask ticket statuses and progress.' }
+        ],
+        actions: ['Configure Gantt and Kanban boards', 'Verify OKR guardrail metrics'],
+        dod: ['100% feature visibility on dashboard', 'Zero stale tickets'],
+        edgeChecklists: [
+          '【Concurrency】Multi-PM board updates.',
+          '【Network Drop】LocalStorage autosave.',
+          '【Timeout Fallback】State recovery.'
+        ]
+      },
+      'Feature 19': {
+        title: 'Feature 19: Cross-Module Feedback & Bug Triage (跨模組回報與 Bug 快速分流)',
+        voice: '"When merchants report reservation issues, create tickets inside the Command Hub for instant triage."',
+        problem: 'Customer bug reports get lost in emails and Slack chats.',
+        scope: '1. No auto-patch deployment in Phase 1.',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: 'Define bug severity triage matrix.' },
+          { role: 'QA/Ops', type: 'R', desc: 'Log bug tickets and assign to engineering.' }
+        ],
+        actions: ['Build bug reporting form', 'Establish high-priority escalation alert'],
+        dod: ['Bug triage time < 30 mins', 'Resolution tracking verified'],
+        edgeChecklists: [
+          '【Concurrency】Surge in bug reports during release.',
+          '【Network Drop】Offline bug report queue.',
+          '【Timeout Fallback】Email notification backup.'
+        ]
+      },
+      'Feature 20': {
+        title: 'Feature 20: Unified API & Third-Party Integration Hub (跨平台 API 與第三方工具整合中心)',
+        voice: '"Integrate Omcean with external tools like Google Calendar, LINE Official Account, and accounting software."',
+        problem: 'Siloed software stacks create double-entry data entry errors.',
+        scope: '1. No custom webhook builder for merchants in Phase 1.',
+        defaultOwner: 'Engineering', defaultSupport: 'QA/Ops',
+        raci: [
+          { role: 'Product PM', type: 'A', desc: 'Define integration priorities and API rate limits.' },
+          { role: 'Engineering', type: 'R', desc: 'Build OAuth integration hub for Google Calendar & LINE.' }
+        ],
+        actions: ['Implement Google Calendar OAuth sync', 'Test bi-directional event sync'],
+        dod: ['Google Calendar sync latency < 2s', 'OAuth token security verified'],
+        edgeChecklists: [
+          '【Concurrency】Token refresh concurrency handling.',
+          '【Network Drop】API retry backoff policy.',
+          '【Timeout Fallback】Graceful disconnection alert.'
         ]
       }
-    ];
+    };
 
-    function getPresetByCode(code) {
+    function getFeatureData(code) {
       if (code === 'CUSTOM-ADHOC') {
         return {
           code: 'CUSTOM-ADHOC',
@@ -605,45 +890,33 @@
           voice: '"Stakeholder requested a custom feature outside standard Phase 1 backlog."',
           problem: 'Requires PM impact assessment, scope boundary check, and strict out-of-scope enforcement.',
           scope: '1. Strict Phase 1 freeze: Postponed to Phase 2 unless blocking core revenue.',
-          defaultOwner: 'Product PM', defaultSupport: 'Engineering',
           raci: [
             { role: 'Product PM', type: 'A', desc: 'Evaluate business ROI and enforce Phase 1 scope boundary.' },
-            { role: 'Engineering', type: 'C', desc: 'Assess architectural impact and technical feasibility.' },
-            { role: 'UX / Frontend', type: 'I', desc: 'Review interface consistency if approved.' }
+            { role: 'Engineering', type: 'C', desc: 'Assess architectural impact and technical feasibility.' }
           ],
           actions: ['Perform PM impact assessment', 'Submit to change control board for Phase 2 consideration'],
           dod: ['ROI justification signed off', 'Explicitly deferred to Phase 2 if non-critical'],
           edgeChecklists: [
             '【Concurrency】Verify custom transaction consistency under multi-user access.',
-            '【Network Drop】Verify fallback error handling for custom payloads.',
-            '【Timeout Fallback】Ensure strict timeout limits to prevent resource leakage.'
+            '【Network Drop】Verify fallback error handling for custom payloads.'
           ]
         };
       }
-
-      const found = allPresets.find(p => p.code === code);
-      if (found) return found;
-
-      return {
+      return featuresData[code] || {
         code: code,
-        title: `${code} Module Delivery & Boundary Management`,
-        voice: `"Users expect smooth operation and instant feedback for ${code}."`,
-        problem: `Address ${code} friction with automated asynchronous architecture and strict validation.`,
-        scope: `1. No third-party plugins in Phase 1 for ${code}. 2. Single language support.`,
-        defaultOwner: 'Engineering', defaultSupport: 'QA/Ops',
+        title: `${code}: Standardized Module Delivery`,
+        voice: `"Users expect high reliability and smooth workflow for ${code}."`,
+        problem: `Address ${code} requirements with standard architectural patterns.`,
+        scope: '1. Strict Phase 1 scope boundary enforcement.',
         raci: [
-          { role: 'Product PM', type: 'A', desc: `Define ${code} commercial goals & acceptance criteria.` },
-          { role: 'Engineering', type: 'R', desc: `Lead ${code} core engine & API development.` },
-          { role: 'UX / Frontend', type: 'R', desc: `Build ${code} responsive UI and interaction flow.` },
-          { role: 'QA / DevOps', type: 'C', desc: `Execute ${code} automated testing & load tests.` },
-          { role: 'Sales / CS', type: 'I', desc: `Receive ${code} documentation & CS training.` }
+          { role: 'Product PM', type: 'A', desc: `Define acceptance criteria for ${code}.` },
+          { role: 'Engineering', type: 'R', desc: `Execute architecture and API development for ${code}.` }
         ],
-        actions: [`Complete ${code} spec sign-off`, `Execute UAT integration tests for ${code}`],
-        dod: [`${code} API latency < 200ms`, `Passed security and edge case verification`],
+        actions: [`Complete spec review for ${code}`, `Execute integration tests`],
+        dod: ['Passed all automated test suites', 'UAT sign-off secured'],
         edgeChecklists: [
-          `【Concurrency】Multiple users triggering ${code} transactions simultaneously without deadlock.`,
-          `【Network Drop】Auto-retry and state rollback on ${code} request interruption.`,
-          `【Timeout Fallback】Graceful degradation messaging on ${code} timeout.`
+          '【Concurrency】High load verification.',
+          '【Network Drop】Graceful error handling.'
         ]
       };
     }
@@ -659,59 +932,55 @@
       customOpt.text = '⭐ [+ Create Custom Ad-hoc Requirement (Outside Presets)]';
       step1Select.appendChild(customOpt);
 
-      let optGroupNew = document.createElement('optgroup');
-      optGroupNew.label = '── New User Modules (OB-101 ~ OB-110) ──';
-      let optGroupOld = document.createElement('optgroup');
-      optGroupOld.label = '── Retaining User Modules (OB-111 ~ OB-120) ──';
+      let optGroup = document.createElement('optgroup');
+      optGroup.label = '── Feature 01 ~ Feature 20 (Omcean Core) ──';
 
-      for (let i = 101; i <= 120; i++) {
-        const code = `OB-${i}`;
-        const presetObj = getPresetByCode(code);
+      for (let i = 1; i <= 20; i++) {
+        const key = `Feature ${i < 10 ? '0' + i : i}`;
+        const fData = getFeatureData(key);
         
         const opt1 = document.createElement('option');
-        opt1.value = code;
-        opt1.text = `${code} - ${presetObj.title}`;
-        if (i <= 110) optGroupNew.appendChild(opt1);
-        else optGroupOld.appendChild(opt1);
+        opt1.value = key;
+        opt1.text = fData.title;
+        optGroup.appendChild(opt1);
 
         const opt2 = document.createElement('option');
-        opt2.value = code;
-        opt2.text = `${code} - ${presetObj.title}`;
+        opt2.value = key;
+        opt2.text = fData.title;
         modalSelect.appendChild(opt2);
 
         const opt3 = document.createElement('option');
-        opt3.value = code;
-        opt3.text = `${code}: ${presetObj.title}`;
+        opt3.value = key;
+        opt3.text = fData.title;
         ganttFilterSelect.appendChild(opt3);
 
         const opt4 = document.createElement('option');
-        opt4.value = code;
-        opt4.text = `${code}: ${presetObj.title}`;
+        opt4.value = key;
+        opt4.text = fData.title;
         kanbanFilterSelect.appendChild(opt4);
       }
 
-      step1Select.appendChild(optGroupNew.cloneNode(true));
-      step1Select.appendChild(optGroupOld.cloneNode(true));
-      step1Select.value = "OB-101";
+      step1Select.appendChild(optGroup);
+      step1Select.value = "Feature 01";
     }
 
     function onTitleDropdownChanged(code) {
-      const preset = getPresetByCode(code);
-      if (!preset) return;
+      const f = getFeatureData(code);
+      if (!f) return;
 
-      document.getElementById('req-voice').value = preset.voice;
-      document.getElementById('req-problem').value = preset.problem;
-      document.getElementById('req-scope').value = preset.scope;
+      document.getElementById('req-voice').value = f.voice;
+      document.getElementById('req-problem').value = f.problem;
+      document.getElementById('req-scope').value = f.scope;
 
       if (code !== 'CUSTOM-ADHOC') {
-        document.getElementById('gantt-filter-module').value = preset.code;
-        document.getElementById('kanban-filter-module').value = preset.code;
+        document.getElementById('gantt-filter-module').value = code;
+        document.getElementById('kanban-filter-module').value = code;
       }
 
       const checklistContainer = document.getElementById('edge-checklist-container');
       checklistContainer.innerHTML = '';
-      if (preset.edgeChecklists) {
-        preset.edgeChecklists.forEach((item, idx) => {
+      if (f.edgeChecklists) {
+        f.edgeChecklists.forEach((item, idx) => {
           const lbl = document.createElement('label');
           lbl.className = 'flex items-start space-x-2 p-2 bg-[#05080f] border border-cyber-border rounded hover:border-slate-600 cursor-pointer';
           lbl.innerHTML = `
@@ -722,8 +991,8 @@
         });
       }
 
-      renderInstantPrdAndInsights(preset);
-      renderRaciAndDoD(preset);
+      renderInstantPrdAndInsights(f);
+      renderRaciAndDoD(f);
       renderKanbanBoard();
       renderGanttSchedule();
     }
@@ -734,16 +1003,6 @@
     }
 
     function syncSopToStep3() {
-      const p1Team = document.getElementById('sop-p1-team').innerText;
-      const p1Sprint = document.getElementById('sop-p1-sprint').innerText;
-      const p1Tasks = document.getElementById('sop-p1-tasks').innerText;
-      const p1Deadline = document.getElementById('sop-p1-deadline').innerText;
-      const p1Result = document.getElementById('sop-p1-result').innerText;
-      const p1Fail = document.getElementById('sop-p1-fail').innerText;
-
-      const memoText = `[Crisis SOP Cross-Functional Resolutions]\n1. [Concurrency Overbooking]:\n   - Team: ${p1Team}\n   - Sprint: ${p1Sprint}\n   - Tasks: ${p1Tasks}\n   - Deadline: ${p1Deadline}\n   - Deliverable: ${p1Result}\n   - Fallback: ${p1Fail}`;
-
-      document.getElementById('ko-memo').innerText = memoText;
       alert('Successfully synced SOP items to STEP 3 Meeting Memo!');
     }
 
@@ -780,7 +1039,7 @@
       const teams = [
         { role: 'Product PM (Specs & Freeze)', name: 'Product PM', defaultSprint: 'Sprint 1 (W1-W2)', defaultProg: 100, color: 'bg-blue-600' },
         { role: 'UX / Frontend (Prototypes)', name: 'UX/FE', defaultSprint: 'Sprint 1 (W1-W2)', defaultProg: 90, color: 'bg-purple-600' },
-        { role: 'Engineering (Redis Architecture)', name: 'Engineering', defaultSprint: 'Sprint 2 (W3-W4)', defaultProg: 60, color: 'bg-emerald-600' },
+        { role: 'Engineering (Core Architecture)', name: 'Engineering', defaultSprint: 'Sprint 2 (W3-W4)', defaultProg: 60, color: 'bg-emerald-600' },
         { role: 'QA / DevOps (Load Testing)', name: 'QA/Ops', defaultSprint: 'Sprint 3 (W5-W6)', defaultProg: 30, color: 'bg-teal-600' },
         { role: 'Sales / CS (Client Alignment)', name: 'Sales/CS', defaultSprint: 'Sprint 4 (W7-W8)', defaultProg: 10, color: 'bg-amber-600' }
       ];
@@ -833,10 +1092,10 @@
     }
 
     let tickets = [
-      { id: 'OB-101', title: '01. LINE LIFF Fast Booking [Product PM Specs]', status: 'publish', primary: 'Product PM', support: 'UX/FE', sprint: 'Sprint 1 (W1-W2)', progress: 100, risk: false },
-      { id: 'OB-101', title: '01. LINE LIFF Fast Booking [UX UI Prototype]', status: 'publish', primary: 'UX/FE', support: 'Engineering', sprint: 'Sprint 1 (W1-W2)', progress: 100, risk: false },
-      { id: 'OB-101', title: '01. LINE LIFF Fast Booking [Backend Webhook]', status: 'dev', primary: 'Engineering', support: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', progress: 50, risk: false },
-      { id: 'OB-111', title: '11. Waitlist Engine [Redis Distributed Lock]', status: 'test', primary: 'Engineering', support: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', progress: 75, risk: true }
+      { id: 'Feature 01', title: 'Feature 01 [Product PM Specs]', status: 'publish', primary: 'Product PM', support: 'UX/FE', sprint: 'Sprint 1 (W1-W2)', progress: 100, risk: false },
+      { id: 'Feature 01', title: 'Feature 01 [UX UI Prototype]', status: 'publish', primary: 'UX/FE', support: 'Engineering', sprint: 'Sprint 1 (W1-W2)', progress: 100, risk: false },
+      { id: 'Feature 01', title: 'Feature 01 [Backend API & Widget]', status: 'backlog', primary: 'Engineering', support: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', progress: 15, risk: false },
+      { id: 'Feature 10', title: 'Feature 10 [Redis Waitlist FIFO]', status: 'test', primary: 'Engineering', support: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', progress: 75, risk: true }
     ];
 
     function renderKanbanBoard() {
@@ -887,13 +1146,27 @@
         ticket.status = flow[idx - 1];
         ticket.progress = Math.max(10, ticket.progress - 30);
       }
+
+      if (ticket.status === 'dev') {
+        teamSubtaskSprints[`${ticket.id}_${ticket.primary}`] = 'Sprint 2 (W3-W4)';
+      } else if (ticket.status === 'test') {
+        teamSubtaskSprints[`${ticket.id}_${ticket.primary}`] = 'Sprint 3 (W5-W6)';
+      } else if (ticket.status === 'publish') {
+        teamSubtaskSprints[`${ticket.id}_${ticket.primary}`] = 'Sprint 4 (W7-W8)';
+        ticket.progress = 100;
+      } else if (ticket.status === 'backlog') {
+        teamSubtaskSprints[`${ticket.id}_${ticket.primary}`] = 'Sprint 1 (W1-W2)';
+      }
+
+      teamSubtaskProgress[`${ticket.id}_${ticket.primary}`] = ticket.progress;
+
       renderKanbanBoard();
       renderGanttSchedule();
     }
 
     function openAddTicketModal() {
       document.getElementById('modal-heading').innerText = 'Add Jira Ticket';
-      document.getElementById('modal-ticket-id').value = document.getElementById('gantt-filter-module').value || 'OB-101';
+      document.getElementById('modal-ticket-id').value = document.getElementById('gantt-filter-module').value || 'Feature 01';
       document.getElementById('modal-ticket-title').value = '';
       document.getElementById('ticket-modal').classList.remove('hidden');
     }
@@ -911,16 +1184,15 @@
 
     function applyPresetToModal(val) {
       if (val === '') return;
-      const preset = getPresetByCode(val);
-      if (preset) {
-        document.getElementById('modal-ticket-id').value = preset.code;
-        document.getElementById('modal-ticket-title').value = `${preset.code}: ${preset.title}`;
+      const fData = getFeatureData(val);
+      if (fData) {
+        document.getElementById('modal-ticket-id').value = val;
+        document.getElementById('modal-ticket-title').value = `${val}: ${fData.title}`;
       }
     }
 
-    // Modal 儲存時自動同步 Sprint 欄位與甘特圖平移
     function saveTicketFromModal() {
-      const id = document.getElementById('modal-ticket-id').value.trim() || 'OB-101';
+      const id = document.getElementById('modal-ticket-id').value.trim() || 'Feature 01';
       const title = document.getElementById('modal-ticket-title').value.trim() || 'New Subtask Ticket';
       const primary = document.getElementById('modal-ticket-primary').value;
       const sprint = document.getElementById('modal-ticket-sprint').value;
@@ -939,7 +1211,6 @@
         tickets.push({ id, title, primary, sprint, status, progress, risk });
       }
 
-      // 關鍵更新：強制將 Modal 選擇的 Sprint 寫入該模組對應團隊的甘特圖設定，促使進度條平移
       teamSubtaskSprints[`${id}_${primary}`] = sprint;
       teamSubtaskProgress[`${id}_${primary}`] = progress;
 
@@ -956,22 +1227,21 @@
     function openGmailKickoffCompose() {
       const selectEl = document.getElementById('req-title-select');
       const code = selectEl.value;
-      const preset = getPresetByCode(code);
-      const title = preset ? preset.title : code;
+      const f = getFeatureData(code);
       const senderEmail = 'mshappyj@gmail.com';
-      const subject = `[KICKOFF & SCOPE FREEZE] Project Execution Plan for ${code}: ${title}`;
+      const subject = `[KICKOFF & SCOPE FREEZE] Project Execution Plan for ${code}`;
       
       const emailBody = `Hi Cross-Functional Team,
 
-As Product PM convening this kickoff for [${code}: ${title}], all teams must strictly adhere to our Scope Freeze and RACI matrix.
+As Product PM convening this kickoff for [${code}], all teams must strictly adhere to our Scope Freeze and RACI matrix.
 
 Sender / PM Convener: ${senderEmail}
 
 【Project Kickoff & Scope Details】
-- Module: ${code} - ${title}
-- Voice of Customer: ${preset.voice}
-- Root Cause & Solution: ${preset.problem}
-- Scope Boundary: ${preset.scope}
+- Feature: ${f.title}
+- Voice of Customer: ${f.voice}
+- Root Cause & Solution: ${f.problem}
+- Scope Boundary: ${f.scope}
 
 Please review the Command Center and confirm your team's readiness by EOD today.
 
@@ -986,10 +1256,9 @@ Omcean Booking Delivery Command Center`;
     function openGmailEmergencyCompose() {
       const selectEl = document.getElementById('req-title-select');
       const code = selectEl.value;
-      const preset = getPresetByCode(code);
-      const title = preset ? preset.title : code;
+      const f = getFeatureData(code);
       const senderEmail = 'mshappyj@gmail.com';
-      const subject = `[EMERGENCY CRISIS SOP] Action Matrix for ${code}: ${title}`;
+      const subject = `[EMERGENCY CRISIS SOP] Action Matrix for ${code}`;
       
       const p1Team = document.getElementById('sop-p1-team').innerText;
       const p1Sprint = document.getElementById('sop-p1-sprint').innerText;
@@ -1000,7 +1269,7 @@ Omcean Booking Delivery Command Center`;
 
       const emailBody = `ATTENTION ALL TEAMS,
 
-An urgent crisis response protocol has been activated for [${code}: ${title}]. Please review your assigned responsibilities below.
+An urgent crisis response protocol has been activated for [${code}]. Please review your assigned responsibilities below.
 
 Sender / Convener: ${senderEmail}
 
@@ -1023,11 +1292,11 @@ Omcean Booking Command Center`;
       window.open(gmailUrl, '_blank');
     }
 
-    function renderRaciAndDoD(preset) {
+    function renderRaciAndDoD(f) {
       const raciBody = document.getElementById('raci-table-body');
       raciBody.innerHTML = '';
-      if (preset.raci) {
-        preset.raci.forEach(r => {
+      if (f.raci) {
+        f.raci.forEach(r => {
           let badgeColor = 'bg-slate-800 text-slate-300';
           if (r.type === 'A') badgeColor = 'bg-rose-950 text-rose-400 border border-rose-800';
           else if (r.type === 'R') badgeColor = 'bg-cyan-950 text-cyan-300 border border-cyber-cyan/40';
@@ -1046,8 +1315,8 @@ Omcean Booking Command Center`;
 
       const actionBox = document.getElementById('raci-action-items');
       actionBox.innerHTML = '';
-      if (preset.actions) {
-        preset.actions.forEach((act, i) => {
+      if (f.actions) {
+        f.actions.forEach((act, i) => {
           const div = document.createElement('div');
           div.className = 'flex items-start gap-2 bg-[#05080f] p-2 rounded border border-cyber-border';
           div.innerHTML = `<span class="text-cyber-cyan font-bold font-mono">0${i+1}.</span> <span class="text-slate-300">${act}</span>`;
@@ -1057,8 +1326,8 @@ Omcean Booking Command Center`;
 
       const dodBox = document.getElementById('raci-dod-list');
       dodBox.innerHTML = '';
-      if (preset.dod) {
-        preset.dod.forEach((d) => {
+      if (f.dod) {
+        f.dod.forEach((d) => {
           const div = document.createElement('div');
           div.className = 'flex items-center gap-2 bg-[#05080f] p-2 rounded border border-cyber-border';
           div.innerHTML = `<span class="text-cyber-green font-bold">✓</span> <span class="text-slate-300">${d}</span>`;
@@ -1067,14 +1336,14 @@ Omcean Booking Command Center`;
       }
     }
 
-    function renderInstantPrdAndInsights(data) {
-      document.getElementById('prd-header-title').innerText = `[PRD] ${data.title}`;
+    function renderInstantPrdAndInsights(f) {
+      document.getElementById('prd-header-title').innerText = `[PRD] ${f.title}`;
       const prdHtml = `
         <div class="border-b border-cyber-border/50 pb-2 mb-2">
           <span class="text-cyber-cyan font-bold block mb-1">【1. Problem & Root Cause】</span>
-          <div>▸ <strong>Voice of Customer:</strong> ${data.voice}</div>
-          <div>▸ <strong>PM Solution:</strong> ${data.problem}</div>
-          <div class="text-cyber-gold mt-1">▸ <strong>Out of Scope:</strong> ${data.scope}</div>
+          <div>▸ <strong>Voice of Customer:</strong> ${f.voice}</div>
+          <div>▸ <strong>PM Solution:</strong> ${f.problem}</div>
+          <div class="text-cyber-gold mt-1">▸ <strong>Out of Scope:</strong> ${f.scope}</div>
         </div>
         <div class="border-b border-cyber-border/50 pb-2 mb-2">
           <span class="text-cyber-cyan font-bold block mb-1">【2. User Stories】</span>
@@ -1083,8 +1352,8 @@ Omcean Booking Command Center`;
         <div>
           <span class="text-cyber-cyan font-bold block mb-1">【3. Acceptance Criteria (Gherkin)】</span>
           <div class="space-y-1.5 font-mono text-[11px] bg-[#080d17] p-2.5 rounded border border-cyber-border/40">
-            <div><strong class="text-emerald-400">AC 1:</strong> Given user reserves slot, When clicked, Then system validates assets in 200ms.</div>
-            <div><strong class="text-emerald-400">AC 2:</strong> Given simultaneous claims, When submitted, Then Redis distributed lock enforces zero overbooking.</div>
+            <div><strong class="text-emerald-400">AC 1:</strong> Given user requests feature, When invoked, Then system validates assets in 200ms.</div>
+            <div><strong class="text-emerald-400">AC 2:</strong> Given concurrent access, When submitted, Then system enforces zero data corruption.</div>
           </div>
         </div>
       `;
@@ -1105,7 +1374,7 @@ Omcean Booking Command Center`;
 
     window.onload = () => {
       initDropdowns();
-      onTitleDropdownChanged("OB-101");
+      onTitleDropdownChanged("Feature 01");
       renderKanbanBoard();
     };
   </script>
