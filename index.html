@@ -444,7 +444,7 @@
             <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" id="sop-p2-team" class="text-slate-200 bg-slate-900/60 px-1 rounded">工程研發與業務客服</span></div>
             <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" id="sop-p2-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 3 (W5-W6)</span></div>
             <div><strong class="text-slate-300">修正動作:</strong> <span contenteditable="true" id="sop-p2-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded">建立付款對帳背景執行緒與前端輪詢。</span></div>
-            <div><strong class="text-rose-400">完成期限:</strong> <span contenteditable="true" id="sop-p2-deadline" class="text-slate-200 bg-slate-900/60 px-1 rounded">2026-04-11 EOD</span></div>
+            <div><strong class="text-rose-400">完成期限:</strong> <span contenteditable="true" id="sop-p2-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-04-11 EOD</span></div>
             <div><strong class="text-cyber-green">交付目標:</strong> <span contenteditable="true" id="sop-p2-result" class="text-slate-300 bg-slate-900/60 px-1 rounded">網路恢復後自動對帳並更新狀態。</span></div>
             <div><strong class="text-amber-400">備用方案:</strong> <span contenteditable="true" id="sop-p2-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded">客服手動補登與退款處理通道。</span></div>
           </div>
@@ -458,7 +458,7 @@
             <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" id="sop-p3-team" class="text-slate-200 bg-slate-900/60 px-1 rounded">工程研發與品質保證</span></div>
             <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" id="sop-p3-sprint" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
             <div><strong class="text-slate-300">修正動作:</strong> <span contenteditable="true" id="sop-p3-tasks" class="text-slate-300 bg-slate-900/60 px-1 rounded">最佳化 Celery 倒數計時與事件驅動遞補。</span></div>
-            <div><strong class="text-rose-400">完成期限:</strong> <span contenteditable="true" id="sop-p3-deadline" class="text-slate-200 bg-slate-900/60 px-1 rounded">2026-03-31 EOD</span></div>
+            <div><strong class="text-rose-400">完成期限:</strong> <span contenteditable="true" id="sop-p3-deadline" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-03-31 EOD</span></div>
             <div><strong class="text-cyber-green">交付目標:</strong> <span contenteditable="true" id="sop-p3-result" class="text-slate-300 bg-slate-900/60 px-1 rounded">15分鐘逾期自動釋放與候位位移 100% 準確。</span></div>
             <div><strong class="text-amber-400">備用方案:</strong> <span contenteditable="true" id="sop-p3-fail" class="text-slate-300 bg-slate-900/60 px-1 rounded">每 3 分鐘批次 Cron Job 強制掃描。</span></div>
           </div>
@@ -589,175 +589,329 @@
   </div>
 
   <script>
-    // 完整 20 個 Feature 獨立資料庫
-    const featuresData = {};
-    for (let i = 1; i <= 20; i++) {
-      const code = `Feature ${i < 10 ? '0' + i : i}`;
-      let v = "", p = "", s = "", us = "", ac = "", pi = "";
-
-      if (i === 1) {
-        v = '"Customers want to book anytime anywhere via mobile without calling the front desk."';
-        p = 'Traditional phone booking causes drop-off and front-desk overload; need 24/7 widget.';
-        s = '1. No third-party phone PBX integration in Phase 1. 2. No custom avatar creation.';
-        us = '• As a customer, I want to book a slot 24/7 on my phone so I never have to wait for store opening hours.';
-        ac = 'Given user opens mobile booking widget, When selecting time slot and clicking reserve, Then system instantly holds slot for 15 minutes.';
-        pi = '1. Standardized mobile widget over custom apps (OKR 2).\n2. High availability 99.95% SLA (OKR 1).';
-      } else if (i === 2) {
-        v = '"We run multiple branches and different services; we need seamless switching."';
-        p = 'Single-location architecture fails multi-branch scaling; need multi-tenant selector.';
-        s = '1. No cross-branch loyalty point sharing in Phase 1. 2. No multi-currency billing per branch.';
-        us = '• As a customer, I want to select my preferred branch and service type so I view accurate schedules.';
-        ac = 'Given user is on homepage, When switching location to Branch B, Then schedule inventory instantly loads Branch B data.';
-        pi = '1. Multi-tenant scalability (OKR 1).\n2. Zero data leakage across tenants (OKR 2).';
-      } else if (i === 3) {
-        v = '"We need a clear menu showing haircuts, massages, or court rentals with transparent pricing."';
-        p = 'Unstructured pricing leads to customer confusion and billing disputes.';
-        s = '1. No dynamic surge pricing in Phase 1. 2. No tipping module.';
-        us = '• As a customer, I want to view transparent pricing and service durations before booking.';
-        ac = 'Given service menu is loaded, When selecting a service item, Then detailed duration and transparent pricing display.';
-        pi = '1. Transparent pricing reduces customer booking friction (OKR 2).';
-      } else if (i === 4) {
-        v = '"後台要能看到哪個師傅、哪個教練、或者是哪一個羽球場地在什麼時間是空的。"';
-        p = 'Manual calendar tracking causes double-booking and resource conflicts.';
-        s = '1. No AI auto-rostering in Phase 1. 2. No external calendar auto-sync.';
-        us = '• As a store manager, I want to view staff and court availability in real-time to avoid double booking.';
-        ac = 'Given two admins view same slot, When Admin A locks it, Then Admin B sees it as occupied instantly via WebSocket.';
-        pi = '1. Redis Redlock for absolute slot consistency (OKR 1).';
-      } else if (i === 5) {
-        v = '"讓客人可以自己登入查看歷史預約，甚至在規定時間內自己改期或取消。"';
-        p = 'High customer support overhead for simple rescheduling requests.';
-        s = '1. No cancellation fee auto-charging in Phase 1. 2. No chat support inside portal.';
-        us = '• As a member, I want to reschedule my booking 24 hours prior without calling support.';
-        ac = 'Given booking is 30 hours away, When user clicks reschedule, Then calendar opens to select a new valid slot.';
-        pi = '1. Self-service portal reduces CS workload by 50% (OKR 4).';
-      } else if (i === 6) {
-        v = '"快到預約時間前，系統自動發簡訊或通知給客人，減少爽約率。"';
-        p = 'Manual reminders are time-consuming, resulting in an 18% no-show rate.';
-        s = '1. No WhatsApp/WeChat integration in Phase 1.';
-        us = '• As a customer, I want a reminder SMS 2 hours before my appointment so I do not forget.';
-        ac = 'Given appointment is set for 14:00, When clock hits 12:00, Then 2-hour reminder SMS is dispatched.';
-        pi = '1. Automated reminders drop no-show rate below 5% (OKR 1).';
-      } else if (i === 7) {
-        v = '"教練或治療師請假時，系統自動擋掉該時段，避免客人預約了卻撲空。"';
-        p = 'Unsynchronized staff leave causes double-booking and customer complaints.';
-        s = '1. No substitute staff auto-assignment in Phase 1.';
-        us = '• As a staff member, I want to submit leave requests so the system prevents bookings during my absence.';
-        ac = 'Given staff leave is approved, When customer browses that date, Then that staff member is not shown as available.';
-        pi = '1. Automated slot blocking protects customer experience (OKR 1).';
-      } else if (i === 8) {
-        v = '"針對健身房或瑜珈教室，幫學員記錄買了10堂課還剩幾堂，上完自動扣打。"';
-        p = 'Manual paper punch cards are error-prone and untrackable.';
-        s = '1. No credit transfer between members in Phase 1.';
-        us = '• As a student, I want remaining course credits to deduct automatically upon check-in.';
-        ac = 'Given member has 3 credits left, When attendance is confirmed, Then credit balance updates to 2.';
-        pi = '1. Atomic ledger prevents financial discrepancies (OKR 2).';
-      } else if (i === 9) {
-        v = '"客人到現場後，櫃檯能一鍵掃描或點擊已報到，加速現場人流。"';
-        p = 'Slow front-desk check-in causes lobby congestion during peak hours.';
-        s = '1. No hardware barcode scanner integration in Phase 1.';
-        us = '• As a receptionist, I want to check-in arriving guests with 1 tap to prevent lobby bottlenecks.';
-        ac = 'Given guest arrives, When receptionist taps Check-in, Then their status updates to Arrived instantly.';
-        pi = '1. Optimized tablet UI accelerates reception operations (OKR 2).';
-      } else if (i === 10) {
-        v = '"如果熱門時段滿了，客人可以排候補；一旦有人取消，系統自動通知下一位。"';
-        p = '18% last-minute no-show rate with no automated backfill queue.';
-        s = '1. No multi-currency clearing in Phase 1. 2. No manual VIP queue overriding.';
-        us = '• As a customer, I want to join waitlist for booked-out class so I get notified if a seat opens.';
-        ac = 'Given Rank #1 cancels, When slot opens, Then system assigns 15-min countdown lock to next waitlist candidate.';
-        pi = '1. Redis Redlock ensures bulletproof zero overbooking (OKR 1).';
-      } else if (i === 11) {
-        v = '"預約時直接刷卡付全額或訂金，進一步降低爽約風險。"';
-        p = 'Zero-payment bookings lead to high cancellation rates.';
-        s = '1. No cryptocurrency payments in Phase 1.';
-        us = '• As a customer, I want to pay a deposit online securely so my booking is guaranteed.';
-        ac = 'Given payment succeeds, When webhook returns 200 OK, Then booking status changes from Pending to Confirmed.';
-        pi = '1. Secure payment gateway eliminates default risk (OKR 1).';
-      } else if (i === 12) {
-        v = '"讓老闆一眼看出這個月賺多少錢、哪個服務項目最熱門、哪個員工接最多客。"';
-        p = 'Lack of real-time financial visibility hinders business decisions.';
-        s = '1. No custom SQL report builder in Phase 1.';
-        us = '• As a store owner, I want a financial dashboard to track monthly revenue and staff performance.';
-        ac = 'Given owner selects current month, When dashboard loads, Then total revenue and top services display accurately.';
-        pi = '1. Real-time data visualization drives store revenue (OKR 2).';
-      } else if (i === 13) {
-        v = '"記住客人的特殊習慣（例如：對精油過敏、喜歡力道大一點），下次來直接看紀錄。"';
-        p = 'Inconsistent customer records lead to poor personalized service.';
-        s = '1. No automated sentiment AI analysis in Phase 1.';
-        us = '• As a service provider, I want to read customer notes so I can deliver a personalized experience.';
-        ac = 'Given staff opens client profile, When viewing CRM notes, Then allergies and preferences appear securely.';
-        pi = '1. Secure CRM notes elevate customer retention (OKR 2).';
-      } else if (i === 14) {
-        v = '"消費完後自動發信請客人打分數，累積好口碑。"';
-        p = 'Manual review collection yields very low response rates.';
-        s = '1. No auto-publishing to Google Maps API in Phase 1.';
-        us = '• As a customer, I want to submit a quick rating after my service to share my experience.';
-        ac = 'Given service is completed, When 2 hours elapse, Then automated review collection link is emailed.';
-        pi = '1. Automated feedback loops boost merchant reputation (OKR 2).';
-      } else if (i === 15) {
-        v = '"店家可以發放新客折 100 元或節慶促銷折扣碼。"';
-        p = 'Lack of promotional tooling limits marketing campaign flexibility.';
-        s = '1. No tiered loyalty stamp cards in Phase 1.';
-        us = '• As a customer, I want to apply a promo code at checkout to receive a discount.';
-        ac = 'Given valid coupon code is entered, When applied, Then checkout total deducts discount instantly.';
-        pi = '1. Promotional engine drives customer acquisition and conversion (OKR 2).';
-      } else if (i === 16) {
-        v = '"透過 AI 幫忙分析客流量高峰，自動建議店家什麼時候該多排人手。"';
-        p = 'Understaffing during peak hours and overstaffing during lulls waste labor costs.';
-        s = '1. No automatic payroll integration in Phase 1.';
-        us = '• As a manager, I want AI staffing recommendations so I optimize labor schedules during peak hours.';
-        ac = 'Given historical booking density, When AI runs analysis, Then recommended staffing levels display on dashboard.';
-        pi = '1. AI-driven labor optimization saves operational costs (OKR 2).';
-      } else if (i === 17) {
-        v = '"讓客人直接在 Line 或 Messenger 跟 AI 對話就能完成預約，不用點網頁。"';
-        p = 'Customers abandon web forms if they cannot get instant conversational answers.';
-        s = '1. No voice call AI agent in Phase 1.';
-        us = '• As a customer, I want to book via LINE chat with AI so I can complete reservations conversationally.';
-        ac = 'Given user texts LINE bot for haircut tomorrow 3pm, When confirmed, Then booking is written to system.';
-        pi = '1. Conversational AI agent reduces booking friction (OKR 3).';
-      } else if (i === 18) {
-        v = '"你自己的管理中樞功能：追蹤上面 1-17 項功能目前是正在寫扣、測試中還是已發布。"';
-        p = 'Scattered task management leads to delayed product releases.';
-        s = '1. No external Jira bi-directional sync in Phase 1.';
-        us = '• As a Product PM, I want a Command Hub to track sprint progress and feature readiness in real-time.';
-        ac = 'Given ticket moves to Published, When updated, Then overall project progress calculates correctly.';
-        pi = '1. Unified command center ensures on-time delivery (OKR 3).';
-      } else if (i === 19) {
-        v = '"當店家回報預約系統有問題時，直接在 Command Hub 內建立 Ticket 進行修復。"';
-        p = 'Customer bug reports get lost in emails and Slack chats.';
-        s = '1. No auto-patch deployment in Phase 1.';
-        us = '• As support staff, I want to log bug tickets in Command Hub so engineering resolves them fast.';
-        ac = 'Given bug is reported, When assigned high priority, Then alert triggers in engineering kanban.';
-        pi = '1. Rapid bug triage guarantees 99.95% SLA stability (OKR 1).';
-      } else if (i === 20) {
-        v = '"把 Omcean 串接外部的 Google 日曆、LINE 官方帳號、或是會計軟體。"';
-        p = 'Siloed software stacks create double-entry data entry errors.';
-        s = '1. No custom webhook builder for merchants in Phase 1.';
-        us = '• As a merchant, I want to sync Omcean bookings with Google Calendar so my schedule is unified.';
-        ac = 'Given Google Calendar is connected, When booking is made, Then it appears in Google Calendar within 2 seconds.';
-        pi = '1. Unified integration hub eliminates data silos (OKR 2).';
-      }
-
-      featuresData[code] = {
-        code: code,
-        title: `${code}: 核心預約與管理模組`,
-        voice: v,
-        problem: p,
-        scope: s,
-        userStories: us,
-        gherkinAC: ac,
-        pmInsights: pi,
+    // 完整 20 個 Feature 獨立資料庫（直接在最前方宣告，確保立即載入）
+    const featuresData = {
+      'Feature 01': {
+        title: 'Feature 01: 24/7 Online Booking Widget (24小時線上預約小工具)',
+        voice: '"Customers want to book anytime anywhere via mobile without calling the front desk."',
+        problem: 'Traditional phone booking causes high drop-off and front-desk overload; need 24/7 self-service widget.',
+        scope: '1. No third-party phone PBX integration in Phase 1. 2. No custom avatar creation.',
+        userStories: '• As a customer, I want to book a slot 24/7 on my phone so I never have to wait for store opening hours.',
+        gherkinAC: 'Given user opens mobile booking widget, When selecting time slot and clicking reserve, Then system instantly holds slot for 15 minutes.',
+        pmInsights: '1. Standardized mobile widget over custom apps (OKR 2).\n2. High availability 99.95% SLA (OKR 1).',
         raci: {
-          pm: { desc: `Define ${code} functional specs and user stories.`, actions: ['Finalize acceptance criteria', 'Sync with stakeholders'], dod: ['PRD signed off'] },
-          rd: { desc: `Implement backend APIs and frontend UI for ${code}.`, actions: ['Code development', 'Unit testing'], dod: ['Passing CI/CD pipeline'] },
-          qa: { desc: `Validate edge cases and stress testing for ${code}.`, actions: ['Execute UAT test cases', 'Load testing'], dod: ['Zero critical bugs'] },
-          bd: { desc: `Gather user feedback and support pilot rollout for ${code}.`, actions: ['Client alignment', 'Training session'], dod: ['Pilot ready'] }
+          pm: { desc: 'Define 24/7 booking UX flow and widget boundaries.', actions: ['Finalize UX wireframes', 'Approve specs'], dod: ['PRD signed off'] },
+          rd: { desc: 'Build responsive web widget and REST API endpoints.', actions: ['Develop REST API', 'Frontend integration'], dod: ['API latency < 200ms'] },
+          qa: { desc: 'Verify cross-browser and mobile responsiveness.', actions: ['Run mobile UAT', 'Stress test widget'], dod: ['Zero layout shift'] },
+          bd: { desc: 'Coordinate merchant pilot onboarding.', actions: ['Merchant briefing'], dod: ['Pilot ready'] }
         },
-        edgeChecklists: [
-          `【Concurrency】Multiple users accessing ${code} simultaneously.`,
-          `【Network Drop】Graceful recovery and error messaging for ${code}.`
-        ]
-      };
-    }
+        edgeChecklists: ['【Concurrency】Midnight booking spike traffic.', '【Network Drop】Retry queue on mobile loss.']
+      },
+      'Feature 02': {
+        title: 'Feature 02: Business Type & Multi-Location Selector (業務類型與分店選擇器)',
+        voice: '"We run multiple branches and different services (beauty, massage, badminton courts); we need seamless switching."',
+        problem: 'Single-location architecture fails multi-branch scaling; need unified multi-tenant location selector.',
+        scope: '1. No cross-branch loyalty point sharing in Phase 1. 2. No multi-currency billing per branch.',
+        userStories: '• As a customer, I want to select my preferred branch and service type so I view accurate schedules.',
+        gherkinAC: 'Given user is on homepage, When switching location to Branch B, Then schedule inventory instantly loads Branch B data.',
+        pmInsights: '1. Multi-tenant scalability (OKR 1).\n2. Zero data leakage across tenants (OKR 2).',
+        raci: {
+          pm: { desc: 'Define location taxonomy and multi-branch isolation rules.', actions: ['Map branch hierarchy'], dod: ['Scope frozen'] },
+          rd: { desc: 'Implement multi-tenant database schema and selector logic.', actions: ['DB multi-tenant sharding'], dod: ['100% data isolation'] },
+          qa: { desc: 'Verify cross-branch data leaking prevention.', actions: ['Data isolation test'], dod: ['Zero data leak'] },
+          bd: { desc: 'Audit branch metadata and operational hours.', actions: ['Branch audit'], dod: ['Metadata verified'] }
+        },
+        edgeChecklists: ['【Concurrency】Simultaneous branch switching.', '【Network Drop】Fallback to default HQ.']
+      },
+      'Feature 03': {
+        title: 'Feature 03: Service Menu & Pricing Display (服務項目與價格清單展示)',
+        voice: '"We need a clear menu showing haircuts, massages, or court rentals with transparent pricing."',
+        problem: 'Unstructured pricing leads to customer confusion and billing disputes.',
+        scope: '1. No dynamic surge pricing in Phase 1. 2. No tipping module.',
+        userStories: '• As a customer, I want to view transparent pricing and service durations before booking.',
+        gherkinAC: 'Given service menu is loaded, When selecting a service item, Then detailed duration and transparent pricing display.',
+        pmInsights: '1. Transparent pricing reduces customer booking friction (OKR 2).',
+        raci: {
+          pm: { desc: 'Define service catalog schema and pricing rules.', actions: ['Catalog mapping'], dod: ['Catalog approved'] },
+          rd: { desc: 'Develop service catalog rendering API and caching layer.', actions: ['Redis caching layer'], dod: ['Catalog load < 100ms'] },
+          qa: { desc: 'Verify pricing calculation accuracy.', actions: ['Audit pricing rules'], dod: ['100% pricing accuracy'] },
+          bd: { desc: 'Collect accurate service catalog from merchants.', actions: ['Content audit'], dod: ['Content ready'] }
+        },
+        edgeChecklists: ['【Concurrency】Peak catalog browsing.', '【Network Drop】Offline service cache.']
+      },
+      'Feature 04': {
+        title: 'Feature 04: Staff & Resource Scheduling Calendar (員工與場地排班行事曆)',
+        voice: '"後台要能看到哪個師傅、哪個教練、或者是哪一個羽球場地在什麼時間是空的。"',
+        problem: 'Manual calendar tracking causes double-booking and resource conflicts.',
+        scope: '1. No AI auto-rostering in Phase 1. 2. No external calendar auto-sync.',
+        userStories: '• As a store manager, I want to view staff and court availability in real-time to avoid double booking.',
+        gherkinAC: 'Given two admins view the same slot, When Admin A locks it, Then Admin B sees it as occupied instantly via WebSocket.',
+        pmInsights: '1. Redis Redlock for absolute slot consistency (OKR 1).',
+        raci: {
+          pm: { desc: 'Define calendar grid logic and resource locking rules.', actions: ['Define matrix rules'], dod: ['Rules frozen'] },
+          rd: { desc: 'Implement calendar backend with Redis time-slot locking.', actions: ['Redis time-lock engine'], dod: ['Zero collisions'] },
+          qa: { desc: 'Execute stress test for slot collisions.', actions: ['Simulate 500 concurrent admins'], dod: ['Zero double-booking'] },
+          bd: { desc: 'Train store managers on calendar operations.', actions: ['Manager training'], dod: ['Staff trained'] }
+        },
+        edgeChecklists: ['【Concurrency】Simultaneous admin scheduling.', '【Network Drop】WebSocket reconnection.']
+      },
+      'Feature 05': {
+        title: 'Feature 05: Customer Self-Service Portal (會員自助查詢與改期系統)',
+        voice: '"讓客人可以自己登入查看歷史預約，甚至在規定時間內自己改期或取消。"',
+        problem: 'High customer support overhead for simple rescheduling requests.',
+        scope: '1. No cancellation fee auto-charging in Phase 1. 2. No chat support inside portal.',
+        userStories: '• As a member, I want to reschedule my booking 24 hours prior without calling support.',
+        gherkinAC: 'Given booking is 30 hours away, When user clicks reschedule, Then calendar opens to select a new valid slot.',
+        pmInsights: '1. Self-service portal reduces CS workload by 50% (OKR 4).',
+        raci: {
+          pm: { desc: 'Define cancellation time window policies.', actions: ['Policy definition'], dod: ['Policy signed off'] },
+          rd: { desc: 'Build member dashboard and reschedule modal.', actions: ['Portal backend'], dod: ['Reschedule in 3 clicks'] },
+          qa: { desc: 'Test time-window restriction edge cases.', actions: ['Boundary testing'], dod: ['Time constraints enforced'] },
+          bd: { desc: 'Communicate cancellation policy to customers.', actions: ['FAQ update'], dod: ['FAQ published'] }
+        },
+        edgeChecklists: ['【Concurrency】Last-minute portal traffic surge.', '【Network Drop】Draft preservation.']
+      },
+      'Feature 06': {
+        title: 'Feature 06: Automated SMS & Push Reminders (自動化簡訊與推播提醒)',
+        voice: '"快到預約時間前，系統自動發簡訊或通知給客人，減少爽約率。"',
+        problem: 'Manual reminders are time-consuming, resulting in an 18% no-show rate.',
+        scope: '1. No WhatsApp/WeChat integration in Phase 1.',
+        userStories: '• As a customer, I want a reminder SMS 2 hours before my appointment so I do not forget.',
+        gherkinAC: 'Given appointment is set for 14:00, When clock hits 12:00, Then 2-hour reminder SMS is dispatched.',
+        pmInsights: '1. Automated reminders drop no-show rate below 5% (OKR 1).',
+        raci: {
+          pm: { desc: 'Define reminder schedule (24h and 2h before).', actions: ['Timing strategy'], dod: ['Timing locked'] },
+          rd: { desc: 'Implement Celery worker for scheduled SMS triggers.', actions: ['Celery cron worker'], dod: ['98% delivery rate'] },
+          qa: { desc: 'Verify reminder delivery timing accuracy.', actions: ['Time trigger verification'], dod: ['Trigger accurate'] },
+          bd: { desc: 'Review SMS template tone with merchants.', actions: ['Template audit'], dod: ['Templates approved'] }
+        },
+        edgeChecklists: ['【Concurrency】Top-of-hour bulk SMS dispatch.', '【Network Drop】SMS gateway fallback.']
+      },
+      'Feature 07': {
+        title: 'Feature 07: Staff Shift & Leave Management (員工班表與請假管理)',
+        voice: '"教練或治療師請假時，系統自動擋掉該時段，避免客人預約了卻撲空。"',
+        problem: 'Unsynchronized staff leave causes double-booking and customer complaints.',
+        scope: '1. No substitute staff auto-assignment in Phase 1.',
+        userStories: '• As a staff member, I want to submit leave requests so the system prevents bookings during my absence.',
+        gherkinAC: 'Given staff leave is approved, When customer browses that date, Then that staff member is not shown as available.',
+        pmInsights: '1. Automated slot blocking protects customer experience (OKR 1).',
+        raci: {
+          pm: { desc: 'Define leave request approval workflow.', actions: ['Workflow design'], dod: ['Workflow frozen'] },
+          rd: { desc: 'Auto-block calendar slots upon leave approval.', actions: ['Leave calendar sync'], dod: ['Instant slot blocking'] },
+          qa: { desc: 'Verify approved leave blocks active bookings.', actions: ['Conflict test'], dod: ['Zero booking conflict'] },
+          bd: { desc: 'Establish leave policy guidelines for staff.', actions: ['Guidelines setup'], dod: ['Guidelines active'] }
+        },
+        edgeChecklists: ['【Concurrency】Leave requests during peak hours.', '【Network Drop】Save draft locally.']
+      },
+      'Feature 08': {
+        title: 'Feature 08: Package & Course Credit Pass Tracking (課程券與計次卡追蹤)',
+        voice: '"針對健身房或瑜珈教室，幫學員記錄買了10堂課還剩幾堂，上完自動扣打。"',
+        problem: 'Manual paper punch cards are error-prone and untrackable.',
+        scope: '1. No credit transfer between members in Phase 1.',
+        userStories: '• As a student, I want remaining course credits to deduct automatically upon check-in.',
+        gherkinAC: 'Given member has 3 credits left, When attendance is confirmed, Then credit balance updates to 2.',
+        pmInsights: '1. Atomic ledger prevents financial discrepancies (OKR 2).',
+        raci: {
+          pm: { desc: 'Define credit pass ledger rules and expiration policies.', actions: ['Ledger rules definition'], dod: ['Rules approved'] },
+          rd: { desc: 'Build atomic transaction ledger for credit deduction.', actions: ['Atomic ledger DB'], dod: ['100% ledger accuracy'] },
+          qa: { desc: 'Test atomic credit deduction against race conditions.', actions: ['Race condition testing'], dod: ['Zero ledger mismatch'] },
+          bd: { desc: 'Define course pass pricing packages.', actions: ['Package setup'], dod: ['Packages ready'] }
+        },
+        edgeChecklists: ['【Concurrency】Simultaneous credit deduction.', '【Network Drop】Ledger rollback.']
+      },
+      'Feature 09': {
+        title: 'Feature 09: Check-in & Front Desk Reception Flow (櫃檯快速報到與分流機制)',
+        voice: '"客人到現場後，櫃檯能一鍵掃描或點擊已報到，加速現場人流。"',
+        problem: 'Slow front-desk check-in causes lobby congestion during peak hours.',
+        scope: '1. No hardware barcode scanner integration in Phase 1.',
+        userStories: '• As a receptionist, I want to check-in arriving guests with 1 tap to prevent lobby bottlenecks.',
+        gherkinAC: 'Given guest arrives, When receptionist taps Check-in, Then their status updates to Arrived instantly.',
+        pmInsights: '1. Optimized tablet UI accelerates reception operations (OKR 2).',
+        raci: {
+          pm: { desc: 'Define front-desk reception UX workflow.', actions: ['Reception UX mapping'], dod: ['UX frozen'] },
+          rd: { desc: 'Build 1-tap check-in tablet interface.', actions: ['Tablet web app'], dod: ['Check-in < 300ms'] },
+          qa: { desc: 'Verify high-speed check-in performance.', actions: ['Lobby simulation test'], dod: ['No lobby queue lag'] },
+          bd: { desc: 'Train front desk staff on reception flow.', actions: ['Staff training session'], dod: ['Staff proficient'] }
+        },
+        edgeChecklists: ['【Concurrency】Rush hour check-in surge.', '【Network Drop】Offline queue sync.']
+      },
+      'Feature 10': {
+        title: 'Feature 10: Waiting List & Slot Backfill System (候補名單與空檔遞補機制)',
+        voice: '"如果熱門時段滿了，客人可以排候補；一旦有人取消，系統自動通知下一位。"',
+        problem: '18% last-minute no-show rate with no automated backfill queue.',
+        scope: '1. No multi-currency clearing in Phase 1. 2. No manual VIP queue overriding.',
+        userStories: '• As a customer, I want to join waitlist for booked-out class so I get notified if a seat opens.',
+        gherkinAC: 'Given Rank #1 cancels, When slot opens, Then system assigns 15-min countdown lock to next waitlist candidate.',
+        pmInsights: '1. Redis Redlock ensures bulletproof zero overbooking (OKR 1).',
+        raci: {
+          pm: { desc: 'Freeze waitlist FIFO and 15-min lock PRD specs.', actions: ['Waitlist rule freeze'], dod: ['PRD approved'] },
+          rd: { desc: 'Implement Redis Redlock & FIFO waitlist queue.', actions: ['Redis FIFO queue'], dod: ['P99 < 250ms'] },
+          qa: { desc: 'Execute 1,500 QPS stress test for zero overbooking.', actions: ['1,500 QPS load test'], dod: ['Zero overbooking'] },
+          bd: { desc: 'Educate users on fair waitlist rules.', actions: ['Help center FAQ'], dod: ['FAQ updated'] }
+        },
+        edgeChecklists: ['【Concurrency】Two users claiming last slot.', '【Network Drop】Webhook recovery.']
+      },
+      'Feature 11': {
+        title: 'Feature 11: Online Payment & Deposit Gateway (線上付款與訂金金流整合)',
+        voice: '"預約時直接刷卡付全額或訂金，進一步降低爽約風險。"',
+        problem: 'Zero-payment bookings lead to high cancellation rates.',
+        scope: '1. No cryptocurrency payments in Phase 1.',
+        userStories: '• As a customer, I want to pay a deposit online securely so my booking is guaranteed.',
+        gherkinAC: 'Given payment succeeds, When webhook returns 200 OK, Then booking status changes from Pending to Confirmed.',
+        pmInsights: '1. Secure payment gateway eliminates default risk (OKR 1).',
+        raci: {
+          pm: { desc: 'Define payment gateway integration and refund policies.', actions: ['Payment policy mapping'], dod: ['Policy signed off'] },
+          rd: { desc: 'Integrate Stripe/LINE Pay webhook and ledger.', actions: ['Payment webhook API'], dod: ['99% payment success'] },
+          qa: { desc: 'Verify webhook error handling and payment retries.', actions: ['Payment sandbox testing'], dod: ['Reconciliation verified'] },
+          bd: { desc: 'Establish merchant payout agreements.', actions: ['Merchant contracts'], dod: ['Contracts signed'] }
+        },
+        edgeChecklists: ['【Concurrency】Flash sale transaction spikes.', '【Network Drop】Orphaned transaction reconciliation.']
+      },
+      'Feature 12': {
+        title: 'Feature 12: Business Revenue & Performance Dashboard (營業額與業績戰情室報表)',
+        voice: '"讓老闆一眼看出這個月賺多少錢、哪個服務項目最熱門、哪個員工接最多客。"',
+        problem: 'Lack of real-time financial visibility hinders business decisions.',
+        scope: '1. No custom SQL report builder in Phase 1.',
+        userStories: '• As a store owner, I want a financial dashboard to track monthly revenue and staff performance.',
+        gherkinAC: 'Given owner selects current month, When dashboard loads, Then total revenue and top services display accurately.',
+        pmInsights: '1. Real-time data visualization drives store revenue (OKR 2).',
+        raci: {
+          pm: { desc: 'Define key revenue metrics and dashboard layout.', actions: ['Metric definition'], dod: ['Dashboard specs ready'] },
+          rd: { desc: 'Build interactive charts and exportable reports.', actions: ['Data aggregation engine'], dod: ['Dashboard load < 1s'] },
+          qa: { desc: 'Verify data aggregation and export CSV accuracy.', actions: ['Data audit'], dod: ['100% calculation match'] },
+          bd: { desc: 'Validate dashboard usefulness with store owners.', actions: ['Owner feedback session'], dod: ['Owner approval'] }
+        },
+        edgeChecklists: ['【Concurrency】Multi-owner dashboard loading.', '【Network Drop】Cache last aggregation.']
+      },
+      'Feature 13': {
+        title: 'Feature 13: Customer Relationship Management (CRM) Notes (客戶偏好與歷史備忘錄)',
+        voice: '"記住客人的特殊習慣（例如：對精油過敏、喜歡力道大一點），下次來直接看紀錄。"',
+        problem: 'Inconsistent customer records lead to poor personalized service.',
+        scope: '1. No automated sentiment AI analysis in Phase 1.',
+        userStories: '• As a service provider, I want to read customer notes so I can deliver a personalized experience.',
+        gherkinAC: 'Given staff opens client profile, When viewing CRM notes, Then allergies and preferences appear securely.',
+        pmInsights: '1. Secure CRM notes elevate customer retention (OKR 2).',
+        raci: {
+          pm: { desc: 'Define CRM tag schema and privacy compliance.', actions: ['Schema design'], dod: ['Compliance verified'] },
+          rd: { desc: 'Build secure CRM notes database table with encryption.', actions: ['Encrypted DB storage'], dod: ['Data encrypted'] },
+          qa: { desc: 'Verify data privacy and role-based access control.', actions: ['RBAC testing'], dod: ['Secure access verified'] },
+          bd: { desc: 'Establish standard note-taking etiquette for staff.', actions: ['Etiquette training'], dod: ['Staff aligned'] }
+        },
+        edgeChecklists: ['【Concurrency】Simultaneous note updates.', '【Network Drop】Local draft autosave.']
+      },
+      'Feature 14': {
+        title: 'Feature 14: Automated Review & Feedback Collector (自動化滿意度回饋收集)',
+        voice: '"消費完後自動發信請客人打分數，累積好口碑。"',
+        problem: 'Manual review collection yields very low response rates.',
+        scope: '1. No auto-publishing to Google Maps API in Phase 1.',
+        userStories: '• As a customer, I want to submit a quick rating after my service to share my experience.',
+        gherkinAC: 'Given service is completed, When 2 hours elapse, Then automated review collection link is emailed.',
+        pmInsights: '1. Automated feedback loops boost merchant reputation (OKR 2).',
+        raci: {
+          pm: { desc: 'Define feedback trigger timing (2 hours post-service).', actions: ['Trigger timing definition'], dod: ['Timing locked'] },
+          rd: { desc: 'Build automated feedback collection worker.', actions: ['Post-service cron worker'], dod: ['40% response increase'] },
+          qa: { desc: 'Verify post-service trigger dispatch accuracy.', actions: ['Cron trigger test'], dod: ['Dispatch verified'] },
+          bd: { desc: 'Design engaging feedback request copy.', actions: ['Copywriting review'], dod: ['Copy approved'] }
+        },
+        edgeChecklists: ['【Concurrency】Bulk post-service dispatch.', '【Network Drop】Retry dispatch queue.']
+      },
+      'Feature 15': {
+        title: 'Feature 15: Promotional Discount & Coupon Code Engine (優惠券與折扣碼引擎)',
+        voice: '"店家可以發放新客折 100 元或節慶促銷折扣碼。"',
+        problem: 'Lack of promotional tooling limits marketing campaign flexibility.',
+        scope: '1. No tiered loyalty stamp cards in Phase 1.',
+        userStories: '• As a customer, I want to apply a promo code at checkout to receive a discount.',
+        gherkinAC: 'Given valid coupon code is entered, When applied, Then checkout total deducts discount instantly.',
+        pmInsights: '1. Promotional engine drives customer acquisition and conversion (OKR 2).',
+        raci: {
+          pm: { desc: 'Define coupon rules (percentage, fixed amount, expiration).', actions: ['Coupon rules mapping'], dod: ['Rules approved'] },
+          rd: { desc: 'Implement coupon validation and checkout deduction logic.', actions: ['Checkout coupon API'], dod: ['Validation < 50ms'] },
+          qa: { desc: 'Test coupon stacking and expiration edge cases.', actions: ['Coupon boundary testing'], dod: ['Zero calculation error'] },
+          bd: { desc: 'Plan launch marketing coupon campaign.', actions: ['Campaign planning'], dod: ['Campaign ready'] }
+        },
+        edgeChecklists: ['【Concurrency】High campaign redemption spikes.', '【Network Drop】Rollback unapplied state.']
+      },
+      'Feature 16': {
+        title: 'Feature 16: AI Smart Scheduling Assistant (AI 智慧排程與最佳化建議)',
+        voice: '"透過 AI 幫忙分析客流量高峰，自動建議店家什麼時候該多排人手。"',
+        problem: 'Understaffing during peak hours and overstaffing during lulls waste labor costs.',
+        scope: '1. No automatic payroll integration in Phase 1.',
+        userStories: '• As a manager, I want AI staffing recommendations so I optimize labor schedules during peak hours.',
+        gherkinAC: 'Given historical booking density, When AI runs analysis, Then recommended staffing levels display on dashboard.',
+        pmInsights: '1. AI-driven labor optimization saves operational costs (OKR 2).',
+        raci: {
+          pm: { desc: 'Define AI recommendation metrics and threshold rules.', actions: ['AI metrics definition'], dod: ['Metrics signed off'] },
+          rd: { desc: 'Build historical traffic prediction model.', actions: ['Traffic prediction module'], dod: ['Weekly insights generated'] },
+          qa: { desc: 'Verify model output stability against anomaly data.', actions: ['Anomaly testing'], dod: ['Stable outputs'] },
+          bd: { desc: 'Present AI staffing suggestions to merchant partners.', actions: ['Partner demo'], dod: ['Partner validated'] }
+        },
+        edgeChecklists: ['【Concurrency】Background model isolation.', '【Network Drop】Fallback to static rules.']
+      },
+      'Feature 17': {
+        title: 'Feature 17: AI-Powered Chatbot Booking Agent (AI 智能聊天機器人預約助理)',
+        voice: '"讓客人直接在 Line 或 Messenger 跟 AI 對話就能完成預約，不用點網頁。"',
+        problem: 'Customers abandon web forms if they cannot get instant conversational answers.',
+        scope: '1. No voice call AI agent in Phase 1.',
+        userStories: '• As a customer, I want to book via LINE chat with AI so I can complete reservations conversationally.',
+        gherkinAC: 'Given user texts LINE bot for haircut tomorrow 3pm, When confirmed, Then booking is written to system.',
+        pmInsights: '1. Conversational AI agent reduces booking friction (OKR 3).',
+        raci: {
+          pm: { desc: 'Define AI bot conversation flows and guardrails.', actions: ['Bot dialog mapping'], dod: ['Guardrails frozen'] },
+          rd: { desc: 'Integrate LLM intent parser with booking backend.', actions: ['LLM LINE webhook API'], dod: ['70% booking completion'] },
+          qa: { desc: 'Test bot prompt injection and booking intent accuracy.', actions: ['Prompt security testing'], dod: ['Zero hallucinated bookings'] },
+          bd: { desc: 'Setup LINE Official Account developer credentials.', actions: ['LINE OA setup'], dod: ['OA connected'] }
+        },
+        edgeChecklists: ['【Concurrency】High chat volume.', '【Network Drop】Webhook retry.']
+      },
+      'Feature 18': {
+        title: 'Feature 18: Command Hub Release & Sprint Tracker (Command Hub 版本與開發進度追蹤)',
+        voice: '"你自己的管理中樞功能：追蹤上面 1-17 項功能目前是正在寫扣、測試中還是已發布。"',
+        problem: 'Scattered task management leads to delayed product releases.',
+        scope: '1. No external Jira bi-directional sync in Phase 1.',
+        userStories: '• As a Product PM, I want a Command Hub to track sprint progress and feature readiness in real-time.',
+        gherkinAC: 'Given ticket moves to Published, When updated, Then overall project progress calculates correctly.',
+        pmInsights: '1. Unified command center ensures on-time delivery (OKR 3).',
+        raci: {
+          pm: { desc: 'Maintain Command Center sprint milestones and OKR alignment.', actions: ['Milestone tracking'], dod: ['100% feature visibility'] },
+          rd: { desc: 'Update subtask ticket statuses and progress.', actions: ['Kanban & Gantt updates'], dod: ['Zero stale tickets'] },
+          qa: { desc: 'Verify sprint status synchronization across boards.', actions: ['Sync verification'], dod: ['Two-way sync verified'] },
+          bd: { desc: 'Review release roadmap progress weekly.', actions: ['Roadmap review'], dod: ['Roadmap aligned'] }
+        },
+        edgeChecklists: ['【Concurrency】Multi-PM updates.', '【Network Drop】LocalStorage backup.']
+      },
+      'Feature 19': {
+        title: 'Feature 19: Cross-Module Feedback & Bug Triage (跨模組回報與 Bug 快速分流)',
+        voice: '"當店家回報預約系統有問題時，直接在 Command Hub 內建立 Ticket 進行修復。"',
+        problem: 'Customer bug reports get lost in emails and Slack chats.',
+        scope: '1. No auto-patch deployment in Phase 1.',
+        userStories: '• As support staff, I want to log bug tickets in Command Hub so engineering resolves them fast.',
+        gherkinAC: 'Given bug is reported, When assigned high priority, Then alert triggers in engineering kanban.',
+        pmInsights: '1. Rapid bug triage guarantees 99.95% SLA stability (OKR 1).',
+        raci: {
+          pm: { desc: 'Define bug severity triage matrix.', actions: ['Triage matrix setup'], dod: ['Matrix approved'] },
+          rd: { desc: 'Log bug tickets and assign to engineering.', actions: ['Bug fix deployment'], dod: ['Triage time < 30 mins'] },
+          qa: { desc: 'Verify bug fixes and regression testing.', actions: ['Regression verification'], dod: ['Zero regression'] },
+          bd: { desc: 'Report bug status back to merchants.', actions: ['Merchant communication'], dod: ['Merchants informed'] }
+        },
+        edgeChecklists: ['【Concurrency】Release day bug surge.', '【Network Drop】Offline bug log.']
+      },
+      'Feature 20': {
+        title: 'Feature 20: Unified API & Third-Party Integration Hub (跨平台 API 與第三方工具整合中心)',
+        voice: '"把 Omcean 串接外部的 Google 日曆、LINE 官方帳號、或是會計軟體。"',
+        problem: 'Siloed software stacks create double-entry data entry errors.',
+        scope: '1. No custom webhook builder for merchants in Phase 1.',
+        userStories: '• As a merchant, I want to sync Omcean bookings with Google Calendar so my schedule is unified.',
+        gherkinAC: 'Given Google Calendar is connected, When booking is made, Then it appears in Google Calendar within 2 seconds.',
+        pmInsights: '1. Unified integration hub eliminates data silos (OKR 2).',
+        raci: {
+          pm: { desc: 'Define integration priorities and API rate limits.', actions: ['Integration roadmapping'], dod: ['Priorities frozen'] },
+          rd: { desc: 'Build OAuth integration hub for Google Calendar & LINE.', actions: ['OAuth hub development'], dod: ['Google Cal sync < 2s'] },
+          qa: { desc: 'Test OAuth token expiration and sync integrity.', actions: ['OAuth security testing'], dod: ['Token secure'] },
+          bd: { desc: 'Coordinate third-party partnership agreements.', actions: ['Partner alignment'], dod: ['Partnerships active'] }
+        },
+        edgeChecklists: ['【Concurrency】Token refresh concurrency.', '【Network Drop】API retry backoff policy.']
+      }
+    };
 
     const i18n = {
       zh: {
@@ -848,6 +1002,449 @@
       initDropdowns();
       document.getElementById('req-title-select').value = currentSelected;
       onTitleDropdownChanged(currentSelected);
+    }
+
+    function getFeatureData(code) {
+      if (code === 'CUSTOM-ADHOC') {
+        return {
+          code: 'CUSTOM-ADHOC',
+          title: currentLang === 'zh' ? '⭐ [+ 建立自定義需求]' : '⭐ [+ Create Custom Ad-hoc Requirement]',
+          voice: '"Stakeholder requested a custom feature outside standard Phase 1 backlog."',
+          problem: 'Requires PM impact assessment, scope boundary check, and strict out-of-scope enforcement.',
+          scope: '1. Strict Phase 1 freeze: Postponed to Phase 2 unless blocking core revenue.',
+          userStories: '• As a stakeholder, I want custom ad-hoc features evaluated against ROI and scope boundaries.',
+          gherkinAC: 'Given custom request is submitted, When evaluated, Then it is either deferred to Phase 2 or scoped.',
+          pmInsights: '1. Strict scope control prevents project bloat (OKR 4).',
+          raci: {
+            pm: { desc: 'Evaluate business ROI and enforce scope boundaries.', actions: ['Assess impact'], dod: ['ROI signed off'] },
+            rd: { desc: 'Assess technical feasibility.', actions: ['Feasibility check'], dod: ['Architecture review'] },
+            qa: { desc: 'Review test requirements.', actions: ['Test planning'], dod: ['Test plan ready'] },
+            bd: { desc: 'Confirm stakeholder expectations.', actions: ['Expectation alignment'], dod: ['Aligned'] }
+          },
+          edgeChecklists: ['【Concurrency】Custom transaction consistency.', '【Network Drop】Fallback error handling.']
+        };
+      }
+      return featuresData[code] || featuresData['Feature 01'];
+    }
+
+    function initDropdowns() {
+      const step1Select = document.getElementById('req-title-select');
+      const modalSelect = document.getElementById('modal-preset-select');
+      const ganttFilterSelect = document.getElementById('gantt-filter-module');
+      const kanbanFilterSelect = document.getElementById('kanban-filter-module');
+      
+      step1Select.innerHTML = '';
+      modalSelect.innerHTML = '<option value="">-- Select Feature --</option>';
+      ganttFilterSelect.innerHTML = '';
+      kanbanFilterSelect.innerHTML = '<option value="ALL">All Features</option>';
+
+      const customOpt = document.createElement('option');
+      customOpt.value = 'CUSTOM-ADHOC';
+      customOpt.text = currentLang === 'zh' ? '⭐ [+ 建立自定義需求 (不在 20 個預設內)]' : '⭐ [+ Create Custom Ad-hoc Requirement (Outside Presets)]';
+      step1Select.appendChild(customOpt);
+
+      let optGroup = document.createElement('optgroup');
+      optGroup.label = currentLang === 'zh' ? '── Feature 01 ~ Feature 20 (Omcean 核心模組) ──' : '── Feature 01 ~ Feature 20 (Omcean Core) ──';
+
+      for (let i = 1; i <= 20; i++) {
+        const key = `Feature ${i < 10 ? '0' + i : i}`;
+        const fData = getFeatureData(key);
+        
+        const opt1 = document.createElement('option');
+        opt1.value = key;
+        opt1.text = fData.title;
+        optGroup.appendChild(opt1);
+
+        const opt2 = document.createElement('option');
+        opt2.value = key;
+        opt2.text = fData.title;
+        modalSelect.appendChild(opt2);
+
+        const opt3 = document.createElement('option');
+        opt3.value = key;
+        opt3.text = fData.title;
+        ganttFilterSelect.appendChild(opt3);
+
+        const opt4 = document.createElement('option');
+        opt4.value = key;
+        opt4.text = fData.title;
+        kanbanFilterSelect.appendChild(opt4);
+      }
+
+      step1Select.appendChild(optGroup);
+    }
+
+    function onTitleDropdownChanged(code) {
+      const f = getFeatureData(code);
+      if (!f) return;
+
+      document.getElementById('req-voice').value = f.voice;
+      document.getElementById('req-problem').value = f.problem;
+      document.getElementById('req-scope').value = f.scope;
+
+      if (code !== 'CUSTOM-ADHOC') {
+        document.getElementById('gantt-filter-module').value = code;
+        document.getElementById('kanban-filter-module').value = code;
+      }
+
+      document.getElementById('raci-pm-desc').innerText = f.raci.pm.desc;
+      document.getElementById('raci-pm-actions').innerHTML = f.raci.pm.actions.map(a => `• ${a}`).join('<br>');
+      document.getElementById('raci-pm-dod').innerHTML = f.raci.pm.dod.map(d => `✓ ${d}`).join('<br>');
+
+      document.getElementById('raci-rd-desc').innerText = f.raci.rd.desc;
+      document.getElementById('raci-rd-actions').innerHTML = f.raci.rd.actions.map(a => `• ${a}`).join('<br>');
+      document.getElementById('raci-rd-dod').innerHTML = f.raci.rd.dod.map(d => `✓ ${d}`).join('<br>');
+
+      document.getElementById('raci-qa-desc').innerText = f.raci.qa.desc;
+      document.getElementById('raci-qa-actions').innerHTML = f.raci.qa.actions.map(a => `• ${a}`).join('<br>');
+      document.getElementById('raci-qa-dod').innerHTML = f.raci.qa.dod.map(d => `✓ ${d}`).join('<br>');
+
+      document.getElementById('raci-bd-desc').innerText = f.raci.bd.desc;
+      document.getElementById('raci-bd-actions').innerHTML = f.raci.bd.actions.map(a => `• ${a}`).join('<br>');
+      document.getElementById('raci-bd-dod').innerHTML = f.raci.bd.dod.map(d => `✓ ${d}`).join('<br>');
+
+      const checklistContainer = document.getElementById('edge-checklist-container');
+      checklistContainer.innerHTML = '';
+      if (f.edgeChecklists) {
+        f.edgeChecklists.forEach((item, idx) => {
+          const lbl = document.createElement('label');
+          lbl.className = 'flex items-start space-x-2 p-2 bg-[#05080f] border border-cyber-border rounded hover:border-slate-600 cursor-pointer';
+          lbl.innerHTML = `
+            <input type="checkbox" checked class="mt-0.5 rounded text-cyber-green">
+            <span class="text-slate-300"><strong>[UAT Goal 0${idx+1}]</strong> ${item}</span>
+          `;
+          checklistContainer.appendChild(lbl);
+        });
+      }
+
+      renderInstantPrdAndInsights(f);
+      renderKanbanBoard();
+      renderGanttSchedule();
+    }
+
+    function onGanttModuleChanged(code) {
+      document.getElementById('req-title-select').value = code;
+      onTitleDropdownChanged(code);
+    }
+
+    function syncSopToStep3() {
+      alert('Successfully synced SOP items to STEP 3 Meeting Memo!');
+    }
+
+    let teamSubtaskSprints = {};
+    let teamSubtaskProgress = {};
+
+    function updateSubtaskSprint(modId, teamName, newSprint) {
+      teamSubtaskSprints[`${modId}_${teamName}`] = newSprint;
+      renderGanttSchedule();
+    }
+
+    function updateSubtaskProgress(modId, teamName, newProg) {
+      teamSubtaskProgress[`${modId}_${teamName}`] = parseInt(newProg);
+      renderGanttSchedule();
+      calculateOverallProgress();
+    }
+
+    function calculateOverallProgress() {
+      const filterModule = document.getElementById('gantt-filter-module').value;
+      const teams = ['Product PM', 'UX/FE', 'Engineering', 'QA/Ops', 'Sales/CS'];
+      let total = 0;
+      teams.forEach(t => {
+        total += (teamSubtaskProgress[`${filterModule}_${t}`] ?? 50);
+      });
+      const avg = Math.round(total / teams.length);
+      document.getElementById('overall-progress-text').innerText = `${avg}%`;
+    }
+
+    function renderGanttSchedule() {
+      const container = document.getElementById('gantt-rows-container');
+      container.innerHTML = '';
+      const filterModule = document.getElementById('gantt-filter-module').value;
+
+      const teams = [
+        { role: 'Product PM (Specs & Freeze)', name: 'Product PM', defaultSprint: 'Sprint 1 (W1-W2)', defaultProg: 100, color: 'bg-blue-600' },
+        { role: 'UX / Frontend (Prototypes)', name: 'UX/FE', defaultSprint: 'Sprint 1 (W1-W2)', defaultProg: 90, color: 'bg-purple-600' },
+        { role: 'Engineering (Core Architecture)', name: 'Engineering', defaultSprint: 'Sprint 2 (W3-W4)', defaultProg: 60, color: 'bg-emerald-600' },
+        { role: 'QA / DevOps (Load Testing)', name: 'QA/Ops', defaultSprint: 'Sprint 3 (W5-W6)', defaultProg: 30, color: 'bg-teal-600' },
+        { role: 'Sales / CS (Client Alignment)', name: 'Sales/CS', defaultSprint: 'Sprint 4 (W7-W8)', defaultProg: 10, color: 'bg-amber-600' }
+      ];
+
+      teams.forEach(tb => {
+        const sprintKey = `${filterModule}_${tb.name}`;
+        const progKey = `${filterModule}_${tb.name}`;
+        const currentSprint = teamSubtaskSprints[sprintKey] || tb.defaultSprint;
+        const currentProg = teamSubtaskProgress[progKey] ?? tb.defaultProg;
+
+        let startCol = 4;
+        let colSpan = 2;
+        if (currentSprint.includes('Sprint 1')) { startCol = 4; colSpan = 2; }
+        else if (currentSprint.includes('Sprint 2')) { startCol = 6; colSpan = 2; }
+        else if (currentSprint.includes('Sprint 3')) { startCol = 8; colSpan = 2; }
+        else if (currentSprint.includes('Sprint 4')) { startCol = 10; colSpan = 3; }
+
+        let barColor = tb.color;
+        if (currentProg === 100) barColor = 'bg-cyber-green';
+
+        const row = document.createElement('div');
+        row.className = 'grid grid-cols-12 gap-1 items-center py-2 hover:bg-slate-900/40 rounded px-1 transition border-b border-cyber-border/30';
+        row.innerHTML = `
+          <div class="col-span-3 text-slate-300 font-sans text-xs flex flex-col justify-center pr-2 space-y-1">
+            <span class="truncate font-bold text-purple-300">${filterModule} ▪ ${tb.role}</span>
+            <div class="flex items-center gap-1.5 font-mono text-[10px]">
+              <select onchange="updateSubtaskSprint('${filterModule}', '${tb.name}', this.value)" class="p-0.5 rounded text-[10px] text-yellow-400 bg-[#0a121e] border border-cyber-border cursor-pointer">
+                <option value="Sprint 1 (W1-W2)" ${currentSprint.includes('Sprint 1') ? 'selected' : ''}>Sprint 1</option>
+                <option value="Sprint 2 (W3-W4)" ${currentSprint.includes('Sprint 2') ? 'selected' : ''}>Sprint 2</option>
+                <option value="Sprint 3 (W5-W6)" ${currentSprint.includes('Sprint 3') ? 'selected' : ''}>Sprint 3</option>
+                <option value="Sprint 4 (W7-W8)" ${currentSprint.includes('Sprint 4') ? 'selected' : ''}>Sprint 4</option>
+              </select>
+              <input type="range" min="0" max="100" step="5" value="${currentProg}" oninput="updateSubtaskProgress('${filterModule}', '${tb.name}', this.value)" class="w-16 accent-cyber-cyan cursor-pointer" title="Adjust Progress Slider">
+              <span class="text-slate-300 font-bold">${currentProg}%</span>
+            </div>
+          </div>
+          <div class="col-span-${colSpan} col-start-${startCol} relative flex items-center cursor-pointer" onclick="openEditTicketModal('${filterModule}')">
+            <div class="w-full bg-slate-900 h-7 rounded border border-cyber-border overflow-hidden flex items-center relative group hover:border-cyber-cyan transition">
+              <div class="h-full ${barColor} transition-all duration-300 opacity-90" style="width: ${currentProg}%;"></div>
+              <span class="absolute inset-0 flex items-center justify-between px-2 text-[10px] text-white font-mono font-bold z-10 pointer-events-none truncate">
+                <span>${tb.name} (${currentSprint.split(' ')[0]})</span>
+                <span>${currentProg}% 🔗</span>
+              </span>
+            </div>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+      calculateOverallProgress();
+    }
+
+    let tickets = [
+      { id: 'Feature 01', title: 'Feature 01 [Product PM Specs]', status: 'publish', primary: 'Product PM', support: 'UX/FE', sprint: 'Sprint 1 (W1-W2)', progress: 100, risk: false },
+      { id: 'Feature 01', title: 'Feature 01 [UX UI Prototype]', status: 'publish', primary: 'UX/FE', support: 'Engineering', sprint: 'Sprint 1 (W1-W2)', progress: 100, risk: false },
+      { id: 'Feature 01', title: 'Feature 01 [Backend API & Widget]', status: 'dev', primary: 'Engineering', support: 'QA/Ops', sprint: 'Sprint 2 (W3-W4)', progress: 50, risk: false }
+    ];
+
+    function renderKanbanBoard() {
+      const cols = { backlog: [], dev: [], test: [], publish: [] };
+      const filterModule = document.getElementById('kanban-filter-module').value;
+      const filtered = tickets.filter(t => filterModule === 'ALL' || t.id === filterModule);
+      filtered.forEach(t => cols[t.status].push(t));
+
+      ['backlog', 'dev', 'test', 'publish'].forEach(status => {
+        const container = document.getElementById(`col-${status}`);
+        const count = document.getElementById(`count-${status}`);
+        container.innerHTML = '';
+        count.innerText = cols[status].length;
+
+        cols[status].forEach(t => {
+          const card = document.createElement('div');
+          card.className = `p-2.5 bg-[#0a121e] border ${t.risk ? 'border-rose-500/80 shadow-lg' : 'border-cyber-border'} rounded-lg text-xs space-y-2`;
+          
+          card.innerHTML = `
+            <div class="flex justify-between items-center">
+              <span class="font-mono text-[10px] text-cyber-cyan font-bold">${t.id} ${t.risk ? '⚠️' : ''}</span>
+              <span class="px-1.5 py-0.5 rounded bg-slate-900 text-white font-bold text-[9px]">${t.primary}</span>
+            </div>
+            <p class="text-slate-200 font-sans text-[11px] cursor-pointer" onclick="openEditTicketModal('${t.id}')">${t.title}</p>
+            <div class="flex justify-between items-center pt-1 border-t border-cyber-border/40 font-mono text-[10px]">
+              <span class="text-cyber-green font-bold">${t.progress}%</span>
+              <div class="space-x-1">
+                ${status !== 'backlog' ? `<button onclick="moveTicketCard('${t.id}', 'prev')" class="px-1.5 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-slate-300 font-bold cursor-pointer" title="Move Left">◀</button>` : ''}
+                ${status !== 'publish' ? `<button onclick="moveTicketCard('${t.id}', 'next')" class="px-1.5 py-0.5 bg-slate-800 hover:bg-slate-700 rounded text-cyber-cyan font-bold cursor-pointer" title="Move Right">▶</button>` : ''}
+              </div>
+            </div>
+          `;
+          container.appendChild(card);
+        });
+      });
+    }
+
+    function moveTicketCard(id, direction) {
+      const flow = ['backlog', 'dev', 'test', 'publish'];
+      const ticket = tickets.find(t => t.id === id);
+      if (!ticket) return;
+
+      let idx = flow.indexOf(ticket.status);
+      if (direction === 'next' && idx < flow.length - 1) {
+        ticket.status = flow[idx + 1];
+        ticket.progress = Math.min(100, ticket.progress + 30);
+      } else if (direction === 'prev' && idx > 0) {
+        ticket.status = flow[idx - 1];
+        ticket.progress = Math.max(10, ticket.progress - 30);
+      }
+
+      if (ticket.status === 'dev') {
+        teamSubtaskSprints[`${ticket.id}_${ticket.primary}`] = 'Sprint 2 (W3-W4)';
+      } else if (ticket.status === 'test') {
+        teamSubtaskSprints[`${ticket.id}_${ticket.primary}`] = 'Sprint 3 (W5-W6)';
+      } else if (ticket.status === 'publish') {
+        teamSubtaskSprints[`${ticket.id}_${ticket.primary}`] = 'Sprint 4 (W7-W8)';
+        ticket.progress = 100;
+      } else if (ticket.status === 'backlog') {
+        teamSubtaskSprints[`${ticket.id}_${ticket.primary}`] = 'Sprint 1 (W1-W2)';
+      }
+
+      teamSubtaskProgress[`${ticket.id}_${ticket.primary}`] = ticket.progress;
+
+      renderKanbanBoard();
+      renderGanttSchedule();
+    }
+
+    function openAddTicketModal() {
+      document.getElementById('modal-heading').innerText = 'Add Jira Ticket';
+      document.getElementById('modal-ticket-id').value = document.getElementById('gantt-filter-module').value || 'Feature 01';
+      document.getElementById('modal-ticket-title').value = '';
+      document.getElementById('ticket-modal').classList.remove('hidden');
+    }
+
+    function openEditTicketModal(id) {
+      document.getElementById('modal-heading').innerText = `Edit Jira Ticket: ${id}`;
+      document.getElementById('modal-ticket-id').value = id;
+      document.getElementById('modal-ticket-title').value = 'Task execution details';
+      document.getElementById('ticket-modal').classList.remove('hidden');
+    }
+
+    function closeTicketModal() {
+      document.getElementById('ticket-modal').classList.add('hidden');
+    }
+
+    function applyPresetToModal(val) {
+      if (val === '') return;
+      const fData = getFeatureData(val);
+      if (fData) {
+        document.getElementById('modal-ticket-id').value = val;
+        document.getElementById('modal-ticket-title').value = `${val}: ${fData.title}`;
+      }
+    }
+
+    function saveTicketFromModal() {
+      const id = document.getElementById('modal-ticket-id').value.trim() || 'Feature 01';
+      const title = document.getElementById('modal-ticket-title').value.trim() || 'New Subtask Ticket';
+      const primary = document.getElementById('modal-ticket-primary').value;
+      const sprint = document.getElementById('modal-ticket-sprint').value;
+      const status = document.getElementById('modal-ticket-status').value;
+      const progress = parseInt(document.getElementById('modal-ticket-progress').value);
+      const risk = document.getElementById('modal-ticket-risk').checked;
+
+      const existing = tickets.find(t => t.id === id && t.primary === primary);
+      if (existing) {
+        existing.title = title;
+        existing.sprint = sprint;
+        existing.status = status;
+        existing.progress = progress;
+        existing.risk = risk;
+      } else {
+        tickets.push({ id, title, primary, sprint, status, progress, risk });
+      }
+
+      teamSubtaskSprints[`${id}_${primary}`] = sprint;
+      teamSubtaskProgress[`${id}_${primary}`] = progress;
+
+      closeTicketModal();
+      renderKanbanBoard();
+      renderGanttSchedule();
+    }
+
+    function deleteCurrentTicket() {
+      closeTicketModal();
+      renderKanbanBoard();
+    }
+
+    function openGmailKickoffCompose() {
+      const selectEl = document.getElementById('req-title-select');
+      const code = selectEl.value;
+      const f = getFeatureData(code);
+      const senderEmail = 'mshappyj@gmail.com';
+      const subject = `[KICKOFF & SCOPE FREEZE] Project Execution Plan for ${code}`;
+      
+      const emailBody = `Hi Cross-Functional Team,
+
+As Product PM convening this kickoff for [${code}], all teams must strictly adhere to our Scope Freeze and RACI matrix.
+
+Sender / PM Convener: ${senderEmail}
+
+【Project Kickoff & Scope Details】
+- Feature: ${f.title}
+- Voice of Customer: ${f.voice}
+- Root Cause & Solution: ${f.problem}
+- Scope Boundary: ${f.scope}
+
+Please review the Command Center and confirm your team's readiness by EOD today.
+
+Best regards,
+Product PM: ${senderEmail}
+Omcean Booking Delivery Command Center`;
+
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+      window.open(gmailUrl, '_blank');
+    }
+
+    function openGmailEmergencyCompose() {
+      const selectEl = document.getElementById('req-title-select');
+      const code = selectEl.value;
+      const f = getFeatureData(code);
+      const senderEmail = 'mshappyj@gmail.com';
+      const subject = `[EMERGENCY CRISIS SOP] Action Matrix for ${code}`;
+      
+      const p1Team = document.getElementById('sop-p1-team').innerText;
+      const p1Sprint = document.getElementById('sop-p1-sprint').innerText;
+      const p1Tasks = document.getElementById('sop-p1-tasks').innerText;
+      const p1Deadline = document.getElementById('sop-p1-deadline').innerText;
+      const p1Result = document.getElementById('sop-p1-result').innerText;
+      const p1Fail = document.getElementById('sop-p1-fail').innerText;
+
+      const emailBody = `ATTENTION ALL TEAMS,
+
+An urgent crisis response protocol has been activated for [${code}]. Please review your assigned responsibilities below.
+
+Sender / Convener: ${senderEmail}
+
+【Emergency SOP Action Matrix】
+1. [Concurrency Overbooking Protection]:
+   - Responsible Team: ${p1Team}
+   - Target Sprint: ${p1Sprint}
+   - Required Tasks: ${p1Tasks}
+   - Deadline: ${p1Deadline}
+   - Deliverable Target: ${p1Result}
+   - Fallback Plan: ${p1Fail}
+
+Immediate execution and sign-off are required.
+
+Best regards,
+Product PM: ${senderEmail}
+Omcean Booking Command Center`;
+
+      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+      window.open(gmailUrl, '_blank');
+    }
+
+    function renderInstantPrdAndInsights(f) {
+      document.getElementById('prd-header-title').innerText = `[PRD] ${f.title}`;
+      const prdHtml = `
+        <div class="border-b border-cyber-border/50 pb-2 mb-2">
+          <span class="text-cyber-cyan font-bold block mb-1">【1. 問題背景與根本原因 (Problem & Root Cause)】</span>
+          <div>▸ <strong>客戶心聲 (VoC):</strong> ${f.voice}</div>
+          <div>▸ <strong>PM 解決方案:</strong> ${f.problem}</div>
+          <div class="text-cyber-gold mt-1">▸ <strong>範圍限制:</strong> ${f.scope}</div>
+        </div>
+        <div class="border-b border-cyber-border/50 pb-2 mb-2">
+          <span class="text-cyber-cyan font-bold block mb-1">【2. 核心使用者故事 (User Stories)】</span>
+          <div>${f.userStories}</div>
+        </div>
+        <div>
+          <span class="text-cyber-cyan font-bold block mb-1">【3. Gherkin 驗收條件 (Acceptance Criteria)】</span>
+          <div class="space-y-1.5 font-mono text-[11px] bg-[#080d17] p-2.5 rounded border border-cyber-border/40">
+            <div><strong class="text-emerald-400">Scenario:</strong> ${f.gherkinAC}</div>
+          </div>
+        </div>
+      `;
+      document.getElementById('prd-content-view').innerHTML = prdHtml;
+
+      const insightsHtml = `
+        <div class="p-2.5 bg-[#05080f] rounded border border-cyber-border space-y-1">
+          <div class="text-cyber-cyan font-bold">PM 戰情室決策 (Strategic Decisions)</div>
+          <div class="text-slate-300 text-[11px] leading-relaxed whitespace-pre-line">${f.pmInsights}</div>
+        </div>
+      `;
+      document.getElementById('prd-pm-insights').innerHTML = insightsHtml;
     }
 
     window.onload = () => {
