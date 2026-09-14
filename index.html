@@ -81,12 +81,6 @@
           <button id="btn-lang-zh" onclick="setLanguage('zh')" class="px-2.5 py-1 rounded bg-cyber-cyan text-slate-950 font-bold transition">繁體中文</button>
           <button id="btn-lang-en" onclick="setLanguage('en')" class="px-2.5 py-1 rounded text-slate-400 hover:text-white transition">English</button>
         </div>
-        <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg border border-cyber-border bg-cyber-card text-slate-300 hover:text-white transition">
-          🖨️ PDF 列印
-        </button>
-        <button onclick="exportFullMarkdown()" class="px-4 py-1.5 rounded-lg bg-cyber-cyan text-slate-950 font-bold hover:bg-opacity-90 transition">
-          匯出 (.MD)
-        </button>
       </div>
     </header>
 
@@ -318,7 +312,7 @@
       <div id="edge-checklist-container" class="space-y-2 text-xs font-mono"></div>
     </section>
 
-    <!-- STEP 3: Kickoff Alignment & Regular Syncs (具備獨立連動功能選擇與手動可編輯 RACI 與 SAMR 決策台) -->
+    <!-- STEP 3: Kickoff Alignment & Regular Syncs -->
     <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-6">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
@@ -763,8 +757,6 @@
       }
     };
 
-    let currentLang = 'zh';
-
     function setLanguage(lang) {
       currentLang = lang;
       document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
@@ -818,12 +810,6 @@
           seqDiag: 'Stakeholder   PM Reviewer          CCB Board         Backlog\n  │               │                     │               │\n  │── 提出新需求 ─▶│                     │               │\n  │               │── 評估 ROI ────────▶│               │\n  │               │                     │── 決議凍結 ──▶│',
           kpi: '範圍異動率控制在 $< 10\%$ 以內。',
           pmInsights: '1. 嚴格範圍控管防止專案範疇潛變 (Scope Creep) (OKR 4).',
-          raci: {
-            pm: { desc: 'Evaluate business ROI and enforce scope boundaries.', actions: ['Assess impact'], dod: ['ROI signed off'] },
-            rd: { desc: 'Assess technical feasibility.', actions: ['Feasibility check'], dod: ['Architecture review'] },
-            qa: { desc: 'Review test requirements.', actions: ['Test planning'], dod: ['Test plan ready'] },
-            bd: { desc: 'Confirm stakeholder expectations.', actions: ['Expectation alignment'], dod: ['Aligned'] }
-          },
           edgeChecklists: ['【Concurrency】Custom transaction consistency.', '【Network Drop】Fallback error handling.']
         };
       }
@@ -932,37 +918,6 @@
       const step3Tag = document.getElementById('samr-sync-tag');
       if (step3Tag) step3Tag.innerText = `● 連動模組: ${code}`;
 
-      // 同步載入該模組的預設 RACI 內容到 Step 3 可編輯欄位中
-      if (f.raci) {
-        const t1Desc = document.getElementById('step3-team1-desc');
-        const t1Act = document.getElementById('step3-team1-actions');
-        const t1Dod = document.getElementById('step3-team1-dod');
-        if (t1Desc) t1Desc.innerText = f.raci.pm.desc;
-        if (t1Act) t1Act.innerHTML = f.raci.pm.actions.join('<br>');
-        if (t1Dod) t1Dod.innerText = f.raci.pm.dod[0];
-
-        const t2Desc = document.getElementById('step3-team2-desc');
-        const t2Act = document.getElementById('step3-team2-actions');
-        const t2Dod = document.getElementById('step3-team2-dod');
-        if (t2Desc) t2Desc.innerText = f.raci.rd.desc;
-        if (t2Act) t2Act.innerHTML = f.raci.rd.actions.join('<br>');
-        if (t2Dod) t2Dod.innerText = f.raci.rd.dod[0];
-
-        const t3Desc = document.getElementById('step3-team3-desc');
-        const t3Act = document.getElementById('step3-team3-actions');
-        const t3Dod = document.getElementById('step3-team3-dod');
-        if (t3Desc) t3Desc.innerText = f.raci.qa.desc;
-        if (t3Act) t3Act.innerHTML = f.raci.qa.actions.join('<br>');
-        if (t3Dod) t3Dod.innerText = f.raci.qa.dod[0];
-
-        const t4Desc = document.getElementById('step3-team4-desc');
-        const t4Act = document.getElementById('step3-team4-actions');
-        const t4Dod = document.getElementById('step3-team4-dod');
-        if (t4Desc) t4Desc.innerText = f.raci.bd.desc;
-        if (t4Act) t4Act.innerHTML = f.raci.bd.actions.join('<br>');
-        if (t4Dod) t4Dod.innerText = f.raci.bd.dod[0];
-      }
-
       const checklistContainer = document.getElementById('edge-checklist-container');
       if (checklistContainer) {
         checklistContainer.innerHTML = '';
@@ -1008,7 +963,7 @@
         voice: document.getElementById('req-voice').value,
         problem: document.getElementById('req-problem').value,
         scope: document.getElementById('req-scope').value,
-        // Step 3 RACI 手動修改內容
+        // Step 3 手動修改內容
         step3Team1Desc: document.getElementById('step3-team1-desc').innerHTML,
         step3Team1Actions: document.getElementById('step3-team1-actions').innerHTML,
         step3Team1Dod: document.getElementById('step3-team1-dod').innerHTML,
@@ -1031,12 +986,12 @@
         syncActions: document.getElementById('sync-actions').value
       };
 
-      localStorage.setItem('omcean_pm_state_v2', JSON.stringify(state));
+      localStorage.setItem('omcean_pm_state_v3', JSON.stringify(state));
       alert('💾 所有編輯變更已成功自動儲存在您的瀏覽器網頁上！');
     }
 
     function loadSavedData() {
-      const saved = localStorage.getItem('omcean_pm_state_v2');
+      const saved = localStorage.getItem('omcean_pm_state_v3');
       if (!saved) return false;
 
       try {
@@ -1087,7 +1042,7 @@
 
     function resetAllData() {
       if (confirm('確定要清除所有儲存的變更並恢復預設值嗎？')) {
-        localStorage.removeItem('omcean_pm_state_v2');
+        localStorage.removeItem('omcean_pm_state_v3');
         location.reload();
       }
     }
