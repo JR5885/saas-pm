@@ -312,7 +312,7 @@
       <div id="edge-checklist-container" class="space-y-2 text-xs font-mono"></div>
     </section>
 
-    <!-- STEP 3: Kickoff Alignment & Regular Syncs -->
+    <!-- STEP 3: Kickoff Alignment & Regular Syncs (含可手動編輯的團隊名稱與 RACI 權責、SAMR 決策台) -->
     <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-6">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
@@ -642,7 +642,7 @@
   </div>
 
   <script>
-    // 完整 20 個 Feature 資料庫與 8 大維度規格
+    // 完整定義 Feature 01 ~ 20 的資料庫與 8 大維度規格
     const featuresData = {
       'Feature 01': {
         title: 'Feature 01: 24/7 Online Booking Widget (24小時線上預約小工具)',
@@ -722,8 +722,6 @@
         scopeHeader: "範圍邊界：第一階段絕對不予納入 (Out of Scope)",
         prdHeader: "資深 PM 級 8 大維度 PRD 規格面板",
         pmDecisions: "PM 戰情室決策",
-        raciTitle: "跨部門權責矩陣與交付標準 (RACI & DoD) - 各團隊獨立檢視",
-        editTip: "✏️ 點擊任意區塊即可直接手動編輯內容",
         step2Title: "交付時程與 Jira 執行看板 (甘特圖與看板雙向連動)",
         ganttDesc: "📊 互動式甘特圖：調整 Sprint 或進度條可即時連動看板與總進度",
         selectFeature: "選擇功能:",
@@ -743,8 +741,6 @@
         scopeHeader: "Scope Boundary: Strictly Out of Scope for Phase 1",
         prdHeader: "Senior PM 8-Step PRD Specification Board",
         pmDecisions: "PM Strategic Decisions",
-        raciTitle: "Cross-Functional RACI Matrix & Definition of Done (DoD) - By Team",
-        editTip: "✏️ Click any section to edit text",
         step2Title: "Delivery Schedule & Jira Execution (Gantt & Kanban)",
         ganttDesc: "📊 Interactive Gantt: Shift Sprints & Slider Progress",
         selectFeature: "Select Feature:",
@@ -810,6 +806,12 @@
           seqDiag: 'Stakeholder   PM Reviewer          CCB Board         Backlog\n  │               │                     │               │\n  │── 提出新需求 ─▶│                     │               │\n  │               │── 評估 ROI ────────▶│               │\n  │               │                     │── 決議凍結 ──▶│',
           kpi: '範圍異動率控制在 $< 10\%$ 以內。',
           pmInsights: '1. 嚴格範圍控管防止專案範疇潛變 (Scope Creep) (OKR 4).',
+          raci: {
+            pm: { desc: 'Evaluate business ROI and enforce scope boundaries.', actions: ['Assess impact'], dod: ['ROI signed off'] },
+            rd: { desc: 'Assess technical feasibility.', actions: ['Feasibility check'], dod: ['Architecture review'] },
+            qa: { desc: 'Review test requirements.', actions: ['Test planning'], dod: ['Test plan ready'] },
+            bd: { desc: 'Confirm stakeholder expectations.', actions: ['Expectation alignment'], dod: ['Aligned'] }
+          },
           edgeChecklists: ['【Concurrency】Custom transaction consistency.', '【Network Drop】Fallback error handling.']
         };
       }
@@ -917,6 +919,37 @@
 
       const step3Tag = document.getElementById('samr-sync-tag');
       if (step3Tag) step3Tag.innerText = `● 連動模組: ${code}`;
+
+      // 同步載入該模組的預設 RACI 內容到 Step 3 可編輯欄位中
+      if (f.raci) {
+        const t1Desc = document.getElementById('step3-team1-desc');
+        const t1Act = document.getElementById('step3-team1-actions');
+        const t1Dod = document.getElementById('step3-team1-dod');
+        if (t1Desc) t1Desc.innerText = f.raci.pm.desc;
+        if (t1Act) t1Act.innerHTML = f.raci.pm.actions.join('<br>');
+        if (t1Dod) t1Dod.innerText = f.raci.pm.dod[0];
+
+        const t2Desc = document.getElementById('step3-team2-desc');
+        const t2Act = document.getElementById('step3-team2-actions');
+        const t2Dod = document.getElementById('step3-team2-dod');
+        if (t2Desc) t2Desc.innerText = f.raci.rd.desc;
+        if (t2Act) t2Act.innerHTML = f.raci.rd.actions.join('<br>');
+        if (t2Dod) t2Dod.innerText = f.raci.rd.dod[0];
+
+        const t3Desc = document.getElementById('step3-team3-desc');
+        const t3Act = document.getElementById('step3-team3-actions');
+        const t3Dod = document.getElementById('step3-team3-dod');
+        if (t3Desc) t3Desc.innerText = f.raci.qa.desc;
+        if (t3Act) t3Act.innerHTML = f.raci.qa.actions.join('<br>');
+        if (t3Dod) t3Dod.innerText = f.raci.qa.dod[0];
+
+        const t4Desc = document.getElementById('step3-team4-desc');
+        const t4Act = document.getElementById('step3-team4-actions');
+        const t4Dod = document.getElementById('step3-team4-dod');
+        if (t4Desc) t4Desc.innerText = f.raci.bd.desc;
+        if (t4Act) t4Act.innerHTML = f.raci.bd.actions.join('<br>');
+        if (t4Dod) t4Dod.innerText = f.raci.bd.dod[0];
+      }
 
       const checklistContainer = document.getElementById('edge-checklist-container');
       if (checklistContainer) {
