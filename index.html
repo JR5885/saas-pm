@@ -63,7 +63,7 @@
           <h1 id="txt-main-title" class="text-2xl font-bold text-white tracking-tight">Omcean Booking PM 指揮中心</h1>
         </div>
         <p id="txt-sub-title" class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: 15-Yr Senior PM] Feature 01 ~ Feature 20 完整深度專業級 PRD 規格 &bull; 雙向即時切換
+          [ROLE: 15-Yr Senior PM] Feature 01 ~ Feature 20 完整深度專業級 PRD 規格 &bull; 支援 RACI 角色自定義編輯
         </p>
       </div>
 
@@ -325,98 +325,26 @@
         </div>
       </div>
 
-      <!-- 區塊 A: Kickoff Meeting (含 RACI 權責與 DoD - 手動可編輯) -->
+      <!-- 區塊 A: Kickoff Meeting (含 RACI 權責與 DoD - 支援自由編輯與新增角色) -->
       <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-4">
-        <div class="flex items-center justify-between border-b border-cyber-border/80 pb-2">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-cyber-border/80 pb-2 gap-2">
           <div class="flex items-center gap-2">
             <span class="w-2.5 h-2.5 rounded-full bg-cyber-cyan"></span>
-            <h3 class="text-xs font-bold font-mono text-cyber-cyan uppercase">1. Kickoff Meeting (跨部門啟動會議與 RACI 矩陣) - 手動可編輯</h3>
+            <h3 class="text-xs font-bold font-mono text-cyber-cyan uppercase">1. Kickoff Meeting (跨部門啟動會議與 RACI 矩陣) - 可自由編輯與新增角色</h3>
           </div>
-          <button onclick="openGmailKickoffCompose()" class="px-3 py-1 bg-purple-900/80 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-[11px] font-bold rounded transition shadow-md">
-            ✉️ 發送 Kickoff 會議通知
-          </button>
+          <div class="flex items-center gap-2">
+            <button onclick="openAddRaciRoleModal()" class="px-3 py-1 bg-cyber-cyan/20 hover:bg-cyber-cyan/30 text-cyber-cyan border border-cyber-cyan font-mono text-[11px] font-bold rounded transition shadow-md">
+              + 新增 RACI 角色
+            </button>
+            <button onclick="openGmailKickoffCompose()" class="px-3 py-1 bg-purple-900/80 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-[11px] font-bold rounded transition shadow-md">
+              ✉️ 發送 Kickoff 會議通知
+            </button>
+          </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 font-mono text-xs">
-          <!-- PM Team -->
-          <div class="bg-[#0a121e] border border-cyber-border rounded-lg p-3 space-y-2">
-            <div class="flex justify-between items-center border-b border-cyber-border pb-1.5">
-              <span class="font-bold text-blue-400">👤 PM (產品經理)</span>
-              <span class="px-1.5 py-0.5 rounded bg-rose-950 text-rose-300 text-[9px] font-bold">Accountable (A)</span>
-            </div>
-            <div>
-              <span class="text-[10px] text-slate-400 block mb-0.5">RACI 權責：</span>
-              <div contenteditable="true" id="step3-pm-desc" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">定義核心功能規格、User Stories、Gherkin AC 與範圍邊界。</div>
-            </div>
-            <div>
-              <span class="text-[10px] text-cyber-gold block mb-0.5">行動清單 (Action Items)：</span>
-              <div contenteditable="true" id="step3-pm-actions" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">• PRD 最終簽署定案<br>• 主持跨部門 Kickoff</div>
-            </div>
-            <div>
-              <span class="text-[10px] text-cyber-green block mb-0.5">交付完成標準 (DoD)：</span>
-              <div contenteditable="true" id="step3-pm-dod" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">✓ PRD 獲技術主管與業務簽核</div>
-            </div>
-          </div>
-
-          <!-- RD Team -->
-          <div class="bg-[#0a121e] border border-cyber-border rounded-lg p-3 space-y-2">
-            <div class="flex justify-between items-center border-b border-cyber-border pb-1.5">
-              <span class="font-bold text-emerald-400">💻 RD (工程研發)</span>
-              <span class="px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 text-[9px] font-bold">Responsible (R)</span>
-            </div>
-            <div>
-              <span class="text-[10px] text-slate-400 block mb-0.5">RACI 權責：</span>
-              <div contenteditable="true" id="step3-rd-desc" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">執行前後端架構、Redis 鎖定與 REST API 實作。</div>
-            </div>
-            <div>
-              <span class="text-[10px] text-cyber-gold block mb-0.5">行動清單 (Action Items)：</span>
-              <div contenteditable="true" id="step3-rd-actions" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">• 資料庫 Schema 設計<br>• 單元測試涵蓋率 &gt;= 85%</div>
-            </div>
-            <div>
-              <span class="text-[10px] text-cyber-green block mb-0.5">交付完成標準 (DoD)：</span>
-              <div contenteditable="true" id="step3-rd-dod" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">✓ 程式碼合併 Staging & P99 &lt; 200ms</div>
-            </div>
-          </div>
-
-          <!-- QA Team -->
-          <div class="bg-[#0a121e] border border-cyber-border rounded-lg p-3 space-y-2">
-            <div class="flex justify-between items-center border-b border-cyber-border pb-2">
-              <span class="font-bold text-cyber-gold">🧪 QA (品質保證)</span>
-              <span class="px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 text-[9px] font-bold">Responsible (R)</span>
-            </div>
-            <div>
-              <span class="text-[10px] text-slate-400 block mb-0.5">RACI 權責：</span>
-              <div contenteditable="true" id="step3-qa-desc" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">執行邊界條件驗證（併發、斷線）與 UAT 測試。</div>
-            </div>
-            <div>
-              <span class="text-[10px] text-cyber-gold block mb-0.5">行動清單 (Action Items)：</span>
-              <div contenteditable="true" id="step3-qa-actions" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">• 執行 1,500 QPS 壓力測試<br>• Gherkin 驗收測試</div>
-            </div>
-            <div>
-              <span class="text-[10px] text-cyber-green block mb-0.5">交付完成標準 (DoD)：</span>
-              <div contenteditable="true" id="step3-qa-dod" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">✓ Staging 環境零重大 Bug</div>
-            </div>
-          </div>
-
-          <!-- BD/CS Team -->
-          <div class="bg-[#0a121e] border border-cyber-border rounded-lg p-3 space-y-2">
-            <div class="flex justify-between items-center border-b border-cyber-border pb-2">
-              <span class="font-bold text-purple-400">🤝 BD / CS (業務客服)</span>
-              <span class="px-1.5 py-0.5 rounded bg-amber-950 text-amber-300 text-[9px] font-bold">Consulted (C)</span>
-            </div>
-            <div>
-              <span class="text-[10px] text-slate-400 block mb-0.5">RACI 權責：</span>
-              <div contenteditable="true" id="step3-bd-desc" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">收集客戶心聲 (VoC)，對齊試用客戶與準備說明文檔。</div>
-            </div>
-            <div>
-              <span class="text-[10px] text-cyber-gold block mb-0.5">行動清單 (Action Items)：</span>
-              <div contenteditable="true" id="step3-bd-actions" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">• 確認 W4 試用旗艦店<br>• 發布幫助中心 FAQ</div>
-            </div>
-            <div>
-              <span class="text-[10px] text-cyber-green block mb-0.5">交付完成標準 (DoD)：</span>
-              <div contenteditable="true" id="step3-bd-dod" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">✓ 客戶教育訓練與客服管道建立</div>
-            </div>
-          </div>
+        <!-- 動態 RACI 角色卡片容器 -->
+        <div id="raci-roles-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 font-mono text-xs">
+          <!-- Injected dynamically by JS -->
         </div>
       </div>
 
@@ -639,6 +567,39 @@
     </div>
   </div>
 
+  <!-- Modal: Add RACI Role -->
+  <div id="raci-modal" class="fixed inset-0 bg-black/80 z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-cyber-card border border-cyber-border rounded-2xl max-w-md w-full p-6 space-y-4 font-mono text-xs shadow-2xl">
+      <div class="flex justify-between items-center border-b border-cyber-border pb-3">
+        <h3 class="text-sm font-bold text-white">新增自定義 RACI 角色</h3>
+        <button onclick="closeRaciModal()" class="text-slate-400 hover:text-white text-base">✕</button>
+      </div>
+      <div class="space-y-3">
+        <div>
+          <label class="block text-slate-300 mb-1">角色名稱 (例: UI Designer)</label>
+          <input type="text" id="new-raci-name" class="w-full p-2 rounded border text-slate-200 bg-[#05080f]" placeholder="例如: UI/UX 設計師">
+        </div>
+        <div>
+          <label class="block text-slate-300 mb-1">RACI 權責分工類型</label>
+          <select id="new-raci-type" class="w-full p-2 rounded border text-cyan-300 font-bold">
+            <option value="Responsible (R) - 負責執行">Responsible (R) - 負責執行</option>
+            <option value="Accountable (A) - 當責者">Accountable (A) - 當責者</option>
+            <option value="Consulted (C) - 諮詢對象">Consulted (C) - 諮詢對象</option>
+            <option value="Informed (I) - 知會對象">Informed (I) - 知會對象</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-slate-300 mb-1">預設職責說明</label>
+          <textarea id="new-raci-desc" rows="2" class="w-full p-2 rounded border text-slate-200" placeholder="負責介面設計與互動驗證..."></textarea>
+        </div>
+      </div>
+      <div class="flex justify-end space-x-2 pt-3 border-t border-cyber-border">
+        <button onclick="closeRaciModal()" class="px-3 py-1.5 rounded bg-slate-800 text-slate-400">取消</button>
+        <button onclick="saveNewRaciRole()" class="px-4 py-1.5 rounded bg-cyber-cyan text-slate-950 font-bold">新增角色</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     // 完整 20 個 Feature 資料庫與 8 大維度規格
     const featuresData = {
@@ -650,16 +611,16 @@
         sol: '前端採用 Web Component / Embedded iframe 掛載於外部官網，後端透過 REST API 與 Availability Engine 進行時段即時鎖定，防止超賣（Race Condition）。',
         userStories: '• As a customer, I want to book a slot 24/7 on my mobile phone so I never have to wait for store opening hours.',
         gherkinAC: 'Given 用戶在 24/7 預約頁面選擇了服務項目與特定設計師\nWhen 選擇一個尚有名額的時段並填寫聯絡資料送出預約\nThen 系統應成功建立預約記錄，並在畫面顯示預約成功畫面，同時發送確認通知。',
-        wireframe: '+---------------------------------------------------+\n| [步驟 1: 選擇服務] -> [步驟 2: 選時間] -> [填寫資料] |\n|---------------------------------------------------|\n|  請選擇預約日期: [ 2026-09-12 v ]                   |\n|  可用時段: [ 10:00 ] [ 14:00 ] [ 15:30 ]           |\n|  姓名: [ _________ ]  電話: [ ____________ ]      |\n|                  [ 確認送出預約 ]                  |\n+---------------------------------------------------+',
-        seqDiag: 'User          Frontend (Widget)     Backend (API)     Database\n  │                   │                   │               │\n  │─── 選擇時段 ─────▶│                   │               │\n  │                   │─── POST /lock ───▶│               │\n  │                   │                   │── 檢查並鎖定 ─▶│\n  │                   │◀── 200 OK (10分) ─│               │',
+        wireframe: '+---------------------------------------------------+\n| [步驟 1: 選擇服務] -> [步驟 2: 選時間] -> [填寫資料] |\n|---------------------------------------------------|\n|  請選擇預約日期: [ 2026-09-12 v ]                  |\n|  可用時段: [ 10:00 ] [ 14:00 ] [ 15:30 ]           |\n|  姓名: [ _________ ]  電話: [ ____________ ]      |\n|                  [ 確認送出預約 ]                 |\n+---------------------------------------------------+',
+        seqDiag: 'User         Frontend (Widget)     Backend (API)     Database\n  │                 │                     │                 │\n  │─── 選擇時段 ─────▶│                     │                 │\n  │                 │─── POST /lock ───▶│                 │\n  │                 │                     │── 檢查並鎖定 ─▶│\n  │                 │◀── 200 OK (10分) ─│                 │',
         kpi: '線上預約轉換率 $\ge 25\%$；深夜時段預約佔總預約數 $\ge 30\%$。',
         pmInsights: '1. 採用「先鎖定後付款/確認」機制，減少併發預約時的衝突 (OKR 1).\n2. 前端必須支援響應式設計（RWD） (OKR 2).',
-        raci: {
-          pm: { desc: 'Define 24/7 booking UX flow and conversion targets.', actions: ['Finalize UX wireframes'], dod: ['PRD signed off'] },
-          rd: { desc: 'Build responsive web widget and REST API endpoints.', actions: ['Develop REST API'], dod: ['API latency < 200ms'] },
-          qa: { desc: 'Verify cross-browser and mobile compatibility.', actions: ['Run mobile UAT'], dod: ['Zero layout shift'] },
-          bd: { desc: 'Coordinate merchant pilot onboarding.', actions: ['Merchant briefing'], dod: ['Pilot ready'] }
-        },
+        raci: [
+          { key: 'pm', name: '👤 Product PM', badge: 'Accountable (A)', color: 'text-blue-400', badgeColor: 'bg-rose-950 text-rose-300', desc: 'Define 24/7 booking UX flow and conversion targets.', actions: ['Finalize UX wireframes'], dod: ['PRD signed off'] },
+          { key: 'rd', name: '💻 Engineering (RD)', badge: 'Responsible (R)', color: 'text-emerald-400', badgeColor: 'bg-cyan-950 text-cyan-300', desc: 'Build responsive web widget and REST API endpoints.', actions: ['Develop REST API'], dod: ['API latency < 200ms'] },
+          { key: 'qa', name: '🧪 QA / DevOps', badge: 'Responsible (R)', color: 'text-cyber-gold', badgeColor: 'bg-cyan-950 text-cyan-300', desc: 'Verify cross-browser and mobile compatibility.', actions: ['Run mobile UAT'], dod: ['Zero layout shift'] },
+          { key: 'bd', name: '🤝 Sales / CS', badge: 'Consulted (C)', color: 'text-purple-400', badgeColor: 'bg-amber-950 text-amber-300', desc: 'Coordinate merchant pilot onboarding.', actions: ['Merchant briefing'], dod: ['Pilot ready'] }
+        ],
         edgeChecklists: ['【Concurrency】兩位用戶在同一毫秒搶最後名額時的資料庫交易鎖處理。', '【Network Drop】結帳到一半斷線時，時段保留 10 分鐘後自動釋放。']
       }
     };
@@ -696,16 +657,16 @@
         sol: `針對 ${code} 導入高效非同步 API 與模組化架構，確保高承載。`,
         userStories: `• As a user, I want reliable processing for ${code} so I can manage operations smoothly.`,
         gherkinAC: `Given system is operational for ${code}\nWhen user invokes action\nThen system validates state successfully.`,
-        wireframe: `+---------------------------------------------------+\n| [${code}] 核心操作介面                              |\n| 狀態: [ 正常運作 ]  [ 執行操作 ]                  |\n+---------------------------------------------------+`,
-        seqDiag: `User          Frontend             API Gateway      Database\n  │               │                     │           │\n  │── 觸發動作 ──▶│                     │           │\n  │               │── API Request ─────▶│           │`,
+        wireframe: `+---------------------------------------------------+\n| [${code}] 核心操作介面                             |\n| 狀態: [ 正常運作 ]  [ 執行操作 ]                  |\n+---------------------------------------------------+`,
+        seqDiag: `User         Frontend               API Gateway      Database\n  │                 │                      │             │\n  │── 觸發動作 ──▶│                      │             │\n  │                 │── API Request ─────▶│             │`,
         kpi: `模組核心執行成功率 $\ge 99.5\%$。`,
         pmInsights: `1. 標準化模組優於一次性客製，確保長期可維護性 (OKR 2).`,
-        raci: {
-          pm: { desc: `Define ${code} specs.`, actions: ['Finalize specs'], dod: ['Signed off'] },
-          rd: { desc: `Implement APIs for ${code}.`, actions: ['Coding'], dod: ['Merged'] },
-          qa: { desc: `Validate ${code}.`, actions: ['Testing'], dod: ['Passed'] },
-          bd: { desc: `Support rollout for ${code}.`, actions: ['Alignment'], dod: ['Ready'] }
-        },
+        raci: [
+          { key: 'pm', name: '👤 Product PM', badge: 'Accountable (A)', color: 'text-blue-400', badgeColor: 'bg-rose-950 text-rose-300', desc: `Define ${code} specs.`, actions: ['Finalize specs'], dod: ['Signed off'] },
+          { key: 'rd', name: '💻 Engineering (RD)', badge: 'Responsible (R)', color: 'text-emerald-400', badgeColor: 'bg-cyan-950 text-cyan-300', desc: `Implement APIs for ${code}.`, actions: ['Coding'], dod: ['Merged'] },
+          { key: 'qa', name: '🧪 QA / DevOps', badge: 'Responsible (R)', color: 'text-cyber-gold', badgeColor: 'bg-cyan-950 text-cyan-300', desc: `Validate ${code}.`, actions: ['Testing'], dod: ['Passed'] },
+          { key: 'bd', name: '🤝 Sales / CS', badge: 'Consulted (C)', color: 'text-purple-400', badgeColor: 'bg-amber-950 text-amber-300', desc: `Support rollout for ${code}.`, actions: ['Alignment'], dod: ['Ready'] }
+        ],
         edgeChecklists: [`【Concurrency】Accessing ${code} simultaneously.`, `【Network Drop】Recovery for ${code}.`]
       };
     }
@@ -713,15 +674,13 @@
     const i18n = {
       zh: {
         mainTitle: "Omcean Booking PM 指揮中心",
-        subTitle: "[ROLE: 15-Yr Senior PM] Feature 01 ~ Feature 20 深度專業級 PRD 規格 • 支援中英文雙向即時切換",
+        subTitle: "[ROLE: 15-Yr Senior PM] Feature 01 ~ Feature 20 深度專業級 PRD 規格 • 支援 RACI 自定義編輯",
         okrHeader: "5 大專案 OKR 核心護欄 (點擊數值可直接編輯)",
         step1Title: "需求探索與範圍凍結 / 自定義需求處理",
         featureLabel: "功能需求標題 (Feature 01 ~ 20)",
         scopeHeader: "範圍邊界：第一階段絕對不予納入 (Out of Scope)",
         prdHeader: "資深 PM 級 8 大維度 PRD 規格面板",
         pmDecisions: "PM 戰情室決策",
-        raciTitle: "跨部門權責矩陣與交付標準 (RACI & DoD) - 各團隊獨立檢視",
-        editTip: "✏️ 點擊任意區塊即可直接手動編輯內容",
         step2Title: "交付時程與 Jira 執行看板 (甘特圖與看板雙向連動)",
         ganttDesc: "📊 互動式甘特圖：調整 Sprint 或進度條可即時連動看板與總進度",
         selectFeature: "選擇功能:",
@@ -734,15 +693,13 @@
       },
       en: {
         mainTitle: "Omcean Booking PM Command Center",
-        subTitle: "[ROLE: 15-Yr Senior PM] Feature 01 ~ Feature 20 Senior PRD Specs • Bilingual Toggle",
+        subTitle: "[ROLE: 15-Yr Senior PM] Feature 01 ~ Feature 20 Senior PRD Specs • RACI Customizable",
         okrHeader: "5 Project OKR Guardrails (Click values to edit)",
         step1Title: "Discovery & Scope Freeze / Custom Ad-hoc Handling",
         featureLabel: "Feature Requirement Title (Feature 01 ~ 20)",
         scopeHeader: "Scope Boundary: Strictly Out of Scope for Phase 1",
         prdHeader: "Senior PM 8-Step PRD Specification Board",
         pmDecisions: "PM Strategic Decisions",
-        raciTitle: "Cross-Functional RACI Matrix & Definition of Done (DoD) - By Team",
-        editTip: "✏️ Click any section to edit text",
         step2Title: "Delivery Schedule & Jira Execution (Gantt & Kanban)",
         ganttDesc: "📊 Interactive Gantt: Shift Sprints & Slider Progress",
         selectFeature: "Select Feature:",
@@ -806,16 +763,14 @@
           sol: '進行 PM 影響評估與範圍邊界檢查，若非核心營收阻礙則強制延後至 Phase 2。',
           userStories: '• As a stakeholder, I want custom ad-hoc features evaluated against ROI and scope boundaries.',
           gherkinAC: 'Given custom request is submitted, When evaluated, Then it is either deferred to Phase 2 or scoped.',
-          wireframe: '+---------------------------------------------------+\n| 自定義需求評估表                                  |\n| 需求名稱: [ _______________ ]                     |\n| 預期商業效益: [ ___________ ]                     |\n| 評估結果: [ 延後至 Phase 2 v ]                    |\n+---------------------------------------------------+',
-          seqDiag: 'Stakeholder   PM Reviewer          CCB Board         Backlog\n  │               │                     │               │\n  │── 提出新需求 ─▶│                     │               │\n  │               │── 評估 ROI ────────▶│               │\n  │               │                     │── 決議凍結 ──▶│',
+          wireframe: '+---------------------------------------------------+\n| 自定義需求評估表                                   |\n| 需求名稱: [ _______________ ]                     |\n| 預期商業效益: [ ___________ ]                     |\n| 評估結果: [ 延後至 Phase 2 v ]                     |\n+---------------------------------------------------+',
+          seqDiag: 'Stakeholder   PM Reviewer         CCB Board         Backlog\n  │                 │                     │                 │\n  │── 提出新需求 ─▶│                     │                 │\n  │                 │── 評估 ROI ────────▶│                 │\n  │                 │                     │── 決議凍結 ──▶│',
           kpi: '範圍異動率控制在 $< 10\%$ 以內。',
           pmInsights: '1. 嚴格範圍控管防止專案範疇潛變 (Scope Creep) (OKR 4).',
-          raci: {
-            pm: { desc: 'Evaluate business ROI and enforce scope boundaries.', actions: ['Assess impact'], dod: ['ROI signed off'] },
-            rd: { desc: 'Assess technical feasibility.', actions: ['Feasibility check'], dod: ['Architecture review'] },
-            qa: { desc: 'Review test requirements.', actions: ['Test planning'], dod: ['Test plan ready'] },
-            bd: { desc: 'Confirm stakeholder expectations.', actions: ['Expectation alignment'], dod: ['Aligned'] }
-          },
+          raci: [
+            { key: 'pm', name: '👤 Product PM', badge: 'Accountable (A)', color: 'text-blue-400', badgeColor: 'bg-rose-950 text-rose-300', desc: 'Evaluate business ROI and enforce scope boundaries.', actions: ['Assess impact'], dod: ['ROI signed off'] },
+            { key: 'rd', name: '💻 Engineering', badge: 'Responsible (R)', color: 'text-emerald-400', badgeColor: 'bg-cyan-950 text-cyan-300', desc: 'Assess technical feasibility.', actions: ['Feasibility check'], dod: ['Architecture review'] }
+          ],
           edgeChecklists: ['【Concurrency】Custom transaction consistency.', '【Network Drop】Fallback error handling.']
         };
       }
@@ -850,9 +805,9 @@
       }
 
       let optGroup1 = document.createElement('optgroup');
-      optGroup1.label = currentLang === 'zh' ? '── Feature 01 ~ Feature 20 ──' : '── Feature 01 ~ Feature 20 ──';
+      optGroup1.label = '── Feature 01 ~ Feature 20 ──';
       let optGroup3 = document.createElement('optgroup');
-      optGroup3.label = currentLang === 'zh' ? '── Feature 01 ~ Feature 20 ──' : '── Feature 01 ~ Feature 20 ──';
+      optGroup3.label = '── Feature 01 ~ Feature 20 ──';
 
       for (let i = 1; i <= 20; i++) {
         const key = `Feature ${i < 10 ? '0' + i : i}`;
@@ -908,7 +863,6 @@
       if (probEl) probEl.value = f.problem;
       if (scopeEl) scopeEl.value = f.scope;
 
-      // 同步頂端選單與 Step 3 選單
       const step1Sel = document.getElementById('req-title-select');
       const step3Sel = document.getElementById('step3-filter-module');
       const ganttSel = document.getElementById('gantt-filter-module');
@@ -921,37 +875,10 @@
         if (kanbanSel) kanbanSel.value = code;
       }
 
-      // 同步更新 STEP 3 Kickoff Meeting RACI 內容與標籤
       const step3Tag = document.getElementById('samr-sync-tag');
       if (step3Tag) step3Tag.innerText = `● 連動模組: ${code}`;
 
-      const pmDesc = document.getElementById('step3-pm-desc');
-      const pmAct = document.getElementById('step3-pm-actions');
-      const pmDod = document.getElementById('step3-pm-dod');
-      if (pmDesc) pmDesc.innerText = f.raci.pm.desc;
-      if (pmAct) pmAct.innerHTML = f.raci.pm.actions.map(a => `• ${a}`).join('<br>');
-      if (pmDod) pmDod.innerHTML = f.raci.pm.dod.map(d => `✓ ${d}`).join('<br>');
-
-      const rdDesc = document.getElementById('step3-rd-desc');
-      const rdAct = document.getElementById('step3-rd-actions');
-      const rdDod = document.getElementById('step3-rd-dod');
-      if (rdDesc) rdDesc.innerText = f.raci.rd.desc;
-      if (rdAct) rdAct.innerHTML = f.raci.rd.actions.map(a => `• ${a}`).join('<br>');
-      if (rdDod) rdDod.innerHTML = f.raci.rd.dod.map(d => `✓ ${d}`).join('<br>');
-
-      const qaDesc = document.getElementById('step3-qa-desc');
-      const qaAct = document.getElementById('step3-qa-actions');
-      const qaDod = document.getElementById('step3-qa-dod');
-      if (qaDesc) qaDesc.innerText = f.raci.qa.desc;
-      if (qaAct) qaAct.innerHTML = f.raci.qa.actions.map(a => `• ${a}`).join('<br>');
-      if (qaDod) qaDod.innerHTML = f.raci.qa.dod.map(d => `✓ ${d}`).join('<br>');
-
-      const bdDesc = document.getElementById('step3-bd-desc');
-      const bdAct = document.getElementById('step3-bd-actions');
-      const bdDod = document.getElementById('step3-bd-dod');
-      if (bdDesc) bdDesc.innerText = f.raci.bd.desc;
-      if (bdAct) bdAct.innerHTML = f.raci.bd.actions.map(a => `• ${a}`).join('<br>');
-      if (bdDod) bdDod.innerHTML = f.raci.bd.dod.map(d => `✓ ${d}`).join('<br>');
+      renderRaciRoles(f);
 
       const checklistContainer = document.getElementById('edge-checklist-container');
       if (checklistContainer) {
@@ -972,6 +899,112 @@
       renderInstantPrdAndInsights(f);
       renderKanbanBoard();
       renderGanttSchedule();
+    }
+
+    function renderRaciRoles(f) {
+      const container = document.getElementById('raci-roles-container');
+      if (!container) return;
+      container.innerHTML = '';
+
+      if (!f.raci) f.raci = [];
+
+      f.raci.forEach((role, idx) => {
+        const card = document.createElement('div');
+        card.className = 'bg-[#0a121e] border border-cyber-border rounded-lg p-3 space-y-2 relative group';
+        card.innerHTML = `
+          <div class="flex justify-between items-center border-b border-cyber-border pb-1.5">
+            <span class="font-bold ${role.color}" contenteditable="true" onblur="updateRaciData('${currentSelectedModule()}', ${idx}, 'name', this.innerText)">${role.name}</span>
+            <div class="flex items-center gap-1">
+              <span class="px-1.5 py-0.5 rounded ${role.badgeColor} text-[9px] font-bold" contenteditable="true" onblur="updateRaciData('${currentSelectedModule()}', ${idx}, 'badge', this.innerText)">${role.badge}</span>
+              <button onclick="removeRaciRole('${currentSelectedModule()}', ${idx})" class="text-slate-500 hover:text-rose-400 text-xs px-1" title="刪除角色">✕</button>
+            </div>
+          </div>
+          <div>
+            <span class="text-[10px] text-slate-400 block mb-0.5">RACI 權責：</span>
+            <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]" onblur="updateRaciData('${currentSelectedModule()}', ${idx}, 'desc', this.innerText)">${role.desc}</div>
+          </div>
+          <div>
+            <span class="text-[10px] text-cyber-gold block mb-0.5">行動清單 (Action Items)：</span>
+            <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]" onblur="updateRaciArrayData('${currentSelectedModule()}', ${idx}, 'actions', this.innerText)">${role.actions.join('<br>')}</div>
+          </div>
+          <div>
+            <span class="text-[10px] text-cyber-green block mb-0.5">交付完成標準 (DoD)：</span>
+            <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]" onblur="updateRaciArrayData('${currentSelectedModule()}', ${idx}, 'dod', this.innerText)">${role.dod.join('<br>')}</div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function currentSelectedModule() {
+      const sel = document.getElementById('req-title-select');
+      return sel ? sel.value : 'Feature 01';
+    }
+
+    function updateRaciData(modCode, idx, field, val) {
+      const f = getFeatureData(modCode);
+      if (f && f.raci && f.raci[idx]) {
+        f.raci[idx][field] = val.trim();
+      }
+    }
+
+    function updateRaciArrayData(modCode, idx, field, htmlVal) {
+      const f = getFeatureData(modCode);
+      if (f && f.raci && f.raci[idx]) {
+        // 將換行或 <br> 轉為陣列
+        const lines = htmlVal.replace(/<div>/g, '').replace(/<\/div>/g, '').split(/<br\s*[\/]?>|\n/);
+        f.raci[idx][field] = lines.map(l => l.trim()).filter(l => l.length > 0);
+      }
+    }
+
+    function openAddRaciRoleModal() {
+      const modal = document.getElementById('raci-modal');
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function closeRaciModal() {
+      const modal = document.getElementById('raci-modal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function saveNewRaciRole() {
+      const name = document.getElementById('new-raci-name').value.trim() || '新角色';
+      const type = document.getElementById('new-raci-type').value;
+      const desc = document.getElementById('new-raci-desc').value.trim() || '負責相關模組推進與協同。';
+
+      let badge = 'Responsible (R)';
+      let badgeColor = 'bg-cyan-950 text-cyan-300';
+      if (type.includes('(A)')) { badge = 'Accountable (A)'; badgeColor = 'bg-rose-950 text-rose-300'; }
+      else if (type.includes('(C)')) { badge = 'Consulted (C)'; badgeColor = 'bg-amber-950 text-amber-300'; }
+      else if (type.includes('(I)')) { badge = 'Informed (I)'; badgeColor = 'bg-slate-800 text-slate-300'; }
+
+      const modCode = currentSelectedModule();
+      const f = getFeatureData(modCode);
+      if (f) {
+        if (!f.raci) f.raci = [];
+        f.raci.push({
+          key: 'role_' + Date.now(),
+          name: name,
+          badge: badge,
+          color: 'text-cyber-cyan',
+          badgeColor: badgeColor,
+          desc: desc,
+          actions: ['• 執行相關業務與對齊'],
+          dod: ['✓ 達成階段里程碑']
+        });
+        renderRaciRoles(f);
+      }
+      closeRaciModal();
+      document.getElementById('new-raci-name').value = '';
+      document.getElementById('new-raci-desc').value = '';
+    }
+
+    function removeRaciRole(modCode, idx) {
+      const f = getFeatureData(modCode);
+      if (f && f.raci) {
+        f.raci.splice(idx, 1);
+        renderRaciRoles(f);
+      }
     }
 
     function onStep3ModuleChanged(code) {
@@ -1309,7 +1342,6 @@ Omcean Booking Delivery Command Center`;
       }
     }
 
-    // 網頁載入時的強健初始化掛載
     window.onload = function() {
       try {
         initDropdowns();
