@@ -63,7 +63,7 @@
           <h1 id="txt-main-title" class="text-2xl font-bold text-white tracking-tight">Omcean Booking PM 指揮中心</h1>
         </div>
         <p id="txt-sub-title" class="text-xs text-slate-400 font-mono mt-1">
-          [ROLE: 15-Yr Senior PM] Feature 01 ~ Feature 20 完整 8 項深度專業級 PRD 規格 &bull; 雙向即時切換
+          [ROLE: 15-Yr Senior PM] Feature 01 ~ Feature 20 完整深度專業級 PRD 規格 &bull; 雙向即時切換
         </p>
       </div>
 
@@ -194,99 +194,6 @@
       </div>
     </section>
 
-    <!-- Cross-Functional RACI Matrix & Definition of Done (DoD) -->
-    <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5">
-      <div class="flex items-center justify-between border-b border-cyber-border pb-3">
-        <div class="flex items-center gap-2">
-          <span class="px-2.5 py-0.5 rounded bg-purple-600 text-white font-black text-xs font-mono">RACI</span>
-          <h2 id="txt-raci-title" class="text-sm font-bold text-white tracking-wide">跨部門權責矩陣與交付標準 (RACI & DoD) - 各團隊獨立檢視</h2>
-        </div>
-        <span id="txt-edit-tip" class="text-[10px] font-mono text-cyber-cyan">✏️ 點擊任意區塊即可直接手動編輯內容</span>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- PM Team -->
-        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs">
-          <div class="flex justify-between items-center border-b border-cyber-border pb-2">
-            <span class="font-bold text-blue-400">👤 PM (產品經理)</span>
-            <span class="px-1.5 py-0.5 rounded bg-rose-950 text-rose-300 text-[10px] font-bold">當責者 (A)</span>
-          </div>
-          <div>
-            <label class="text-[10px] text-slate-400 block mb-1">RACI 權責描述：</label>
-            <div contenteditable="true" id="raci-pm-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">Define core feature requirements, user stories, Gherkin AC, and strict Phase 1 scope boundaries.</div>
-          </div>
-          <div>
-            <label class="text-[10px] text-cyber-gold block mb-1">行動清單 (Action Items)：</label>
-            <div contenteditable="true" id="raci-pm-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• Finalize PRD & AC sign-off<br>• Conduct cross-functional kickoff</div>
-          </div>
-          <div>
-            <label class="text-[10px] text-cyber-green block mb-1">交付完成標準 (DoD)：</label>
-            <div contenteditable="true" id="raci-pm-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ PRD approved by tech lead<br>✓ Scope freeze locked (&lt;10% churn)</div>
-          </div>
-        </div>
-
-        <!-- RD Team -->
-        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs">
-          <div class="flex justify-between items-center border-b border-cyber-border pb-2">
-            <span class="font-bold text-emerald-400">💻 RD (工程研發)</span>
-            <span class="px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 text-[10px] font-bold">負責者 (R)</span>
-          </div>
-          <div>
-            <label class="text-[10px] text-slate-400 block mb-1">RACI 權責描述：</label>
-            <div contenteditable="true" id="raci-rd-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">Execute backend/frontend architecture, Redis distributed locking, and robust REST API implementation.</div>
-          </div>
-          <div>
-            <label class="text-[10px] text-cyber-gold block mb-1">行動清單 (Action Items)：</label>
-            <div contenteditable="true" id="raci-rd-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• Implement scalable DB schema<br>• Unit test coverage &gt;= 85%</div>
-          </div>
-          <div>
-            <label class="text-[10px] text-cyber-green block mb-1">交付完成標準 (DoD)：</label>
-            <div contenteditable="true" id="raci-rd-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ Code merged to staging<br>✓ API response P99 &lt; 200ms</div>
-          </div>
-        </div>
-
-        <!-- QA Team -->
-        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs">
-          <div class="flex justify-between items-center border-b border-cyber-border pb-2">
-            <span class="font-bold text-cyber-gold">🧪 QA (品質保證)</span>
-            <span class="px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 text-[10px] font-bold">負責者 (R)</span>
-          </div>
-          <div>
-            <label class="text-[10px] text-slate-400 block mb-1">RACI 權責描述：</label>
-            <div contenteditable="true" id="raci-qa-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">Execute edge case verification (concurrency, network drops, timeout fallbacks) and UAT testing.</div>
-          </div>
-          <div>
-            <label class="text-[10px] text-cyber-gold block mb-1">行動清單 (Action Items)：</label>
-            <div contenteditable="true" id="raci-qa-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• Run 1,500 QPS load tests<br>• Verify Gherkin acceptance criteria</div>
-          </div>
-          <div>
-            <label class="text-[10px] text-cyber-green block mb-1">交付完成標準 (DoD)：</label>
-            <div contenteditable="true" id="raci-qa-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ Zero critical bugs on staging<br>✓ Stress test passed with 0 overbooking</div>
-          </div>
-        </div>
-
-        <!-- BD/CS Team -->
-        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-3 font-mono text-xs">
-          <div class="flex justify-between items-center border-b border-cyber-border pb-2">
-            <span class="font-bold text-purple-400">🤝 BD / CS (業務與客服)</span>
-            <span class="px-1.5 py-0.5 rounded bg-amber-950 text-amber-300 text-[10px] font-bold">諮詢者 (C)</span>
-          </div>
-          <div>
-            <label class="text-[10px] text-slate-400 block mb-1">RACI 權責描述：</label>
-            <div contenteditable="true" id="raci-bd-desc" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">Gather Voice of Customer (VoC), align pilot clients for Phase 1 rollout, and prepare support documentation.</div>
-          </div>
-          <div>
-            <label class="text-[10px] text-cyber-gold block mb-1">行動清單 (Action Items)：</label>
-            <div contenteditable="true" id="raci-bd-actions" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">• Confirm Week 4 flagship pilot client<br>• Publish Help Center FAQ docs</div>
-          </div>
-          <div>
-            <label class="text-[10px] text-cyber-green block mb-1">交付完成標準 (DoD)：</label>
-            <div contenteditable="true" id="raci-bd-dod" class="p-2 bg-[#0a121e] border border-cyber-border rounded text-slate-200 leading-relaxed text-[11px]">✓ Client onboarding training completed<br>✓ CS escalation channel established</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- STEP 2: Delivery Schedule & Kanban -->
     <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-5">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber-border pb-4">
@@ -403,24 +310,29 @@
       <div id="edge-checklist-container" class="space-y-2 text-xs font-mono"></div>
     </section>
 
-    <!-- STEP 3: Cross-Functional Kickoff Alignment & Regular Syncs -->
+    <!-- STEP 3: Kickoff Alignment & Regular Syncs (具備獨立連動功能選擇與手動可編輯 RACI 與 SAMR 決策台) -->
     <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-6">
-      <div class="flex items-center justify-between border-b border-cyber-border pb-3">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
           <span class="px-2.5 py-0.5 rounded bg-cyber-gold text-slate-950 font-black text-xs font-mono">STEP 3</span>
           <h2 id="txt-step3-title" class="text-sm font-bold text-white tracking-wide">跨部門啟動共識與例會協作 (Kickoff Alignment & Regular Syncs)</h2>
         </div>
-        <span class="text-[10px] font-mono text-cyber-cyan">✏️ 支援各欄位手動編輯與協作對齊</span>
+        <div class="flex items-center gap-3 font-mono text-xs">
+          <span class="text-slate-400 text-[11px]">🎯 選擇同步功能模組:</span>
+          <select id="step3-filter-module" onchange="onStep3ModuleChanged(this.value)" class="p-1 text-xs rounded border text-cyber-cyan bg-[#05080f]">
+            <!-- Injected by JS -->
+          </select>
+        </div>
       </div>
 
-      <!-- 區塊 A: Kickoff Meeting (含 RACI 權責與 DoD) -->
+      <!-- 區塊 A: Kickoff Meeting (含 RACI 權責與 DoD - 手動可編輯) -->
       <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-4">
         <div class="flex items-center justify-between border-b border-cyber-border/80 pb-2">
           <div class="flex items-center gap-2">
             <span class="w-2.5 h-2.5 rounded-full bg-cyber-cyan"></span>
-            <h3 class="text-xs font-bold font-mono text-cyber-cyan uppercase">1. Kickoff Meeting (跨部門啟動會議與 RACI 矩陣)</h3>
+            <h3 class="text-xs font-bold font-mono text-cyber-cyan uppercase">1. Kickoff Meeting (跨部門啟動會議與 RACI 矩陣) - 手動可編輯</h3>
           </div>
-          <button onclick="openGmailKickoffCompose()" class="px-3 py-1 bg-purple-900/80 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-[11px] font-bold rounded transition">
+          <button onclick="openGmailKickoffCompose()" class="px-3 py-1 bg-purple-900/80 hover:bg-purple-800 text-purple-200 border border-purple-500 font-mono text-[11px] font-bold rounded transition shadow-md">
             ✉️ 發送 Kickoff 會議通知
           </button>
         </div>
@@ -434,15 +346,15 @@
             </div>
             <div>
               <span class="text-[10px] text-slate-400 block mb-0.5">RACI 權責：</span>
-              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">定義核心功能規格、User Stories、Gherkin AC 與範圍邊界。</div>
+              <div contenteditable="true" id="step3-pm-desc" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">定義核心功能規格、User Stories、Gherkin AC 與範圍邊界。</div>
             </div>
             <div>
-              <span class="text-[10px] text-cyber-gold block mb-0.5">行動清單：</span>
-              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">• PRD 最終簽署定案<br>• 主持跨部門 Kickoff</div>
+              <span class="text-[10px] text-cyber-gold block mb-0.5">行動清單 (Action Items)：</span>
+              <div contenteditable="true" id="step3-pm-actions" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">• PRD 最終簽署定案<br>• 主持跨部門 Kickoff</div>
             </div>
             <div>
-              <span class="text-[10px] text-cyber-green block mb-0.5">交付標準 (DoD)：</span>
-              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">✓ PRD 獲技術主管與業務簽核</div>
+              <span class="text-[10px] text-cyber-green block mb-0.5">交付完成標準 (DoD)：</span>
+              <div contenteditable="true" id="step3-pm-dod" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">✓ PRD 獲技術主管與業務簽核</div>
             </div>
           </div>
 
@@ -454,15 +366,15 @@
             </div>
             <div>
               <span class="text-[10px] text-slate-400 block mb-0.5">RACI 權責：</span>
-              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">執行前後端架構、Redis 鎖定與 REST API 實作。</div>
+              <div contenteditable="true" id="step3-rd-desc" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">執行前後端架構、Redis 鎖定與 REST API 實作。</div>
             </div>
             <div>
-              <span class="text-[10px] text-cyber-gold block mb-0.5">行動清單：</span>
-              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">• 資料庫 Schema 設計<br>• 單元測試涵蓋率 &gt;= 85%</div>
+              <span class="text-[10px] text-cyber-gold block mb-0.5">行動清單 (Action Items)：</span>
+              <div contenteditable="true" id="step3-rd-actions" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">• 資料庫 Schema 設計<br>• 單元測試涵蓋率 &gt;= 85%</div>
             </div>
             <div>
-              <span class="text-[10px] text-cyber-green block mb-0.5">交付標準 (DoD)：</span>
-              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">✓ 程式碼合併 Staging & P99 &lt; 200ms</div>
+              <span class="text-[10px] text-cyber-green block mb-0.5">交付完成標準 (DoD)：</span>
+              <div contenteditable="true" id="step3-rd-dod" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">✓ 程式碼合併 Staging & P99 &lt; 200ms</div>
             </div>
           </div>
 
@@ -474,15 +386,15 @@
             </div>
             <div>
               <span class="text-[10px] text-slate-400 block mb-0.5">RACI 權責：</span>
-              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">執行邊界條件驗證（併發、斷線）與 UAT 測試。</div>
+              <div contenteditable="true" id="step3-qa-desc" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">執行邊界條件驗證（併發、斷線）與 UAT 測試。</div>
             </div>
             <div>
-              <span class="text-[10px] text-cyber-gold block mb-0.5">行動清單：</span>
-              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">• 執行 1,500 QPS 壓力測試<br>• Gherkin 驗收測試</div>
+              <span class="text-[10px] text-cyber-gold block mb-0.5">行動清單 (Action Items)：</span>
+              <div contenteditable="true" id="step3-qa-actions" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">• 執行 1,500 QPS 壓力測試<br>• Gherkin 驗收測試</div>
             </div>
             <div>
-              <span class="text-[10px] text-cyber-green block mb-0.5">交付標準 (DoD)：</span>
-              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">✓ Staging 環境零重大 Bug</div>
+              <span class="text-[10px] text-cyber-green block mb-0.5">交付完成標準 (DoD)：</span>
+              <div contenteditable="true" id="step3-qa-dod" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">✓ Staging 環境零重大 Bug</div>
             </div>
           </div>
 
@@ -494,15 +406,15 @@
             </div>
             <div>
               <span class="text-[10px] text-slate-400 block mb-0.5">RACI 權責：</span>
-              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">收集客戶心聲 (VoC)，對齊試用客戶與準備說明文檔。</div>
+              <div contenteditable="true" id="step3-bd-desc" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">收集客戶心聲 (VoC)，對齊試用客戶與準備說明文檔。</div>
             </div>
             <div>
-              <span class="text-[10px] text-cyber-gold block mb-0.5">行動清單：</span>
-              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">• 確認 W4 試用旗艦店<br>• 發布幫助中心 FAQ</div>
+              <span class="text-[10px] text-cyber-gold block mb-0.5">行動清單 (Action Items)：</span>
+              <div contenteditable="true" id="step3-bd-actions" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">• 確認 W4 試用旗艦店<br>• 發布幫助中心 FAQ</div>
             </div>
             <div>
               <span class="text-[10px] text-cyber-green block mb-0.5">交付完成標準 (DoD)：</span>
-              <div contenteditable="true" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">✓ 客戶教育訓練與客服管道建立</div>
+              <div contenteditable="true" id="step3-bd-dod" class="p-1.5 bg-[#05080f] border border-cyber-border rounded text-slate-200 text-[10px]">✓ 客戶教育訓練與客服管道建立</div>
             </div>
           </div>
         </div>
@@ -523,7 +435,7 @@
           <div class="bg-[#0a121e] border border-cyber-border rounded-lg p-3.5 space-y-3">
             <div class="text-cyber-cyan font-bold text-[11px] uppercase border-b border-cyber-border pb-1.5 flex justify-between">
               <span>跨部門溝通決策台 (SAMR 框架)</span>
-              <span class="text-[9px] text-cyber-green">● 連動當前選定模組</span>
+              <span class="text-[9px] text-cyber-green" id="samr-sync-tag">● 連動當前選定模組</span>
             </div>
             <div class="space-y-2 text-[11px]">
               <div>
@@ -564,6 +476,60 @@
                 <textarea id="sync-actions" rows="2" class="w-full p-1.5 rounded text-[11px]">• RD 於本週五前完成 1,500 QPS 壓測。目標：零超額預約 (OKR 1)。</textarea>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOP 危機應變標準作業程序 -->
+    <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-4">
+      <div class="flex items-center justify-between border-b border-cyber-border pb-3">
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-0.5 rounded bg-rose-600 text-white font-black text-xs font-mono">SOP</span>
+          <h2 id="txt-sop-title" class="text-sm font-bold text-white tracking-wide">危機應變標準作業程序 (SOP - 可直接編輯)</h2>
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="openGmailEmergencyCompose()" class="px-3 py-1 rounded bg-rose-900/80 hover:bg-rose-800 text-rose-200 border border-rose-500 font-mono text-xs font-bold transition shadow-md">
+            🚨 發送緊急應變信 (Gmail)
+          </button>
+        </div>
+      </div>
+      <p id="txt-sop-tip" class="text-xs text-slate-400 font-mono">點擊下方文字框即可直接修改任務與交付標準：</p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
+        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-2.5">
+          <div class="text-cyber-gold font-bold">🚨 狀況一：[併發衝突] 超額預約</div>
+          <p class="text-[11px] text-slate-400 font-sans leading-relaxed">高流量同時搶位導致資料庫寫入衝突。</p>
+          <div class="space-y-1.5 text-[11px] pt-2 border-t border-cyber-border/60">
+            <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" class="text-slate-200 bg-slate-900/60 px-1 rounded">工程研發與產品經理</span></div>
+            <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
+            <div><strong class="text-slate-300">修正動作:</strong> <span contenteditable="true" class="text-slate-300 bg-slate-900/60 px-1 rounded">導入 Redis Redlock 分散式鎖定機制。</span></div>
+            <div><strong class="text-rose-400">完成期限:</strong> <span contenteditable="true" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-03-28 EOD</span></div>
+            <div><strong class="text-cyber-green">交付目標:</strong> <span contenteditable="true" class="text-slate-300 bg-slate-900/60 px-1 rounded">1,500 QPS 壓力測試超額率 = 0%。</span></div>
+          </div>
+        </div>
+
+        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-2.5">
+          <div class="text-cyber-gold font-bold">⚡ 狀況二：[網路中斷] 交易孤兒</div>
+          <p class="text-[11px] text-slate-400 font-sans leading-relaxed">付款成功但 Webhook 未送達導致狀態未同步。</p>
+          <div class="space-y-1.5 text-[11px] pt-2 border-t border-cyber-border/60">
+            <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" class="text-slate-200 bg-slate-900/60 px-1 rounded">工程研發與業務客服</span></div>
+            <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 3 (W5-W6)</span></div>
+            <div><strong class="text-slate-300">修正動作:</strong> <span contenteditable="true" class="text-slate-300 bg-slate-900/60 px-1 rounded">建立付款對帳背景執行緒與前端輪詢。</span></div>
+            <div><strong class="text-rose-400">完成期限:</strong> <span contenteditable="true" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-04-11 EOD</span></div>
+            <div><strong class="text-cyber-green">交付目標:</strong> <span contenteditable="true" class="text-slate-300 bg-slate-900/60 px-1 rounded">網路恢復後自動對帳並更新狀態。</span></div>
+          </div>
+        </div>
+
+        <div class="bg-[#05080f] border border-cyber-border rounded-xl p-4 space-y-2.5">
+          <div class="text-cyber-gold font-bold">⏳ 狀況三：[超時釋放] 候位遞補</div>
+          <p class="text-[11px] text-slate-400 font-sans leading-relaxed">15分鐘保留時間逾期未付款。</p>
+          <div class="space-y-1.5 text-[11px] pt-2 border-t border-cyber-border/60">
+            <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" class="text-slate-200 bg-slate-900/60 px-1 rounded">工程研發與品質保證</span></div>
+            <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
+            <div><strong class="text-slate-300">修正動作:</strong> <span contenteditable="true" class="text-slate-300 bg-slate-900/60 px-1 rounded">最佳化 Celery 倒數計時與事件驅動遞補。</span></div>
+            <div><strong class="text-rose-400">完成期限:</strong> <span contenteditable="true" class="text-slate-400 bg-slate-900/60 px-1 rounded">2026-03-31 EOD</span></div>
+            <div><strong class="text-cyber-green">交付目標:</strong> <span contenteditable="true" class="text-slate-400 bg-slate-900/60 px-1 rounded">15分鐘逾期自動釋放與候位位移。</span></div>
           </div>
         </div>
       </div>
@@ -674,7 +640,7 @@
   </div>
 
   <script>
-    // 完整定義 20 個 Feature 的專業資料庫（包含各自對應的中文標題與 8 大維度規格）
+    // 完整 20 個 Feature 資料庫與 8 大維度規格
     const featuresData = {
       'Feature 01': {
         title: 'Feature 01: 24/7 Online Booking Widget (24小時線上預約小工具)',
@@ -698,7 +664,6 @@
       }
     };
 
-    // 自動完整生成 Feature 02 ~ 20 具體專業名稱
     const featureNames = [
       "Feature 02: Business Type & Multi-Location Selector (業務類型與分店選擇器)",
       "Feature 03: Service Menu & Pricing Display (服務項目與價格清單展示)",
@@ -812,8 +777,6 @@
       document.getElementById('txt-scope-header').innerText = i18n[lang].scopeHeader;
       document.getElementById('txt-prd-header').innerText = i18n[lang].prdHeader;
       document.getElementById('txt-pm-decisions').innerText = i18n[lang].pmDecisions;
-      document.getElementById('txt-raci-title').innerText = i18n[lang].raciTitle;
-      document.getElementById('txt-edit-tip').innerText = i18n[lang].editTip;
       document.getElementById('txt-step2-title').innerText = i18n[lang].step2Title;
       document.getElementById('txt-gantt-desc').innerText = i18n[lang].ganttDesc;
       document.getElementById('txt-select-feature').innerText = i18n[lang].selectFeature;
@@ -861,6 +824,7 @@
 
     function initDropdowns() {
       const step1Select = document.getElementById('req-title-select');
+      const step3Select = document.getElementById('step3-filter-module');
       const modalSelect = document.getElementById('modal-preset-select');
       const ganttFilterSelect = document.getElementById('gantt-filter-module');
       const kanbanFilterSelect = document.getElementById('kanban-filter-module');
@@ -868,17 +832,27 @@
       if (!step1Select) return;
 
       step1Select.innerHTML = '';
+      if (step3Select) step3Select.innerHTML = '';
       if (modalSelect) modalSelect.innerHTML = '<option value="">-- Select Feature --</option>';
       if (ganttFilterSelect) ganttFilterSelect.innerHTML = '';
       if (kanbanFilterSelect) kanbanFilterSelect.innerHTML = '<option value="ALL">All Features</option>';
 
-      const customOpt = document.createElement('option');
-      customOpt.value = 'CUSTOM-ADHOC';
-      customOpt.text = currentLang === 'zh' ? '⭐ [+ 建立自定義需求 (不在 20 個預設內)]' : '⭐ [+ Create Custom Ad-hoc Requirement (Outside Presets)]';
-      step1Select.appendChild(customOpt);
+      const customOpt1 = document.createElement('option');
+      customOpt1.value = 'CUSTOM-ADHOC';
+      customOpt1.text = currentLang === 'zh' ? '⭐ [+ 建立自定義需求]' : '⭐ [+ Create Custom Ad-hoc Requirement]';
+      step1Select.appendChild(customOpt1);
 
-      let optGroup = document.createElement('optgroup');
-      optGroup.label = currentLang === 'zh' ? '── Feature 01 ~ Feature 20 (Omcean 核心模組) ──' : '── Feature 01 ~ Feature 20 (Omcean Core) ──';
+      if (step3Select) {
+        const customOpt3 = document.createElement('option');
+        customOpt3.value = 'CUSTOM-ADHOC';
+        customOpt3.text = currentLang === 'zh' ? '⭐ [+ 建立自定義需求]' : '⭐ [+ Create Custom Ad-hoc Requirement]';
+        step3Select.appendChild(customOpt3);
+      }
+
+      let optGroup1 = document.createElement('optgroup');
+      optGroup1.label = currentLang === 'zh' ? '── Feature 01 ~ Feature 20 ──' : '── Feature 01 ~ Feature 20 ──';
+      let optGroup3 = document.createElement('optgroup');
+      optGroup3.label = currentLang === 'zh' ? '── Feature 01 ~ Feature 20 ──' : '── Feature 01 ~ Feature 20 ──';
 
       for (let i = 1; i <= 20; i++) {
         const key = `Feature ${i < 10 ? '0' + i : i}`;
@@ -887,7 +861,14 @@
         const opt1 = document.createElement('option');
         opt1.value = key;
         opt1.text = fData.title;
-        optGroup.appendChild(opt1);
+        optGroup1.appendChild(opt1);
+
+        if (step3Select) {
+          const opt3 = document.createElement('option');
+          opt3.value = key;
+          opt3.text = fData.title;
+          optGroup3.appendChild(opt3);
+        }
 
         if (modalSelect) {
           const opt2 = document.createElement('option');
@@ -897,21 +878,22 @@
         }
 
         if (ganttFilterSelect) {
-          const opt3 = document.createElement('option');
-          opt3.value = key;
-          opt3.text = fData.title;
-          ganttFilterSelect.appendChild(opt3);
-        }
-
-        if (kanbanFilterSelect) {
           const opt4 = document.createElement('option');
           opt4.value = key;
           opt4.text = fData.title;
-          kanbanFilterSelect.appendChild(opt4);
+          ganttFilterSelect.appendChild(opt4);
+        }
+
+        if (kanbanFilterSelect) {
+          const opt5 = document.createElement('option');
+          opt5.value = key;
+          opt5.text = fData.title;
+          kanbanFilterSelect.appendChild(opt5);
         }
       }
 
-      step1Select.appendChild(optGroup);
+      step1Select.appendChild(optGroup1);
+      if (step3Select) step3Select.appendChild(optGroup3);
     }
 
     function onTitleDropdownChanged(code) {
@@ -926,12 +908,50 @@
       if (probEl) probEl.value = f.problem;
       if (scopeEl) scopeEl.value = f.scope;
 
+      // 同步頂端選單與 Step 3 選單
+      const step1Sel = document.getElementById('req-title-select');
+      const step3Sel = document.getElementById('step3-filter-module');
+      const ganttSel = document.getElementById('gantt-filter-module');
+      const kanbanSel = document.getElementById('kanban-filter-module');
+
+      if (step1Sel && step1Sel.value !== code) step1Sel.value = code;
+      if (step3Sel && step3Sel.value !== code) step3Sel.value = code;
       if (code !== 'CUSTOM-ADHOC') {
-        const ganttSel = document.getElementById('gantt-filter-module');
-        const kanbanSel = document.getElementById('kanban-filter-module');
         if (ganttSel) ganttSel.value = code;
         if (kanbanSel) kanbanSel.value = code;
       }
+
+      // 同步更新 STEP 3 Kickoff Meeting RACI 內容與標籤
+      const step3Tag = document.getElementById('samr-sync-tag');
+      if (step3Tag) step3Tag.innerText = `● 連動模組: ${code}`;
+
+      const pmDesc = document.getElementById('step3-pm-desc');
+      const pmAct = document.getElementById('step3-pm-actions');
+      const pmDod = document.getElementById('step3-pm-dod');
+      if (pmDesc) pmDesc.innerText = f.raci.pm.desc;
+      if (pmAct) pmAct.innerHTML = f.raci.pm.actions.map(a => `• ${a}`).join('<br>');
+      if (pmDod) pmDod.innerHTML = f.raci.pm.dod.map(d => `✓ ${d}`).join('<br>');
+
+      const rdDesc = document.getElementById('step3-rd-desc');
+      const rdAct = document.getElementById('step3-rd-actions');
+      const rdDod = document.getElementById('step3-rd-dod');
+      if (rdDesc) rdDesc.innerText = f.raci.rd.desc;
+      if (rdAct) rdAct.innerHTML = f.raci.rd.actions.map(a => `• ${a}`).join('<br>');
+      if (rdDod) rdDod.innerHTML = f.raci.rd.dod.map(d => `✓ ${d}`).join('<br>');
+
+      const qaDesc = document.getElementById('step3-qa-desc');
+      const qaAct = document.getElementById('step3-qa-actions');
+      const qaDod = document.getElementById('step3-qa-dod');
+      if (qaDesc) qaDesc.innerText = f.raci.qa.desc;
+      if (qaAct) qaAct.innerHTML = f.raci.qa.actions.map(a => `• ${a}`).join('<br>');
+      if (qaDod) qaDod.innerHTML = f.raci.qa.dod.map(d => `✓ ${d}`).join('<br>');
+
+      const bdDesc = document.getElementById('step3-bd-desc');
+      const bdAct = document.getElementById('step3-bd-actions');
+      const bdDod = document.getElementById('step3-bd-dod');
+      if (bdDesc) bdDesc.innerText = f.raci.bd.desc;
+      if (bdAct) bdAct.innerHTML = f.raci.bd.actions.map(a => `• ${a}`).join('<br>');
+      if (bdDod) bdDod.innerHTML = f.raci.bd.dod.map(d => `✓ ${d}`).join('<br>');
 
       const checklistContainer = document.getElementById('edge-checklist-container');
       if (checklistContainer) {
@@ -954,14 +974,16 @@
       renderGanttSchedule();
     }
 
-    function onGanttModuleChanged(code) {
+    function onStep3ModuleChanged(code) {
       const selectEl = document.getElementById('req-title-select');
       if (selectEl) selectEl.value = code;
       onTitleDropdownChanged(code);
     }
 
-    function syncSopToStep3() {
-      alert('Successfully synced SOP items to STEP 3 Meeting Memo!');
+    function onGanttModuleChanged(code) {
+      const selectEl = document.getElementById('req-title-select');
+      if (selectEl) selectEl.value = code;
+      onTitleDropdownChanged(code);
     }
 
     let teamSubtaskSprints = {};
@@ -1238,25 +1260,6 @@ Omcean Booking Delivery Command Center`;
       window.open(gmailUrl, '_blank');
     }
 
-    function openGmailEmergencyCompose() {
-      const selectEl = document.getElementById('req-title-select');
-      const code = selectEl ? selectEl.value : 'Feature 01';
-      const f = getFeatureData(code);
-      const senderEmail = 'mshappyj@gmail.com';
-      const subject = `[EMERGENCY CRISIS SOP] Action Matrix for ${code}`;
-      
-      const emailBody = `ATTENTION ALL TEAMS,
-
-An urgent crisis response protocol has been activated for [${code}]. Immediate execution and sign-off are required.
-
-Best regards,
-Product PM: ${senderEmail}
-Omcean Booking Command Center`;
-
-      const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-      window.open(gmailUrl, '_blank');
-    }
-
     function renderInstantPrdAndInsights(f) {
       const prdTitleEl = document.getElementById('prd-header-title');
       if (prdTitleEl) prdTitleEl.innerText = `[PRD] ${f.title}`;
@@ -1311,9 +1314,13 @@ Omcean Booking Command Center`;
       try {
         initDropdowns();
         const selectEl = document.getElementById('req-title-select');
+        const step3Sel = document.getElementById('step3-filter-module');
         if (selectEl) {
           selectEl.value = "Feature 01";
           onTitleDropdownChanged("Feature 01");
+        }
+        if (step3Sel) {
+          step3Sel.value = "Feature 01";
         }
         renderKanbanBoard();
         renderGanttSchedule();
