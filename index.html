@@ -53,6 +53,78 @@
 </head>
 <body class="min-h-screen px-4 sm:px-8 py-6 antialiased space-y-6">
 
+  <!-- 1. 資料庫宣告 (置於頂部確保執行順序) -->
+  <script>
+    const featuresData = {
+      'Feature 01': {
+        title: 'Feature 01: 24/7 Online Booking Widget (24小時線上預約小工具)',
+        voice: '"Customers want to book anytime anywhere via mobile without calling the front desk during off-hours."',
+        problem: 'Traditional phone booking creates severe off-hour friction and 40% drop-off; need a responsive 24/7 web/mobile booking widget.',
+        scope: '1. No third-party phone PBX telephony integration in Phase 1. 2. No custom avatar creation.',
+        sol: '前端採用 Web Component / Embedded iframe 掛載於外部官網，後端透過 REST API 與 Availability Engine 進行時段即時鎖定，防止超賣（Race Condition）。',
+        userStories: '• As a customer, I want to book a slot 24/7 on my mobile phone so I never have to wait for store opening hours.',
+        gherkinAC: 'Given 用戶在 24/7 預約頁面選擇了服務項目與特定設計師\nWhen 選擇一個尚有名額的時段並填寫聯絡資料送出預約\nThen 系統應成功建立預約記錄，並在畫面顯示預約成功畫面，同時發送確認通知。',
+        wireframe: '+---------------------------------------------------+\n| [步驟 1: 選擇服務] -> [步驟 2: 選時間] -> [填寫資料] |\n|---------------------------------------------------|\n|  請選擇預約日期: [ 2026-09-12 v ]                   |\n|  可用時段: [ 10:00 ] [ 14:00 ] [ 15:30 ]           |\n|  姓名: [ _________ ]  電話: [ ____________ ]      |\n|                  [ 確認送出預約 ]                  |\n+---------------------------------------------------+',
+        seqDiag: 'User          Frontend (Widget)     Backend (API)     Database\n  │                   │                   │               │\n  │─── 選擇時段 ─────▶│                   │               │\n  │                   │─── POST /lock ───▶│               │\n  │                   │                   │── 檢查並鎖定 ─▶│\n  │                   │◀── 200 OK (10分) ─│               │',
+        kpi: '線上預約轉換率 $\ge 25\%$；深夜時段預約佔總預約數 $\ge 30\%$。',
+        pmInsights: '1. 採用「先鎖定後付款/確認」機制，減少併發預約時的衝突 (OKR 1).\n2. 前端必須支援響應式設計（RWD） (OKR 2).',
+        raci: {
+          pm: { desc: 'Define 24/7 booking UX flow and conversion targets.', actions: ['Finalize UX wireframes'], dod: ['PRD signed off'] },
+          rd: { desc: 'Build responsive web widget and REST API endpoints.', actions: ['Develop REST API'], dod: ['API latency < 200ms'] },
+          qa: { desc: 'Verify cross-browser and mobile compatibility.', actions: ['Run mobile UAT'], dod: ['Zero layout shift'] },
+          bd: { desc: 'Coordinate merchant pilot onboarding.', actions: ['Merchant briefing'], dod: ['Pilot ready'] }
+        },
+        edgeChecklists: ['【Concurrency】兩位用戶在同一毫秒搶最後名額時的資料庫交易鎖處理。', '【Network Drop】結帳到一半斷線時，時段保留 10 分鐘後自動釋放。']
+      }
+    };
+
+    const featureNames = [
+      "Feature 02: Business Type & Multi-Location Selector (業務類型與分店選擇器)",
+      "Feature 03: Service Menu & Pricing Display (服務項目與價格清單展示)",
+      "Feature 04: Staff & Resource Scheduling Calendar (員工與場地排班行事曆)",
+      "Feature 05: Customer Self-Service Portal (會員自助查詢與改期系統)",
+      "Feature 06: Automated SMS & Push Reminders (自動化簡訊與推播提醒)",
+      "Feature 07: Staff Shift & Leave Management (員工班表與請假管理)",
+      "Feature 08: Package & Course Credit Pass Tracking (課程券與計次卡追蹤)",
+      "Feature 09: Check-in & Front Desk Reception Flow (櫃檯快速報到與分流機制)",
+      "Feature 10: Waiting List & Slot Backfill System (候補名單與空檔遞補機制)",
+      "Feature 11: Online Payment & Deposit Gateway (線上付款與訂金金流整合)",
+      "Feature 12: Business Revenue & Performance Dashboard (營業額與業績戰情室報表)",
+      "Feature 13: Customer Relationship Management (CRM) Notes (客戶偏好與歷史備忘錄)",
+      "Feature 14: Automated Review & Feedback Collector (自動化滿意度回饋收集)",
+      "Feature 15: Promotional Discount & Coupon Code Engine (優惠券與折扣碼引擎)",
+      "Feature 16: AI Smart Scheduling Assistant (AI 智慧排程與最佳化建議)",
+      "Feature 17: AI-Powered Chatbot Booking Agent (AI 智能聊天機器人預約助理)",
+      "Feature 18: Command Hub Release & Sprint Tracker (Command Hub 版本與開發進度追蹤)",
+      "Feature 19: Cross-Module Feedback & Bug Triage (跨模組回報與 Bug 快速分流)",
+      "Feature 20: Unified API & Third-Party Integration Hub (跨平台 API 與第三方工具整合中心)"
+    ];
+
+    for (let i = 2; i <= 20; i++) {
+      const code = `Feature ${i < 10 ? '0' + i : i}`;
+      featuresData[code] = {
+        title: featureNames[i - 2],
+        voice: `"Merchants and end-users demand high availability for ${code}."`,
+        problem: `Traditional manual workflows for ${code} cause bottlenecks; need automated scaling.`,
+        scope: `1. Strict Phase 1 scope freeze for ${code}.`,
+        sol: `針對 ${code} 導入高效非同步 API 與模組化架構，確保高承載。`,
+        userStories: `• As a user, I want reliable processing for ${code} so I can manage operations smoothly.`,
+        gherkinAC: `Given system is operational for ${code}\nWhen user invokes action\nThen system validates state successfully.`,
+        wireframe: `+---------------------------------------------------+\n| [${code}] 核心操作介面                              |\n| 狀態: [ 正常運作 ]  [ 執行操作 ]                  |\n+---------------------------------------------------+`,
+        seqDiag: `User          Frontend             API Gateway      Database\n  │               │                     │           │\n  │── 觸發動作 ──▶│                     │           │\n  │               │── API Request ─────▶│           │`,
+        kpi: `模組核心執行成功率 $\ge 99.5\%$。`,
+        pmInsights: `1. 標準化模組優於一次性客製，確保長期可維護性 (OKR 2).`,
+        raci: {
+          pm: { desc: `Define ${code} specs.`, actions: ['Finalize specs'], dod: ['Signed off'] },
+          rd: { desc: `Implement APIs for ${code}.`, actions: ['Coding'], dod: ['Merged'] },
+          qa: { desc: `Validate ${code}.`, actions: ['Testing'], dod: ['Passed'] },
+          bd: { desc: `Support rollout for ${code}.`, actions: ['Alignment'], dod: ['Ready'] }
+        },
+        edgeChecklists: [`【Concurrency】Accessing ${code} simultaneously.`, `【Network Drop】Recovery for ${code}.`]
+      };
+    }
+  </script>
+
   <div class="max-w-[1440px] mx-auto space-y-6">
 
     <!-- Top Header -->
@@ -68,7 +140,6 @@
       </div>
 
       <div class="flex items-center space-x-3 font-mono text-xs">
-        <!-- 儲存與重設按鈕組 -->
         <button onclick="saveAllData()" class="px-4 py-1.5 rounded-lg bg-cyber-green text-slate-950 font-bold hover:bg-opacity-90 transition shadow-lg flex items-center gap-1">
           💾 儲存變更 (SAVE)
         </button>
@@ -76,7 +147,6 @@
           🔄 恢復預設
         </button>
 
-        <!-- 語言切換按鈕組 -->
         <div class="bg-[#05080f] border border-cyber-border rounded-lg p-0.5 flex items-center">
           <button id="btn-lang-zh" onclick="setLanguage('zh')" class="px-2.5 py-1 rounded bg-cyber-cyan text-slate-950 font-bold transition">繁體中文</button>
           <button id="btn-lang-en" onclick="setLanguage('en')" class="px-2.5 py-1 rounded text-slate-400 hover:text-white transition">English</button>
@@ -312,7 +382,7 @@
       <div id="edge-checklist-container" class="space-y-2 text-xs font-mono"></div>
     </section>
 
-    <!-- STEP 3: Kickoff Alignment & Regular Syncs (含可手動編輯的團隊名稱與 RACI 權責、SAMR 決策台) -->
+    <!-- STEP 3: Kickoff Alignment & Regular Syncs -->
     <section class="bg-cyber-card border border-cyber-border rounded-xl p-5 space-y-6">
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-cyber-border pb-3">
         <div class="flex items-center gap-2">
@@ -641,32 +711,10 @@
     </div>
   </div>
 
+  <!-- 2. 主邏輯 JavaScript (確保在 DOM 載入後正確執行) -->
   <script>
-    // 完整定義 Feature 01 ~ 20 的資料庫與 8 大維度規格
-    const featuresData = {
-      'Feature 01': {
-        title: 'Feature 01: 24/7 Online Booking Widget (24小時線上預約小工具)',
-        voice: '"Customers want to book anytime anywhere via mobile without calling the front desk during off-hours."',
-        problem: 'Traditional phone booking creates severe off-hour friction and 40% drop-off; need a responsive 24/7 web/mobile booking widget.',
-        scope: '1. No third-party phone PBX telephony integration in Phase 1. 2. No custom avatar creation.',
-        sol: '前端採用 Web Component / Embedded iframe 掛載於外部官網，後端透過 REST API 與 Availability Engine 進行時段即時鎖定，防止超賣（Race Condition）。',
-        userStories: '• As a customer, I want to book a slot 24/7 on my mobile phone so I never have to wait for store opening hours.',
-        gherkinAC: 'Given 用戶在 24/7 預約頁面選擇了服務項目與特定設計師\nWhen 選擇一個尚有名額的時段並填寫聯絡資料送出預約\nThen 系統應成功建立預約記錄，並在畫面顯示預約成功畫面，同時發送確認通知。',
-        wireframe: '+---------------------------------------------------+\n| [步驟 1: 選擇服務] -> [步驟 2: 選時間] -> [填寫資料] |\n|---------------------------------------------------|\n|  請選擇預約日期: [ 2026-09-12 v ]                   |\n|  可用時段: [ 10:00 ] [ 14:00 ] [ 15:30 ]           |\n|  姓名: [ _________ ]  電話: [ ____________ ]      |\n|                  [ 確認送出預約 ]                  |\n+---------------------------------------------------+',
-        seqDiag: 'User          Frontend (Widget)     Backend (API)     Database\n  │                   │                   │               │\n  │─── 選擇時段 ─────▶│                   │               │\n  │                   │─── POST /lock ───▶│               │\n  │                   │                   │── 檢查並鎖定 ─▶│\n  │                   │◀── 200 OK (10分) ─│               │',
-        kpi: '線上預約轉換率 $\ge 25\%$；深夜時段預約佔總預約數 $\ge 30\%$。',
-        pmInsights: '1. 採用「先鎖定後付款/確認」機制，減少併發預約時的衝突 (OKR 1).\n2. 前端必須支援響應式設計（RWD） (OKR 2).',
-        raci: {
-          pm: { desc: 'Define 24/7 booking UX flow and conversion targets.', actions: ['Finalize UX wireframes'], dod: ['PRD signed off'] },
-          rd: { desc: 'Build responsive web widget and REST API endpoints.', actions: ['Develop REST API'], dod: ['API latency < 200ms'] },
-          qa: { desc: 'Verify cross-browser and mobile compatibility.', actions: ['Run mobile UAT'], dod: ['Zero layout shift'] },
-          bd: { desc: 'Coordinate merchant pilot onboarding.', actions: ['Merchant briefing'], dod: ['Pilot ready'] }
-        },
-        edgeChecklists: ['【Concurrency】兩位用戶在同一毫秒搶最後名額時的資料庫交易鎖處理。', '【Network Drop】結帳到一半斷線時，時段保留 10 分鐘後自動釋放。']
-      }
-    };
-
     const featureNames = [
+      "Feature 01: 24/7 Online Booking Widget (24小時線上預約小工具)",
       "Feature 02: Business Type & Multi-Location Selector (業務類型與分店選擇器)",
       "Feature 03: Service Menu & Pricing Display (服務項目與價格清單展示)",
       "Feature 04: Staff & Resource Scheduling Calendar (員工與場地排班行事曆)",
@@ -688,106 +736,30 @@
       "Feature 20: Unified API & Third-Party Integration Hub (跨平台 API 與第三方工具整合中心)"
     ];
 
-    for (let i = 2; i <= 20; i++) {
+    // 動態建構所有 20 個 Feature 的完整規格
+    for (let i = 1; i <= 20; i++) {
       const code = `Feature ${i < 10 ? '0' + i : i}`;
-      featuresData[code] = {
-        title: featureNames[i - 2],
-        voice: `"Merchants and end-users demand high availability for ${code}."`,
-        problem: `Traditional manual workflows for ${code} cause bottlenecks; need automated scaling.`,
-        scope: `1. Strict Phase 1 scope freeze for ${code}.`,
-        sol: `針對 ${code} 導入高效非同步 API 與模組化架構，確保高承載。`,
-        userStories: `• As a user, I want reliable processing for ${code} so I can manage operations smoothly.`,
-        gherkinAC: `Given system is operational for ${code}\nWhen user invokes action\nThen system validates state successfully.`,
-        wireframe: `+---------------------------------------------------+\n| [${code}] 核心操作介面                              |\n| 狀態: [ 正常運作 ]  [ 執行操作 ]                  |\n+---------------------------------------------------+`,
-        seqDiag: `User          Frontend             API Gateway      Database\n  │               │                     │           │\n  │── 觸發動作 ──▶│                     │           │\n  │               │── API Request ─────▶│           │`,
-        kpi: `模組核心執行成功率 $\ge 99.5\%$。`,
-        pmInsights: `1. 標準化模組優於一次性客製，確保長期可維護性 (OKR 2).`,
-        raci: {
-          pm: { desc: `Define ${code} specs.`, actions: ['Finalize specs'], dod: ['Signed off'] },
-          rd: { desc: `Implement APIs for ${code}.`, actions: ['Coding'], dod: ['Merged'] },
-          qa: { desc: `Validate ${code}.`, actions: ['Testing'], dod: ['Passed'] },
-          bd: { desc: `Support rollout for ${code}.`, actions: ['Alignment'], dod: ['Ready'] }
-        },
-        edgeChecklists: [`【Concurrency】Accessing ${code} simultaneously.`, `【Network Drop】Recovery for ${code}.`]
-      };
-    }
-
-    const i18n = {
-      zh: {
-        mainTitle: "Omcean Booking PM 指揮中心",
-        subTitle: "[ROLE: 15-Yr Senior PM] Feature 01 ~ Feature 20 深度專業級 PRD 規格 • 支援中英文雙向即時切換",
-        okrHeader: "5 大專案 OKR 核心護欄 (點擊數值可直接編輯)",
-        step1Title: "需求探索與範圍凍結 / 自定義需求處理",
-        featureLabel: "功能需求標題 (Feature 01 ~ 20)",
-        scopeHeader: "範圍邊界：第一階段絕對不予納入 (Out of Scope)",
-        prdHeader: "資深 PM 級 8 大維度 PRD 規格面板",
-        pmDecisions: "PM 戰情室決策",
-        step2Title: "交付時程與 Jira 執行看板 (甘特圖與看板雙向連動)",
-        ganttDesc: "📊 互動式甘特圖：調整 Sprint 或進度條可即時連動看板與總進度",
-        selectFeature: "選擇功能:",
-        ganttCol1: "跨部門團隊與 Sprint / 進度控制",
-        kanbanHeader: "JIRA 敏捷看板 (看板雙向同步)",
-        kanbanTip: "點擊卡片上的 ◀ ▶ 按鈕即可跨欄位移動，並自動位移甘特圖進度",
-        uatTitle: "PM 標準測試目標與邊界異常檢核表 (Edge Cases)",
-        uatDesc: "針對目前所選功能的邊界異常測試檢核清單：",
-        step3Title: "跨部門啟動共識與例會協作 (Kickoff Alignment & Regular Syncs)"
-      },
-      en: {
-        mainTitle: "Omcean Booking PM Command Center",
-        subTitle: "[ROLE: 15-Yr Senior PM] Feature 01 ~ Feature 20 Senior PRD Specs • Bilingual Toggle",
-        okrHeader: "5 Project OKR Guardrails (Click values to edit)",
-        step1Title: "Discovery & Scope Freeze / Custom Ad-hoc Handling",
-        featureLabel: "Feature Requirement Title (Feature 01 ~ 20)",
-        scopeHeader: "Scope Boundary: Strictly Out of Scope for Phase 1",
-        prdHeader: "Senior PM 8-Step PRD Specification Board",
-        pmDecisions: "PM Strategic Decisions",
-        step2Title: "Delivery Schedule & Jira Execution (Gantt & Kanban)",
-        ganttDesc: "📊 Interactive Gantt: Shift Sprints & Slider Progress",
-        selectFeature: "Select Feature:",
-        ganttCol1: "Cross-Functional Team & Sprint / Progress Control",
-        kanbanHeader: "JIRA AGILE KANBAN BOARD",
-        kanbanTip: "Use ◀ ▶ buttons on each card to move across columns",
-        uatTitle: "PM Normal Testing Targets (Edge Cases Checklists)",
-        uatDesc: "Testing targets and verification checklists for the selected feature:",
-        step3Title: "Cross-Functional Kickoff Alignment & Regular Syncs"
-      }
-    };
-
-    function setLanguage(lang) {
-      currentLang = lang;
-      document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
-
-      if (lang === 'zh') {
-        document.getElementById('btn-lang-zh').className = "px-2.5 py-1 rounded bg-cyber-cyan text-slate-950 font-bold transition";
-        document.getElementById('btn-lang-en').className = "px-2.5 py-1 rounded text-slate-400 hover:text-white transition";
-      } else {
-        document.getElementById('btn-lang-en').className = "px-2.5 py-1 rounded bg-cyber-cyan text-slate-950 font-bold transition";
-        document.getElementById('btn-lang-zh').className = "px-2.5 py-1 rounded text-slate-400 hover:text-white transition";
-      }
-
-      document.getElementById('txt-main-title').innerText = i18n[lang].mainTitle;
-      document.getElementById('txt-sub-title').innerText = i18n[lang].subTitle;
-      document.getElementById('txt-okr-header').innerText = i18n[lang].okrHeader;
-      document.getElementById('txt-step1-title').innerText = i18n[lang].step1Title;
-      document.getElementById('txt-feature-label').innerText = i18n[lang].featureLabel;
-      document.getElementById('txt-scope-header').innerText = i18n[lang].scopeHeader;
-      document.getElementById('txt-prd-header').innerText = i18n[lang].prdHeader;
-      document.getElementById('txt-pm-decisions').innerText = i18n[lang].pmDecisions;
-      document.getElementById('txt-step2-title').innerText = i18n[lang].step2Title;
-      document.getElementById('txt-gantt-desc').innerText = i18n[lang].ganttDesc;
-      document.getElementById('txt-select-feature').innerText = i18n[lang].selectFeature;
-      document.getElementById('txt-gantt-col1').innerText = i18n[lang].ganttCol1;
-      document.getElementById('txt-kanban-header').innerText = i18n[lang].kanbanHeader;
-      document.getElementById('txt-kanban-tip').innerText = i18n[lang].kanbanTip;
-      document.getElementById('txt-uat-title').innerText = i18n[lang].uatTitle;
-      document.getElementById('txt-uat-desc').innerText = i18n[lang].uatDesc;
-      document.getElementById('txt-step3-title').innerText = i18n[lang].step3Title;
-
-      const currentSelected = document.getElementById('req-title-select') ? document.getElementById('req-title-select').value : 'Feature 01';
-      initDropdowns();
-      if(document.getElementById('req-title-select')) {
-        document.getElementById('req-title-select').value = currentSelected || 'Feature 01';
-        onTitleDropdownChanged(document.getElementById('req-title-select').value);
+      if (!featuresData[code]) {
+        featuresData[code] = {
+          title: featureNames[i - 1],
+          voice: `"Merchants and end-users demand high availability and robust performance for ${code}."`,
+          problem: `Traditional manual workflows for ${code} create operational bottlenecks; need scalable automation.`,
+          scope: `1. Strict Phase 1 scope freeze: No external non-essential add-ons for ${code}.`,
+          sol: `針對 ${code} 導入高可用性微服務 API 與前端響應式元件，確保資料即時同步。`,
+          userStories: `• As a user, I want reliable and instant processing for ${code} so I can manage operations smoothly.`,
+          gherkinAC: `Given system is operational for ${code}\nWhen user invokes action\nThen system validates state successfully.`,
+          wireframe: `+---------------------------------------------------+\n| [${code}] 企業級操作中樞面板                      |\n| 狀態: [ 運作中 ]  同步: [ 即時連線 ]              |\n+---------------------------------------------------+`,
+          seqDiag: `User          Frontend             API Gateway      Database\n  │               │                     │           │\n  │── 觸發動作 ──▶│                     │           │\n  │               │── REST API Call ───▶│           │`,
+          kpi: `模組核心執行成功率 $\ge 99.9\%$，使用者操作延遲 $< 200$ms。`,
+          pmInsights: `1. 採用標準化架構設計，確保未來擴充時不需重構底層 (OKR 2).`,
+          raci: {
+            pm: { desc: `Define ${code} specs and acceptance criteria.`, actions: ['Finalize specs'], dod: ['Signed off'] },
+            rd: { desc: `Implement backend & frontend for ${code}.`, actions: ['Coding'], dod: ['Merged'] },
+            qa: { desc: `Execute verification & load testing.`, actions: ['Testing'], dod: ['Passed'] },
+            bd: { desc: `Align merchant rollout plans.`, actions: ['Briefing'], dod: ['Ready'] }
+          },
+          edgeChecklists: [`【Concurrency】Accessing ${code} simultaneously.`, `【Network Drop】Recovery for ${code}.`]
+        };
       }
     }
 
@@ -802,8 +774,8 @@
           sol: '進行 PM 影響評估與範圍邊界檢查，若非核心營收阻礙則強制延後至 Phase 2。',
           userStories: '• As a stakeholder, I want custom ad-hoc features evaluated against ROI and scope boundaries.',
           gherkinAC: 'Given custom request is submitted, When evaluated, Then it is either deferred to Phase 2 or scoped.',
-          wireframe: '+---------------------------------------------------+\n| 自定義需求評估表                                  |\n| 需求名稱: [ _______________ ]                     |\n| 預期商業效益: [ ___________ ]                     |\n| 評估結果: [ 延後至 Phase 2 v ]                    |\n+---------------------------------------------------+',
-          seqDiag: 'Stakeholder   PM Reviewer          CCB Board         Backlog\n  │               │                     │               │\n  │── 提出新需求 ─▶│                     │               │\n  │               │── 評估 ROI ────────▶│               │\n  │               │                     │── 決議凍結 ──▶│',
+          wireframe: '+---------------------------------------------------+\n| 自定義需求評估表                                  |\n| 需求名稱: [ _______________ ]                     |\n| 預期商業效益: [ ___________ ]                     |\n+---------------------------------------------------+',
+          seqDiag: 'Stakeholder   PM Reviewer          CCB Board         Backlog\n  │               │                     │               │\n  │── 提出新需求 ─▶│                     │               │',
           kpi: '範圍異動率控制在 $< 10\%$ 以內。',
           pmInsights: '1. 嚴格範圍控管防止專案範疇潛變 (Scope Creep) (OKR 4).',
           raci: {
@@ -904,7 +876,6 @@
       if (probEl) probEl.value = f.problem;
       if (scopeEl) scopeEl.value = f.scope;
 
-      // 同步頂端選單與 Step 3 選單
       const step1Sel = document.getElementById('req-title-select');
       const step3Sel = document.getElementById('step3-filter-module');
       const ganttSel = document.getElementById('gantt-filter-module');
@@ -920,7 +891,6 @@
       const step3Tag = document.getElementById('samr-sync-tag');
       if (step3Tag) step3Tag.innerText = `● 連動模組: ${code}`;
 
-      // 同步載入該模組的預設 RACI 內容到 Step 3 可編輯欄位中
       if (f.raci) {
         const t1Desc = document.getElementById('step3-team1-desc');
         const t1Act = document.getElementById('step3-team1-actions');
@@ -984,7 +954,6 @@
       onTitleDropdownChanged(code);
     }
 
-    // ====== 💾 LocalStorage 自動儲存與恢復功能 ======
     function saveAllData() {
       const state = {
         okr1: document.getElementById('okr-1').innerText,
@@ -996,7 +965,6 @@
         voice: document.getElementById('req-voice').value,
         problem: document.getElementById('req-problem').value,
         scope: document.getElementById('req-scope').value,
-        // Step 3 手動修改內容
         step3Team1Desc: document.getElementById('step3-team1-desc').innerHTML,
         step3Team1Actions: document.getElementById('step3-team1-actions').innerHTML,
         step3Team1Dod: document.getElementById('step3-team1-dod').innerHTML,
@@ -1009,7 +977,6 @@
         step3Team4Desc: document.getElementById('step3-team4-desc').innerHTML,
         step3Team4Actions: document.getElementById('step3-team4-actions').innerHTML,
         step3Team4Dod: document.getElementById('step3-team4-dod').innerHTML,
-        // SAMR & Syncs
         samrS: document.getElementById('samr-s').value,
         samrA: document.getElementById('samr-a').value,
         samrM: document.getElementById('samr-m').value,
@@ -1019,12 +986,12 @@
         syncActions: document.getElementById('sync-actions').value
       };
 
-      localStorage.setItem('omcean_pm_state_v3', JSON.stringify(state));
+      localStorage.setItem('omcean_pm_state_v4', JSON.stringify(state));
       alert('💾 所有編輯變更已成功自動儲存在您的瀏覽器網頁上！');
     }
 
     function loadSavedData() {
-      const saved = localStorage.getItem('omcean_pm_state_v3');
+      const saved = localStorage.getItem('omcean_pm_state_v4');
       if (!saved) return false;
 
       try {
@@ -1075,7 +1042,7 @@
 
     function resetAllData() {
       if (confirm('確定要清除所有儲存的變更並恢復預設值嗎？')) {
-        localStorage.removeItem('omcean_pm_state_v3');
+        localStorage.removeItem('omcean_pm_state_v4');
         location.reload();
       }
     }
@@ -1403,7 +1370,7 @@ Omcean Booking Delivery Command Center`;
       }
     }
 
-    // 網頁載入時的強健初始化掛載（自動帶入儲存的資料）
+    // 3. 網頁載入時的強健初始化掛載
     window.onload = function() {
       try {
         initDropdowns();
