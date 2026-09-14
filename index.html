@@ -53,7 +53,7 @@
 </head>
 <body class="min-h-screen px-4 sm:px-8 py-6 antialiased space-y-6">
 
-  <!-- 1. 完整資料庫與雙語字典宣告於頂部 -->
+  <!-- 1. 資料庫與雙語字典宣告於頂部 -->
   <script>
     const i18n = {
       zh: {
@@ -641,7 +641,7 @@
             <div><strong class="text-blue-400">負責團隊:</strong> <span contenteditable="true" class="text-slate-200 bg-slate-900/60 px-1 rounded">工程研發與品質保證</span></div>
             <div><strong class="text-yellow-400">目標 Sprint:</strong> <span contenteditable="true" class="text-slate-200 bg-slate-900/60 px-1 rounded">Sprint 2 (W3-W4)</span></div>
             <div><strong class="text-slate-300">修正動作:</strong> <span contenteditable="true" class="text-slate-300 bg-slate-900/60 px-1 rounded">最佳化 Celery 倒數計時與事件驅動遞補。</span></div>
-            <div><strong class="text-rose-400">完成期限:</strong> <span contenteditable="true" class="text-slate-300 bg-slate-900/60 px-1 rounded">2026-03-31 EOD</span></div>
+            <div><strong class="text-rose-400">完成期限:</strong> <span contenteditable="true" class="text-slate-400 bg-slate-900/60 px-1 rounded">2026-03-31 EOD</span></div>
             <div><strong class="text-cyber-green">交付目標:</strong> <span contenteditable="true" class="text-slate-300 bg-slate-900/60 px-1 rounded">15分鐘逾期自動釋放與候位位移。</span></div>
           </div>
         </div>
@@ -752,7 +752,7 @@
     </div>
   </div>
 
-  <!-- 2. 主邏輯 JavaScript (置於底部確保執行順序) -->
+  <!-- 3. 初始化主邏輯 (置於底部) -->
   <script>
     function setLanguage(lang) {
       currentLang = lang;
@@ -811,6 +811,12 @@
         renderGanttSchedule();
       } catch (err) {
         console.error("Initialization Error:", err);
+        // 強制容錯補丁：若載入失敗，強制選取 Feature 01 確保畫面渲染
+        const selectEl = document.getElementById('req-title-select');
+        if (selectEl) {
+          selectEl.value = "Feature 01";
+          onTitleDropdownChanged("Feature 01");
+        }
       }
     };
   </script>
